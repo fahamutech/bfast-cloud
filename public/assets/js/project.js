@@ -9,8 +9,10 @@ const pStore = new Vuex.Store({
     },
     actions: {
         projects(context){
-            axios.get('/project/all').then(value=>{
-                console.log(value);
+            axios.post('/project/all',{
+                uid: 'joshua'
+            }).then(value=>{
+                // console.log(value);
                 context.commit('projects', value.data);
             }).catch(reason=>{
                 context.commit('projects', []);
@@ -35,7 +37,8 @@ const project = new Vue({
     },
     computed: {
         projects: function(){
-            return this.$store.projects;
+            // console.log(this.$store.state.projects);
+            return this.$store.state.projects;
         },
         showProjcts: function(){
             
@@ -75,12 +78,15 @@ const project_new = new Vue({
                 createB.classList.add('disabled');
                 closeB.classList.add('disabled');
                 const project = this.project;
-                project.user = 'joshua';
+                project.user = {
+                    uid: 'joshua'
+                };
                 axios.post('/project', project).then(value=>{
                     this.project.name ='';
                     this.project.projectId = '';
                     this.project.description = '';
                     this.createProjectDone = true;
+                    this.$store.dispatch('projects');
                 }).catch(error=>{
                     this.createProjectError = true;
                     this.createProjectMessage = error.response.data.message;

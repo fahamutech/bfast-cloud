@@ -38,7 +38,7 @@
             <div class="border rounded shadow d-flex d-xl-flex flex-column justify-content-center align-items-center" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;"><i class="material-icons btn" style="font-size: 64px;color: #005bbf;">add</i><button class="btn btn-primary" type="button" style="font-family: Roboto, sans-serif;font-weight: 500;font-size: 19px;" data-toggle="modal" data-target="#newProject"
                     data-backdrop="static" data-keyboard="false">New Project<br></button></div>
             <div class="border rounded shadow d-flex flex-column btn" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;cursor: pointer;" v-for="(project, index) in projects"
-                v-key="index">
+                v-bind:key="index">
                 <h4 class="text-break text-left" style="font-family: Roboto, sans-serif;font-weight: bold;margin: 0;padding: 8px;">{{project.name}}</h4>
                 <h5 class="text-left" style="font-family: Roboto, sans-serif;font-weight: 300;margin: 0;padding: 8px;">{{project.projectId}}</h5><i class="material-icons d-flex flex-fill align-items-xl-end" style="padding: 14px;color: #02448c;">code</i></div>
         </div>

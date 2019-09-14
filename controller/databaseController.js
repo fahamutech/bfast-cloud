@@ -107,9 +107,24 @@ module.exports.DatabaseController = class {
     }
 
     getProjectsOfUser(userId){
-        return new Promise((resolve, reject)=>{
+        return new Promise(async (resolve, reject)=>{
             if(userId){
-                
+                try{
+                    let conn;
+                    if(!mongoClient.isConnected()){
+                        conn = await mongoClient.connect();
+                    }else{
+                        conn = mongoClient;
+                    }
+                    const projectCollection = conn.db(DB_NAME).collection(DB_COLL.project);
+                    const results = await projectCollection.find({'user.uid': userId}).toArray();
+                    resolve(results);
+                }catch(reason){
+                    console.log(reason);
+                    reject({message: reason.toString()});
+                }
+            }else{
+                reject({message: 'Please provide a user id'});
             }
         });
     }
