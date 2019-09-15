@@ -2,7 +2,7 @@ version: "3"
 
 services:
   bfastapp:
-    build: ./
+    image: joshuamshana/bfastcoreadmin
     hostname: bfastapp
     restart: always
     networks: 
