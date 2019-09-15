@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   ide:
     image: joshuamshana/bfastcore
@@ -16,6 +16,15 @@ services:
   web:
     image: joshuamshana/bfastnginx
     hostname: web
+    labels: 
+      - "traefik.docker.network=bfastweb"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
+      - "traefik.port=3000"
+      - "traefik.protocol=http"
+      # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
+      # - "traefik.admin.protocol=https"
+      # - "traefik.admin.port=9443"
     networks:
       - bfastweb
       - default
@@ -70,7 +79,9 @@ services:
       - default
 networks:
   bfastweb:
-    external: true
+    driver: overlay
+    attachable: true
+    external: true;
 volumes: 
   idedata: {}
   mongodata: {}

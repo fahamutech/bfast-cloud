@@ -7,7 +7,6 @@ services:
     restart: always
     networks: 
       - bfastweb
-      - default
     ports:
       - 3000
     volumes:
@@ -24,14 +23,14 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-  mdb:
+  mdbadmin:
     image: mongo:4-bionic
     hostname: mdb
     restart: always
+    networks: 
+      - bfastweb
     volumes:
       - 'mdbdata:/data/db'
-    networks: 
-      - default
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -46,7 +45,6 @@ services:
       - 443:443
     networks:
       - bfastweb
-      - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./traefik.toml:/traefik.toml
@@ -77,4 +75,6 @@ volumes:
   traefikdata:
 networks:
   bfastweb:
+    driver: overlay
+    attachable: true
     external: true
