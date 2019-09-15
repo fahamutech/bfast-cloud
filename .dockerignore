@@ -1,0 +1,10 @@
+node_modules
+.idea
+.vscode
+.gitignore
+deploy.bat
+deploy.sh
+docker-compose.yml
+traefik.toml
+*.bsdesign
+specs
