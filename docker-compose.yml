@@ -1,4 +1,4 @@
-version: "3"
+version: "3.3"
 
 services:
   bfastapp:
@@ -37,10 +37,12 @@ services:
         constraints: [node.role == manager]
   traefik:
     image: traefik:v1.7
+    hostname: traefik
+    # container_name: "traefik"
     working_dir: /app
     restart: always
     ports:
-      - 81:81
+      - 81:80
       - 443:443
     networks:
       - bfastweb
@@ -53,21 +55,23 @@ services:
       placement:
         constraints: [node.role == manager]
     command: 
-      - --debug=false
-      - --logLevel=ERROR
-      - --defaultentrypoints=http #https
-      - --entryPoints=Name:http Address::81 # Redirect.EntryPoint:https
-      #- --entryPoints=Name:https Address::443 TLS
-      - --retry
-      - --docker.endpoint=unix:///var/run/docker.sock
-      - --docker.domain=bfast.fahamutech.com
-      - --docker.watch=true
-      - --docker.exposedbydefault=false
-      # - --acme.email=mama27j@gmail.com
-      # - --acme.storage=/app/acme.json
-      # - --acme.entryPoint=https
-      # - --acme.onHostRule=true
-      # - --acme.httpchallenge.entrypoint=http
+      # - "--api.insecure=true"
+      # - "--providers.docker=true"
+      - "--debug=true"
+      - "--logLevel=DEBUG"
+      - "--defaultentrypoints=https,http" #https
+      - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
+      - "--entryPoints=Name:https Address::443 TLS"
+      - "--retry"
+      - "--docker.endpoint=unix:///var/run/docker.sock"
+      - "--docker.domain=*.bfast.fahamutech.com"
+      - "--docker.watch=true"
+      - "--docker.exposedbydefault=false"
+      - "--acme.email=mama27j@gmail.com"
+      - "--acme.storage=/app/acme.json"
+      - "--acme.entryPoint=https"
+      - "--acme.onHostRule=true"
+      - "--acme.httpchallenge.entrypoint=http"
 volumes:
   mdbdata:
   traefikdata:
