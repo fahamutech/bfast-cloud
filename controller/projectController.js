@@ -27,9 +27,10 @@ module.exports.ProjectController = class {
 
     _createProjectInCluster(project, resolve, reject){
         // console.log(project);
-        process.exec(`docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
+        process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
-                projectId: project.projectId
+                projectId: project.projectId,
+                docker: '/usr/local/bin/docker'
             }
         }, async function(error,stdout,stderr){
             if(error){
