@@ -20,7 +20,7 @@ services:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-      - "traefik.port=3000"
+      - "traefik.port=80"
       - "traefik.protocol=http"
       # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
       # - "traefik.admin.protocol=https"
