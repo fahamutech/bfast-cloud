@@ -62,7 +62,7 @@ services:
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
       - "--docker.endpoint=unix:///var/run/docker.sock"
-      - "--docker.domain=*.bfast.fahamutech.com"
+      - "--docker.domain=cloud.bfast.fahamutech.com"
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
       - "--acme.email=mama27j@gmail.com"
@@ -75,4 +75,6 @@ volumes:
   traefikdata:
 networks:
   bfastweb:
+    # driver: overlay
+    # attachable: true
     external: true

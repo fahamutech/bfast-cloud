@@ -43,7 +43,7 @@ services:
       - mdbrs1
       - mdbrs2
   mdbrs1:
-    image: mongo
+    image: mongo:4-bionic
     hostname: mdbrs1
     volumes:
     - mongodatars1:/data/db
@@ -52,7 +52,7 @@ services:
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "lrs" ]
   mdbrs2:
-    image: mongo
+    image: mongo:4-bionic
     hostname: mdbrs2
     volumes:
     - mongodatars2:/data/db
@@ -79,9 +79,9 @@ services:
       - default
 networks:
   bfastweb:
-    driver: overlay
-    attachable: true
-    external: true;
+    # driver: overlay
+    # attachable: true
+    external: true
 volumes: 
   idedata: {}
   mongodata: {}
