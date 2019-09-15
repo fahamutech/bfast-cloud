@@ -1,19 +1,25 @@
 version: '3'
-services: 
+services:
   ide:
     image: joshuamshana/bfastcore
     hostname: ide
     volumes:
     - idedata:/ide/src/spring
     - mongodata:/ide/mongo/data:ro
+    networks:
+      - default
     restart: always
-    # depends_on: 
-    #   - mdb
-    #   - web
+    depends_on: 
+      - mdb
+      - web
+      - faas
   web:
     image: joshuamshana/bfastnginx
     hostname: web
-    ports:
+    networks:
+      - bfastweb
+      - default
+    expose:
     - "80" # replace ports with your own
     restart: always
   mdb:
@@ -22,14 +28,18 @@ services:
     volumes:
     - mongodata:/data/db
     restart: always
-    # depends_on: 
-    #   - mdbrs1
-    #   - mdbrs2
+    networks:
+      - default
+    depends_on: 
+      - mdbrs1
+      - mdbrs2
   mdbrs1:
     image: mongo
     hostname: mdbrs1
     volumes:
     - mongodatars1:/data/db
+    networks:
+      - default
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "lrs" ]
   mdbrs2:
@@ -37,6 +47,8 @@ services:
     hostname: mdbrs2
     volumes:
     - mongodatars2:/data/db
+    networks:
+      - default
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "lrs" ]
   daas:
@@ -46,12 +58,19 @@ services:
     volumes:
     # - daasdata:/app
     - idedata:/ide:ro
+    networks:
+      - default
   faas:
     image: joshuamshana/bfastfaas
     hostname: faas
     restart: always
     volumes: 
     - faasdata:/faas
+    networks:
+      - default
+networks:
+  bfastweb:
+    external: true
 volumes: 
   idedata: {}
   mongodata: {}
