@@ -7,7 +7,7 @@ const database = new DatabaseController();
 module.exports.ProjectController = class {
     constructor(){
     }
-    
+
     createProject(project) {
         return new Promise((resolve, reject)=>{
             database.createProject({
@@ -27,7 +27,11 @@ module.exports.ProjectController = class {
 
     _createProjectInCluster(project, resolve, reject){
         // console.log(project);
-        process.exec(`projectId=${project.projectId} && docker stack deploy -c ${project.fileUrl} ${project.projectId}`, async function(error,stdout,stderr){
+        process.exec(`docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
+            env: {
+                projectId: project.projectId
+            }
+        }, async function(error,stdout,stderr){
             if(error){
                 console.log('erorr====>> ' + stderr);
                 // delete created project

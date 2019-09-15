@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 const DB_NAME='_BFAST_ADMIN';
-const DB_HOST = process.env.mdbhost || 'mdb'
+const DB_HOST = process.env.mdbhost || 'mdbadmin'
 const mongoClient = new MongoClient(`mongodb://${DB_HOST}:27017/${DB_NAME}`, {useNewUrlParser: true, useUnifiedTopology: true});
 const DB_COLL = {
     user: '_User',
