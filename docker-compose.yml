@@ -75,6 +75,4 @@ volumes:
   traefikdata:
 networks:
   bfastweb:
-    driver: overlay
-    attachable: true
     external: true
