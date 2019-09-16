@@ -65,7 +65,7 @@ services:
       - "--docker.domain=cloud.bfast.fahamutech.com"
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
-      - "--certificatesResolvers.bfast.acme.email=mama27j@gmail.com"
+      - "--acme.email=mama27j@gmail.com"
       # - "--certificatesResolvers.bfast.acme.storage=/app/acme.json"
       # - "--certificatesResolvers.bfast.acme.entryPoint=https"
       - "--acme.onHostRule=true"
