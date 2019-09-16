@@ -62,14 +62,14 @@ services:
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
       - "--docker.endpoint=unix:///var/run/docker.sock"
-      - "--docker.domain=cloud.bfast.fahamutech.com"
+      - "--docker.domain=*.bfast.fahamutech.com"
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
       - "--acme.email=mama27j@gmail.com"
       - "--acme.storage=/app/acme.json"
       - "--acme.entryPoint=https"
       - "--acme.onHostRule=true"
-      - "--acme.httpchallenge.entrypoint=http"
+      - "--acme.httpchallenge.entrypoint=dns"
 volumes:
   mdbdata:
   traefikdata:
