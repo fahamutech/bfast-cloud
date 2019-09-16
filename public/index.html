@@ -12,46 +12,39 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css?h=a55568e56685cd552da4c33b013ffda1">
     <link rel="stylesheet" href="assets/css/styles.css?h=d41d8cd98f00b204e9800998ecf8427e">
+    <link rel="stylesheet" href="assets/css/bfast.compiled.css?h=d41d8cd98f00b204e9800998ecf8427e">
 </head>
 
 <body>
     <div>
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="#">BFast Cloud</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" id="appAuth">
+            <div class="container"><a class="navbar-brand" href="#">Z</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
                     id="navcol-1">
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ml-auto"><button class="btn btn-outline-primary round-btn" type="button" style="background-color: #02448c;color: rgb(255,255,255);" v-if="!getIsLogin">SignIn</button>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="font-family: Roboto, sans-serif;font-weight: 400; display:none">Doc</a></li>
-                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 400;">My Account</a>
+                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 400;" v-if="getIsLogin">My Account</a>
                             <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Profile</a>
-                                <div class="dropdown-divider" role="presentation"></div><a class="dropdown-item" role="presentation" href="#"></a><a class="dropdown-item" role="presentation" href="#">Logout</a></div>
+                                <div class="dropdown-divider" role="presentation"></div><a class="dropdown-item" role="presentation" href="#"></a><a class="dropdown-item" role="presentation" v-on:click="logout()">Logout</a></div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <div style="min-height: 100vh;width: 100%;">
+    <div>
         <div class="d-xl-flex align-items-xl-center" style="background-color: #112151;height: 200px;"><img class="d-xl-flex" src="assets/img/undraw_Organizing_projects_0p9a.svg?h=0c75e49f8c15a454a68f74871e0e15cb" height="90%" style="display: none!important;"></div>
-        <div class="container d-flex flex-row flex-wrap" id="projects" style="margin-top: -50px;"></div>
+        <div class="container d-flex flex-row flex-wrap" style="margin-top: -50px;"></div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="newProject" v-if="createProjectError">
+    <div class="modal fade" role="dialog" tabindex="-1" id="auth">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <h4 class="modal-title" style="padding: 17px;padding-bottom: 0;">New BFast Project</h4>
-                <hr style="width: 90%;">
-                <div class="modal-body" id="createProject">
-                    <p class="text-danger border rounded border-danger" style="font-family: Roboto, sans-serif;font-size: 17px;padding: 6px;background-color: rgba(237,96,96,0.06);" v-if="createProjectError">{{createProjectMessage}}</p>
-                    <p class="text-success border rounded border-success" style="font-family: Roboto, sans-serif;font-size: 17px;padding: 6px;background-color: rgba(40,167,69,0.07);" v-if="createProjectDone">Project Created</p>
-                    <form ref="createProjectForm">
-                        <div class="form-group"><input class="form-control" type="text" placeholder="Project name" v-model="project.name" required="" minlength="6"><span class="invalid-feedback">Project name is requires and must be more than 6 characters</span></div>
-                        <div class="form-group"><input class="form-control" type="text" placeholder="Project Id" v-model="project.projectId" required="" minlength="6"><span class="invalid-feedback">Project id is requires and must be more than 6 characters</span></div>
-                        <div class="form-group"><textarea class="form-control form-control-lg" placeholder="Description" v-model="project.description" required="" minlength="8"></textarea><span class="invalid-feedback">Please leave a short note about this project, minimum characters is 8</span></div>
-                    </form>
-                    <div class="d-xl-flex justify-content-xl-end align-items-xl-center"><button class="btn btn-light" type="button" data-dismiss="modal" ref="closeButton" style="margin-right: 10px;" v-if="!createProgressFlag">Close</button><button class="btn btn-primary d-flex justify-content-center align-items-center"
-                            type="button" ref="createButton" v-on:click="createProject()">Create<span class="spinner-border spinner-border-sm" role="status" style="margin: 4px;" v-if="showProgress"></span></button></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <p>The content of your modal.</p>
                 </div>
-                <div class="modal-footer"></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
@@ -60,7 +53,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="assets/js/app.js?h=80a5a037908ee665c1abb127a4c5b3b8"></script>
+    <script src="assets/js/app.js?h=a717a7077fd7f5eece6570081a8bc313"></script>
 </body>
 
 </html>
