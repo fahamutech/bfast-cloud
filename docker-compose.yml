@@ -66,11 +66,10 @@ services:
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
       - "--acme.email=mama27j@gmail.com"
-      # - "--certificatesResolvers.bfast.acme.storage=/app/acme.json"
-      # - "--certificatesResolvers.bfast.acme.entryPoint=https"
+      - "--acme.storage=/app/acme.json"
+      - "--acme.entryPoint=https"
       - "--acme.onHostRule=true"
       - "--acme.tlsChallenge=true"
-      - "--acme.storage=/app/acme.json"
 volumes:
   mdbdata:
   traefikdata:
