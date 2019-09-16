@@ -68,7 +68,7 @@ services:
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
       - "--acme.email=mama27j@gmail.com"
-      - "--acme.storage=/app/acme.json"
+      - "--acme.storage=acme.json"
       - "--acme.entryPoint=https"
       - "--acme.onHostRule=true"
       - "--acme.tlsChallenge=true"
