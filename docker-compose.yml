@@ -43,6 +43,7 @@ services:
     ports:
       - 81:80
       - 443:443
+      - 8080:8080
     networks:
       - bfastweb
     volumes:
@@ -55,6 +56,7 @@ services:
     command: 
       # - "--api.insecure=true"
       # - "--providers.docker=true"
+      - "--api"
       - "--debug=true"
       - "--logLevel=DEBUG"
       - "--defaultentrypoints=https,http" #https
@@ -62,7 +64,7 @@ services:
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
       - "--docker"
-      - "--docker.swarmmode"
+      - "--docker.swarmMode"
       - "--docker.endpoint=unix:///var/run/docker.sock"
       - "--docker.domain=cloud.bfast.fahamutech.com"
       - "--docker.watch=true"
