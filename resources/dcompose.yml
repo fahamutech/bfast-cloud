@@ -18,6 +18,9 @@ services:
     hostname: web
     labels: 
       - "traefik.docker.network=bfastweb"
+    deploy:
+      labels: 
+      - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
       - "traefik.port=80"
