@@ -56,17 +56,15 @@ services:
     command: 
       # - "--api.insecure=true"
       # - "--providers.docker=true"
-      - "--api"
-      - "--debug=true"
-      - "--logLevel=DEBUG"
-      - "--defaultentrypoints=https,http" #https
+      - "--logLevel=ERROR"
+      - "--defaultentrypoints=http,https" #https
       - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
       - "--docker"
       - "--docker.swarmMode"
       - "--docker.endpoint=unix:///var/run/docker.sock"
-      - "--docker.domain=cloud.bfast.fahamutech.com"
+      - "--docker.domain=bfast.fahamutech.com"
       - "--docker.watch=true"
       - "--docker.exposedbydefault=false"
       - "--acme.email=mama27j@gmail.com"
