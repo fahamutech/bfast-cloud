@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>BFast::Projects</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
-    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css?h=a55568e56685cd552da4c33b013ffda1">
+    <link rel="stylesheet" href="assets/css/styles.css?h=d41d8cd98f00b204e9800998ecf8427e">
 </head>
 
 <body>
@@ -33,12 +33,12 @@
         </nav>
     </div>
     <div style="min-height: 100vh;width: 100%;">
-        <div class="d-xl-flex align-items-xl-center" style="background-color: #112151;height: 200px;"><img class="d-xl-flex" src="assets/img/undraw_Organizing_projects_0p9a.svg" height="90%" style="display: none!important;"></div>
+        <div class="d-xl-flex align-items-xl-center" style="background-color: #112151;height: 200px;"><img class="d-xl-flex" src="assets/img/undraw_Organizing_projects_0p9a.svg?h=0c75e49f8c15a454a68f74871e0e15cb" height="90%" style="display: none!important;"></div>
         <div class="container d-flex flex-row flex-wrap" id="projects" style="margin-top: -50px;">
             <div class="border rounded shadow d-flex d-xl-flex flex-column justify-content-center align-items-center" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;"><i class="material-icons btn" style="font-size: 64px;color: #005bbf;">add</i><button class="btn btn-primary" type="button" style="font-family: Roboto, sans-serif;font-weight: 500;font-size: 19px;" data-toggle="modal" data-target="#newProject"
                     data-backdrop="static" data-keyboard="false">New Project<br></button></div>
             <div class="border rounded shadow d-flex flex-column btn" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;cursor: pointer;" v-for="(project, index) in projects"
-                v-bind:key="index">
+                v-key="index">
                 <h4 class="text-break text-left" style="font-family: Roboto, sans-serif;font-weight: bold;margin: 0;padding: 8px;">{{project.name}}</h4>
                 <h5 class="text-left" style="font-family: Roboto, sans-serif;font-weight: 300;margin: 0;padding: 8px;">{{project.projectId}}</h5><i class="material-icons d-flex flex-fill align-items-xl-end" style="padding: 14px;color: #02448c;">code</i></div>
         </div>
@@ -63,13 +63,13 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/project.js"></script>
+    <script src="assets/js/config.js?h=d41d8cd98f00b204e9800998ecf8427e"></script>
+    <script src="assets/js/project.js?h=80a5a037908ee665c1abb127a4c5b3b8"></script>
 </body>
 
 </html>
