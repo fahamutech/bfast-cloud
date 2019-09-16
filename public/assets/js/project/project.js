@@ -1,3 +1,14 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyBNnvwleeyFislflOkB-6RFNvo7w1FI3ko",
+    authDomain: "bfastapp.firebaseapp.com",
+    databaseURL: "https://bfastapp.firebaseio.com",
+    projectId: "bfastapp",
+    storageBucket: "",
+    messagingSenderId: "311831913786",
+    appId: "1:311831913786:web:6be76738b599546b"
+  };
+firebase.initializeApp(firebaseConfig);
+
 const pStore = new Vuex.Store({
     state: {
         projects: [],
@@ -22,6 +33,22 @@ const pStore = new Vuex.Store({
     }
 });
 
+const authBar = new Vue({
+    el: '#authBar',
+    data: {
+        
+    },
+    methods: {
+      logout(){
+          // location.replace('/');
+          console.log(firebase.auth().currentUser);
+          if(firebase.auth().currentUser){
+              firebase.auth().signOut();
+              location.replace('/');
+          }
+      }  
+    }
+});
 
 const project = new Vue({
     el: '#projects',
@@ -105,6 +132,28 @@ const project_new = new Vue({
         }
     }
 });
+
+const project_loader = new Vue({
+    el: '#loader',
+    data: {
+        showLoader: true,
+    },
+    created(){
+        firebase.auth().onAuthStateChanged(user=>{
+           if(user){
+               // this.isLogin = true;
+               // console.log(firebase.auth().currentUser);
+               // console.log(user);
+               this.showLoader=false;
+           }else{
+               // console.log(firebase.auth().currentUser);
+               // this.isLogin = false;
+               this.showLoader=false;
+               location.replace('/');
+           }
+        });
+    }
+})
 
 
 

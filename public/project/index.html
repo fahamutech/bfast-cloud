@@ -17,22 +17,22 @@
 
 <body>
     <div>
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-            <div class="container"><a class="navbar-brand" href="#">BFast Cloud</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" id="authBar">
+            <div class="container"><a class="navbar-brand" href="/">BFast Cloud</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
                     id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="font-family: Roboto, sans-serif;font-weight: 400; display:none">Doc</a></li>
-                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 400;">My Account</a>
+                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 500;">My Account</a>
                             <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Profile</a>
-                                <div class="dropdown-divider" role="presentation"></div><a class="dropdown-item" role="presentation" href="#"></a><a class="dropdown-item" role="presentation" href="#">Logout</a></div>
+                                <div class="dropdown-divider" role="presentation"></div><a class="dropdown-item" role="presentation" href="#"></a><a class="dropdown-item" role="presentation" href="#" v-on:click="logout()">Logout</a></div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <div style="min-height: 100vh;width: 100%;">
+    <div>
         <div class="d-xl-flex align-items-xl-center" style="background-color: #112151;height: 200px;"><img class="d-xl-flex" src="../assets/img/undraw_Organizing_projects_0p9a.svg?h=0c75e49f8c15a454a68f74871e0e15cb" height="90%" style="display: none!important;"></div>
         <div class="container d-flex flex-row flex-wrap" id="projects" style="margin-top: -50px;">
             <div class="border rounded shadow d-flex d-xl-flex flex-column justify-content-center align-items-center" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;"><i class="material-icons btn" style="font-size: 64px;color: #005bbf;">add</i><button class="btn btn-primary" type="button" style="font-family: Roboto, sans-serif;font-weight: 500;font-size: 19px;" data-toggle="modal" data-target="#newProject"
@@ -63,13 +63,15 @@
             </div>
         </div>
     </div>
+    <div class="d-xl-flex justify-content-xl-center align-items-xl-center" id="loader" style="top: 0;position: absolute;bottom: 0;left: 0;right: 0;background-color: #02448c;display:none!important"><span class="spinner-grow text-white" role="status" style="width: 60px;height: 60px;"></span></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../assets/js/project/config.js?h=d41d8cd98f00b204e9800998ecf8427e"></script>
-    <script src="../assets/js/project/project.js?h=80a5a037908ee665c1abb127a4c5b3b8"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+    <script src="../assets/js/project/project.js?h=59a47245a5d817beb49aa58be2cfc37e"></script>
 </body>
 
 </html>
