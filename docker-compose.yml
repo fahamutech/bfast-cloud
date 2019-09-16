@@ -61,6 +61,8 @@ services:
       - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
+      - "--docker"
+      - "--docker.swarmmode"
       - "--docker.endpoint=unix:///var/run/docker.sock"
       - "--docker.domain=cloud.bfast.fahamutech.com"
       - "--docker.watch=true"
