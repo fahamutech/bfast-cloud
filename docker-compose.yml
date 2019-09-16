@@ -69,8 +69,8 @@ services:
       # - "--certificatesResolvers.bfast.acme.storage=/app/acme.json"
       # - "--certificatesResolvers.bfast.acme.entryPoint=https"
       - "--acme.onHostRule=true"
-      - "--certificatesResolvers.bfast.acme.tlsChallenge=true"
-      - "--certificatesResolvers.bfast.acme.storage=/app/acme.json"
+      - "--acme.tlsChallenge=true"
+      - "--acme.storage=/app/acme.json"
 volumes:
   mdbdata:
   traefikdata:
