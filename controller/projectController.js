@@ -25,6 +25,10 @@ module.exports.ProjectController = class {
         });
     }
 
+    deleteProject(project) {
+        
+    }
+
     _createProjectInCluster(project, resolve, reject){
         // console.log(project);
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
