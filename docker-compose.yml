@@ -62,7 +62,7 @@ services:
       - --logLevel=ERROR
       - --defaultentrypoints=http,https #https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --entryPoints=Name:https Address::443 TLS:/fullchain.pem,/privkey.pem
+      - --entryPoints=Name:https Address::443 TLS:/app/fullchain.pem,/app/privkey.pem
       - --retry
       - --docker
       - --docker.swarmMode
