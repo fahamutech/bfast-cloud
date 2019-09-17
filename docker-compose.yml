@@ -51,26 +51,26 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./traefik.toml:/traefik.toml
       - traefikdata:/app/
-      - "./ssl/fullchain1.pem:/fullchain.pem"
-      - "./ssl/privkey1.pem:/privkey.pem"
+      - "./ssl/fullchain1.pem:/app/fullchain.pem"
+      - "./ssl/privkey1.pem:/app/privkey.pem"
     deploy:
       placement:
         constraints: [node.role == manager]
     command: 
       # - "--api.insecure=true"
       # - "--providers.docker=true"
-      - "--logLevel=ERROR"
-      - "--defaultentrypoints=https,https" #https
-      - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
-      - "--entryPoints=Name:https Address::443 TLS:/fullchain.pem, /privkey.pem"
-      - "--retry"
-      - "--docker"
-      - "--docker.swarmMode"
-      - "--docker.network=bfastweb"
-      - "--docker.endpoint=unix:///var/run/docker.sock"
-      - "--docker.domain=bfast.fahamutech.com"
-      - "--docker.watch=true"
-      - "--docker.exposedbydefault=false"
+      - --logLevel=ERROR
+      - --defaultentrypoints=http,https #https
+      - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
+      - --entryPoints=Name:https Address::443 TLS:/fullchain.pem,/privkey.pem
+      - --retry
+      - --docker
+      - --docker.swarmMode
+      - --docker.network=bfastweb
+      - --docker.endpoint=unix:///var/run/docker.sock
+      - --docker.domain=bfast.fahamutech.com
+      - --docker.watch=true
+      - --docker.exposedbydefault=false
       # - "--acme.email=mama27j@gmail.com"
       # - "--acme.storage=acme.json"
       # - "--acme.entryPoint=https"
