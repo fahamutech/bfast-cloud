@@ -29,7 +29,7 @@ module.exports.ProjectController = class {
         
     }
 
-    _createProjectInCluster(project, resolve, reject){
+    _createProjectInCluster(project, resolve, reject) {
         // console.log(project);
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
@@ -41,7 +41,7 @@ module.exports.ProjectController = class {
                 console.log('erorr====>> ' + stderr);
                 // delete created project
                 try{
-                    await database.deleteProject(project.id, project.projectId)
+                    await database.deleteProject(project.id, project.projectId);
                     reject({message: 'Project not created', reason: stderr.toString()});
                 }catch(e){
                     console.log(e);

@@ -9,17 +9,13 @@ services:
     networks:
       - default
     restart: always
-    depends_on: 
-      - mdb
-      - web
-      - faas
   web:
     image: joshuamshana/bfastnginx
     hostname: web
     labels: 
       - "traefik.docker.network=bfastweb"
     deploy:
-      labels: 
+      labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
@@ -34,6 +30,12 @@ services:
     expose:
     - "80" # replace ports with your own
     restart: always
+    depends_on: 
+      - mdb
+      - mdbrs1
+      - mdbrs2
+      - ide
+      - faas
   mdb:
     image: joshuamshana/bfastmdb
     hostname: mdb
