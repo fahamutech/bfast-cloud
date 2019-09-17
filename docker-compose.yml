@@ -60,8 +60,7 @@ services:
       - "--logLevel=ERROR"
       - "--defaultentrypoints=https,https" #https
       - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
-      - "--entryPoints=Name:https Address::443 TLS"
-      - "--entryPoints.https.tls.certificates"
+      - "--entryPoints=Name:https Address::443 TLS:ssl/fullchain1.pem,ssl/privkey1.pem"
       - "--retry"
       - "--docker"
       - "--docker.swarmMode"
