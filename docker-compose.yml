@@ -51,6 +51,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./traefik.toml:/traefik.toml
       - traefikdata:/app/
+      - "./ssl/fullchain1.pem:/fullchain.pem"
+      - "./ssl/privkey1.pem:/privkey.pem"
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -60,7 +62,7 @@ services:
       - "--logLevel=ERROR"
       - "--defaultentrypoints=https,https" #https
       - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
-      - "--entryPoints=Name:https Address::443 TLS:ssl/fullchain1.pem,ssl/privkey1.pem"
+      - "--entryPoints=Name:https Address::443 TLS:/fullchain.pem, /privkey.pem"
       - "--retry"
       - "--docker"
       - "--docker.swarmMode"
