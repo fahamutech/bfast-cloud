@@ -19,7 +19,7 @@ services:
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:cloud.bfast.fahamutech.com"
         - "traefik.port=3000"
-        - "traefik.protocol=http"
+        - "traefik.protocol=https"
         # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
         # - "traefik.admin.protocol=https"
         # - "traefik.admin.port=9443"
@@ -58,7 +58,7 @@ services:
       # - "--api.insecure=true"
       # - "--providers.docker=true"
       - "--logLevel=ERROR"
-      - "--defaultentrypoints=http,https" #https
+      - "--defaultentrypoints=https,https" #https
       - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
       - "--entryPoints=Name:https Address::443 TLS"
       - "--retry"
