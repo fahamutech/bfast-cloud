@@ -31,12 +31,12 @@ services:
       - bfastweb # to access mdb
     environment:
       - PORT=3000
-    # command:
-    #   - --appId ${appId}
-    #   - --masterKey ${masterKey}
-    #   - --databaseURI mongodb://mdb:27017/${projectId}
-    #   - --serverURL https://${projectId}.bfast.fahamutech.com/ide/api
-    entrypoint: ["parse-server","--appId","${masterKey}", "--masterKey", "${masterKey}", "--databaseURI", "mongodb://mdb:27017/${projectId"]
+    command:
+      - --
+      - --appId ${appId}
+      - --masterKey ${masterKey}
+      - --databaseURI mongodb://mdb:27017/${projectId}
+      - --serverURL https://${projectId}.bfast.fahamutech.com/ide/api
   faas:
     image: joshuamshana/bfastfaas
     hostname: faas
