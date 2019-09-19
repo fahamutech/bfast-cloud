@@ -93,6 +93,8 @@ const DatabaseController = class {
                         projectId: data.projectId,
                         description: data.decription,
                         user: data.user,
+                        isParse: data.isParse,
+                        parse: ( data.parse && data.parse.appId && data.parse.masterKey ) ? data.parse: null,
                         compose: data.fileUrl,
                         createdAt: new Date(),
                         updatedAt: new Date(),

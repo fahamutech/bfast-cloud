@@ -18,7 +18,11 @@ module.exports.ProjectController = class {
                 fileUrl: _COMPOSE_FILE
             }).then(value=>{
                 // createa a project and its settings
-                this._deployProjectInCluster(value, resolve, reject)
+                if(value.parse && value.parse.appId && value.parse.masterKey){
+                    this._deployParseProjectInCluster(value, resolve, reject);
+                }else{
+                    this._deployProjectInCluster(value, resolve, reject);
+                }
             }).catch(reason=>{
                 reject(reason);
             });

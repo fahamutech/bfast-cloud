@@ -90,7 +90,12 @@ const project_new = new Vue({
         project: {
             name: '',
             projectId: '',
-            description: ''
+            description: '',
+            isParse: true,
+            parse: {
+                appId: null,
+                masterKey: null
+            }
         }
     },
     methods: {
@@ -113,8 +118,13 @@ const project_new = new Vue({
                     this.project.name ='';
                     this.project.projectId = '';
                     this.project.description = '';
+                    this.project.isParse = true;
+                    this.project.parse.appid = null;
+                    this.project.parse.masterKey = null;
                     this.createProjectDone = true;
+                    form.classList.remove('was-validated');
                     this.$store.dispatch('projects');
+                    $('#newProject').modal('toggle');
                 }).catch(error=>{
                     this.createProjectError = true;
                     this.createProjectMessage = error.response.data.message;
@@ -130,6 +140,9 @@ const project_new = new Vue({
     computed: {
         showProgress: function(){
             return this.createProgressFlag;
+        },
+        isParse: function(){
+            return this.project.isParse
         }
     }
 });
@@ -140,7 +153,7 @@ const project_loader = new Vue({
         showLoader: true,
     },
     created(){
-        console.log(console.log(firebase.auth().currentUser));
+        // console.log(console.log(firebase.auth().currentUser));
         firebase.auth().onAuthStateChanged(user=>{
            if(user){
                this.showLoader=false;

@@ -1,16 +1,7 @@
 version: '3.3'
 services:
-  # ide:
-  #   image: joshuamshana/bfastcore:parse
-  #   hostname: ide
-  #   volumes:
-  #   - idedata:/ide/src/spring
-  #   - mongodata:/ide/mongo/data:ro
-  #   networks:
-  #     - default
-  #   restart: always
   web:
-    image: joshuamshana/bfastnginx:latest
+    image: joshuamshana/bfastnginx:parse
     hostname: web
     labels: 
       - "traefik.docker.network=bfastweb"
@@ -37,7 +28,7 @@ services:
     restart: always
     networks:
       - default
-      - bfastweb
+      - bfastweb # to access mdb
     command:
       - --appId ${appId}
       - --masterKey ${masterKey}
@@ -51,17 +42,13 @@ services:
     - faasdata:/faas
     networks:
       - default
-      - bfastweb
+      - bfastweb # to access mdb
 networks:
   bfastweb:
     # driver: overlay
     # attachable: true
     external: true
 volumes: 
-  idedata: {}
-  mongodata: {}
-  mongodatars1: {}
-  mongodatars2: {}
   daasdata: {}
   faasdata: {}
   webdata: {}

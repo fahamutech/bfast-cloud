@@ -2,10 +2,10 @@ version: "3.3"
 
 services:
   bfastapp:
-    image: joshuamshana/bfast
+    image: joshuamshana/bfast:latest
     hostname: bfastapp
     restart: always
-    networks: 
+    networks:
       - bfastweb
       - default
     ports:
