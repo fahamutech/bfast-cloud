@@ -32,11 +32,10 @@ services:
     environment:
       - PORT=3000
     command:
-      - --
-      - --appId ${appId}
-      - --masterKey ${masterKey}
-      - --databaseURI mongodb://mdb:27017/${projectId}
-      - --serverURL https://${projectId}.bfast.fahamutech.com/ide/api
+      - " --appId ${appId}"
+      - " --masterKey ${masterKey} "
+      - " --databaseURI mongodb://mdb:27017/${projectId} "
+      - " --serverURL https://${projectId}.bfast.fahamutech.com/ide/api "
   faas:
     image: joshuamshana/bfastfaas
     hostname: faas
