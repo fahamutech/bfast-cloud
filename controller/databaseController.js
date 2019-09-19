@@ -8,51 +8,13 @@ const DB_COLL = {
     project: '_Project'
 }
 
-const DatabaseController = class {
+module.exports.DatabaseController = class {
     test(){
         mongoClient.connect().then(conn=>{
             console.log(conn);
         }).catch(reason=>{
             console.log(reason);
         });
-    }
-
-    static async _replicaSetStart(){
-        let _replicaSet = true;
-        while(_replicaSet){
-            console.log('************initiate replica set******************');
-            try{
-
-                let conn;
-                if(mongoClient.isConnected()){
-                    conn = mongoClient;
-                }else{
-                    conn = await mongoClient.connect();
-                }
-
-                const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
-                console.log(isM)
-                if(isM && isM.ismaster){
-                    await conn.db().admin().command({replSetReconfig: { "host": "mdbrs1", "priority": 0, "votes": 0}});
-                    await conn.db().admin().command({replSetReconfig: { "host": "mdbrs2", "priority": 0, "votes": 0}});
-                }else{
-                    await conn.db().admin().command({replSetInitiate: {
-                        "_id":"bfastRS",
-                        "members": [
-                            {"_id": 0, "host": "mdb"},
-                            {"_id": 1, "host": "mdbrs1", "priority": 0, votes: 0},
-                            {"_id": 2, "host": "mdbrs2", "priority": 0, votes: 0}
-                        ]
-                    }});
-                }
-                console.log('=============>>>>>done initiate replica set');
-                _replicaSet = false;
-                return;
-            }catch(e){
-                console.log(`%%%############---->: ${e}`);
-                _replicaSet = true;
-            }
-        }
     }
 
     createUser(data){
@@ -172,7 +134,42 @@ const DatabaseController = class {
 
 }
 
-// initiate a replica set
-DatabaseController._replicaSetStart();
-// export database class
-module.exports.DatabaseController;
+// initiate replica set
+const _initiateRS =  async function(){
+    let _replicaSet = true;
+    while(_replicaSet){
+        console.log('************initiate replica set******************');
+        try{
+
+            let conn;
+            if(mongoClient.isConnected()){
+                conn = mongoClient;
+            }else{
+                conn = await mongoClient.connect();
+            }
+
+            const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
+            console.log(isM)
+            if(isM && isM.ismaster){
+                await conn.db().admin().command({replSetReconfig: { "host": "mdbrs1", "priority": 0, "votes": 0}});
+                await conn.db().admin().command({replSetReconfig: { "host": "mdbrs2", "priority": 0, "votes": 0}});
+            }else{
+                await conn.db().admin().command({replSetInitiate: {
+                    "_id":"bfastRS",
+                    "members": [
+                        {"_id": 0, "host": "mdb"},
+                        {"_id": 1, "host": "mdbrs1", "priority": 0, votes: 0},
+                        {"_id": 2, "host": "mdbrs2", "priority": 0, votes: 0}
+                    ]
+                }});
+            }
+            console.log('=============>>>>>done initiate replica set');
+            _replicaSet = false;
+            return;
+        }catch(e){
+            console.log(`%%%############---->: ${e}`);
+            _replicaSet = true;
+        }
+    }
+}
+_initiateRS();
