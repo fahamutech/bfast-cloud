@@ -148,7 +148,7 @@ const _initiateRS =  function(){
             }
 
             const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
-            console.log(isM)
+            // console.log(isM)s
             if(isM && isM.ismaster){
                 await conn.db().admin().command({replSetReconfig: { "host": "mdbrs1", "priority": 0, "votes": 0}});
                 await conn.db().admin().command({replSetReconfig: { "host": "mdbrs2", "priority": 0, "votes": 0}});
@@ -166,7 +166,8 @@ const _initiateRS =  function(){
             clearInterval(repInterval);
             return;
         }catch(e){
-            console.log(`%%%############---->: ${e}`);
+            console.log(e);
+            // console.log(`%%%############---->: ${e}`);
         }
     }, 10000);
 }
