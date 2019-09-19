@@ -1,0 +1,67 @@
+version: '3.3'
+services:
+  # ide:
+  #   image: joshuamshana/bfastcore:parse
+  #   hostname: ide
+  #   volumes:
+  #   - idedata:/ide/src/spring
+  #   - mongodata:/ide/mongo/data:ro
+  #   networks:
+  #     - default
+  #   restart: always
+  web:
+    image: joshuamshana/bfastnginx:latest
+    hostname: web
+    labels: 
+      - "traefik.docker.network=bfastweb"
+    deploy:
+      labels:
+      - "traefik.docker.network=bfastweb"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
+      - "traefik.port=80"
+      - "traefik.protocol=http"
+    networks:
+      - bfastweb
+      - default
+    expose:
+    - "80"
+    restart: always
+    depends_on:
+      - daas
+      - ide
+      - faas
+  daas:
+    image: parseplatform/parse-server:3.9.0
+    hostname: daas
+    restart: always
+    networks:
+      - default
+      - bfastweb
+    command:
+      - --appId ${appId}
+      - --masterKey ${masterKey}
+      - --databaseURI mongodb://mdb:27017/${projectId}
+      - --serverURL https://${projectId}.bfast.fahamutech.com/ide/api
+  faas:
+    image: joshuamshana/bfastfaas
+    hostname: faas
+    restart: always
+    volumes: 
+    - faasdata:/faas
+    networks:
+      - default
+      - bfastweb
+networks:
+  bfastweb:
+    # driver: overlay
+    # attachable: true
+    external: true
+volumes: 
+  idedata: {}
+  mongodata: {}
+  mongodatars1: {}
+  mongodatars2: {}
+  daasdata: {}
+  faasdata: {}
+  webdata: {}

@@ -1,14 +1,14 @@
 const MongoClient = require('mongodb').MongoClient;
 
 const DB_NAME='_BFAST_ADMIN';
-const DB_HOST = process.env.mdbhost || 'mdbadmin'
+const DB_HOST = process.env.mdbhost || 'mdb'
 const mongoClient = new MongoClient(`mongodb://${DB_HOST}:27017/${DB_NAME}`, {useNewUrlParser: true, useUnifiedTopology: true});
 const DB_COLL = {
     user: '_User',
     project: '_Project'
 }
 
-module.exports.DatabaseController = class {
+const DatabaseController = class {
     test(){
         mongoClient.connect().then(conn=>{
             console.log(conn);
@@ -17,7 +17,44 @@ module.exports.DatabaseController = class {
         });
     }
 
-    //******user management methods*****//
+    static async _replicaSetStart(){
+        let _replicaSet = true;
+        while(_replicaSet){
+            console.log('************initiate replica set******************');
+            try{
+
+                let conn;
+                if(mongoClient.isConnected()){
+                    conn = mongoClient;
+                }else{
+                    conn = await mongoClient.connect();
+                }
+
+                const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
+                console.log(isM)
+                if(isM && isM.ismaster){
+                    await conn.db().admin().command({replSetReconfig: { "host": "mdbrs1", "priority": 0, "votes": 0}});
+                    await conn.db().admin().command({replSetReconfig: { "host": "mdbrs2", "priority": 0, "votes": 0}});
+                }else{
+                    await conn.db().admin().command({replSetInitiate: {
+                        "_id":"bfastRS",
+                        "members": [
+                            {"_id": 0, "host": "mdb"},
+                            {"_id": 1, "host": "mdbrs1", "priority": 0, votes: 0},
+                            {"_id": 2, "host": "mdbrs2", "priority": 0, votes: 0}
+                        ]
+                    }});
+                }
+                console.log('=============>>>>>done initiate replica set');
+                _replicaSet = false;
+                return;
+            }catch(e){
+                console.log(`%%%############---->: ${e}`);
+                _replicaSet = true;
+            }
+        }
+    }
+
     createUser(data){
         if(collection && data){
             mongoClient.connect().then(conn=>{
@@ -30,12 +67,16 @@ module.exports.DatabaseController = class {
         }
     }
 
-
-    //****project method*****//
     createProject(data){
         // console.log(data);
         return new Promise( async (resolve, reject)=>{
-            if(data && data.name && data.projectId && data.description && data.user && data.fileUrl){
+            if(data && 
+                data.name && 
+                data.projectId && 
+                ( data.projectId !=='cloud' || data.projectId !=='console' || data.projectId !=='dashboard' ) &&
+                data.description && 
+                data.user && 
+                data.fileUrl){
                 try{
                     // establish connection
                     let conn; 
@@ -130,3 +171,8 @@ module.exports.DatabaseController = class {
     }
 
 }
+
+// initiate a replica set
+DatabaseController._replicaSetStart();
+// export database class
+module.exports.DatabaseController;
