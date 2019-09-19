@@ -29,11 +29,12 @@ services:
     networks:
       - default
       - bfastweb # to access mdb
-    command:
-      - --appId ${appId}
-      - --masterKey ${masterKey}
-      - --databaseURI mongodb://mdb:27017/${projectId}
-      - --serverURL https://${projectId}.bfast.fahamutech.com/ide/api
+    environment:
+      - PARSE_SERVER_APPLICATION_ID = ${appId}
+      - PARSE_SERVER_MASTER_KEY = ${masterKey}
+      - PARSE_SERVER_DATABASE_URI = mongodb://mdb:27017/${projectId}
+      - PARSE_SERVER_URL = https://${projectId}.bfast.fahamutech.com/ide/api
+      - PORT = 3000
   faas:
     image: joshuamshana/bfastfaas
     hostname: faas

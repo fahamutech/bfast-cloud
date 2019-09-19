@@ -165,9 +165,9 @@ const _initiateRS =  function(){
                 await conn.db().executeDbAdminCommand({replSetInitiate: {
                     "_id":"bfastRS",
                     "members": [
-                        {"_id": 0, host: mdb},
-                        {"_id": 1, host: mdbrs1, priority: 0, votes: 0},
-                        {"_id": 2, host: mdbrs2, priority: 0, votes: 0}
+                        {"_id": 0, host: "mdb"},
+                        {"_id": 1, host: "mdbrs1", priority: 0, votes: 0},
+                        {"_id": 2, host: "mdbrs2", priority: 0, votes: 0}
                     ]
                 }});
             }
