@@ -75,8 +75,7 @@ const DatabaseController = class {
                 data.projectId && 
                 ( data.projectId !=='cloud' || data.projectId !=='console' || data.projectId !=='dashboard' ) &&
                 data.description && 
-                data.user && 
-                data.fileUrl){
+                data.user){
                 try{
                     // establish connection
                     let conn; 
@@ -93,9 +92,8 @@ const DatabaseController = class {
                         projectId: data.projectId,
                         description: data.decription,
                         user: data.user,
-                        isParse: data.isParse,
+                        isParse: data.isParse? data.isParse : false,
                         parse: ( data.parse && data.parse.appId && data.parse.masterKey ) ? data.parse: null,
-                        compose: data.fileUrl,
                         createdAt: new Date(),
                         updatedAt: new Date(),
                     });

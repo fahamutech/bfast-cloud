@@ -1,7 +1,8 @@
 const DatabaseController = require('./databaseController').DatabaseController;
 const path = require('path');
 const process = require('child_process');
-let _COMPOSE_FILE = path.join(__dirname, `../resources/dcompose.yml`);
+const _COMPOSE_FILE = path.join(__dirname, `../resources/dcompose.yml`);
+const _PARSE_COMPOSE_FILE = path.join(__dirname, `../resources/parse-compose.yml`);
 const database = new DatabaseController();
 
 module.exports.ProjectController = class {
@@ -14,13 +15,16 @@ module.exports.ProjectController = class {
                 name: project.name,
                 projectId: project.projectId,
                 description: project.description,
-                user: project.user,
-                fileUrl: _COMPOSE_FILE
+                parse: project.parse,
+                isParse: project.isParse,
+                user: project.user
             }).then(value=>{
                 // createa a project and its settings
-                if(value.parse && value.parse.appId && value.parse.masterKey){
+                if(value & value.parse && value.parse.appId && value.parse.masterKey){
+                    value.fileUrl = _PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
                 }else{
+                    value.fileUrl = _COMPOSE_FILE;
                     this._deployProjectInCluster(value, resolve, reject);
                 }
             }).catch(reason=>{
