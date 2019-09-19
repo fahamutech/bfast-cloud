@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const DB_NAME='_BFAST_ADMIN';
 const DB_HOST = process.env.mdbhost || 'mdb'
-const mongoClient = new MongoClient(`mongodb://${DB_HOST}:27017/${DB_NAME}`, {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoClient = new MongoClient(`mongodb://${DB_HOST}:27017/${DB_NAME}`, {useNewUrlParser: true});
 const DB_COLL = {
     user: '_User',
     project: '_Project'
@@ -139,26 +139,35 @@ const _initiateRS =  function(){
     const repInterval = setInterval(async()=>{
         console.log('************initiate replica set******************');
         try{
-
+            console.log('start to connect')
             let conn;
             if(mongoClient.isConnected()){
                 conn = mongoClient;
+                console.log('is connected');
             }else{
                 conn = await mongoClient.connect();
+                console.log('not connected');
             }
 
+            console.log('start to call master');
             const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
-            // console.log(isM)s
+            // console.log(isM)
             if(isM && isM.ismaster){
-                await conn.db().admin().command({replSetReconfig: { "host": "mdbrs1", "priority": 0, "votes": 0}});
-                await conn.db().admin().command({replSetReconfig: { "host": "mdbrs2", "priority": 0, "votes": 0}});
+                console.log('master exist');
+                try{
+                    await conn.db().executeDbAdminCommand({replSetReconfig: { host: "mdbrs1", priority: 0, votes: 0}});
+                    await conn.db().executeDbAdminCommand({replSetReconfig: { host: "mdbrs2", priority: 0, votes: 0}});
+                }catch(r1){
+                    console.log(r1);
+                }
             }else{
-                await conn.db().admin().command({replSetInitiate: {
+                console.log('master not exist');
+                await conn.db().executeDbAdminCommand({replSetInitiate: {
                     "_id":"bfastRS",
                     "members": [
-                        {"_id": 0, "host": "mdb"},
-                        {"_id": 1, "host": "mdbrs1", "priority": 0, votes: 0},
-                        {"_id": 2, "host": "mdbrs2", "priority": 0, votes: 0}
+                        {"_id": 0, host: mdb},
+                        {"_id": 1, host: mdbrs1, priority: 0, votes: 0},
+                        {"_id": 2, host: mdbrs2, priority: 0, votes: 0}
                     ]
                 }});
             }

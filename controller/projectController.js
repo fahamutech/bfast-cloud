@@ -19,8 +19,9 @@ module.exports.ProjectController = class {
                 isParse: project.isParse,
                 user: project.user
             }).then(value=>{
-                // createa a project and its settings
-                if(value & value.parse && value.parse.appId && value.parse.masterKey){
+                // console.log(value);
+                // create a project and its settings
+                if(value && value.isParse && value.parse.appId && value.parse.masterKey){
                     value.fileUrl = _PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
                 }else{
