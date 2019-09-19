@@ -135,9 +135,8 @@ module.exports.DatabaseController = class {
 }
 
 // initiate replica set
-const _initiateRS =  async function(){
-    let _replicaSet = true;
-    while(_replicaSet){
+const _initiateRS =  function(){
+    const repInterval = setInterval(async()=>{
         console.log('************initiate replica set******************');
         try{
 
@@ -164,12 +163,11 @@ const _initiateRS =  async function(){
                 }});
             }
             console.log('=============>>>>>done initiate replica set');
-            _replicaSet = false;
+            clearInterval(repInterval);
             return;
         }catch(e){
             console.log(`%%%############---->: ${e}`);
-            _replicaSet = true;
         }
-    }
+    }, 10000);
 }
 _initiateRS();
