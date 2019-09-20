@@ -37,7 +37,7 @@ services:
     environment:
       - PARSE_SERVER_APPLICATION_ID=${appId}
       - PARSE_SERVER_MASTER_KEY=${masterKey}
-      - PARSE_SERVER_URL=https://${projectId}.bfast.fahamutech.com/ide/api
+      - PARSE_SERVER_URL=http://localhost:300
       - PARSE_SERVER_DATABASE_URI=mongodb://mdb:27017/${projectId}
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
