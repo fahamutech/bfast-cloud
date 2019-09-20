@@ -66,6 +66,8 @@ module.exports.ProjectController = class {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,
+                projectName: project.name,
+                userEmail: project.user.email,
                 appId: project.parse.appId,
                 masterKey: project.parse.masterKey,
                 docker: '/usr/local/bin/docker'
