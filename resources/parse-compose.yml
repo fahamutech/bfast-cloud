@@ -41,11 +41,11 @@ services:
     image: parseplatform/parse-dashboard:latest
     hostname: dashboard
     restart: always
-    network:
+    networks:
       - default
     environment:
       - PORT=3000
-      - PARSE_DASHBOARD_SERVER_URL=http://localhost:3000/parse
+      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}.bfast.fahamutech.com/api
       - PARSE_DASHBOARD_APP_ID=${appId}
       - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
       - PARSE_DASHBOARD_APP_NAME=${projectName}
