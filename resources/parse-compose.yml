@@ -38,7 +38,7 @@ services:
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PORT=3000
   dashboard:
-    image: parseplatform/parse-dashboard:2.0.2
+    image: parseplatform/parse-dashboard:latest
     hostname: dashboard
     restart: always
     network:
