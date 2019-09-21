@@ -119,9 +119,9 @@ const project_new = new Vue({
                     this.project.projectId = '';
                     this.project.description = '';
                     this.project.isParse = true;
-                    this.project.parse.appid = null;
+                    this.project.parse.appId = null;
                     this.project.parse.masterKey = null;
-                    this.createProjectDone = true;
+                    this.createProjectDone = false;
                     form.classList.remove('was-validated');
                     this.$store.dispatch('projects');
                     $('#newProject').modal('toggle');
