@@ -21,6 +21,7 @@ services:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com;Path:/api, Host:${projectId}.bfast.fahamutech.com;Path:/ide/api"
+      - "traefik.backend=${projectId}_daas"
       # - "traefik.backend.rule=PathPrefix:/parse"
       - "traefik.port=3000"
       - "traefik.protocol=http"
@@ -32,7 +33,7 @@ services:
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PORT=3000
-      - PARSE_SERVER_MOUNT_PATH=/
+      - PARSE_SERVER_MOUNT_PATH=
   dashboard:
     image: parseplatform/parse-dashboard:2.0.3
     hostname: ${projectId}_dashboard
@@ -57,6 +58,7 @@ services:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com, Host:${projectId}.bfast.fahamutech.com;Path:/dashboard"
+      - "traefik.backend=${projectId}_dashboard"
       - "traefik.port=3443"
       - "traefik.protocol=http"
     environment:
@@ -91,6 +93,7 @@ services:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com;Path:/ide/faas"
+      - "traefik.backend=${projectId}_faas"
       - "traefik.backend.rule=PathPrefix:/faas"
       - "traefik.port=3000"
       - "traefik.protocol=http"
