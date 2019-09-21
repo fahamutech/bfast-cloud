@@ -30,12 +30,13 @@ module.exports.DatabaseController = class {
     }
 
     createProject(data){
-        // console.log(data);
         return new Promise( async (resolve, reject)=>{
             if(data && 
                 data.name && 
                 data.projectId && 
-                ( data.projectId !=='cloud' || data.projectId !=='console' || data.projectId !=='dashboard' ) &&
+                data.projectId !=='cloud' &&
+                data.projectId !=='console' &&
+                data.projectId !=='dashboard' &&
                 data.description && 
                 data.user){
                 try{
@@ -54,6 +55,7 @@ module.exports.DatabaseController = class {
                         projectId: data.projectId,
                         description: data.decription,
                         user: data.user,
+                        members: data.members? data.members: [],
                         isParse: data.isParse? data.isParse : false,
                         parse: ( data.parse && data.parse.appId && data.parse.masterKey ) ? data.parse: null,
                         createdAt: new Date(),
@@ -120,7 +122,9 @@ module.exports.DatabaseController = class {
                         conn = mongoClient;
                     }
                     const projectCollection = conn.db(DB_NAME).collection(DB_COLL.project);
-                    const results = await projectCollection.find({'user.uid': userId}).toArray();
+                    const results = await projectCollection.find({
+                        $or : [{'user.uid': userId}, {"members.user.uid": userId}]
+                    }).toArray();
                     resolve(results);
                 }catch(reason){
                     console.log(reason);
