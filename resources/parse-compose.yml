@@ -1,34 +1,20 @@
 version: '3.3'
 services:
-  web:
-    image: joshuamshana/bfastnginx:parse
-    hostname: web
-    labels: 
-      - "traefik.docker.network=bfastweb"
-    deploy:
-      labels:
-      - "traefik.docker.network=bfastweb"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-      - "traefik.port=80"
-      - "traefik.protocol=http"
-    networks:
-      - bfastweb
-      - default
-    expose:
-    - "80"
-    restart: always
-    depends_on:
-      - daas
-      - ide
-      - faas
   daas:
     image: parseplatform/parse-server:3.9.0
-    hostname: daas
+    hostname: ${projectId}_daas
     restart: always
     networks:
       - default
       - bfastweb # to access mdb
+    deploy:
+      labels:
+      - "traefik.docker.network=bfastweb"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com;PathPrefix:/api, Host:${projectId}.bfast.fahamutech.com;PathPrefix:/ide/api"
+      - "traefik.backend.rule=PathPrefix:/parse"
+      - "traefik.port=3000"
+      - "traefik.protocol=http"
     environment:
       - PARSE_SERVER_APPLICATION_ID=${appId}
       - PARSE_SERVER_MASTER_KEY=${masterKey}
@@ -38,11 +24,19 @@ services:
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PORT=3000
   dashboard:
-    image: parseplatform/parse-dashboard:latest
-    hostname: dashboard
+    image: parseplatform/parse-dashboard:2.0.3
+    hostname: ${projectId}_dashboard
     restart: always
     networks:
       - default
+    deploy:
+      labels:
+      - "traefik.docker.network=bfastweb"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com, Host:${projectId}.bfast.fahamutech.com;PathPrefix:/dashboard"
+      # - "traefik.backend.rule=PathPrefix:/parse"
+      - "traefik.port=3000"
+      - "traefik.protocol=http"
     environment:
       - PORT=3000
       - PARSE_DASHBOARD_SERVER_URL=https://${projectId}.bfast.fahamutech.com/api
@@ -53,14 +47,22 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas
-    hostname: faas
+    image: joshuamshana/bfastfaas:latest
+    hostname: ${projectId}_faas
     restart: always
     volumes: 
     - faasdata:/faas
     networks:
       - default
       - bfastweb # to access mdb
+    deploy:
+      labels:
+      - "traefik.docker.network=bfastweb"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com;PathPrefix:/ide/faas"
+      - "traefik.backend.rule=PathPrefix:/faas"
+      - "traefik.port=3000"
+      - "traefik.protocol=http"
 networks:
   bfastweb:
     # driver: overlay
