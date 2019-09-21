@@ -22,7 +22,7 @@
             <div class="container"><a class="navbar-brand" href="#">BFast Cloud</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
                     id="navcol-1">
-                    <ul class="nav navbar-nav ml-auto"><button class="btn btn-outline-primary round-btn" type="button" style="background-color: #02448c;color: rgb(255,255,255);" v-if="!getIsLogin" data-toggle="modal" data-target="#auth" data-backdrop="static" data-keyboard="false">SignIn</button>
+                    <ul class="nav navbar-nav ml-auto"><button class="btn btn-outline-primary round-btn" type="button" style="background-color: #02448c;color: rgb(255,255,255);" v-if="!getIsLogin || false" data-toggle="modal" data-target="#auth" data-backdrop="static" data-keyboard="false">SignIn</button>
                         <li
                             class="nav-item" role="presentation"><a class="nav-link" href="#" style="font-family: Roboto, sans-serif;font-weight: 400; display:none">Doc</a></li>
                             <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 400;" v-if="getIsLogin">My Account</a>
@@ -59,17 +59,17 @@
                         class="form-group"><input class="form-control" type="password" required="" placeholder="Password" minlength="6" style="font-family: Roboto, sans-serif;" v-model="user.password"><span class="invalid-feedback">Please enter a password and must be more than 6 characters</span></div>
                 </form>
                 <div class="d-xl-flex justify-content-xl-end">
-                    <div class="btn-group" role="group"><button class="btn btn-outline-primary" type="button" style="margin: 4px;font-family: Roboto, sans-serif;" v-if="getIsRegister" v-on:click="register()" ref="registerB">Register</button><button class="btn btn-outline-primary" type="button"
-                            style="margin: 4px;font-family: Roboto, sans-serif;" v-if="!getIsRegister" v-on:click="reset()" ref="resetB">Reset Password</button><button class="btn btn-primary" type="button" style="margin: 4px;font-family: Roboto, sans-serif;"
-                            v-if="!getIsRegister" v-on:click="login()" ref="loginB">Sign In</button></div>
+                    <div class="btn-group" role="group"><button class="btn btn-outline-primary" type="button" style="margin: 4px;font-family: Roboto, sans-serif;" v-if="getIsRegister &amp;&amp; false" v-on:click="register()" ref="registerB">Register</button><button class="btn btn-outline-primary"
+                            type="button" style="margin: 4px;font-family: Roboto, sans-serif;" v-if="!getIsRegister &amp;&amp; false" v-on:click="reset()" ref="resetB">Reset Password</button><button class="btn btn-primary" type="button" style="margin: 4px;font-family: Roboto, sans-serif;"
+                            v-if="!getIsRegister" v-on:click="loginWithEmail()" ref="loginB">Sign In</button></div>
                 </div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" v-model="isRegister" ref="checkB"><label class="form-check-label" for="formCheck-1">I don't have an account</label></div>
+                <div class="form-check" v-if="false"><input class="form-check-input" type="checkbox" id="formCheck-1" v-model="isRegister" ref="checkB"><label class="form-check-label" for="formCheck-1">I don't have an account</label></div>
                 <hr>
             </div><button class="btn btn-outline-primary btn-block" type="button" v-on:click="loginWithGoogle()" ref="loginGB"><i class="fab fa-google" style="padding: 6px;color: rgb(255,0,0);"></i>Continue with Google</button></div>
     </div>
     </div>
     </div>
-    <div class="d-xl-flex justify-content-xl-center align-items-xl-center" id="loader" style="top: 0;position: absolute;bottom: 0;left: 0;right: 0;background-color: #02448c;" v-if="showLoader"><span class="spinner-grow text-white" role="status" style="width: 60px;height: 60px;"></span></div>
+    <div class="d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center" id="loader" style="top: 0;position: absolute;bottom: 0;left: 0;right: 0;background-color: #02448c;display:none!important" v-if="showLoader"><span class="spinner-grow text-white" role="status" style="width: 60px;height: 60px;"></span></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -77,7 +77,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
-    <script src="assets/js/app.js?h=756e15697f53502e714fdd40566d5f8f"></script>
+    <script src="assets/js/app.js?h=e39aba45b7f275da636891d4fe83eb77"></script>
 </body>
 
 </html>

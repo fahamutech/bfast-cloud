@@ -35,7 +35,7 @@ const appAuth = new Vue({
         firebase.auth().onAuthStateChanged(user=>{
            if(user){
                this.isLogin = true;
-               console.log(firebase.auth().currentUser);
+               // console.log(firebase.auth().currentUser);
                // console.log(user);
            }else{
                // console.log(firebase.auth().currentUser);
@@ -89,6 +89,25 @@ const authModal = new Vue({
                 this.authProgress = true;
                 console.log(this.user);
             }
+        },
+        loginWithEmail(){
+            this.authProgress = true;
+            this.loginError = false;
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password).then((result)=> {
+                // ar token = result.credential.accessToken;
+                // ar user = result.user;
+                // console.log(user);
+                this.loginError = false;
+                $('#auth').modal('toggle');
+            }).catch((error)=> {
+                var errorMessage = error.message;
+                this.loginError = true;
+                this.loginErrorMessage = errorMessage;
+                console.log(errorMessage);
+            }).finally(_=>{
+                this.authProgress = false;
+            });
         },
         loginWithGoogle(){
             this.authProgress = true;
