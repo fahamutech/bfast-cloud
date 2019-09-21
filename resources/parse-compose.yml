@@ -8,6 +8,17 @@ services:
       - default
       - bfastweb # to access mdb
     deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+      rollback_config:
+        failure_action: continue
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
       labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
@@ -30,6 +41,20 @@ services:
     networks:
       - default
     deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+      rollback_config:
+        failure_action: continue
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        # reservations:
+        #   cpus: '0.25'
+        #   memory: 20M
       labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
@@ -56,6 +81,17 @@ services:
       - default
       - bfastweb # to access mdb
     deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        # max_attempts: 3
+        # window: 120s
+      rollback_config:
+        failure_action: continue
       labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
