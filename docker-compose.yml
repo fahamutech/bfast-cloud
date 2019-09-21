@@ -26,8 +26,6 @@ services:
       restart_policy:
         condition: on-failure
         delay: 2s
-      rollback_config:
-        failure_action: continue
   mdb:
     image: mongo:4-bionic
     hostname: mdb
@@ -46,8 +44,8 @@ services:
       restart_policy:
         condition: on-failure
         delay: 2s
-      rollback_config:
-        failure_action: continue
+      # rollback_config:
+      #   failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs1:
     image: mongo:4-bionic
@@ -62,8 +60,6 @@ services:
       restart_policy:
         condition: on-failure
         delay: 2s
-      rollback_config:
-        failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs2:
     image: mongo:4-bionic
@@ -78,8 +74,6 @@ services:
       restart_policy:
         condition: on-failure
         delay: 2s
-      rollback_config:
-        failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   traefik:
     image: traefik:v1.7
@@ -91,8 +85,6 @@ services:
       restart_policy:
         condition: on-failure
         delay: 2s
-      rollback_config:
-        failure_action: continue
     ports:
       - 81:80
       - 443:443
