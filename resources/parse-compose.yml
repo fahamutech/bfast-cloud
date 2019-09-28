@@ -15,8 +15,8 @@ services:
         delay: 2s
       resources:
         limits:
-          cpus: '0.50'
-          memory: 500M
+          # cpus: '0.50'
+          memory: 256M
       labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
@@ -49,8 +49,8 @@ services:
         delay: 2s
       resources:
         limits:
-          cpus: '0.50'
-          memory: 500M
+          # cpus: '0.50'
+          memory: 256M
         # reservations:
         #   cpus: '0.25'
         #   memory: 20M
@@ -82,7 +82,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          # cpus: '0.50'
           memory: 256M
       restart_policy:
         condition: on-failure
