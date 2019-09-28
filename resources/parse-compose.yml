@@ -74,8 +74,8 @@ services:
     image: joshuamshana/bfastfaas:latest
     hostname: ${projectId}_faas
     restart: always
-    volumes: 
-    - faasdata:/faas
+    volumes:
+    - faasdata:/faas/function
     networks:
       - default
       - bfastweb # to access mdb
