@@ -11,7 +11,7 @@ services:
       mode: replicated
       replicas: 1
       restart_policy:
-        condition: on-failure
+        condition: always
         delay: 2s
       resources:
         limits:
@@ -45,7 +45,7 @@ services:
       mode: replicated
       replicas: 1
       restart_policy:
-        condition: on-failure
+        condition: always
         delay: 2s
       resources:
         limits:
@@ -85,7 +85,7 @@ services:
           # cpus: '0.50'
           memory: 256M
       restart_policy:
-        condition: on-failure
+        condition: always
         delay: 2s
         # max_attempts: 3
         # window: 120s
