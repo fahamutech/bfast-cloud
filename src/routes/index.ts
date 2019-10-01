@@ -1,5 +1,4 @@
-let express = require('express');
-let router = express.Router();
+let router = require('express').Router();
 // const Docker = require('dockerode');
 
 // const platform = require('os').platform();
@@ -29,7 +28,7 @@ let router = express.Router();
 // });
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req: any, res: any, next: any) {
     res.render('index', {title: 'Express'});
 });
 

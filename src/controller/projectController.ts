@@ -1,68 +1,68 @@
-const DatabaseController = require('./databaseController').DatabaseController;
-const path = require('path');
-const process = require('child_process');
-const _COMPOSE_FILE = path.join(__dirname, `../resources/dcompose.yml`);
-const _PARSE_COMPOSE_FILE = path.join(__dirname, `../resources/parse-compose.yml`);
-const database = new DatabaseController();
+import {DatabaseController} from './databaseController'
+import * as path from 'path'
+import * as process from 'child_process'
 
-module.exports.ProjectController = class {
-    constructor(){
+export class ProjectController {
+    private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
+    private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);
+    private database: DatabaseController;
+
+    constructor() {
+        this.database = new DatabaseController()
     }
 
-    createProject(project) {
-        return new Promise((resolve, reject)=>{
-            database.createProject({
+    createProject(project: any) {
+        return new Promise((resolve, reject) => {
+            this.database.createProject({
                 name: project.name,
                 projectId: project.projectId,
                 description: project.description,
                 parse: project.parse,
                 isParse: project.isParse,
                 user: project.user
-            }).then(value=>{
-                // console.log(value);
-                // create a project and its settings
-                if(value && value.isParse && value.parse.appId && value.parse.masterKey){
-                    value.fileUrl = _PARSE_COMPOSE_FILE;
+            }).then((value: any) => {
+                if (value && value.isParse && value.parse.appId && value.parse.masterKey) {
+                    value.fileUrl = this._PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
-                }else{
-                    value.fileUrl = _COMPOSE_FILE;
+                } else {
+                    value.fileUrl = this._COMPOSE_FILE;
                     this._deployProjectInCluster(value, resolve, reject);
                 }
-            }).catch(reason=>{
+            }).catch(reason => {
                 reject(reason);
             });
         });
     }
 
-    deleteProject(project) {
-        
+    deleteProject(project: any) {
+
     }
 
-    _deployProjectInCluster(project, resolve, reject) {
+    private _deployProjectInCluster(project: any, resolve: any, reject: any) {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,
                 docker: '/usr/local/bin/docker'
             }
-        }, async function(error,stdout,stderr){
-            if(error){
+        }, async (error, stdout, stderr) => {
+            if (error) {
                 console.log('erorr====>> ' + stderr);
                 // delete created project
-                try{
-                    await database.deleteProject(project.id, project.projectId);
+                try {
+                    await this.database.deleteProject(project.id, project.projectId);
                     reject({message: 'Project not created', reason: stderr.toString()});
-                }catch(e){
+                } catch (e) {
                     console.log(e);
                     reject({message: 'Project not created', reason: stderr.toString()});
                 }
-            }else{
+            } else {
                 console.log(stdout.toString());
                 resolve({message: 'Project created'});
             }
         });
     }
 
-    _deployParseProjectInCluster(project,resolve,reject){
+    private _deployParseProjectInCluster(project: any, resolve: any, reject: any) {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,
@@ -72,22 +72,22 @@ module.exports.ProjectController = class {
                 masterKey: project.parse.masterKey,
                 docker: '/usr/local/bin/docker'
             }
-        }, async function(error,stdout,stderr){
-            if(error){
+        }, async (error, stdout, stderr) => {
+            if (error) {
                 console.log('erorr====>> ' + stderr);
                 // delete created project
-                try{
-                    await database.deleteProject(project.id, project.projectId);
+                try {
+                    await this.database.deleteProject(project.id, project.projectId);
                     reject({message: 'Project not created', reason: stderr.toString()});
-                }catch(e){
+                } catch (e) {
                     console.log(e);
                     reject({message: 'Project not created', reason: stderr.toString()});
                 }
-            }else{
+            } else {
                 console.log(stdout.toString());
                 resolve({message: 'Project created'});
             }
         });
     }
-    
+
 }

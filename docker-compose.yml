@@ -85,6 +85,8 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+        placement:
+          constraints: [node.role == manager]
     ports:
       - 81:80
       - 443:443
@@ -93,11 +95,9 @@ services:
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - "./ssl/fullchain1.pem:/app/fullchain.pem"
-      - "./ssl/privkey1.pem:/app/privkey.pem"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
+      - ./ssl/fullchain1.pem:/app/fullchain.pem
+      - ./ssl/privkey1.pem:/app/privkey.pem
+
     command: 
       # - "--api.insecure=true"
       # - "--providers.docker=true"

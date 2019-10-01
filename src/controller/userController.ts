@@ -1,14 +1,14 @@
 
-module.exports.UserController = class {
+export class UserController {
     constructor(){
 
     }
 
-    getUser(id){
+    getUser(id: string){
 
     }
 
-    findUserByUid(uid){
+    findUserByUid(uid: string){
 
     }
 
