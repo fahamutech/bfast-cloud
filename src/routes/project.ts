@@ -1,5 +1,6 @@
+import {BFastCli} from "../cli";
+
 let projectRouter = require('express').Router();
-let cli = require('../cli').Cli;
 let path = require('path');
 
 /**
@@ -13,7 +14,7 @@ projectRouter.get('/', function (req: any, res: any) {
  * Get all project of a specific user
  */
 projectRouter.post('/all', function (request: any, respond: any) {
-    cli.database.getProjectsOfUser(request.body.uid).then((value: any) => {
+    BFastCli.database.getProjects(request.body.uid).then((value: any) => {
         respond.json(value);
     }).catch((reason: any) => {
         respond.status(400).json(reason);
@@ -25,7 +26,7 @@ projectRouter.post('/all', function (request: any, respond: any) {
  */
 projectRouter.post('/', function (request: any, respond: any) {
     const body = request.body;
-    cli.projects.createProject(body).then((value: any) => {
+    BFastCli.projects.createProject(body).then((value: any) => {
         delete value.fileUrl;
         respond.json(value);
     }).catch((reason: any) => {

@@ -1,9 +1,17 @@
-let UserController = require('./controller/userController').UserController;
-let ProjectController = require('./controller/projectController').ProjectController;
-let DatabaseController = require('./controller/databaseController').DatabaseController;
+import {UserController} from "./controller/userController";
+import {ProjectController} from "./controller/projectController";
+import {DatabaseController} from "./controller/databaseController";
 
-module.exports.Cli = {
-    user: new UserController(),
-    projects: new ProjectController(),
-    database: new DatabaseController(),
-};
+export class BFastCli {
+    static get user() {
+        return new UserController()
+    }
+
+    static get projects() {
+        return new ProjectController(this.database)
+    }
+
+    static get database() {
+        return new DatabaseController()
+    }
+}

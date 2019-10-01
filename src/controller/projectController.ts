@@ -1,34 +1,28 @@
 import {DatabaseController} from './databaseController'
 import * as path from 'path'
 import * as process from 'child_process'
+import {ProjectModel} from "../model/project";
 
 export class ProjectController {
     private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
     private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);
-    private database: DatabaseController;
 
-    constructor() {
-        this.database = new DatabaseController()
+    constructor(private readonly database: DatabaseController) {
     }
 
-    createProject(project: any) {
+    createProject(project: ProjectModel) {
         return new Promise((resolve, reject) => {
-            this.database.createProject({
-                name: project.name,
-                projectId: project.projectId,
-                description: project.description,
-                parse: project.parse,
-                isParse: project.isParse,
-                user: project.user
-            }).then((value: any) => {
+            this.database.createProject(project).then((value: ProjectModel) => {
                 if (value && value.isParse && value.parse.appId && value.parse.masterKey) {
+                    // @ts-ignore
                     value.fileUrl = this._PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
                 } else {
+                    // @ts-ignore
                     value.fileUrl = this._COMPOSE_FILE;
                     this._deployProjectInCluster(value, resolve, reject);
                 }
-            }).catch(reason => {
+            }).catch((reason: any) => {
                 reject(reason);
             });
         });

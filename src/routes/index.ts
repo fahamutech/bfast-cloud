@@ -1,3 +1,6 @@
+import {Request, Response} from "express";
+import * as path from 'path'
+
 let router = require('express').Router();
 // const Docker = require('dockerode');
 
@@ -28,8 +31,8 @@ let router = require('express').Router();
 // });
 
 /* GET home page. */
-router.get('/', function (req: any, res: any, next: any) {
-    res.render('index', {title: 'Express'});
+router.get('/', function (req: Request, res: Response) {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 module.exports = router;
