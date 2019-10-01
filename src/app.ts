@@ -1,3 +1,5 @@
+import {BFastCli} from "./cli";
+
 let express = require('express');
 let path1 = require('path');
 let cookieParser = require('cookie-parser');
@@ -26,3 +28,5 @@ app.use('/', index);
 app.use('/project', project);
 
 module.exports = app;
+
+BFastCli.database;

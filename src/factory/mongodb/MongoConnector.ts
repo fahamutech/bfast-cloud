@@ -11,11 +11,6 @@ export abstract class MongoConnector {
     };
 
     constructor() {
-
-
-        console.log(process.env);
-
-
         this.isDebug = process.env.debug || "false";
         this.DB_HOST = process.env.mdbhost || 'mdb';
         this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});
@@ -33,7 +28,7 @@ export abstract class MongoConnector {
     }
 
     private _initiateRs() {
-        if(this.isDebug === 'true'){
+        try {
             const repInterval = setInterval(async () => {
                 console.log('************initiate replica set******************');
                 try {
@@ -81,6 +76,8 @@ export abstract class MongoConnector {
                     console.log(e);
                 }
             }, 10000);
+        } catch (reason) {
+            console.log(reason)
         }
     }
 }
