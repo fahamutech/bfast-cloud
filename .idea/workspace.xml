@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" afterDir="false" />
-    </list>
+    <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +150,7 @@
       <workItem from="1568896088550" duration="422000" />
       <workItem from="1568896542127" duration="118000" />
       <workItem from="1569926812693" duration="7789000" />
-      <workItem from="1569934651457" duration="6267000" />
+      <workItem from="1569934651457" duration="6596000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -170,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569940550679</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refresh">
+      <created>1569940988827</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1569940988827</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +199,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update from js to typescript" />
     <MESSAGE value="add readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="add readme" />
+    <MESSAGE value="refresh" />
+    <option name="LAST_COMMIT_MESSAGE" value="refresh" />
   </component>
 </project>
