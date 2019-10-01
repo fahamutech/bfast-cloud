@@ -6,7 +6,7 @@
     "start": "tsc && node ./lib/www",
     "dev": "set debug=true && set mdbhost=localhost && ts-node-dev --respawn --transpileOnly ./src/www.ts",
     "build": "tsc",
-    "test": "mocha ./specs"
+    "test": "mocha --timeout 60000 ./specs"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
