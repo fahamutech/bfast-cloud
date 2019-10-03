@@ -12,15 +12,13 @@ export class ProjectController {
 
     createProject(project: ProjectModel) {
         return new Promise((resolve, reject) => {
-            this.database.createProject(project).then((value: ProjectModel) => {
-                if (value && value.isParse && value.parse.appId && value.parse.masterKey) {
-                    // @ts-ignore
+            this.database.insertProject(project).then((value: ProjectModel) => {
+                if (value && value.isParse === true && value.parse && value.parse.appId && value.parse.masterKey) {
                     value.fileUrl = this._PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
                 } else {
-                    // @ts-ignore
                     value.fileUrl = this._COMPOSE_FILE;
-                    this._deployProjectInCluster(value, resolve, reject);
+                    this._deploySpringProjectInCluster(value, resolve, reject);
                 }
             }).catch((reason: any) => {
                 reject(reason);
@@ -32,7 +30,7 @@ export class ProjectController {
 
     }
 
-    private _deployProjectInCluster(project: any, resolve: any, reject: any) {
+    private _deploySpringProjectInCluster(project: any, resolve: any, reject: any) {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,

@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/project.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/project.specs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compose/parse-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/compose/parse-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/databaseController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/project.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,7 +183,10 @@
       <workItem from="1569926812693" duration="7789000" />
       <workItem from="1569934651457" duration="6596000" />
       <workItem from="1569944707550" duration="127000" />
-      <workItem from="1569945565722" duration="2343000" />
+      <workItem from="1569945565722" duration="2369000" />
+      <workItem from="1569947938609" duration="380000" />
+      <workItem from="1569948323051" duration="6000" />
+      <workItem from="1570094259481" duration="1315000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -203,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569940988827</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update unit test">
+      <created>1569947922792</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1569947922792</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +243,7 @@
     <MESSAGE value="update from js to typescript" />
     <MESSAGE value="add readme" />
     <MESSAGE value="refresh" />
-    <option name="LAST_COMMIT_MESSAGE" value="refresh" />
+    <MESSAGE value="update unit test" />
+    <option name="LAST_COMMIT_MESSAGE" value="update unit test" />
   </component>
 </project>

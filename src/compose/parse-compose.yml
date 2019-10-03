@@ -99,6 +99,9 @@ services:
       - "traefik.backend.rule=PathPrefix:/faas"
       - "traefik.port=3000"
       - "traefik.protocol=http"
+    # environment:
+    #   - APPLICATION_ID=${appId}
+    #   - PROJECT_ID=${projectId}
 networks:
   bfastweb:
     # driver: overlay

@@ -12,4 +12,5 @@ export interface ProjectModel {
     parse: { appId: string; masterKey: string; };
     members: UserModel[] | [];
     user: UserModel;
+    fileUrl?: any
 }
