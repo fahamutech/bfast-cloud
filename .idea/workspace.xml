@@ -74,7 +74,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.bfastapp: Compose Deployment">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="docker-compose.yml.bfastapp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -175,7 +175,7 @@
       <workItem from="1569948323051" duration="6000" />
       <workItem from="1570094259481" duration="1490000" />
       <workItem from="1570198164085" duration="14501000" />
-      <workItem from="1570214995117" duration="660000" />
+      <workItem from="1570214995117" duration="1389000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -226,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570215440653</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix  compose file">
+      <created>1570215798007</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1570215798007</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

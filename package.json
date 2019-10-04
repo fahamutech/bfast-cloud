@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "start": "gulp && node ./lib/index.js",
+    "start": "node ./lib/index.js",
     "dev": "gulp devStart",
     "build": "gulp",
     "devInit": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
