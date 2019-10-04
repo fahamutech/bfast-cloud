@@ -2,11 +2,12 @@ version: "3.3"
 
 services:
   bfastapp:
-    image: joshuamshana/bfastcoreadmin
+    image: joshuamshana/bfast-ee:v0.0.3
     hostname: bfastapp
     restart: always
-    networks: 
+    networks:
       - bfastweb
+      - default
     ports:
       - 3000
     volumes:
@@ -20,47 +21,88 @@ services:
         - "traefik.frontend.rule=Host:cloud.bfast.fahamutech.com"
         - "traefik.port=3000"
         - "traefik.protocol=http"
-        # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
-        # - "traefik.admin.protocol=https"
-        # - "traefik.admin.port=9443"
       placement:
-        constraints: [node.role == manager]
-  mdbadmin:
+        constraints: [node.role == manager]  
+      restart_policy:
+        condition: any
+        delay: 2s
+  mdb:
     image: mongo:4-bionic
     hostname: mdb
-    restart: always
-    networks: 
-      - bfastweb
     volumes:
-      - 'mdbdata:/data/db'
+    - mdbdata:/data/db
+    restart: always
+    networks:
+      - default
+      - bfastweb
+    depends_on: 
+      - mdbrs1
+      - mdbrs2
     deploy:
       placement:
         constraints: [node.role == manager]
+      restart_policy:
+        condition: any
+        delay: 2s
+      # rollback_config:
+      #   failure_action: continue
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+  mdbrs1:
+    image: mongo:4-bionic
+    hostname: mdbrs1
+    volumes:
+    - mongodatars1:/data/db
+    networks:
+      - default
+      - bfastweb
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+  mdbrs2:
+    image: mongo:4-bionic
+    hostname: mdbrs2
+    volumes:
+    - mongodatars2:/data/db
+    networks:
+      - default
+      - bfastweb
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   traefik:
-    image: traefik:v1.7-alpine
+    image: traefik:v1.7
     hostname: traefik
     # container_name: "traefik"
     working_dir: /app
     restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+        placement:
+          constraints: [node.role == manager]
     ports:
       - 81:80
       - 443:443
     networks:
       - bfastweb
+      - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - ./traefik.toml:/traefik.toml
-      # - traefikdata:/app/
-      - "./ssl/fullchain1.pem:/app/fullchain.pem"
-      - "./ssl/privkey1.pem:/app/privkey.pem"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
+      - ./ssl/fullchain1.pem:/app/fullchain.pem
+      - ./ssl/privkey1.pem:/app/privkey.pem
+
     command: 
       # - "--api.insecure=true"
       # - "--providers.docker=true"
       - --logLevel=ERROR
-      - --defaultentrypoints=http,https #https
+      - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
       - --entryPoints=Name:https Address::443 TLS:/app/fullchain.pem,/app/privkey.pem
       - --retry
@@ -79,6 +121,8 @@ services:
 volumes:
   mdbdata:
   traefikdata:
+  mongodatars2:
+  mongodatars1:
 networks:
   bfastweb:
     # driver: overlay

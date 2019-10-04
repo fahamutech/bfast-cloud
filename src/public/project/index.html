@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>BFast::Projects</title>
+    <meta property="og:type" content="website">
+    <meta name="description" content="build mobile and web applcation easy and fast by using BFast ( be fast )">
+    <link rel="icon" type="image/svg+xml" sizes="undefinedxundefined" href="../assets/img/undraw_Organizing_projects_0p9a.svg?h=0c75e49f8c15a454a68f74871e0e15cb">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="manifest" href="../manifest.json?h=de92b147122df6ab1703c0a4eb484893">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
+    <link rel="stylesheet" href="../assets/css/Navigation-Clean.css?h=a55568e56685cd552da4c33b013ffda1">
+    <link rel="stylesheet" href="../assets/css/styles.css?h=d41d8cd98f00b204e9800998ecf8427e">
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" id="authBar">
+            <div class="container"><a class="navbar-brand" href="/">BFast Cloud</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                    id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="font-family: Roboto, sans-serif;font-weight: 400; display:none">Doc</a></li>
+                        <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-family: Roboto, sans-serif;font-weight: 500;">My Account</a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Profile</a>
+                                <div class="dropdown-divider" role="presentation"></div><a class="dropdown-item" role="presentation" href="#"></a><a class="dropdown-item" role="presentation" href="#" v-on:click="logout()">Logout</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <div class="d-xl-flex align-items-xl-center" style="background-color: #112151;height: 200px;"><img class="d-xl-flex" src="../assets/img/undraw_Organizing_projects_0p9a.svg?h=0c75e49f8c15a454a68f74871e0e15cb" height="90%" style="display: none!important;"></div>
+        <div class="container d-flex flex-row flex-wrap" id="projects" style="margin-top: -50px;">
+            <div class="border rounded shadow d-flex d-xl-flex flex-column justify-content-center align-items-center" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;"><i class="material-icons btn" style="font-size: 64px;color: #005bbf;">add</i><button class="btn btn-primary" type="button" style="font-family: Roboto, sans-serif;font-weight: 500;font-size: 19px;" data-toggle="modal" data-target="#newProject"
+                    data-backdrop="static" data-keyboard="false">New Project<br></button></div>
+            <div class="border rounded shadow d-flex flex-column btn" style="width: 200px;height: 200px;background-color: #ffffff;margin: 5px;cursor: pointer;" v-for="(project, index) in projects"
+                v-key="index">
+                <h4 class="text-break text-left" style="font-family: Roboto, sans-serif;font-weight: bold;margin: 0;padding: 8px;">{{project.name}}</h4>
+                <h5 class="text-left" style="font-family: Roboto, sans-serif;font-weight: 300;margin: 0;padding: 8px;">{{project.projectId}}</h5><i class="material-icons d-flex flex-fill align-items-xl-end" style="padding: 14px;color: #02448c;">code</i></div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="newProject" v-if="createProjectError">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h4 class="modal-title" style="padding: 17px;padding-bottom: 0;">New BFast Project</h4>
+                <hr style="width: 90%;">
+                <div class="modal-body" id="createProject">
+                    <p class="text-danger border rounded border-danger" style="font-family: Roboto, sans-serif;font-size: 17px;padding: 6px;background-color: rgba(237,96,96,0.06);" v-if="createProjectError">{{createProjectMessage}}</p>
+                    <p class="text-success border rounded border-success" style="font-family: Roboto, sans-serif;font-size: 17px;padding: 6px;background-color: rgba(40,167,69,0.07);" v-if="createProjectDone">Project Created</p>
+                    <form ref="createProjectForm">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Project name" v-model="project.name" required="" minlength="6"><span class="invalid-feedback">Project name is requires and must be more than 6 characters</span></div>
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Project Id" v-model="project.projectId" required="" minlength="6"><span class="invalid-feedback">Project id is requires and must be more than 6 characters</span></div>
+                        <div class="form-group">
+                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" v-model="project.isParse"><label class="form-check-label" for="formCheck-1">Initiate a parse project</label></div>
+                        </div>
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Application Id" required="" v-model="project.parse.appId" v-if="isParse"><span class="invalid-feedback">Please enter application id for your parse project must be atleast 8 characters</span></div>
+                        <div
+                            class="form-group"><input class="form-control" type="text" placeholder="Master Key" required="" v-model="project.parse.masterKey" v-if="isParse"><span class="invalid-feedback">Please enter&nbsp; master key for your parse project must be atleast 8 characters</span></div>
+                <div
+                    class="form-group"><textarea class="form-control form-control-lg" placeholder="Description" v-model="project.description" required="" minlength="8"></textarea><span class="invalid-feedback">Please leave a short note about this project, minimum characters is 8</span></div>
+            </form>
+            <div class="d-xl-flex justify-content-xl-end align-items-xl-center"><button class="btn btn-light" type="button" data-dismiss="modal" ref="closeButton" style="margin-right: 10px;" v-if="!createProgressFlag">Close</button><button class="btn btn-primary d-flex justify-content-center align-items-center" type="button"
+                    ref="createButton" v-on:click="createProject()">Create<span class="spinner-border spinner-border-sm" role="status" style="margin: 4px;" v-if="showProgress"></span></button></div>
+        </div>
+        <div class="modal-footer"></div>
+    </div>
+    </div>
+    </div>
+    <div class="d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center" id="loader" style="top: 0;position: absolute;bottom: 0;left: 0;right: 0;background-color: #02448c;" v-if="showLoader"><span class="spinner-grow text-white d-flex" role="status" style="width: 60px;height: 60px;"></span></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+    <script src="../assets/js/project/project.js?h=cdb029d4aca979dd5423c2e66d3624a5"></script>
+</body>
+
+</html>
