@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.npmrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compose/parse-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/compose/parse-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/databaseController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/www.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -79,20 +82,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.Project">
-    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="buildCliOptions" value="" />
-          <option name="buildOnly" value="true" />
-          <option name="command" value="" />
-          <option name="containerName" value="" />
-          <option name="entrypoint" value="" />
-          <option name="imageTag" value="" />
-          <option name="commandLineOptions" value="" />
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
+  <component name="RunManager" selected="npm.start">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
       <method v="2" />
     </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -100,6 +98,16 @@
       <command value="run" />
       <scripts>
         <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="devInit" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="devInit" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -130,29 +138,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Project.should accept a simple test" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/specs/project.specs.js</test-file>
-      <test-names>
-        <name value="Project" />
-        <name value="should accept a simple test" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Mocha.Project" />
-        <item itemvalue="Mocha.Project.should accept a simple test" />
-        <item itemvalue="npm.dev" />
         <item itemvalue="npm.start" />
-        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.devInit" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.Project" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +178,8 @@
       <workItem from="1569945565722" duration="2369000" />
       <workItem from="1569947938609" duration="380000" />
       <workItem from="1569948323051" duration="6000" />
-      <workItem from="1570094259481" duration="1315000" />
+      <workItem from="1570094259481" duration="1490000" />
+      <workItem from="1570198164085" duration="14501000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -216,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569947922792</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update unit test">
+      <created>1570095626353</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1570095626353</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

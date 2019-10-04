@@ -14,7 +14,9 @@ export abstract class MongoConnector {
         this.isDebug = process.env.debug || "false";
         this.DB_HOST = process.env.mdbhost || 'mdb';
         this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});
-        this._initiateRs();
+        if (this.isDebug !== 'true') {
+            this._initiateRs();
+        }
     }
 
     getConnection(): Promise<MongoClient> {

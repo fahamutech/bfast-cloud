@@ -1,12 +1,14 @@
 {
   "name": "bfastcoreadmin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
-    "start": "tsc && node ./lib/www",
-    "dev": "set debug=true && set mdbhost=localhost && ts-node-dev --respawn --transpileOnly ./src/www.ts",
-    "build": "tsc",
-    "test": "mocha --timeout 60000 ./specs"
+    "start": "gulp && node ./lib/index.js",
+    "dev": "gulp devStart",
+    "build": "gulp",
+    "devInit": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "test": "mocha --timeout 60000 ./specs",
+    "publishToDocker": "gulp pubishDockerImage"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -21,6 +23,7 @@
     "@types/mongodb": "^3.3.4",
     "@types/node": "^12.7.8",
     "chai": "^4.2.0",
+    "gulp": "^4.0.2",
     "mocha": "^6.2.1",
     "mongodb-memory-server-core": "^5.2.6",
     "ts-node-dev": "^1.0.0-pre.43",
