@@ -85,8 +85,8 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-        placement:
-          constraints: [node.role == manager]
+      placement:
+        constraints: [node.role == manager]
     ports:
       - 81:80
       - 443:443
