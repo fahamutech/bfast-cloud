@@ -34,7 +34,6 @@ export abstract class MongoProjectDatabase extends MongoConnector implements Pro
                     project.id = result.insertedId as string;
                     resolve(project);
                 } catch (reason) {
-                    console.log(reason.toString());
                     let message;
                     if (reason.code && reason.code == 11000) {
                         const date = Date.now().toString();

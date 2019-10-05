@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="" />
+    <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="update package file">
+      <change afterPath="$PROJECT_DIR$/src/factory/Configurable.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/project.ts" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -76,7 +84,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.Dockerfile">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
@@ -130,11 +138,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.dev" />
         <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="npm.build" />
         <item itemvalue="Docker.docker-compose.yml.bfastapp: Compose Deployment" />
         <item itemvalue="npm.start" />
-        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -265,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570216402527</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="update package file">
+      <created>1570257489231</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1570257489231</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

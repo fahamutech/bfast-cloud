@@ -1,9 +1,8 @@
 import {MongoClient} from "mongodb";
+import {Configurable} from "../Configurable";
 
-export abstract class MongoConnector {
+export abstract class MongoConnector extends Configurable{
     private readonly mongoClient: MongoClient;
-    private readonly DB_HOST: string;
-    private readonly isDebug: string;
     DB_NAME = '_BFAST_ADMIN';
     collectionNames = {
         user: '_User',
@@ -11,9 +10,12 @@ export abstract class MongoConnector {
     };
 
     constructor() {
-        this.isDebug = process.env.debug || "false";
-        this.DB_HOST = process.env.mdbhost || 'mdb';
-        this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});
+        super();
+        if (this.DB_HOST === 'mdb') {
+            this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});
+        } else {
+            this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true});
+        }
         if (this.isDebug !== 'true') {
             this._initiateRs();
         }
@@ -21,12 +23,16 @@ export abstract class MongoConnector {
 
     getConnection(): Promise<MongoClient> {
         return new Promise(async (resolve, reject) => {
-            if (this.mongoClient.isConnected()) {
-                return this.mongoClient;
-            } else {
-                return await this.mongoClient.connect();
+            try {
+                if (this.mongoClient.isConnected()) {
+                    resolve(this.mongoClient);
+                } else {
+                    resolve(this.mongoClient.connect());
+                }
+            } catch (e) {
+                reject(e);
             }
-        })
+        });
     }
 
     private _initiateRs() {

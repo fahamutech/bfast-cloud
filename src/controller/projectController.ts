@@ -2,12 +2,14 @@ import {DatabaseController} from './databaseController'
 import * as path from 'path'
 import * as process from 'child_process'
 import {ProjectModel} from "../model/project";
+import {Configurable} from "../factory/Configurable";
 
-export class ProjectController {
+export class ProjectController extends Configurable {
     private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
     private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);
 
     constructor(private readonly database: DatabaseController) {
+        super();
     }
 
     createProject(project: ProjectModel) {
@@ -21,24 +23,33 @@ export class ProjectController {
                     this._deploySpringProjectInCluster(value, resolve, reject);
                 }
             }).catch((reason: any) => {
+                console.log(reason);
                 reject(reason);
             });
         });
     }
 
-    deleteProject(project: any) {
-
+    async deleteProject(project: ProjectModel): Promise<any> {
+        try {
+            if (project && project.id && project.projectId) {
+                return await this.database.deleteProject(project.id, project.projectId)
+            } else {
+                throw {message: 'please provide enough information'};
+            }
+        } catch (e) {
+            return await Promise.reject(e)
+        }
     }
 
     private _deploySpringProjectInCluster(project: any, resolve: any, reject: any) {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,
-                docker: '/usr/local/bin/docker'
+                docker: this.dockerSocket
             }
         }, async (error, stdout, stderr) => {
             if (error) {
-                console.log('erorr====>> ' + stderr);
+                console.log('error ====>> ' + stderr);
                 // delete created project
                 try {
                     await this.database.deleteProject(project.id, project.projectId);
@@ -48,7 +59,6 @@ export class ProjectController {
                     reject({message: 'Project not created', reason: stderr.toString()});
                 }
             } else {
-                console.log(stdout.toString());
                 resolve({message: 'Project created'});
             }
         });
@@ -62,11 +72,11 @@ export class ProjectController {
                 userEmail: project.user.email,
                 appId: project.parse.appId,
                 masterKey: project.parse.masterKey,
-                docker: '/usr/local/bin/docker'
+                docker: this.dockerSocket
             }
         }, async (error, stdout, stderr) => {
             if (error) {
-                console.log('erorr====>> ' + stderr);
+                console.log('error====>> ' + stderr);
                 // delete created project
                 try {
                     await this.database.deleteProject(project.id, project.projectId);

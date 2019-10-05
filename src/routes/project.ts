@@ -18,7 +18,7 @@ projectRouter.post('/all', function (request: any, respond: any) {
         respond.json(value);
     }).catch((reason: any) => {
         respond.status(400).json(reason);
-    })
+    });
 });
 
 /**
