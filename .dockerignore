@@ -8,3 +8,4 @@ docker-compose.yml
 traefik.toml
 *.bsdesign
 specs
+tsconfig.json

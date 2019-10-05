@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +75,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="Docker.Dockerfile">
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="docker-compose.yml.bfastapp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -108,16 +117,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="devInit" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="devInit" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -130,11 +129,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="npm.build" />
         <item itemvalue="Docker.docker-compose.yml.bfastapp: Compose Deployment" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.dev" />
-        <item itemvalue="npm.devInit" />
-        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -142,16 +141,40 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@7d956064" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
     </option>
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@9e1a354" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@9e1a354" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@2095bfe5" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+          <option name="viewType" value="contributor" />
+          <option name="roots">
+            <list>
+              <ServiceState>
+                <option name="contributor" value="com.intellij.docker.view.DockerServiceViewContributor" />
+              </ServiceState>
+            </list>
+          </option>
+        </serviceView>
+      </list>
+    </option>
+    <option name="selectedView" value="0" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -175,7 +198,8 @@
       <workItem from="1569948323051" duration="6000" />
       <workItem from="1570094259481" duration="1490000" />
       <workItem from="1570198164085" duration="14501000" />
-      <workItem from="1570214995117" duration="1389000" />
+      <workItem from="1570214995117" duration="2020000" />
+      <workItem from="1570222769610" duration="2191000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -233,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570215798007</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="update package file">
+      <created>1570216402527</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1570216402527</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,6 +294,7 @@
     <MESSAGE value="update unit test" />
     <MESSAGE value="update project to typescript" />
     <MESSAGE value="fix  compose file" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix  compose file" />
+    <MESSAGE value="update package file" />
+    <option name="LAST_COMMIT_MESSAGE" value="update package file" />
   </component>
 </project>

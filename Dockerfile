@@ -21,5 +21,5 @@ COPY *.json ./
 #RUN apt-get install -y nodejs
 RUN apk add --update nodejs npm docker-compose
 RUN npm ci --only=production
-COPY ./lib .
+COPY ./lib ./lib
 CMD ["npm","start"]
