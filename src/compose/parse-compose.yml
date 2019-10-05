@@ -77,7 +77,7 @@ services:
     hostname: ${projectId}_faas
     restart: always
     volumes:
-    - faasdata:/faas/function
+    - faasdata:/faas/src/function
     networks:
       - default
       - bfastweb # to access mdb

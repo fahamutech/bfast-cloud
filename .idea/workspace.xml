@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="update package file">
-      <change afterPath="$PROJECT_DIR$/src/factory/Configurable.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/project.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -155,34 +149,6 @@
         </treeState>
       </serviceView>
     </option>
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@9e1a354" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@9e1a354" type="9fbbdea:ServiceModel$ServiceNode" />
-                <item name="com.intellij.execution.services.ServiceModel$ServiceNode@2095bfe5" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
-            <select />
-          </treeState>
-          <option name="viewType" value="contributor" />
-          <option name="roots">
-            <list>
-              <ServiceState>
-                <option name="contributor" value="com.intellij.docker.view.DockerServiceViewContributor" />
-              </ServiceState>
-            </list>
-          </option>
-        </serviceView>
-      </list>
-    </option>
     <option name="selectedView" value="0" />
   </component>
   <component name="SvnConfiguration">
@@ -209,6 +175,8 @@
       <workItem from="1570198164085" duration="14501000" />
       <workItem from="1570214995117" duration="2020000" />
       <workItem from="1570222769610" duration="2191000" />
+      <workItem from="1570286894169" duration="426000" />
+      <workItem from="1570288965084" duration="399000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -280,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570257489231</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update package file">
+      <created>1570265885777</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1570265885778</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
