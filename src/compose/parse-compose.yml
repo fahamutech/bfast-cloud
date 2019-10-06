@@ -73,7 +73,7 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas:v1.4.10
+    image: joshuamshana/bfastfaas:v1.5.0
     hostname: ${projectId}_faas
     restart: always
     volumes:
