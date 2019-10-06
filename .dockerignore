@@ -9,7 +9,6 @@ traefik.toml
 *.bsdesign
 specs
 tsconfig.json
-lib
 design
 CHANGELOG.md
 Dockerfile
