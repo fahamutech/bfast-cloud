@@ -73,11 +73,11 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas:v1.4.10
+    image: joshuamshana/bfastfaas:v1.5.0
     hostname: ${projectId}_faas
     restart: always
     volumes:
-    - faasdata:/faas/function
+    - faasdata:/faas/src/function
     networks:
       - default
       - bfastweb # to access mdb
@@ -96,12 +96,12 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${projectId}_faas.bfast.fahamutech.com"
       # - "traefik.backend=${projectId}_faas"
-      - "traefik.backend.rule=PathPrefix:/faas"
+      # - "traefik.backend.rule=PathPrefix:/faas"
       - "traefik.port=3000"
       - "traefik.protocol=http"
-    # environment:
-    #   - APPLICATION_ID=${appId}
-    #   - PROJECT_ID=${projectId}
+    environment:
+      - APPLICATION_ID=${appId}
+      - PROJECT_ID=${projectId}
 networks:
   bfastweb:
     # driver: overlay

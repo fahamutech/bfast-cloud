@@ -1,2 +1,3 @@
-# BFastCore Admin
+# bfast-ee
 
+BFast enterprises edition platform
