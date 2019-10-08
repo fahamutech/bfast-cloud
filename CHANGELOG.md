@@ -1,3 +1,7 @@
+# v0.0.4-beta1
+
+* Update faas engine to v1.5.0-beta4
+
 # v0.0.4
 
 * Update faas engine to accept appId for client authentication

@@ -4,12 +4,15 @@ const MongoMemoryServer = require('mongodb-memory-server-core').MongoMemoryServe
 let mongoReplica;
 let mongoServer;
 
-describe("Project", function () {
+describe("Intergration test for project", function () {
 
     before(async () => {
-        mongoServer = new MongoMemoryServer();
+        mongoServer = new MongoMemoryServer({
+            autoStart: true,
+        });
         const res = await mongoServer.getConnectionString();
-        console.log(res);
+        process.env.debug = true;
+        process.env.mdbhost = res;
     });
 
     after(async () => {
@@ -17,6 +20,9 @@ describe("Project", function () {
     });
 
     it('should accept a simple test', function () {
-        assert(true)
+        console.log(process.env.mdbhost);
+        console.log(process.env.debug);
+        assert(true);
     });
+    
 });

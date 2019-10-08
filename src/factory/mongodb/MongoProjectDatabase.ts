@@ -3,6 +3,11 @@ import {ProjectModel} from "../../model/project";
 import {MongoConnector} from "./MongoConnector";
 
 export abstract class MongoProjectDatabase extends MongoConnector implements ProjectDatabaseAdapter {
+
+    constructor(){
+        super();
+    }
+
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
             if (project &&
@@ -88,4 +93,5 @@ export abstract class MongoProjectDatabase extends MongoConnector implements Pro
             }
         });
     }
+
 }

@@ -5,6 +5,7 @@ import {ProjectModel} from "../model/project";
 import {Configurable} from "../factory/Configurable";
 
 export class ProjectController extends Configurable {
+ 
     private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
     private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);
 

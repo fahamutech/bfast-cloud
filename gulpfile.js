@@ -83,13 +83,12 @@ function publishDockerImage() {
 
 function startDevServer() {
     return new Promise((resolve, reject) => {
-        // set debug=true && set mdbhost=localhost &&
         const d = process.execSync('which docker');
         console.log(d.toString());
         const devStartProcess = process.exec(`npm run devInit`, {
             env: {
                 debug: true,
-                mdbhost: "mongodb://localhost:27017/_BFAST",
+                mdbhost: "mongodb://localhost:27017/_BFAST_ADMIN",
                 dSocket: d.toString()
             }
         });
