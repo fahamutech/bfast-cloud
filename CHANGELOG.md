@@ -1,3 +1,9 @@
+# v0.0.4-alpha1
+
+Update release version to alpha stage.
+
+* Update url structure from `https://${projectId}_COMPONENT.bfast.fahamutech.com` to `https://${projectId}-COMPONENT.bfast.fahamutech.com` for example to `https://demo-daas.bfast.fahamutech.com`. Because in android '_' its invalid character in url.
+
 # v0.0.4-beta1
 
 * Update faas engine to v1.5.0-beta4
