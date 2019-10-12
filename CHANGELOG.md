@@ -1,3 +1,7 @@
+# v0.0.4-alpha2
+
+Updae faas engine to use v1.5.0-alpha1
+
 # v0.0.4-alpha1
 
 Update release version to alpha stage.
