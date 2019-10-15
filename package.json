@@ -1,6 +1,6 @@
 {
   "name": "bfastcoreadmin",
-  "version": "0.0.4-alpha1",
+  "version": "0.0.5-alpha",
   "private": true,
   "scripts": {
     "start": "node ./lib/index.js",

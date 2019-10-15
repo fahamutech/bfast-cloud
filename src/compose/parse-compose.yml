@@ -15,7 +15,7 @@ services:
         delay: 2s
       resources:
         limits:
-          memory: 256M
+          memory: 125M
       labels:
       - "traefik.docker.network=bfastweb"
       - "traefik.enable=true"
@@ -52,7 +52,7 @@ services:
       resources:
         limits:
           # cpus: '0.50'
-          memory: 256M
+          memory: 125M
         # reservations:
         #   cpus: '0.25'
         #   memory: 20M
@@ -73,7 +73,7 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas:v1.5.0-alpha1
+    image: joshuamshana/bfastfaas:v1.7.0-alpha
     hostname: ${projectId}-faas
     restart: always
     # volumes:
@@ -85,7 +85,7 @@ services:
       resources:
         limits:
           # cpus: '0.50'
-          memory: 256M
+          memory: 125M
       restart_policy:
         condition: any
         delay: 2s

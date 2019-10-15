@@ -1,3 +1,9 @@
+# v0.0.5-alpha
+
+* Updae faas engine to use v1.7.0-alpha to improve deployment of functions
+
+* reduce unit memory unit for each service from 256MB to 125MB
+
 # v0.0.4-alpha2
 
 Updae faas engine to use v1.5.0-alpha1
