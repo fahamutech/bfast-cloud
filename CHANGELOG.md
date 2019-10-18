@@ -1,12 +1,21 @@
+# v0.0.6-alpha
+
+* Update faas engine to v1.7.1-alpha which fix deploy problems and 
+add names route to give out functions names
+   ```shell script
+  # example
+  curl https://<PROJECT_ID>-faas.bfast.fahamutech.com/names -H'bfast-application-id:<PROJECT_ID>'
+   ```
+
 # v0.0.5-alpha
 
-* Updae faas engine to use v1.7.0-alpha to improve deployment of functions
+* Update faas engine to use v1.7.0-alpha to improve deployment of functions
 
 * reduce unit memory unit for each service from 256MB to 125MB
 
 # v0.0.4-alpha2
 
-Updae faas engine to use v1.5.0-alpha1
+Update faas engine to use v1.5.0-alpha1
 
 # v0.0.4-alpha1
 
