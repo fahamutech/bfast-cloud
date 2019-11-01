@@ -73,7 +73,7 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas:v1.7.0-alpha
+    image: joshuamshana/bfastfaas:v1.7.2
     hostname: ${projectId}-faas
     restart: always
     # volumes:
@@ -85,7 +85,7 @@ services:
       resources:
         limits:
           # cpus: '0.50'
-          memory: 125M
+          memory: 175M
       restart_policy:
         condition: any
         delay: 2s

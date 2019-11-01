@@ -4,7 +4,7 @@ import {MongoConnector} from "./MongoConnector";
 
 export abstract class MongoProjectDatabase extends MongoConnector implements ProjectDatabaseAdapter {
 
-    constructor(){
+    protected constructor(){
         super();
     }
 

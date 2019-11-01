@@ -17,7 +17,7 @@ projectRouter.post('/all', function (request: any, respond: any) {
     BFastCli.database.getProjects(request.body.uid).then((value: any) => {
         respond.json(value);
     }).catch((reason: any) => {
-        respond.status(400).json(reason);
+        respond.status(404).json(reason);
     });
 });
 
@@ -32,6 +32,12 @@ projectRouter.post('/', function (request: any, respond: any) {
     }).catch((reason: any) => {
         respond.status(400).json(reason);
     });
+});
+
+// @ts-ignore
+projectRouter.delete('/delete/:id', function (request, respond) {
+    const projectId = request.params.id;
+    respond.json({projectId});
 });
 
 module.exports = projectRouter;

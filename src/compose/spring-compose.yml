@@ -1,68 +1,68 @@
-version: '3.3'
-services:
-  ide:
-    image: joshuamshana/bfastcore
-    hostname: ide
-    volumes:
-    - idedata:/ide/src/spring
-    - mongodata:/ide/mongo/data:ro
-    networks:
-      - default
-    restart: always
-  web:
-    image: joshuamshana/bfastnginx
-    hostname: web
-    labels: 
-      - "traefik.docker.network=bfastweb"
-    deploy:
-      labels:
-      - "traefik.docker.network=bfastweb"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-      - "traefik.port=80"
-      - "traefik.protocol=http"
-      # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
-      # - "traefik.admin.protocol=https"
-      # - "traefik.admin.port=9443"
-    networks:
-      - bfastweb
-      - default
-    expose:
-    - "80" # replace ports with your own
-    restart: always
-    depends_on: 
-      - mdb
-      - mdbrs1
-      - mdbrs2
-      - ide
-      - faas
-  daas:
-    image: joshuamshana/bfastdaas
-    hostname: daas
-    restart: always
-    volumes:
-    # - daasdata:/app
-    - idedata:/ide:ro
-    networks:
-      - default
-  faas:
-    image: joshuamshana/bfastfaas
-    hostname: faas
-    restart: always
-    volumes: 
-    - faasdata:/faas
-    networks:
-      - default
-networks:
-  bfastweb:
-    # driver: overlay
-    # attachable: true
-    external: true
-volumes: 
-  idedata: {}
-  mongodata: {}
-  mongodatars1: {}
-  mongodatars2: {}
-  daasdata: {}
-  faasdata: {}
-  webdata: {}
+#version: '3.3'
+#services:
+#  ide:
+#    image: joshuamshana/bfastcore
+#    hostname: ide
+#    volumes:
+#    - idedata:/ide/src/spring
+#    - mongodata:/ide/mongo/data:ro
+#    networks:
+#      - default
+#    restart: always
+#  web:
+#    image: joshuamshana/bfastnginx
+#    hostname: web
+#    labels:
+#      - "traefik.docker.network=bfastweb"
+#    deploy:
+#      labels:
+#      - "traefik.docker.network=bfastweb"
+#      - "traefik.enable=true"
+#      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
+#      - "traefik.port=80"
+#      - "traefik.protocol=http"
+#      # - "traefik.admin.frontend.rule=Host:admin-app.my-awesome-app.org"
+#      # - "traefik.admin.protocol=https"
+#      # - "traefik.admin.port=9443"
+#    networks:
+#      - bfastweb
+#      - default
+#    expose:
+#    - "80" # replace ports with your own
+#    restart: always
+#    depends_on:
+#      - mdb
+#      - mdbrs1
+#      - mdbrs2
+#      - ide
+#      - faas
+#  daas:
+#    image: joshuamshana/bfastdaas
+#    hostname: daas
+#    restart: always
+#    volumes:
+#    # - daasdata:/app
+#    - idedata:/ide:ro
+#    networks:
+#      - default
+#  faas:
+#    image: joshuamshana/bfastfaas
+#    hostname: faas
+#    restart: always
+#    volumes:
+#    - faasdata:/faas
+#    networks:
+#      - default
+#networks:
+#  bfastweb:
+#    # driver: overlay
+#    # attachable: true
+#    external: true
+#volumes:
+#  idedata: {}
+#  mongodata: {}
+#  mongodatars1: {}
+#  mongodatars2: {}
+#  daasdata: {}
+#  faasdata: {}
+#  webdata: {}

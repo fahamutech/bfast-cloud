@@ -5,7 +5,7 @@ import {ProjectModel} from "../model/project";
 import {Configurable} from "../factory/Configurable";
 
 export class ProjectController extends Configurable {
- 
+
     private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
     private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);
 
@@ -20,8 +20,9 @@ export class ProjectController extends Configurable {
                     value.fileUrl = this._PARSE_COMPOSE_FILE;
                     this._deployParseProjectInCluster(value, resolve, reject);
                 } else {
-                    value.fileUrl = this._COMPOSE_FILE;
-                    this._deploySpringProjectInCluster(value, resolve, reject);
+                    // value.fileUrl = this._COMPOSE_FILE;
+                    // this._deploySpringProjectInCluster(value, resolve, reject);
+                    reject('spring boot based project is not supported anymore');
                 }
             }).catch((reason: any) => {
                 console.log(reason);
@@ -65,7 +66,7 @@ export class ProjectController extends Configurable {
         });
     }
 
-    private _deployParseProjectInCluster(project: any, resolve: any, reject: any) {
+    private _deployParseProjectInCluster(project: ProjectModel, resolve: any, reject: any) {
         process.exec(`$docker stack deploy -c ${project.fileUrl} ${project.projectId}`, {
             env: {
                 projectId: project.projectId,
@@ -80,6 +81,7 @@ export class ProjectController extends Configurable {
                 console.log('error====>> ' + stderr);
                 // delete created project
                 try {
+                    // @ts-ignore
                     await this.database.deleteProject(project.id, project.projectId);
                     reject({message: 'Project not created', reason: stderr.toString()});
                 } catch (e) {

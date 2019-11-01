@@ -1,3 +1,7 @@
+# v0.0.7
+
+* Update faas engine to v1.7.2 to make cloud function flexible to accept any callback include express app instance or express route instance
+
 # v0.0.6-alpha
 
 * Update faas engine to v1.7.1-alpha which fix deploy problems and 
