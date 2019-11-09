@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   bfastapp:
-    image: joshuamshana/bfast-ee:v0.0.8
+    image: joshuamshana/bfast-ee:v0.1.0
     hostname: bfastapp
     restart: always
     networks:
@@ -12,17 +12,17 @@ services:
       - 3000
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-    labels: 
-        - "traefik.docker.network=bfastweb"
+    labels:
+      - "traefik.docker.network=bfastweb"
     deploy:
-      labels: 
+      labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:cloud.bfast.fahamutech.com"
         - "traefik.port=3000"
         - "traefik.protocol=http"
       placement:
-        constraints: [node.role == manager]  
+        constraints: [node.role == manager]
       restart_policy:
         condition: any
         delay: 2s
@@ -30,12 +30,12 @@ services:
     image: mongo:4-bionic
     hostname: mdb
     volumes:
-    - mdbdata:/data/db
+      - mdbdata:/data/db
     restart: always
     networks:
       - default
       - bfastweb
-    depends_on: 
+    depends_on:
       - mdbrs1
       - mdbrs2
     deploy:
@@ -51,7 +51,7 @@ services:
     image: mongo:4-bionic
     hostname: mdbrs1
     volumes:
-    - mongodatars1:/data/db
+      - mongodatars1:/data/db
     networks:
       - default
       - bfastweb
@@ -65,7 +65,7 @@ services:
     image: mongo:4-bionic
     hostname: mdbrs2
     volumes:
-    - mongodatars2:/data/db
+      - mongodatars2:/data/db
     networks:
       - default
       - bfastweb
@@ -98,7 +98,7 @@ services:
       - ./ssl/fullchain1.pem:/app/fullchain.pem
       - ./ssl/privkey1.pem:/app/privkey.pem
 
-    command: 
+    command:
       # - "--api.insecure=true"
       # - "--providers.docker=true"
       - --logLevel=ERROR

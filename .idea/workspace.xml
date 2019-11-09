@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +183,7 @@
       <workItem from="1571900132071" duration="1358000" />
       <workItem from="1572332951322" duration="2540000" />
       <workItem from="1573299658119" duration="233000" />
-      <workItem from="1573299944612" duration="3930000" />
+      <workItem from="1573299944612" duration="5311000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
@@ -274,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573303691953</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="update change log">
+      <created>1573303888592</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1573303888592</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +316,7 @@
     <MESSAGE value="update package file" />
     <MESSAGE value="update faas engine to v1.7.1-alpha" />
     <MESSAGE value="add deploy route endpoint and update faas engine to v1.8.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="add deploy route endpoint and update faas engine to v1.8.0" />
+    <MESSAGE value="update change log" />
+    <option name="LAST_COMMIT_MESSAGE" value="update change log" />
   </component>
 </project>

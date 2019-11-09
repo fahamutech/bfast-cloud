@@ -81,6 +81,28 @@ function publishDockerImage() {
     })
 }
 
+function publishDockerImageLatest() {
+    return new Promise((resolve, reject) => {
+        console.log('start publish docker image');
+        const publishDockerImageProcess = process.exec(`sudo docker push joshuamshana/bfast-ee:latest`);
+        publishDockerImageProcess.on("error", err => {
+            console.log(err);
+            reject(err);
+        });
+        publishDockerImageProcess.on("exit", (code, signal) => {
+            console.log(`build done with code: ${code} and signal: ${signal}`);
+            resolve();
+        });
+        publishDockerImageProcess.stdout.on('data', (data) => {
+            console.log(data);
+        });
+        publishDockerImageProcess.stderr.on('data', (data) => {
+            console.log(data);
+        });
+        console.log('publish docker image succeed');
+    })
+}
+
 function startDevServer() {
     return new Promise((resolve, reject) => {
         const d = process.execSync('which docker');
@@ -112,5 +134,6 @@ function startDevServer() {
 
 exports.devStart = gulp.series(startDevServer);
 exports.copyResiurceFolders = gulp.series(copyStaticFiles, copyComposeFiles);
-exports.pubishDockerImage = gulp.series(build, copyStaticFiles, copyComposeFiles, buildDocker, publishDockerImage);
+exports.pubishDockerImage = gulp.series(build, copyStaticFiles, copyComposeFiles,
+    buildDocker, publishDockerImage, publishDockerImageLatest);
 exports.default = gulp.series(build, copyStaticFiles, copyComposeFiles, buildDocker);
