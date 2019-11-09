@@ -1,6 +1,15 @@
 # v0.1.0
 
-* Shift deploy endpoint to bfast-ee from individual function.
+* Shift deploy endpoint to bfast-ee from individual function. Now you 
+can deploy your cloud function like this
+```shell script
+curl https://cloud.bfast.fahamutech.com/deploy/functions/<projectName>?force=< true | false>
+```
+Or by using bfast-tools form npm
+
+```shell script
+~$ bfast functions --deploy
+```
 * Update faas engine to v1.8.0 ( see [BFastFunction project](https://github.com/fahamutech/BFastFunction)  for more details on what changes )
 * All functions now must ne written in this format
 ```javascript
