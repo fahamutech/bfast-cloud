@@ -9,7 +9,7 @@ export abstract class MongoConnector extends Configurable{
         project: '_Project'
     };
 
-    constructor() {
+    protected constructor() {
         super();
         if (this.DB_HOST === 'mdb') {
             this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});

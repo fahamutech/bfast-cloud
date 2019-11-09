@@ -1,3 +1,17 @@
+# v0.1.0
+
+* Shift deploy endpoint to bfast-ee from individual function.
+* Update faas engine to v1.8.0 ( see [BFastFunction project](https://github.com/fahamutech/BFastFunction)  for more details on what changes )
+* All functions now must ne written in this format
+```javascript
+exports.functionName = {
+    onRequest: (request, response)=>{
+        // business logic
+        response.send("send back response");
+    }
+}
+``` 
+
 # v0.0.7
 
 * Update faas engine to v1.7.2 to make cloud function flexible to accept any callback include express app instance or express route instance

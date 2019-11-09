@@ -1,6 +1,7 @@
 import {UserController} from "./controller/userController";
 import {ProjectController} from "./controller/projectController";
 import {DatabaseController} from "./controller/databaseController";
+import {DeployController} from "./controller/deployController";
 
 export class BFastCli {
     static get user() {
@@ -13,5 +14,9 @@ export class BFastCli {
 
     static get database() {
         return new DatabaseController()
+    }
+
+    static get deploy() {
+        return new DeployController()
     }
 }

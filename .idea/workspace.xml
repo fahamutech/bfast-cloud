@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/deployController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/deploy.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compose/parse-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/compose/parse-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compose/spring-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/compose/spring-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compose/wordpress-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/compose/wordpress-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +190,8 @@
       <workItem from="1571357774933" duration="2391000" />
       <workItem from="1571900132071" duration="1358000" />
       <workItem from="1572332951322" duration="2540000" />
+      <workItem from="1573299658119" duration="233000" />
+      <workItem from="1573299944612" duration="3614000" />
     </task>
     <task id="LOCAL-00001" summary="update from js to typescript">
       <created>1569934151328</created>
