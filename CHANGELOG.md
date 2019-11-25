@@ -1,3 +1,30 @@
+# v0.2.0
+
+Add support for update faas engine environment variables and update faas deploy routes
+
+#### Updated
+* To deploy functions
+```shell script
+john@doe:~$ https://cloud.bfast.fahamutech.com/functions/:projectId/deploy?force=< true | false>
+```
+
+#### Whats New
+* To add env to faas instance
+```shell script
+john@doe:~$ https://cloud.bfast.fahamutech.com/functions/:projectId/env?force=< true | false> -XPOST -H"content-type:application/json" -d'{"envs:["name=john"}'
+```
+
+* To remove env to faas instance
+```shell script
+john@doe:~$ https://cloud.bfast.fahamutech.com/functions/:projectId/env?force=< true | false> -XDELETE -H"content-type:application/json" -d'{"envs:["name"}'
+```
+
+#### Deprecated
+This route is deprecated and will be removed in v1.0.0
+```shell script
+curl https://cloud.bfast.fahamutech.com/deploy/functions/<projectName>?force=< true | false>
+```
+
 # v0.1.0
 
 * Shift deploy endpoint to bfast-ee from individual function. Now you 
@@ -11,7 +38,7 @@ Or by using bfast-tools form npm
 ~$ bfast functions --deploy
 ```
 * Update faas engine to v1.8.0 ( see [BFastFunction project](https://github.com/fahamutech/BFastFunction)  for more details on what changes )
-* All functions now must ne written in this format
+* All functions now must be written in this format
 ```javascript
 exports.functionName = {
     onRequest: (request, response)=>{

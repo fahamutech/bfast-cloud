@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/bfast-ee.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapters/dockerI.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/dockerController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/functionsController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BFastCoreAdmin.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mama2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/databaseController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/deployController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/deployController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/Configurable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/configurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/mongoDbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/mongoProjectDatabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/deploy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/deploy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574677986319</updated>
       <workItem from="1574677987479" duration="5426000" />
-      <workItem from="1574683585198" duration="5700000" />
+      <workItem from="1574683585198" duration="6656000" />
     </task>
     <servers />
   </component>
