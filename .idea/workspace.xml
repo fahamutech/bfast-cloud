@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/functions.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,8 +97,17 @@
       <option name="presentableId" value="Default" />
       <updated>1574677986319</updated>
       <workItem from="1574677987479" duration="5426000" />
-      <workItem from="1574683585198" duration="7931000" />
+      <workItem from="1574683585198" duration="8045000" />
+      <workItem from="1574711170756" duration="574000" />
     </task>
+    <task id="LOCAL-00001" summary="refresh">
+      <created>1574693030685</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574693030685</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +128,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add support for update of env(s) variable of faas engine and update route for deploy functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add support for update of env(s) variable of faas engine and update route for deploy functions" />
+    <MESSAGE value="refresh" />
+    <option name="LAST_COMMIT_MESSAGE" value="refresh" />
   </component>
 </project>

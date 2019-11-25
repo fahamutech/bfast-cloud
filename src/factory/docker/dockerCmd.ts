@@ -45,9 +45,9 @@ export abstract class DockerCmd implements DockerI {
         });
     }
 
-    envRemoveFromFaaSEngine(projectId: string, envs: string[], force: boolean): Promise<any> {
+    envRemoveFromFaaSEngine(projectId: string = '', envs: string[] = [], force: boolean = false): Promise<any> {
         if (projectId.length < 1) {
-            throw 'projectId required'
+            throw 'projectId required';
         }
         if (envs.length < 1) {
             throw 'at least one environment required';

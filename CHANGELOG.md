@@ -1,3 +1,10 @@
+# v0.2.1
+
+Update env remove endpoint to
+```shell script
+john@doe:~$ https://cloud.bfast.fahamutech.com/functions/:projectId/env/delete?force=< true | false> -X POST -H"content-type:application/json" -d'{"envs:["name"}'
+```
+
 # v0.2.0
 
 Add support for update faas engine environment variables and update faas deploy routes

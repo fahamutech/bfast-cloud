@@ -21,7 +21,7 @@ functionsRouter.post('/:projectId/env', (request: any, response: any) => {
     });
 });
 
-functionsRouter.delete('/:projectId/env', (request: any, response: any) => {
+functionsRouter.post('/:projectId/env/delete', (request: any, response: any) => {
     BFastCli.functions.envRemove(request.params.projectId, request.body.envs, request.query.force).then(value => {
         response.status(200).json({message: 'envs updated'});
     }).catch(reason => {
