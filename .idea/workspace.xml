@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="">
+    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/bfast-ee.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/adapters/dockerI.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/dockerController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/functionsController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/functions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/BFastCoreAdmin.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mama2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/databaseController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/deployController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/deployController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/Configurable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/configurations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/mongoDbConfigurations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/MongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mongodb/mongoProjectDatabase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/deploy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/deploy.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,57 +36,29 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
-  </component>
-  <component name="ProjectId" id="1R3VwrXVUz1Qh9LS6O5IJoBLTgF" />
+  <component name="ProjectId" id="1U6XOWKNi3eHehL05ip2baq4uPC" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.16.3" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
-    <property name="nodejs_interpreter_path" value="node" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/factory/mongodb" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/design" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="C:\Users\mama2\WebstormProjects\BFastCoreAdmin" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/specs" />
+      <recent name="$PROJECT_DIR$/src/adapters" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -84,32 +77,15 @@
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
+          <option name="buildCliOptions" value="" />
+          <option name="command" value="" />
+          <option name="containerName" value="" />
+          <option name="entrypoint" value="" />
+          <option name="imageTag" value="" />
+          <option name="commandLineOptions" value="" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker-compose.yml.bfastapp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="bfastapp" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
       <method v="2" />
     </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -122,176 +98,30 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
         <item itemvalue="Docker.Dockerfile" />
-        <item itemvalue="npm.build" />
-        <item itemvalue="Docker.docker-compose.yml.bfastapp: Compose Deployment" />
-        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand />
-          <select />
-        </treeState>
-      </serviceView>
-    </option>
-    <option name="selectedView" value="0" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b0e588ba-7282-4e2c-b366-22d8a5c991fd" name="Default Changelist" comment="" />
-      <created>1568379785504</created>
+      <changelist id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="" />
+      <created>1574677986319</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1568379785504</updated>
-      <workItem from="1568379788407" duration="6909000" />
-      <workItem from="1568896013918" duration="40000" />
-      <workItem from="1568896088550" duration="422000" />
-      <workItem from="1568896542127" duration="118000" />
-      <workItem from="1569926812693" duration="7789000" />
-      <workItem from="1569934651457" duration="6596000" />
-      <workItem from="1569944707550" duration="127000" />
-      <workItem from="1569945565722" duration="2369000" />
-      <workItem from="1569947938609" duration="380000" />
-      <workItem from="1569948323051" duration="6000" />
-      <workItem from="1570094259481" duration="1490000" />
-      <workItem from="1570198164085" duration="14501000" />
-      <workItem from="1570214995117" duration="2020000" />
-      <workItem from="1570222769610" duration="2191000" />
-      <workItem from="1570286894169" duration="426000" />
-      <workItem from="1570288965084" duration="399000" />
-      <workItem from="1571357774933" duration="2391000" />
-      <workItem from="1571900132071" duration="1358000" />
-      <workItem from="1572332951322" duration="2540000" />
-      <workItem from="1573299658119" duration="233000" />
-      <workItem from="1573299944612" duration="5311000" />
+      <updated>1574677986319</updated>
+      <workItem from="1574677987479" duration="5426000" />
+      <workItem from="1574683585198" duration="5700000" />
     </task>
-    <task id="LOCAL-00001" summary="update from js to typescript">
-      <created>1569934151328</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1569934151328</updated>
-    </task>
-    <task id="LOCAL-00002" summary="add readme">
-      <created>1569940550679</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1569940550679</updated>
-    </task>
-    <task id="LOCAL-00003" summary="refresh">
-      <created>1569940988827</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1569940988827</updated>
-    </task>
-    <task id="LOCAL-00004" summary="update unit test">
-      <created>1569947922792</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1569947922792</updated>
-    </task>
-    <task id="LOCAL-00005" summary="update unit test">
-      <created>1570095626353</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1570095626353</updated>
-    </task>
-    <task id="LOCAL-00006" summary="update project to typescript">
-      <created>1570213115979</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1570213115979</updated>
-    </task>
-    <task id="LOCAL-00007" summary="fix  compose file">
-      <created>1570215440653</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1570215440653</updated>
-    </task>
-    <task id="LOCAL-00008" summary="fix  compose file">
-      <created>1570215798007</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1570215798007</updated>
-    </task>
-    <task id="LOCAL-00009" summary="update package file">
-      <created>1570216402527</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1570216402527</updated>
-    </task>
-    <task id="LOCAL-00010" summary="update package file">
-      <created>1570257489231</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1570257489231</updated>
-    </task>
-    <task id="LOCAL-00011" summary="update package file">
-      <created>1570265885777</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1570265885778</updated>
-    </task>
-    <task id="LOCAL-00012" summary="update faas engine to v1.7.1-alpha">
-      <created>1571358158070</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1571358158070</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add deploy route endpoint and update faas engine to v1.8.0">
-      <created>1573303691953</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1573303691953</updated>
-    </task>
-    <task id="LOCAL-00014" summary="update change log">
-      <created>1573303888592</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1573303888592</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sh" />
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.bat" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -307,16 +137,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update from js to typescript" />
-    <MESSAGE value="add readme" />
-    <MESSAGE value="refresh" />
-    <MESSAGE value="update unit test" />
-    <MESSAGE value="update project to typescript" />
-    <MESSAGE value="fix  compose file" />
-    <MESSAGE value="update package file" />
-    <MESSAGE value="update faas engine to v1.7.1-alpha" />
-    <MESSAGE value="add deploy route endpoint and update faas engine to v1.8.0" />
-    <MESSAGE value="update change log" />
-    <option name="LAST_COMMIT_MESSAGE" value="update change log" />
+    <MESSAGE value="add support for update of env(s) variable of faas engine and update route for deploy functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add support for update of env(s) variable of faas engine and update route for deploy functions" />
   </component>
 </project>

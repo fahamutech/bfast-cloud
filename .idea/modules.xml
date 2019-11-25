@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BFastCoreAdmin.iml" filepath="$PROJECT_DIR$/.idea/BFastCoreAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/bfast-ee.iml" filepath="$PROJECT_DIR$/.idea/bfast-ee.iml" />
     </modules>
   </component>
 </project>

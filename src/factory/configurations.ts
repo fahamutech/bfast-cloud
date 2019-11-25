@@ -1,4 +1,4 @@
-export abstract class Configurable {
+export abstract class Configurations {
     protected dockerSocket: string;
     protected DB_HOST: string;
     protected isDebug: string;

@@ -2,9 +2,9 @@ import {DatabaseController} from './databaseController'
 import * as path from 'path'
 import * as process from 'child_process'
 import {ProjectModel} from "../model/project";
-import {Configurable} from "../factory/Configurable";
+import {Configurations} from "../factory/configurations";
 
-export class ProjectController extends Configurable {
+export class ProjectController extends Configurations {
 
     private _COMPOSE_FILE = path.join(__dirname, `../compose/spring-compose.yml`);
     private _PARSE_COMPOSE_FILE = path.join(__dirname, `../compose/parse-compose.yml`);

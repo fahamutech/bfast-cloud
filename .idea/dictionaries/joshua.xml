@@ -1,20 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="joshua">
     <words>
+      <w>bfaas</w>
       <w>bfast</w>
       <w>bfastcoreadmin</w>
-      <w>bfastweb</w>
-      <w>daas</w>
       <w>faas</w>
-      <w>faasdata</w>
-      <w>fahamutech</w>
-      <w>fullchain</w>
-      <w>joshuamshana</w>
       <w>mdbhost</w>
-      <w>mongod</w>
-      <w>privkey</w>
-      <w>respawn</w>
-      <w>traefik</w>
+      <w>mdbrs</w>
+      <w>reconfig</w>
     </words>
   </dictionary>
 </component>

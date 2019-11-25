@@ -1,6 +1,7 @@
 {
   "name": "bfast-ee",
-  "version": "0.1.0",
+  "description": "bfaas cloud for project management",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "start": "node ./lib/index.js",

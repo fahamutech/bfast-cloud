@@ -7,6 +7,7 @@ let logger = require('morgan');
 
 let index = require('./routes');
 let users = require('./routes/users');
+let functionsRouter = require('./routes/functions');
 let deployRouter = require('./routes/deploy');
 let project = require('./routes/project');
 
@@ -26,6 +27,7 @@ app.use(express.static(path1.join(__dirname, 'public')));
 
 app.use('/', index);
 // app.use('/users', users);
+app.use('/functions', functionsRouter);
 app.use('/deploy', deployRouter);
 app.use('/project', project);
 
