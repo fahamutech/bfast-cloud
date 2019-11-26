@@ -1,10 +1,10 @@
-import {BFastCli} from "../cli";
+import {BFastControllers} from "../controller";
 
 let projectRouter = require('express').Router();
 let path = require('path');
 
 /**
- * Get user interface for manage projects
+ * Get UI for manage projects
  */
 projectRouter.get('/', function (req: any, res: any) {
     res.sendFile(path.join(__dirname, '../public/project/index.html'));
@@ -14,7 +14,7 @@ projectRouter.get('/', function (req: any, res: any) {
  * Get all project of a specific user
  */
 projectRouter.post('/all', function (request: any, respond: any) {
-    BFastCli.database.getProjects(request.body.uid).then((value: any) => {
+    BFastControllers.projects.getUserProjects(request.body.uid).then((value: any) => {
         respond.json(value);
     }).catch((reason: any) => {
         respond.status(404).json(reason);
@@ -26,7 +26,7 @@ projectRouter.post('/all', function (request: any, respond: any) {
  */
 projectRouter.post('/', function (request: any, respond: any) {
     const body = request.body;
-    BFastCli.projects.createProject(body).then((value: any) => {
+    BFastControllers.projects.createProject(body).then((value: any) => {
         delete value.fileUrl;
         respond.json(value);
     }).catch((reason: any) => {
@@ -34,10 +34,10 @@ projectRouter.post('/', function (request: any, respond: any) {
     });
 });
 
-// @ts-ignore
-projectRouter.delete('/delete/:id', function (request, respond) {
+
+projectRouter.delete('/delete/:id', function (request: any, respond: any) {
     const projectId = request.params.id;
-    respond.json({projectId});
+    respond.status(200).json({projectId});
 });
 
 module.exports = projectRouter;

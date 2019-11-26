@@ -1,7 +1,7 @@
 import {MongoClient} from "mongodb";
-import {Configurations} from "../configurations";
+import {Configurations} from "./configurations";
 
-export abstract class MongoConnector extends Configurations{
+export abstract class MongoDbConfigurations extends Configurations {
     private readonly mongoClient: MongoClient;
     DB_NAME = '_BFAST_ADMIN';
     collectionNames = {

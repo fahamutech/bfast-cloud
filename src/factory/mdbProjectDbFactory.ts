@@ -1,10 +1,10 @@
-import {ProjectDatabaseAdapter} from "../../adapters/database";
-import {ProjectModel} from "../../model/project";
-import {MongoConnector} from "./mongoDbConfigurations";
+import {ProjectDatabaseAdapter} from "../adapters/database";
+import {ProjectModel} from "../model/project";
+import {MongoDbConfigurations} from "./mdbConfigurations";
 
-export abstract class MongoProjectDatabase extends MongoConnector implements ProjectDatabaseAdapter {
+export class MdbProjectDbFactory extends MongoDbConfigurations implements ProjectDatabaseAdapter {
 
-    protected constructor() {
+    constructor() {
         super();
     }
 

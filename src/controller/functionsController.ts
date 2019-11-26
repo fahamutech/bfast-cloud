@@ -1,4 +1,4 @@
-import {DockerI} from "../adapters/dockerI";
+import {DockerAdapter} from "../adapters/docker";
 
 /**
  * @class FunctionsController. Manage BFast::Function instance include
@@ -7,10 +7,10 @@ import {DockerI} from "../adapters/dockerI";
 export class FunctionsController {
     /**
      *
-     * @param docker {DockerI} implementation of DockerI interface for
+     * @param docker {DockerAdapter} implementation of DockerI interface for
      * communicate with outside docker system
      */
-    constructor(private readonly docker: DockerI) {
+    constructor(private readonly docker: DockerAdapter) {
     }
 
     private static _checkProjectId(projectId: string): string {

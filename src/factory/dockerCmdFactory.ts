@@ -1,6 +1,6 @@
-import {DockerI} from "../../adapters/dockerI";
+import {DockerAdapter} from "../adapters/docker";
 
-export abstract class DockerCmd implements DockerI {
+export abstract class DockerCmdFactory implements DockerAdapter {
     childProcess: any;
 
     protected constructor() {

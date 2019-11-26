@@ -4,10 +4,13 @@
       <w>bfaas</w>
       <w>bfast</w>
       <w>bfastcoreadmin</w>
+      <w>bfastweb</w>
       <w>faas</w>
+      <w>fahamutech</w>
       <w>mdbhost</w>
       <w>mdbrs</w>
       <w>reconfig</w>
+      <w>traefik</w>
     </words>
   </dictionary>
 </component>

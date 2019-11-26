@@ -1,6 +1,6 @@
-import {DockerCmd} from "../factory/docker/dockerCmd";
+import {DockerCmdFactory} from "../factory/dockerCmdFactory";
 
-export class DockerController extends DockerCmd {
+export class DockerController extends DockerCmdFactory {
     constructor() {
         super();
     }

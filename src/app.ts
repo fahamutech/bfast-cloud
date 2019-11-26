@@ -1,15 +1,15 @@
-import {BFastCli} from "./cli";
+import {BFastControllers} from "./controller";
 
 let express = require('express');
 let path1 = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
-let index = require('./routes');
-let users = require('./routes/users');
-let functionsRouter = require('./routes/functions');
-let deployRouter = require('./routes/deploy');
-let project = require('./routes/project');
+let index = require('./router');
+let users = require('./router/users');
+let functionsRouter = require('./router/functions');
+let deployRouter = require('./router/deploy');
+let project = require('./router/project');
 
 let app = express();
 
@@ -33,4 +33,4 @@ app.use('/project', project);
 
 module.exports = app;
 
-BFastCli.database;
+BFastControllers.database;
