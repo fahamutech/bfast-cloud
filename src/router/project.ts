@@ -41,3 +41,7 @@ projectRouter.delete('/delete/:id', function (request: any, respond: any) {
 });
 
 module.exports = projectRouter;
+
+export class ProjectRouter{
+
+}

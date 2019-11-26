@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/adapters/rest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapters/shell.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/childProcessShellFactory.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/projectConfigurations.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/restExpressJsFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/dockerI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/docker.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/dockerController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/dockerController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/functionsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/functionsController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/mongoDbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mdbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/mongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mdbProjectDbFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/deploy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/deploy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/traefik.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/rest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/restExpressJsFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/restExpressJsFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/functions.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574712031819</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="start migrate code to be testable">
+      <created>1574765092473</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574765092473</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +160,7 @@
     <MESSAGE value="refresh" />
     <MESSAGE value="update env remove endpoint" />
     <MESSAGE value="update docker compose for bfast-ee" />
-    <option name="LAST_COMMIT_MESSAGE" value="update docker compose for bfast-ee" />
+    <MESSAGE value="start migrate code to be testable" />
+    <option name="LAST_COMMIT_MESSAGE" value="start migrate code to be testable" />
   </component>
 </project>
