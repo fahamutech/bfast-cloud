@@ -1,21 +1,20 @@
-import {RestAdapter, RestRouteMethod} from "../adapters/rest";
+import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 
-export class UsersRouter {
-    private routerPrefix = '/users';
+export class UsersRouter implements RestRouterAdapter {
+    prefix: string = '/users';
 
-    constructor(private readonly restApi: RestAdapter) {
-        this.getUsers();
-    }
-
-    private getUsers() {
-        this.restApi.mount(this.routerPrefix, {
-            method: RestRouteMethod.GET,
-            path: '/',
-            onRequest: [
-                (request, response, next) => {
-                    response.send('respond with a resource');
-                }
-            ]
-        })
+    getRoutes(): RouterModel[] {
+        return [
+            {
+                name: 'getUsers',
+                method: RouterMethod.GET,
+                path: '/',
+                onRequest: [
+                    (request, response, next) => {
+                        response.send('respond with a resource');
+                    }
+                ]
+            }
+        ];
     }
 }

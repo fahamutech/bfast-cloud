@@ -1,21 +1,24 @@
-import {RestAdapter, RestRouteMethod} from "../adapters/rest";
+import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 
-export class LandingRouter {
-    private routerPrefix = '/';
+export class LandingRouter implements RestRouterAdapter {
+    prefix: string = '/';
 
-    constructor(private readonly restApi: RestAdapter) {
-        this.getLandingUi();
+    constructor() {
+
     }
 
-    private getLandingUi() {
-        this.restApi.mount(this.routerPrefix, {
-            method: RestRouteMethod.GET,
-            path: '',
-            onRequest: [
-                (request, response, _) => {
-                    response.sendFile(`${__dirname}/../public/index.html`);
-                }
-            ]
-        })
+    getRoutes(): RouterModel[] {
+        return [
+            {
+                name: 'getLandingUi',
+                method: RouterMethod.GET,
+                path: '/',
+                onRequest: [
+                    (request, response, _) => {
+                        response.sendFile(`${__dirname}/../public/index.html`);
+                    }
+                ]
+            }
+        ];
     }
 }
