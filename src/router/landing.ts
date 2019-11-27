@@ -1,7 +1,7 @@
 import {RestAdapter, RestRouteMethod} from "../adapters/rest";
 
 export class LandingRouter {
-    private routerPrefix = '/functions';
+    private routerPrefix = '/';
 
     constructor(private readonly restApi: RestAdapter) {
         this.getLandingUi();
@@ -10,7 +10,7 @@ export class LandingRouter {
     private getLandingUi() {
         this.restApi.mount(this.routerPrefix, {
             method: RestRouteMethod.GET,
-            path: '/',
+            path: '',
             onRequest: [
                 (request, response, _) => {
                     response.sendFile(`${__dirname}/../public/index.html`);
