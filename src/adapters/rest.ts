@@ -1,5 +1,5 @@
 export interface RestAdapter {
-    mount(route: {
+    mount(routerPrefix: string, route: {
         method: string,
         path: string,
         onRequest: { (request: any, response: any, next: any): void; } []

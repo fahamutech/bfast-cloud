@@ -2,6 +2,8 @@ import {BFastControllers} from "../controller";
 import {RestAdapter, RestRouteMethod} from "../adapters/rest";
 
 export class FunctionsRouter {
+    private routerPrefix = '/functions';
+
     constructor(private readonly restApi: RestAdapter) {
         this.deployProject();
         this.addEnvironment();
@@ -9,7 +11,7 @@ export class FunctionsRouter {
     }
 
     private deployProject() {
-        this.restApi.mount({
+        this.restApi.mount(this.routerPrefix, {
             method: RestRouteMethod.GET,
             path: '/:projectId/deploy',
             onRequest: [
@@ -25,7 +27,7 @@ export class FunctionsRouter {
     }
 
     private addEnvironment() {
-        this.restApi.mount({
+        this.restApi.mount(this.routerPrefix, {
             method: RestRouteMethod.POST,
             path: '/:projectId/env',
             onRequest: [
@@ -42,7 +44,7 @@ export class FunctionsRouter {
     }
 
     private removeEnvironment() {
-        this.restApi.mount({
+        this.restApi.mount(this.routerPrefix, {
             method: RestRouteMethod.POST,
             path: '/:projectId/env/delete',
             onRequest: [

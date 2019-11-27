@@ -1,47 +1,72 @@
 import {BFastControllers} from "../controller";
+import {RestAdapter, RestRouteMethod} from "../adapters/rest";
 
-let projectRouter = require('express').Router();
-let path = require('path');
+export class ProjectRouter {
+    private routerPrefix = '/project';
 
-/**
- * Get UI for manage projects
- */
-projectRouter.get('/', function (req: any, res: any) {
-    res.sendFile(path.join(__dirname, '../public/project/index.html'));
-});
+    constructor(private readonly restApi: RestAdapter) {
+        this.getProjectsUi();
+        this.getAllProjectOfUser();
+        this.createNewProject();
+        this.deleteProject();
+    }
 
-/**
- * Get all project of a specific user
- */
-projectRouter.post('/all', function (request: any, respond: any) {
-    BFastControllers.projects.getUserProjects(request.body.uid).then((value: any) => {
-        respond.json(value);
-    }).catch((reason: any) => {
-        respond.status(404).json(reason);
-    });
-});
+    private getProjectsUi() {
+        this.restApi.mount(this.routerPrefix, {
+            method: RestRouteMethod.GET,
+            path: '/',
+            onRequest: [
+                (request: Request, response, next) => {
+                    response.sendFile(`${__dirname}/../public/project/index.html`);
+                }
+            ]
+        })
+    }
 
-/**
- * create a new project
- */
-projectRouter.post('/', function (request: any, respond: any) {
-    const body = request.body;
-    BFastControllers.projects.createProject(body).then((value: any) => {
-        delete value.fileUrl;
-        respond.json(value);
-    }).catch((reason: any) => {
-        respond.status(400).json(reason);
-    });
-});
+    private getAllProjectOfUser() {
+        this.restApi.mount(this.routerPrefix, {
+            method: RestRouteMethod.POST,
+            path: '/all',
+            onRequest: [
+                (request, response, _) => {
+                    BFastControllers.projects.getUserProjects(request.body.uid).then((value: any) => {
+                        response.json(value);
+                    }).catch((reason: any) => {
+                        response.status(404).json(reason);
+                    });
+                }
+            ]
+        })
+    }
 
+    private createNewProject() {
+        this.restApi.mount(this.routerPrefix, {
+            method: RestRouteMethod.POST,
+            path: '/',
+            onRequest: [
+                (request, response, _) => {
+                    const body = request.body;
+                    BFastControllers.projects.createProject(body).then((value: any) => {
+                        delete value.fileUrl;
+                        response.json(value);
+                    }).catch((reason: any) => {
+                        response.status(400).json(reason);
+                    });
+                }
+            ]
+        })
+    }
 
-projectRouter.delete('/delete/:id', function (request: any, respond: any) {
-    const projectId = request.params.id;
-    respond.status(200).json({projectId});
-});
-
-module.exports = projectRouter;
-
-export class ProjectRouter{
-
+    private deleteProject() {
+        this.restApi.mount(this.routerPrefix, {
+            method: RestRouteMethod.DELETE,
+            path: '/delete/:id',
+            onRequest: [
+                (request, response, _) => {
+                    const projectId = request.params.id;
+                    response.status(200).json({projectId});
+                }
+            ]
+        })
+    }
 }

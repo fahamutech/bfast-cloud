@@ -1,19 +1,19 @@
 import {RestAdapter, RestRouteMethod} from "../adapters/rest";
 
-export class UsersRouter {
-    private routerPrefix = '/users';
+export class LandingRouter {
+    private routerPrefix = '/functions';
 
     constructor(private readonly restApi: RestAdapter) {
-        this.getUsers();
+        this.getLandingUi();
     }
 
-    private getUsers() {
+    private getLandingUi() {
         this.restApi.mount(this.routerPrefix, {
             method: RestRouteMethod.GET,
             path: '/',
             onRequest: [
-                (request, response, next) => {
-                    response.send('respond with a resource');
+                (request, response, _) => {
+                    response.sendFile(`${__dirname}/../public/index.html`);
                 }
             ]
         })
