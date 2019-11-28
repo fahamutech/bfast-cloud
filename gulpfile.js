@@ -32,8 +32,8 @@ function copyStaticFiles() {
 
 function copyComposeFiles() {
     console.log('start copying compose file');
-    return gulp.src('./src/compose/**/*')
-        .pipe(gulp.dest('./lib/compose/'));
+    return gulp.src('./src/config/compose-files/**/*')
+        .pipe(gulp.dest('./lib/config/compose-files/'));
 }
 
 function buildDocker() {

@@ -1,3 +1,11 @@
+# v0.3.3
+
+Fix parse-composer files to be included in build
+
+# v0.3.2
+
+Fix controllers methods in routes
+
 # v0.3.1
 
 Fix mongodb database url from `mongodb://mdb:27017,mongodb://mdbrs1:27017,mongodb://mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`, to `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
