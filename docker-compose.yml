@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   bfastapp:
-    image: joshuamshana/bfast-ee:v0.2.1
+    image: joshuamshana/bfast-ee:v0.3.3
     hostname: bfastapp
     restart: always
     networks:
