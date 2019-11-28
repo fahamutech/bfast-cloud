@@ -4,7 +4,6 @@ export class LandingRouter implements RestRouterAdapter {
     prefix: string = '/';
 
     constructor() {
-
     }
 
     getRoutes(): RouterModel[] {

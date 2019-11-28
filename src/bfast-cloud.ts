@@ -1,17 +1,21 @@
 import {RestAdapter} from "./adapters/rest";
-import {RestRouterAdapter} from "./adapters/restRouter";
 import {RestApiFactory} from "./factory/restApiFactory";
+import {BFastRouters} from "./router";
+import {DatabaseConfigurations} from "./config/mdbConfigurations";
 
-export class BFastCloud {
+export class BFastCloud extends DatabaseConfigurations {
     constructor(private readonly options: {
         restAdapter?: RestAdapter,
-        routers: RestRouterAdapter[],
         port: string
     }) {
+        super();
         if (!this.options.restAdapter) {
             this.options.restAdapter = new RestApiFactory();
         }
-        this.options.restAdapter.mountRoutes(this.options.routers);
+        if (this.isDebug !== 'true') this.initiateRs();
+        this.options.restAdapter.mountRoutes(BFastRouters);
         this.options.restAdapter.startHttpServer(this.options.port);
     }
+
+
 }

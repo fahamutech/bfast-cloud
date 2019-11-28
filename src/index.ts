@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import {BFastCloud} from "./app";
-import {BFastRouters} from "./router";
+import {BFastCloud} from "./bfast-cloud";
 
-new BFastCloud({routers: BFastRouters, port: process.env.PORT || '3000'});
+new BFastCloud({port: process.env.PORT || '3000'});

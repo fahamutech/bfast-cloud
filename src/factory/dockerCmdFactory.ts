@@ -1,9 +1,9 @@
 import {DockerAdapter} from "../adapters/docker";
 
-export abstract class DockerCmdFactory implements DockerAdapter {
+export class DockerCmdFactory implements DockerAdapter {
     childProcess: any;
 
-    protected constructor() {
+    constructor() {
         this.childProcess = require('child_process');
     }
 

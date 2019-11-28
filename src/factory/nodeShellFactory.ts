@@ -1,12 +1,10 @@
 import {ShellAdapter, ShellOptions} from "../adapters/shell";
 
-export class ChildProcessShellFactory implements ShellAdapter {
+export class NodeShellFactory implements ShellAdapter {
     private _childProcess: any;
 
-    constructor(private readonly childProcess?: any) {
-        if (this.childProcess && this.childProcess.exec) {
-            this._childProcess = this.childProcess;
-        } else this._childProcess = require('child_process');
+    constructor() {
+        this._childProcess = require('child_process');
     }
 
     exec(cmd: string, options: ShellOptions): Promise<any> {

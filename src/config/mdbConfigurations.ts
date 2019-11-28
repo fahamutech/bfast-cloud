@@ -1,7 +1,7 @@
 import {MongoClient} from "mongodb";
 import {Configurations} from "./configurations";
 
-export abstract class MongoDbConfigurations extends Configurations {
+export abstract class DatabaseConfigurations extends Configurations {
     private readonly mongoClient: MongoClient;
     DB_NAME = '_BFAST_ADMIN';
     collectionNames = {
@@ -12,12 +12,12 @@ export abstract class MongoDbConfigurations extends Configurations {
     protected constructor() {
         super();
         if (this.DB_HOST === 'mdb') {
-            this.mongoClient = new MongoClient(`mongodb://${this.DB_HOST}:27017/${this.DB_NAME}`, {useNewUrlParser: true});
+            this.mongoClient = new MongoClient(
+                `mongodb://mdb:27017,mongodb://mdbrs1:27017,mongodb://mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
+                {useNewUrlParser: true}
+            );
         } else {
             this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true});
-        }
-        if (this.isDebug !== 'true') {
-            this._initiateRs();
         }
     }
 
@@ -35,7 +35,8 @@ export abstract class MongoDbConfigurations extends Configurations {
         });
     }
 
-    private _initiateRs() {
+    // will be removed in future
+    initiateRs() {
         try {
             const repInterval = setInterval(async () => {
                 console.log('************initiate replica set******************');
@@ -88,4 +89,5 @@ export abstract class MongoDbConfigurations extends Configurations {
             console.log(reason)
         }
     }
+
 }

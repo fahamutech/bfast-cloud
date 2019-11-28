@@ -1,8 +1,8 @@
 import {ProjectDatabaseAdapter} from "../adapters/database";
 import {ProjectModel} from "../model/project";
-import {MongoDbConfigurations} from "./mdbConfigurations";
+import {DatabaseConfigurations} from "../config/mdbConfigurations";
 
-export class MdbProjectDbFactory extends MongoDbConfigurations implements ProjectDatabaseAdapter {
+export class ProjectDatabaseFactory extends DatabaseConfigurations implements ProjectDatabaseAdapter {
 
     constructor() {
         super();

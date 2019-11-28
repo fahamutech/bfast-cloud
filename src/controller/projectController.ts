@@ -1,6 +1,6 @@
 import {ProjectModel} from "../model/project";
 import {ProjectDatabaseAdapter} from "../adapters/database";
-import {ProjectConfigurations} from "../factory/projectConfigurations";
+import {ProjectConfigurations} from "../config/projectConfigurations";
 import {ShellAdapter} from "../adapters/shell";
 
 export class ProjectController extends ProjectConfigurations {

@@ -1,3 +1,7 @@
+# v0.3.0
+Deprecated method and class removed. Nothing change in usage only code structure change to 
+make code testable
+
 # v0.2.1
 
 Update env remove endpoint to
