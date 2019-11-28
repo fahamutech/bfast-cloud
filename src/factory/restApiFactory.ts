@@ -16,14 +16,14 @@ export class RestApiFactory implements RestAdapter {
         expressApp.use(require('morgan')('dev'));
         expressApp.use(this.express.json());
         expressApp.use(this.express.urlencoded({extended: false}));
-        expressApp.use(require('cookie-parser'));
+        expressApp.use(require('cookie-parser')());
         expressApp.use(this.express.static(`${__dirname}/../public`));
         // BFastControllers.database;
     }
 
     mountRoutes(routerAdapters: RestRouterAdapter[]): any {
         routerAdapters.forEach(routerAdapter => {
-           // console.log(routerAdapter);
+            // console.log(routerAdapter);
             const expressRouter = this.express.Router();
             routerAdapter.getRoutes().forEach(router => {
                 // console.log(router);
@@ -44,12 +44,7 @@ export class RestApiFactory implements RestAdapter {
     }
 
     startHttpServer(port: string): any {
-        const server = http.createServer(((req, res) => {
-            console.log('requested');
-            res.writeHead(200);
-            res.write('hello');
-            res.end();
-        }));
+        const server = http.createServer(this.expressApp);
         server.listen(RestApiFactory.normalizePort(port));
         server.on('error', args => {
             RestApiFactory.onError(args, port);
