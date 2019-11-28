@@ -22,7 +22,7 @@ export class ProjectRouter implements RestRouterAdapter {
                 path: '/all',
                 onRequest: [
                     (request, response, _) => {
-                        BFastControllers.projects.getUserProjects(request.body.uid).then((value: any) => {
+                        BFastControllers.projects().getUserProjects(request.body.uid).then((value: any) => {
                             response.json(value);
                         }).catch((reason: any) => {
                             response.status(404).json(reason);
@@ -37,7 +37,7 @@ export class ProjectRouter implements RestRouterAdapter {
                 onRequest: [
                     (request, response, _) => {
                         const body = request.body;
-                        BFastControllers.projects.createProject(body).then((value: any) => {
+                        BFastControllers.projects().createProject(body).then((value: any) => {
                             delete value.fileUrl;
                             response.json(value);
                         }).catch((reason: any) => {

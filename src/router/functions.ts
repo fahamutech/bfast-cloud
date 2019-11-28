@@ -12,7 +12,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 path: '/:projectId/deploy',
                 onRequest: [
                     (request, response, next) => {
-                        BFastControllers.functions.deploy(request.params.projectId, request.query.force).then(value => {
+                        BFastControllers.functions().deploy(request.params.projectId, request.query.force).then(value => {
                             response.status(200).json({message: 'functions deployed'});
                         }).catch(reason => {
                             response.status(503).json({message: 'fails to deploy', reason: reason.toString()});
@@ -26,7 +26,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 path: '/:projectId/env',
                 onRequest: [
                     (request, response, next) => {
-                        BFastControllers.functions
+                        BFastControllers.functions()
                             .envAdd(request.params.projectId, request.body.envs, request.query.force).then(value => {
                             response.status(200).json({message: 'envs updated'});
                         }).catch(reason => {
@@ -41,7 +41,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 path: '/:projectId/env/delete',
                 onRequest: [
                     (request, response, next) => {
-                        BFastControllers.functions
+                        BFastControllers.functions()
                             .envRemove(request.params.projectId, request.body.envs, request.query.force).then(value => {
                             response.status(200).json({message: 'envs updated'});
                         }).catch(reason => {
