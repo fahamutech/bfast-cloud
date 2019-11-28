@@ -1,3 +1,7 @@
+# v0.3.1
+
+Fix mongodb database url from `mongodb://mdb:27017,mongodb://mdbrs1:27017,mongodb://mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`, to `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
+
 # v0.3.0
 Deprecated method and class removed. Nothing change in usage only code structure change to 
 make code testable

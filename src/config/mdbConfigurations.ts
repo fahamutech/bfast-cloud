@@ -13,7 +13,7 @@ export abstract class DatabaseConfigurations extends Configurations {
         super();
         if (this.DB_HOST === 'mdb') {
             this.mongoClient = new MongoClient(
-                `mongodb://mdb:27017,mongodb://mdbrs1:27017,mongodb://mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
+                `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
                 {useNewUrlParser: true}
             );
         } else {

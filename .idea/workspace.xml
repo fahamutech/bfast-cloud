@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/factory/Initializer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast-cloud.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compose/parse-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/compose-files/parse-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compose/spring-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/compose-files/spring-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compose/wordpress-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/compose-files/wordpress-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/deployController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/dockerController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/childProcessShellFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/nodeShellFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/configurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/configurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mdbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mdbProjectDbFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/projectConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/projectConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/landing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/landing.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +110,7 @@
       <workItem from="1574787525302" duration="597000" />
       <workItem from="1574830910636" duration="26993000" />
       <workItem from="1574882316279" duration="497000" />
-      <workItem from="1574919376049" duration="10447000" />
+      <workItem from="1574919376049" duration="11547000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -193,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574928814107</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="remove unused code, and initiate database replicas on start bfast-cloud">
+      <created>1574936693145</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1574936693145</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +212,7 @@
     <MESSAGE value="start testing new app" />
     <MESSAGE value="update route to implement an adapter" />
     <MESSAGE value="fix rest server not start because of not initialize cookie parse module" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix rest server not start because of not initialize cookie parse module" />
+    <MESSAGE value="remove unused code, and initiate database replicas on start bfast-cloud" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unused code, and initiate database replicas on start bfast-cloud" />
   </component>
 </project>
