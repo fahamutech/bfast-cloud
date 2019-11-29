@@ -30,7 +30,10 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
             return user;
         } catch (e) {
             console.error(e);
-            throw {message: 'user not created'};
+            throw {
+                message: 'user not created',
+                reason: e.code && e.code === 11000 ? 'Email is already in use' : e.toString()
+            };
         }
     }
 
@@ -74,13 +77,13 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
             if (!user) {
                 throw 'User with that email not exist';
             }
-            console.log(user);
             const passwordOk = await this.securityAdapter.comparePassword(password, user.password);
             if (!passwordOk) {
                 throw 'Password/Username is incorrect'
             }
             delete user.password;
             user.token = await this.securityAdapter.generateToken({uid: user._id});
+            user.uid = user._id;
             return user;
         } catch (e) {
             console.error(e);
@@ -108,6 +111,20 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
         } catch (e) {
             console.error(e);
             throw {message: 'fail to send reset password email'}
+        }
+    }
+
+    async getRole(userId: string): Promise<string> {
+        try {
+            const userCollection = await this.getCollection(this.USER_COLL);
+            const user = await userCollection.findOne({_id: userId});
+            if (!user) {
+                throw 'no such user in records';
+            }
+            return user.role;
+        } catch (e) {
+            console.error(e);
+            throw {message: 'user role can not be determined', reason: e.toString()}
         }
     }
 

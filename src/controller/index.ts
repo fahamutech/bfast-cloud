@@ -4,10 +4,12 @@ import {FunctionsController} from "./functionsController";
 import {ProjectDatabaseFactory} from "../factory/projectDatabaseFactory";
 import {NodeShellFactory} from "../factory/nodeShellFactory";
 import {DockerCmdFactory} from "../factory/dockerCmdFactory";
+import {BFastSecurity} from "../factory/SecurityFactory";
+import {EmailFactory} from "../factory/EmailFactory";
 
 export const BFastControllers = {
     user: () => {
-        return new UserController()
+        return new UserController(new BFastSecurity(), new EmailFactory());
     },
 
     projects: () => {

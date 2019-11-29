@@ -2,23 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/adapters/email.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapters/security.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/bfastapp-firebase-adminsdk-rxijs-9d622bf85d.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/EmailFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/security.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/security.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/users.ts" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +35,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1U6XOWKNi3eHehL05ip2baq4uPC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -64,18 +64,6 @@
       <recent name="$PROJECT_DIR$/src/factory" />
       <recent name="$PROJECT_DIR$/src/controller" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="npm.dev">
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
@@ -109,6 +97,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -130,7 +130,8 @@
       <workItem from="1574919376049" duration="13665000" />
       <workItem from="1574961272552" duration="847000" />
       <workItem from="1574963344405" duration="13179000" />
-      <workItem from="1575021161163" duration="87000" />
+      <workItem from="1575021161163" duration="135000" />
+      <workItem from="1575021342800" duration="4698000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -244,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574953141750</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="start to implement authentication and authorisation">
+      <created>1575021281843</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1575021281844</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +286,29 @@
     <MESSAGE value="update mongo database url" />
     <MESSAGE value="fix controller in routes due to change in structure of controller" />
     <MESSAGE value="fix missing composer files" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix missing composer files" />
+    <MESSAGE value="start to implement authentication and authorisation" />
+    <option name="LAST_COMMIT_MESSAGE" value="start to implement authentication and authorisation" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="611" y="137" width="374" height="575" key="#com.intellij.ide.util.MemberChooser" timestamp="1575023723972">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="611" y="137" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1575023723972" />
+    <state width="1578" height="400" key="GridCell.Tab.0.bottom" timestamp="1575026213309">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="400" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1575026213309" />
+    <state width="1578" height="400" key="GridCell.Tab.0.center" timestamp="1575026213306">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="400" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1575026213306" />
+    <state width="1578" height="400" key="GridCell.Tab.0.left" timestamp="1575026213304">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="400" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1575026213304" />
+    <state width="1578" height="400" key="GridCell.Tab.0.right" timestamp="1575026213307">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="400" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1575026213307" />
   </component>
 </project>

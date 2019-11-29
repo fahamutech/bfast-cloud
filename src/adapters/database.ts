@@ -19,9 +19,11 @@ export interface UsersDatabaseAdapter {
 
     getUser(userId: string): Promise<any>;
 
-    getAllUsers(size?: number, skip?: number ): Promise<any[]>;
+    getAllUsers(size?: number, skip?: number): Promise<any[]>;
 
-    login(username: string, password: string): Promise<any>
+    login(username: string, password: string): Promise<any>;
 
-    resetPassword(email: string): Promise<any>
+    resetPassword(email: string): Promise<any>;
+
+    getRole(userId: string): Promise<string>;
 }
