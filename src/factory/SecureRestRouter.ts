@@ -25,5 +25,4 @@ export abstract class SecureRestRouter {
         }
     }
 
-
 }

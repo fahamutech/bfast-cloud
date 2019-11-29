@@ -17,7 +17,7 @@ export class RestApiFactory implements RestAdapter {
         expressApp.use(this.express.json());
         expressApp.use(this.express.urlencoded({extended: false}));
         expressApp.use(require('cookie-parser')());
-        expressApp.use(this.express.static(`${__dirname}/../public`));
+       // expressApp.use(this.express.static(`${__dirname}/../public`));
         // BFastControllers.database;
     }
 

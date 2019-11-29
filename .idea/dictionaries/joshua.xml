@@ -12,6 +12,7 @@
       <w>fahamutech</w>
       <w>mdbhost</w>
       <w>mdbrs</w>
+      <w>mongod</w>
       <w>reconfig</w>
       <w>traefik</w>
     </words>

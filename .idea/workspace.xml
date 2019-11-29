@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/adapters/accounting.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/restRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/restRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.bat" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/nodeShellFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/nodeShellFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/restApiFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/restApiFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/landing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/landing.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/users.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +134,7 @@
       <workItem from="1574961272552" duration="847000" />
       <workItem from="1574963344405" duration="13179000" />
       <workItem from="1575021161163" duration="135000" />
-      <workItem from="1575021342800" duration="17798000" />
+      <workItem from="1575021342800" duration="27568000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -260,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575026274684</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="add user management and start to secure routes">
+      <created>1575041627918</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1575041627918</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,36 +305,37 @@
     <MESSAGE value="fix missing composer files" />
     <MESSAGE value="start to implement authentication and authorisation" />
     <MESSAGE value="add create and login account router" />
-    <option name="LAST_COMMIT_MESSAGE" value="add create and login account router" />
+    <MESSAGE value="add user management and start to secure routes" />
+    <option name="LAST_COMMIT_MESSAGE" value="add user management and start to secure routes" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="611" y="125" width="374" height="575" key="#com.intellij.ide.util.MemberChooser" timestamp="1575040646737">
+    <state x="611" y="113" width="374" height="575" key="#com.intellij.ide.util.MemberChooser" timestamp="1575044837787">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="611" y="125" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1575040646737" />
-    <state x="373" y="27" width="849" height="819" key="CommitChangelistDialog2" timestamp="1575026274347">
+    <state x="611" y="113" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1575044837787" />
+    <state x="373" y="21" width="849" height="819" key="CommitChangelistDialog2" timestamp="1575041627765">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="373" y="27" width="849" height="819" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1575026274347" />
-    <state width="1578" height="311" key="GridCell.Tab.0.bottom" timestamp="1575040695047">
+    <state x="373" y="21" width="849" height="819" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1575041627765" />
+    <state width="1578" height="311" key="GridCell.Tab.0.bottom" timestamp="1575041641751">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="311" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1575040695047" />
-    <state width="1578" height="311" key="GridCell.Tab.0.center" timestamp="1575040695046">
+    <state width="1578" height="311" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1575041641751" />
+    <state width="1578" height="311" key="GridCell.Tab.0.center" timestamp="1575041641749">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="311" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1575040695046" />
-    <state width="1578" height="311" key="GridCell.Tab.0.left" timestamp="1575040695043">
+    <state width="1578" height="311" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1575041641749" />
+    <state width="1578" height="311" key="GridCell.Tab.0.left" timestamp="1575041641747">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="311" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1575040695043" />
-    <state width="1578" height="311" key="GridCell.Tab.0.right" timestamp="1575040695047">
+    <state width="1578" height="311" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1575041641747" />
+    <state width="1578" height="311" key="GridCell.Tab.0.right" timestamp="1575041641750">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="311" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1575040695047" />
-    <state x="398" y="155" width="800" height="564" key="Vcs.Push.Dialog.v2" timestamp="1575026277545">
+    <state width="1578" height="311" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1575041641750" />
+    <state x="398" y="149" width="800" height="564" key="Vcs.Push.Dialog.v2" timestamp="1575041630212">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="155" width="800" height="564" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1575026277545" />
+    <state x="398" y="149" width="800" height="564" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1575041630212" />
   </component>
 </project>

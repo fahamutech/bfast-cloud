@@ -3,7 +3,7 @@ version: "3.3"
 services:
   bfastapp:
     image: joshuamshana/bfast-ee:v0.3.3
-    hostname: bfastapp
+    hostname: bfast
     restart: always
     networks:
       - bfastweb
@@ -18,7 +18,7 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:cloud.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:api.bfast.fahamutech.com"
         - "traefik.port=3000"
         - "traefik.protocol=http"
       placement:

@@ -11,7 +11,7 @@ export class ProjectController extends ProjectConfigurations {
     }
 
     getUserProjects(uid: string): Promise<any> {
-        return this.database.getProjects(uid);
+        return this.database.getProjectsOfUser(uid);
     }
 
     async createProject(project: ProjectModel): Promise<any> {
@@ -27,21 +27,26 @@ export class ProjectController extends ProjectConfigurations {
                 throw {message: 'spring boot based project is not supported anymore'};
             }
         } catch (reason) {
-            console.log(reason);
-            return await Promise.reject(reason);
+            console.error(reason);
+            throw {message: 'Fails to create project', reason: reason};
         }
     }
 
-    async deleteProject(project: ProjectModel): Promise<any> {
-        try {
-            if (project && project.id && project.projectId) {
-                return await this.database.deleteProject(project.id, project.projectId)
-            } else {
-                throw {message: 'please provide enough information'};
-            }
-        } catch (e) {
-            return await Promise.reject(e)
-        }
+    deleteUserProject(userId: string, projectId: string): Promise<any> {
+        //  try {
+        //  if (project && project.id && project.projectId) {
+        return this.database.deleteUserProject(userId, projectId);
+        //     // } else {
+        //     throw {message: 'please provide enough information'};
+        //     //}
+        // } catch (e) {
+        //     console.error(e);
+        //     throw {message: 'Project not deleted', reason: e.toString()}
+        // }
+    }
+
+    getUserProject(userId: string, projectId: string): Promise<any> {
+        return this.database.getUserProject(userId, projectId);
     }
 
     // private _deploySpringProjectInCluster(project: any, resolve: any, reject: any) {
@@ -84,12 +89,12 @@ export class ProjectController extends ProjectConfigurations {
         } catch (reason) {
             try {
                 // @ts-ignore
-                await this.database.deleteProject(project.id, project.projectId);
+                await this.database.deleteUserProject(project.id, project.projectId);
             } catch (e) {
                 console.log(e);
             }
             console.log(reason);
-            throw {message: 'Project not created', reason: reason.message};
+            throw {message: 'Project not created', reason: reason.toString()};
         }
     }
 

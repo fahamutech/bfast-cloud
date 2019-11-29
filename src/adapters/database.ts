@@ -4,9 +4,15 @@ import {UserModel} from "../model/user";
 export interface ProjectDatabaseAdapter {
     insertProject(project: ProjectModel): Promise<ProjectModel>;
 
-    deleteProject(id: string, projectId: string): Promise<any>;
+    deleteUserProject(userId: string, projectId: string): Promise<any>;
 
-    getProjects(userId: string): Promise<ProjectModel[]>;
+    getProjectsOfUser(userId: string): Promise<ProjectModel[]>;
+
+    getProject(objectId: string): Promise<ProjectModel>;
+
+    getUserProject(userId: string, projectId: string): Promise<ProjectModel[]>
+
+    getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]>
 }
 
 

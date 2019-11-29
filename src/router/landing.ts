@@ -14,7 +14,7 @@ export class LandingRouter implements RestRouterAdapter {
                 path: '/',
                 onRequest: [
                     (request, response) => {
-                        response.sendFile(`${__dirname}/../public/index.html`);
+                        response.status(200).json({message: 'welcome to bfast::cloud'})
                     }
                 ]
             }
