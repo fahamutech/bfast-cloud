@@ -1,9 +1,14 @@
 import {DockerAdapter} from "../adapters/docker";
+import {Configurations} from "../config/configurations";
 
-export class DockerCmdFactory implements DockerAdapter {
+// const Docker = require('dockerode');
+// const docker = new Docker();
+
+export class DockerCmdFactory extends Configurations implements DockerAdapter {
     childProcess: any;
 
     constructor() {
+        super();
         this.childProcess = require('child_process');
     }
 

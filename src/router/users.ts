@@ -6,7 +6,7 @@ export class UsersRouter implements RestRouterAdapter {
     getRoutes(): RouterModel[] {
         return [
             {
-                name: 'getUsers',
+                name: 'getAllUsers',
                 method: RouterMethod.GET,
                 path: '/',
                 onRequest: [

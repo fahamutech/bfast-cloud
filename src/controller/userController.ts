@@ -1,22 +1,4 @@
+import {UsersDatabaseFactory} from "../factory/UsersDatabaseFactory";
 
-export class UserController {
-    constructor(){
-
-    }
-
-    getUser(id: string){
-
-    }
-
-    findUserByUid(uid: string){
-
-    }
-
-    getAllUser(){
-
-    }
-
-    addUser(){
-
-    }
+export class UserController extends UsersDatabaseFactory {
 }

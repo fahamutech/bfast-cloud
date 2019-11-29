@@ -1,4 +1,4 @@
-import {MongoClient} from "mongodb";
+import {Collection, MongoClient} from "mongodb";
 import {Configurations} from "./configurations";
 
 export abstract class DatabaseConfigurations extends Configurations {
@@ -6,7 +6,7 @@ export abstract class DatabaseConfigurations extends Configurations {
     DB_NAME = '_BFAST_ADMIN';
     collectionNames = {
         user: '_User',
-        project: '_Project'
+        project: '_Project',
     };
 
     protected constructor() {
@@ -21,6 +21,10 @@ export abstract class DatabaseConfigurations extends Configurations {
         }
     }
 
+    /**
+     * @deprecated since v0.3.3 and will be removed in v0.4.0 use this#getCollection instead
+     * to get a collection ready to be consumed
+     */
     getConnection(): Promise<MongoClient> {
         return new Promise(async (resolve, reject) => {
             try {
@@ -33,6 +37,20 @@ export abstract class DatabaseConfigurations extends Configurations {
                 reject(e);
             }
         });
+    }
+
+    async getCollection(collectionName: string): Promise<Collection> {
+        try {
+            if (this.mongoClient.isConnected()) {
+                return this.mongoClient.db(this.DB_NAME).collection(collectionName);
+            } else {
+                const conn = await this.mongoClient.connect();
+                return conn.db(this.DB_NAME).collection(collectionName);
+            }
+        } catch (e) {
+            console.log(e);
+            throw {message: 'can not get collection', reason: e.toString()};
+        }
     }
 
     // will be removed in future
