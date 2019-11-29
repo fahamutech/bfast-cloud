@@ -14,5 +14,7 @@ export interface RouterModel {
 export class RouterMethod {
     static GET = 'GET';
     static POST = 'POST';
-    static DELETE = 'DELETE'
+    static DELETE = 'DELETE';
+    static PUT = 'PUT';
+    static PATCH = 'PATCH';
 }

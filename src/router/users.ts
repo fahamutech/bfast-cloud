@@ -1,16 +1,59 @@
 import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 import {BFastControllers} from "../controller";
+import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
 
-export class UsersRouter implements RestRouterAdapter {
+export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/users';
 
     getRoutes(): RouterModel[] {
         return [
             {
+                name: 'getUserDetails',
+                method: RouterMethod.GET,
+                path: '/me',
+                onRequest: [
+                    this.checkToken,
+                    (request, response, next) => {
+                        if (request.uid) {
+                            BFastControllers.user().getUser(request.uid).then(user => {
+                                response.status(200).json(user);
+                            }).catch(reason => {
+                                response.status(400).json(reason)
+                            })
+                        } else {
+                            response.status(403).json({message: 'identify yourself'})
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'updateUserDetails',
+                method: RouterMethod.PATCH,
+                path: '/me',
+                onRequest: [
+                    this.checkToken,
+                    (request, response, next) => {
+                        const body = request.body;
+                        const valid = !!(request.uid && body && Object.keys(body).length > 0);
+                        if (valid) {
+                            BFastControllers.user().updateUserDetails(request.uid, body).then(user => {
+                                response.status(200).json(user);
+                            }).catch(reason => {
+                                response.status(400).json(reason)
+                            })
+                        } else {
+                            response.status(400).json({message: 'Provide information to patch'})
+                        }
+                    }
+                ]
+            },
+            {
                 name: 'getAllUsers',
                 method: RouterMethod.GET,
                 path: '/',
                 onRequest: [
+                    this.checkToken,
+                    this.checkIsAdmin,
                     (request, response, next) => {
                         BFastControllers.user().getAllUsers().then(users => {
                             response.status(200).json({users: users});
@@ -52,6 +95,26 @@ export class UsersRouter implements RestRouterAdapter {
                             }).catch(reason => {
                                 response.status(400).json(reason);
                             });
+                        } else {
+                            response.status(400).json({message: 'invalid data supplied'});
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'resetPassword',
+                method: RouterMethod.POST,
+                path: '/reset',
+                onRequest: [
+                    (request, response, next) => {
+                        const body = request.body;
+                        const valid = !!(body && body.email);
+                        if (valid) {
+                            BFastControllers.user().resetPassword(body.email).then(value => {
+                                response.status(200).json(value);
+                            }).catch(reason => {
+                                response.status(400).json(reason);
+                            })
                         } else {
                             response.status(400).json({message: 'invalid data supplied'});
                         }

@@ -1,7 +1,8 @@
 import {BFastControllers} from "../controller";
 import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
+import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
 
-export class ProjectRouter implements RestRouterAdapter {
+export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/project';
 
     getRoutes(): RouterModel[] {
@@ -11,7 +12,8 @@ export class ProjectRouter implements RestRouterAdapter {
                 method: RouterMethod.GET,
                 path: '/',
                 onRequest: [
-                    (request: Request, response, next) => {
+                   // this.checkToken,
+                    (request, response, next) => {
                         response.sendFile(`${__dirname}/../public/project/index.html`);
                     }
                 ]
@@ -21,8 +23,9 @@ export class ProjectRouter implements RestRouterAdapter {
                 method: RouterMethod.POST,
                 path: '/all',
                 onRequest: [
+                    this.checkToken,
                     (request, response, _) => {
-                        BFastControllers.projects().getUserProjects(request.body.uid).then((value: any) => {
+                        BFastControllers.projects().getUserProjects(request.uid).then((value: any) => {
                             response.json(value);
                         }).catch((reason: any) => {
                             response.status(404).json(reason);

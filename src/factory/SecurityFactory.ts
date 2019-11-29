@@ -55,15 +55,20 @@ JLcWQ6hFDpecIaaCJiqAXvFACr`;
 
     verifyToken(token: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, this.jwtPassword, {
-                issuer: 'bfast::cloud',
-            }, (err, decoded) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(decoded);
-                }
-            })
+            try {
+                jwt.verify(token, this.jwtPassword, {
+                    issuer: 'bfast::cloud',
+                }, (err, decoded) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(decoded);
+                    }
+                })
+            } catch (e) {
+                console.error(e);
+                reject(e.toString());
+            }
         });
     }
 

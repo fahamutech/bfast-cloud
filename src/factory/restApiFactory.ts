@@ -37,6 +37,9 @@ export class RestApiFactory implements RestAdapter {
                     case RouterMethod.DELETE:
                         expressRouter.delete(router.path, router.onRequest);
                         break;
+                    case RouterMethod.PATCH:
+                        expressRouter.patch(router.path, router.onRequest);
+                        break;
                 }
             });
             this.expressApp.use(routerAdapter.prefix, expressRouter);

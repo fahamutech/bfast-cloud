@@ -37,10 +37,11 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
         }
     }
 
+    // under discussion
     async deleteUser(userId: string): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
-            return await userCollection.deleteOne({_id: userId});
+            return await userCollection.deleteOne({_id: this.convertToObjectId(userId)});
         } catch (e) {
             console.error(e);
             throw {message: 'user not deleted'};
@@ -64,7 +65,10 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
     async getUser(userId: string): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
-            return await userCollection.findOne({_id: userId});
+            const user = await userCollection.findOne({_id: this.convertToObjectId(userId)});
+            user.uid = user._id;
+            delete user.password;
+            return user;
         } catch (e) {
             console.error(e);
         }
@@ -94,7 +98,10 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
     async updateUserDetails(userId: string, data: object): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
-            return await userCollection.findOneAndUpdate({_id: userId}, data);
+            const result = await userCollection.findOneAndUpdate({_id: this.convertToObjectId(userId)}, {
+                $set: JSON.parse(JSON.stringify(data)),
+            });
+            return await this.getUser(userId);
         } catch (e) {
             console.error(e);
             throw {message: 'fail to update user details', reason: e.toString()}
@@ -106,18 +113,21 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
             const user = await userCollection.findOne({email: email});
+            if (!user) {
+                throw 'User record with that email not found';
+            }
             await this.emailAdapter.sendEmail('', '', `check your email`);
-            return user;
+            return {message: 'Follow Instruction sent to email : ' + user.email};
         } catch (e) {
             console.error(e);
-            throw {message: 'fail to send reset password email'}
+            throw {message: 'fail to send reset password email', reason: e.toString()}
         }
     }
 
     async getRole(userId: string): Promise<string> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
-            const user = await userCollection.findOne({_id: userId});
+            const user = await userCollection.findOne({_id: this.convertToObjectId(userId)});
             if (!user) {
                 throw 'no such user in records';
             }

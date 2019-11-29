@@ -1,4 +1,4 @@
-import {Collection, MongoClient} from "mongodb";
+import {Collection, MongoClient, ObjectID} from "mongodb";
 import {Configurations} from "./configurations";
 
 export abstract class DatabaseConfigurations extends Configurations {
@@ -14,7 +14,7 @@ export abstract class DatabaseConfigurations extends Configurations {
         if (this.DB_HOST === 'mdb') {
             this.mongoClient = new MongoClient(
                 `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
-                {useNewUrlParser: true}
+                {useNewUrlParser: true, useUnifiedTopology: true}
             );
         } else {
             this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true});
@@ -51,6 +51,10 @@ export abstract class DatabaseConfigurations extends Configurations {
             console.log(e);
             throw {message: 'can not get collection', reason: e.toString()};
         }
+    }
+
+    convertToObjectId(id: string): ObjectID {
+        return new ObjectID(id)
     }
 
     // will be removed in future

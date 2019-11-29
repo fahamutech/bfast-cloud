@@ -7,5 +7,5 @@ export const BFastRouters = [
     new FunctionsRouter(),
     new LandingRouter(),
     new ProjectRouter(),
-    new UsersRouter(),
+    new UsersRouter(), /* need to be checked */
 ];

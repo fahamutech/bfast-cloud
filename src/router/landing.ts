@@ -13,7 +13,7 @@ export class LandingRouter implements RestRouterAdapter {
                 method: RouterMethod.GET,
                 path: '/',
                 onRequest: [
-                    (request, response, _) => {
+                    (request, response) => {
                         response.sendFile(`${__dirname}/../public/index.html`);
                     }
                 ]
