@@ -2,21 +2,21 @@ version: "3.3"
 
 services:
   bfastapp:
-    image: joshuamshana/bfast-ee:v0.3.3
+    image: joshuamshana/bfast-ee:v0.4.0
     hostname: bfast
     restart: always
     networks:
-      - bfastweb
+      - bfastnet
       - default
     ports:
       - 3000
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
     labels:
-      - "traefik.docker.network=bfastweb"
+      - "traefik.docker.network=bfastnet"
     deploy:
       labels:
-        - "traefik.docker.network=bfastweb"
+        - "traefik.docker.network=bfastnet"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:api.bfast.fahamutech.com"
         - "traefik.port=3000"
@@ -26,6 +26,9 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+      resources:
+        limits:
+          memory: 100M
   mdb:
     image: mongo:4-bionic
     hostname: mdb
@@ -34,7 +37,7 @@ services:
     restart: always
     networks:
       - default
-      - bfastweb
+      - bfastnet
     depends_on:
       - mdbrs1
       - mdbrs2
@@ -44,6 +47,10 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+        #for test
+      resources:
+        limits:
+          memory: 100M
       # rollback_config:
       #   failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
@@ -54,12 +61,16 @@ services:
       - mongodatars1:/data/db
     networks:
       - default
-      - bfastweb
+      - bfastnet
     restart: always
     deploy:
       restart_policy:
         condition: any
         delay: 2s
+        #for test
+      resources:
+        limits:
+          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs2:
     image: mongo:4-bionic
@@ -68,12 +79,16 @@ services:
       - mongodatars2:/data/db
     networks:
       - default
-      - bfastweb
+      - bfastnet
     restart: always
     deploy:
       restart_policy:
         condition: any
         delay: 2s
+      # for test
+      resources:
+        limits:
+          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   traefik:
     image: traefik:v1.7
@@ -87,11 +102,15 @@ services:
         delay: 2s
       placement:
         constraints: [node.role == manager]
+      # for test
+      resources:
+        limits:
+          memory: 80M
     ports:
       - 81:80
       - 443:443
     networks:
-      - bfastweb
+      - bfastnet
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -108,7 +127,7 @@ services:
       - --retry
       - --docker
       - --docker.swarmMode
-      - --docker.network=bfastweb
+      - --docker.network=bfastnet
       - --docker.endpoint=unix:///var/run/docker.sock
       - --docker.domain=bfast.fahamutech.com
       - --docker.watch=true
@@ -124,7 +143,7 @@ volumes:
   mongodatars2:
   mongodatars1:
 networks:
-  bfastweb:
+  bfastnet:
     # driver: overlay
     # attachable: true
     external: true

@@ -14,7 +14,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
                 onRequest: [
                     this.checkToken,
                     (request, response, _) => {
-                        BFastControllers.projects().getUserProjects(request.uid).then((value: any) => {
+                        BFastControllers.projects().getProjectsOfUser(request.uid).then((value: any) => {
                             response.json(value);
                         }).catch((reason: any) => {
                             response.status(404).json(reason);
@@ -31,11 +31,13 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
                     (request, response, next) => {
                         const valid = !!(request.uid && request.params.projectId);
                         if (valid) {
-                            BFastControllers.projects().getUserProject(request.uid, request.params.projectId).then(project => {
-                                response.status(200).json(project);
-                            }).catch(reason => {
-                                response.status(404).json(reason);
-                            })
+                            BFastControllers.projects().getUserProject(request.uid, request.params.projectId)
+                                .then((project: any) => {
+                                    response.status(200).json(project);
+                                })
+                                .catch((reason: any) => {
+                                    response.status(404).json(reason);
+                                });
                         } else {
                             response.status(400).json({message: 'Invalid data'})
                         }
@@ -79,11 +81,33 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
                         const projectId = request.params.projectId;
                         const valid = !!(projectId && request.uid);
                         if (valid) {
-                            BFastControllers.projects().deleteUserProject(request.uid, projectId).then(value => {
+                            BFastControllers.projects().deleteUserProject(request.uid, projectId).then((value: any) => {
                                 response.status(200).json(value);
-                            }).catch(reason => {
+                            }).catch((reason: any) => {
                                 response.status(500).json(reason);
-                            })
+                            });
+                        } else {
+                            response.status(400).json({message: 'Input not valid'});
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'pathProject',
+                method: RouterMethod.PATCH,
+                path: '/:projectId',
+                onRequest: [
+                    this.checkToken,
+                    (request, response) => {
+                        const body = request.body;
+                        const projectId = request.params.projectId;
+                        const valid = !!(projectId && request.uid);
+                        if (valid) {
+                            BFastControllers.projects().patchProjectDetails(request.uid, projectId, body).then((value: any) => {
+                                response.status(200).json(value);
+                            }).catch((reason: any) => {
+                                response.status(500).json(reason);
+                            });
                         } else {
                             response.status(400).json({message: 'Input not valid'});
                         }

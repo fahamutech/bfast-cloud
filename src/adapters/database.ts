@@ -6,13 +6,23 @@ export interface ProjectDatabaseAdapter {
 
     deleteUserProject(userId: string, projectId: string): Promise<any>;
 
-    getProjectsOfUser(userId: string): Promise<ProjectModel[]>;
+    getProjectsOfUser(userId: string, size?: number, skip?: number): Promise<ProjectModel[]>;
 
     getProject(objectId: string): Promise<ProjectModel>;
 
-    getUserProject(userId: string, projectId: string): Promise<ProjectModel[]>
+    getUserProject(userId: string, projectId: string): Promise<ProjectModel[]>;
 
-    getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]>
+    getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]>;
+
+    patchProjectDetails(userId: string, projectId: string, data: { description?: string, name?: string }): Promise<any>;
+
+    /**
+     * check if user is the owner of the project and return a project
+     * @param userId {string} user id
+     * @param projectId {string} project id
+     */
+    // need discussion upon name
+    getProjectByOwner(userId: string, projectId: string): Promise<any>;
 }
 
 

@@ -17,13 +17,13 @@ services:
         limits:
           memory: 125M
       labels:
-      - "traefik.docker.network=bfastweb"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
-      # - "traefik.backend=${projectId}-daas"
-      # - "traefik.backend.rule=PathPrefix:/parse"
-      - "traefik.port=3000"
-      - "traefik.protocol=http"
+        - "traefik.docker.network=bfastweb"
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
+        # - "traefik.backend=${projectId}-daas"
+        # - "traefik.backend.rule=PathPrefix:/parse"
+        - "traefik.port=3000"
+        - "traefik.protocol=http"
     environment:
       - PARSE_SERVER_APPLICATION_ID=${appId}
       - PARSE_SERVER_MASTER_KEY=${masterKey}
@@ -57,12 +57,12 @@ services:
         #   cpus: '0.25'
         #   memory: 20M
       labels:
-      - "traefik.docker.network=bfastweb"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-      # - "traefik.backend=${projectId}-dashboard"
-      - "traefik.port=3443"
-      - "traefik.protocol=http"
+        - "traefik.docker.network=bfastweb"
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
+        # - "traefik.backend=${projectId}-dashboard"
+        - "traefik.port=3443"
+        - "traefik.protocol=http"
     environment:
       - PORT=3443
       - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
@@ -92,13 +92,13 @@ services:
         # max_attempts: 3
         # window: 120s
       labels:
-      - "traefik.docker.network=bfastweb"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
-      # - "traefik.backend=${projectId}-faas"
-      # - "traefik.backend.rule=PathPrefix:/faas"
-      - "traefik.port=3000"
-      - "traefik.protocol=http"
+        - "traefik.docker.network=bfastweb"
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
+        # - "traefik.backend=${projectId}-faas"
+        # - "traefik.backend.rule=PathPrefix:/faas"
+        - "traefik.port=3000"
+        - "traefik.protocol=http"
     environment:
       - APPLICATION_ID=${appId}
       - PROJECT_ID=${projectId}

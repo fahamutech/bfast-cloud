@@ -21,7 +21,7 @@ export abstract class SecureRestRouter {
             });
         } else {
             //If header is undefined return Forbidden (403)
-            response.status(403).json({message: 'Identify yourself'})
+            response.status(401).json({message: 'Identify yourself'})
         }
     }
 

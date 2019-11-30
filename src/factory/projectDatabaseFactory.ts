@@ -1,8 +1,8 @@
 import {ProjectDatabaseAdapter} from "../adapters/database";
 import {ProjectModel} from "../model/project";
-import {DatabaseConfigurations} from "../config/mdbConfigurations";
+import {ProjectConfigurations} from "../config/projectConfigurations";
 
-export class ProjectDatabaseFactory extends DatabaseConfigurations implements ProjectDatabaseAdapter {
+export class ProjectDatabaseFactory extends ProjectConfigurations implements ProjectDatabaseAdapter {
     PROJECT_COLL = this.collectionNames.project;
 
     constructor() {
@@ -11,47 +11,35 @@ export class ProjectDatabaseFactory extends DatabaseConfigurations implements Pr
 
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
-            if (project &&
-                project.name &&
-                project.projectId &&
-                project.projectId !== 'cloud' &&
-                project.projectId !== 'console' &&
-                project.projectId !== 'api' &&
-                project.projectId !== 'dashboard' &&
-                project.description &&
-                project.user) {
-                try {
-                    const projectColl = await this.getCollection(this.PROJECT_COLL);
-                    const result = await projectColl.insertOne({
-                        name: project.name,
-                        projectId: project.projectId,
-                        description: project.description,
-                        user: project.user,
-                        members: project.members ? project.members : [],
-                        isParse: project.isParse ? project.isParse : false,
-                        parse: (project.parse && project.parse.appId && project.parse.masterKey) ? project.parse : null,
-                        createdAt: new Date(),
-                        updatedAt: new Date(),
-                    });
-                    const pNameIndex = await projectColl.indexExists('projectId');
-                    if (!pNameIndex) {
-                        await projectColl.createIndex({projectId: 1}, {unique: true});
-                    }
-                    project.id = result.insertedId as string;
-                    resolve(project);
-                } catch (reason) {
-                    let message;
-                    if (reason.code && reason.code == 11000) {
-                        const date = Date.now().toString();
-                        const sp = project.name + date.substring(9, date.length);
-                        message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
-                    } else {
-                        message = reason.toString();
-                    }
-                    reject({message: message});
+            try {
+                const projectColl = await this.getCollection(this.PROJECT_COLL);
+                const result = await projectColl.insertOne({
+                    name: project.name,
+                    projectId: project.projectId,
+                    description: project.description,
+                    user: project.user,
+                    members: project.members ? project.members : [],
+                    isParse: project.isParse ? project.isParse : false,
+                    parse: (project.parse && project.parse.appId && project.parse.masterKey) ? project.parse : null,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                });
+                const pNameIndex = await projectColl.indexExists('projectId');
+                if (!pNameIndex) {
+                    await projectColl.createIndex({projectId: 1}, {unique: true});
                 }
-            } else {
-                reject({message: 'Please provide enough information about your project'});
+                project.id = result.insertedId as string;
+                resolve(project);
+            } catch (reason) {
+                let message;
+                if (reason.code && reason.code == 11000) {
+                    const date = Date.now().toString();
+                    const sp = project.name + date.substring(9, date.length);
+                    message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
+                } else {
+                    message = reason.toString();
+                }
+                reject({message: message});
             }
         });
     }
@@ -138,6 +126,45 @@ export class ProjectDatabaseFactory extends DatabaseConfigurations implements Pr
             return project;
         } catch (e) {
             throw {message: 'Fail to get project details', reason: e.toString()};
+        }
+    }
+
+    async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }): Promise<any> {
+        try {
+            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const result = await projectCollection.findOneAndUpdate({
+                $or: [
+                    {"user.uid": userId},
+                    {"members.user.uid": userId}
+                ],
+                projectId: projectId
+            }, data);
+            if (!result.ok) {
+                throw 'Project not updated';
+            }
+            return {message: 'Project updated'}
+        } catch (e) {
+            console.error(e);
+            throw {message: 'Fails to update project description', reason: e.toString()};
+        }
+    }
+
+    async getProjectByOwner(userId: string, projectId: string): Promise<any> {
+        try {
+            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const project = await projectCollection.findOne({
+                $or: [
+                    {"user.uid": userId},
+                ],
+                projectId: projectId
+            });
+            if (!project) {
+                throw 'User does not own that project';
+            }
+            return project;
+        } catch (e) {
+            console.error(e);
+            throw {message: 'Fails to identify owner', reason: e.toString()}
         }
     }
 

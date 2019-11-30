@@ -1,17 +1,20 @@
 import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 import {BFastControllers} from "../controller";
+import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
 
-export class FunctionsRouter implements RestRouterAdapter {
+export class FunctionsRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/functions';
 
     getRoutes(): RouterModel[] {
         return [
             {
-                name: 'deployProject',
-                method: RouterMethod.GET,
-                path: '/:projectId/deploy',
+                name: 'deployFunctions',
+                method: RouterMethod.POST,
+                path: '/:projectId',
                 onRequest: [
-                    (request, response, next) => {
+                    this.checkToken,
+                    this.checkIsProjectOwner,
+                    (request, response) => {
                         BFastControllers.functions().deploy(request.params.projectId, request.query.force).then(value => {
                             response.status(200).json({message: 'functions deployed'});
                         }).catch(reason => {
@@ -25,7 +28,9 @@ export class FunctionsRouter implements RestRouterAdapter {
                 method: RouterMethod.POST,
                 path: '/:projectId/env',
                 onRequest: [
-                    (request, response, next) => {
+                    this.checkToken,
+                    this.checkIsProjectOwner,
+                    (request, response) => {
                         BFastControllers.functions()
                             .envAdd(request.params.projectId, request.body.envs, request.query.force).then(value => {
                             response.status(200).json({message: 'envs updated'});
@@ -37,16 +42,24 @@ export class FunctionsRouter implements RestRouterAdapter {
             },
             {
                 name: 'removeEnvironment',
-                method: RouterMethod.POST,
-                path: '/:projectId/env/delete',
+                method: RouterMethod.DELETE,
+                path: '/:projectId/env',
                 onRequest: [
-                    (request, response, next) => {
-                        BFastControllers.functions()
-                            .envRemove(request.params.projectId, request.body.envs, request.query.force).then(value => {
-                            response.status(200).json({message: 'envs updated'});
-                        }).catch(reason => {
-                            response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
-                        });
+                    this.checkToken,
+                    this.checkIsProjectOwner,
+                    (request, response) => {
+                        const body = request.body;
+                        const valid = !!(body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
+                        if (valid) {
+                            BFastControllers.functions()
+                                .envRemove(request.params.projectId, request.body.envs, request.query.force).then(value => {
+                                response.status(200).json({message: 'envs updated'});
+                            }).catch(reason => {
+                                response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
+                            });
+                        } else {
+                            response.status(400).json({message: 'Nothing to update'})
+                        }
                     }
                 ]
             }

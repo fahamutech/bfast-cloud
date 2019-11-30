@@ -13,7 +13,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                 path: '/me',
                 onRequest: [
                     this.checkToken,
-                    (request, response, next) => {
+                    (request, response) => {
                         if (request.uid) {
                             BFastControllers.user().getUser(request.uid).then(user => {
                                 response.status(200).json(user);
@@ -32,7 +32,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                 path: '/me',
                 onRequest: [
                     this.checkToken,
-                    (request, response, next) => {
+                    (request, response) => {
                         const body = request.body;
                         const valid = !!(request.uid && body && Object.keys(body).length > 0);
                         if (valid) {
@@ -62,11 +62,11 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                 ]
             },
             {
-                name: 'createUser',
+                name: 'createUserAccount',
                 method: RouterMethod.POST,
                 path: '/',
                 onRequest: [
-                    (request, response, next) => {
+                    (request, response) => {
                         const body = request.body;
                         const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
                         if (valid) {
@@ -86,7 +86,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                 method: RouterMethod.POST,
                 path: '/login',
                 onRequest: [
-                    (request, response, next) => {
+                    (request, response) => {
                         const body = request.body;
                         const valid = !!(body && body.email && body.password);
                         if (valid) {
@@ -106,7 +106,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                 method: RouterMethod.POST,
                 path: '/reset',
                 onRequest: [
-                    (request, response, next) => {
+                    (request, response) => {
                         const body = request.body;
                         const valid = !!(body && body.email);
                         if (valid) {

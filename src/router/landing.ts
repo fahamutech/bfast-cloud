@@ -14,7 +14,7 @@ export class LandingRouter implements RestRouterAdapter {
                 path: '/',
                 onRequest: [
                     (request, response) => {
-                        response.status(200).json({message: 'welcome to bfast::cloud'})
+                        response.status(200).json({message: 'welcome to secure bfast::cloud'})
                     }
                 ]
             }

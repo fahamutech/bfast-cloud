@@ -1,7 +1,6 @@
 import {UserController} from "./userController";
 import {ProjectController} from "./projectController";
 import {FunctionsController} from "./functionsController";
-import {ProjectDatabaseFactory} from "../factory/projectDatabaseFactory";
 import {NodeShellFactory} from "../factory/nodeShellFactory";
 import {DockerCmdFactory} from "../factory/dockerCmdFactory";
 import {BFastSecurity} from "../factory/SecurityFactory";
@@ -13,7 +12,7 @@ export const BFastControllers = {
     },
 
     projects: () => {
-        return new ProjectController(new ProjectDatabaseFactory(), new NodeShellFactory())
+        return new ProjectController(new NodeShellFactory());
     },
 
     functions: () => {
