@@ -20,6 +20,8 @@ COPY *.json ./
 #RUN apt-get install -y docker-ce-cli
 #RUN apt-get install -y nodejs
 RUN apk add --update nodejs npm docker-compose
+RUN apk --no-cache add --virtual builds-deps build-base python
 RUN npm ci --only=production
+RUN npm rebuild bcrypt --build-from-source
 COPY ./lib ./lib
 CMD ["npm","start"]
