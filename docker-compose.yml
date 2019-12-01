@@ -107,8 +107,8 @@ services:
         limits:
           memory: 80M
     ports:
-      - 81:80
-      - 443:443
+      - 8181:80
+      - 8443:443
     networks:
       - bfastnet
       - default
