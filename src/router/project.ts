@@ -93,7 +93,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
                 ]
             },
             {
-                name: 'pathProject',
+                name: 'patchProjectDetails',
                 method: RouterMethod.PATCH,
                 path: '/:projectId',
                 onRequest: [

@@ -53,7 +53,7 @@ export class ProjectDatabaseFactory extends ProjectConfigurations implements Pro
                     {"user.uid": userId}
                 ]
             });
-            if (!result.ok) {
+            if (!result.ok && !result.value) {
                 throw 'Project not found';
             }
             return 'project deleted, id : ' + result.value._id;
