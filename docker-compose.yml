@@ -95,8 +95,8 @@ services:
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./ssl/fullchain1.pem:/app/fullchain.pem
-      - ./ssl/privkey1.pem:/app/privkey.pem
+      - ./ssl/fullchain2.pem:/app/fullchain.pem
+      - ./ssl/privkey2.pem:/app/privkey.pem
 
     command:
       # - "--api.insecure=true"
