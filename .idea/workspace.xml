@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/adapters/rest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapters/shell.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/childProcessShellFactory.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/projectConfigurations.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/restExpressJsFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/dockerI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/docker.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cli.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/databaseController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/dockerController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/dockerController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/functionsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/functionsController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/docker/dockerCmd.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/mongoDbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mdbConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/mongodb/mongoProjectDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/mdbProjectDbFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/deploy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/deploy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/traefik.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +20,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1U6XOWKNi3eHehL05ip2baq4uPC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -62,18 +43,6 @@
       <recent name="$PROJECT_DIR$/src/controller" />
       <recent name="$PROJECT_DIR$/src/adapters" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="npm.dev">
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
@@ -107,6 +76,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -122,6 +103,7 @@
       <workItem from="1574711170756" duration="883000" />
       <workItem from="1574744776759" duration="4577000" />
       <workItem from="1574759521404" duration="5486000" />
+      <workItem from="1577126046101" duration="307000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
