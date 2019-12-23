@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +24,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1U6XOWKNi3eHehL05ip2baq4uPC" />
   <component name="ProjectViewState">
@@ -322,33 +324,21 @@
     <option name="LAST_COMMIT_MESSAGE" value="update router" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="611" y="95" width="374" height="575" key="#com.intellij.ide.util.MemberChooser" timestamp="1575098073628">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577126387181">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="611" y="95" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1575098073628" />
-    <state x="373" y="21" width="849" height="819" key="CommitChangelistDialog2" timestamp="1575114299964">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577126387181" />
+    <state x="398" y="164" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577126389895">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="373" y="21" width="849" height="819" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1575114299964" />
-    <state width="1578" height="285" key="GridCell.Tab.0.bottom" timestamp="1575113461421">
+    <state x="398" y="164" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577126389895" />
+    <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="285" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1575113461421" />
-    <state width="1578" height="285" key="GridCell.Tab.0.center" timestamp="1575113461420">
+    <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/52.27.1548.873@52.27.1548.873" timestamp="1577126405481" />
+    <state x="547" y="66" width="502" height="744" key="git4idea.branch.GitSmartOperationDialog" timestamp="1577126416229">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="285" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1575113461420" />
-    <state width="1578" height="285" key="GridCell.Tab.0.left" timestamp="1575113461420">
-      <screen x="52" y="27" width="1548" height="873" />
-    </state>
-    <state width="1578" height="285" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1575113461420" />
-    <state width="1578" height="285" key="GridCell.Tab.0.right" timestamp="1575113461421">
-      <screen x="52" y="27" width="1548" height="873" />
-    </state>
-    <state width="1578" height="285" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1575113461421" />
-    <state x="398" y="131" width="800" height="564" key="Vcs.Push.Dialog.v2" timestamp="1575114304308">
-      <screen x="52" y="27" width="1548" height="873" />
-    </state>
-    <state x="398" y="131" width="800" height="564" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1575114304308" />
+    <state x="547" y="66" width="502" height="744" key="git4idea.branch.GitSmartOperationDialog/52.27.1548.873@52.27.1548.873" timestamp="1577126416229" />
   </component>
 </project>
