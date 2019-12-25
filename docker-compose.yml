@@ -41,16 +41,16 @@ services:
     depends_on:
       - mdbrs1
       - mdbrs2
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: joshua
+      MONGO_INITDB_ROOT_PASSWORD: joshua
+      MONGO_INITDB_DATABASE: admin
     deploy:
       placement:
         constraints: [node.role == manager]
       restart_policy:
         condition: any
         delay: 2s
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: joshua
-        MONGO_INITDB_ROOT_PASSWORD: joshua
-        MONGO_INITDB_DATABASE: admin
         #for test
       resources:
         limits:
@@ -67,14 +67,14 @@ services:
       - default
       - bfastnet
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: joshua
+      MONGO_INITDB_ROOT_PASSWORD: joshua
+      MONGO_INITDB_DATABASE: admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: joshua
-        MONGO_INITDB_ROOT_PASSWORD: joshua
-        MONGO_INITDB_DATABASE: admin
         #for test
       resources:
         limits:
@@ -89,14 +89,14 @@ services:
       - default
       - bfastnet
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: joshua
+      MONGO_INITDB_ROOT_PASSWORD: joshua
+      MONGO_INITDB_DATABASE: admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: joshua
-        MONGO_INITDB_ROOT_PASSWORD: joshua
-        MONGO_INITDB_DATABASE: admin
       # for test
       resources:
         limits:

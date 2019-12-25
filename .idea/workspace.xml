@@ -143,7 +143,7 @@
       <workItem from="1575089819182" duration="10236000" />
       <workItem from="1575113863645" duration="653000" />
       <workItem from="1575139332979" duration="9000" />
-      <workItem from="1577259084620" duration="3628000" />
+      <workItem from="1577259084620" duration="3941000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -313,7 +313,21 @@
       <option name="project" value="LOCAL" />
       <updated>1577261584339</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="add authentication database">
+      <created>1577263113026</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263113026</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add authentication database">
+      <created>1577263157145</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263157145</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,13 +368,14 @@
     <MESSAGE value="update router" />
     <MESSAGE value="change port of traefik to 80" />
     <MESSAGE value="migrate database to authentication of each project to a specific database" />
-    <option name="LAST_COMMIT_MESSAGE" value="migrate database to authentication of each project to a specific database" />
+    <MESSAGE value="add authentication database" />
+    <option name="LAST_COMMIT_MESSAGE" value="add authentication database" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577263112914">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577263157033">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577263112914" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577263157033" />
     <state width="1578" height="260" key="GridCell.Tab.0.bottom" timestamp="1577129256611">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -381,10 +396,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="149" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577263116513">
+    <state x="398" y="144" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577263158983">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="149" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577263116513" />
+    <state x="398" y="144" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577263158983" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
