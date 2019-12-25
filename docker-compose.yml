@@ -50,6 +50,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: joshua
         MONGO_INITDB_ROOT_PASSWORD: joshua
+        MONGO_INITDB_DATABASE: admin
         #for test
       resources:
         limits:
@@ -73,6 +74,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: joshua
         MONGO_INITDB_ROOT_PASSWORD: joshua
+        MONGO_INITDB_DATABASE: admin
         #for test
       resources:
         limits:
@@ -94,6 +96,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: joshua
         MONGO_INITDB_ROOT_PASSWORD: joshua
+        MONGO_INITDB_DATABASE: admin
       # for test
       resources:
         limits:
