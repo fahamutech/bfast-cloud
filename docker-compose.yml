@@ -57,7 +57,7 @@ services:
           memory: 100M
       # rollback_config:
       #   failure_action: continue
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
   mdbrs1:
     image: mongo:4-bionic
     hostname: mdbrs1
@@ -79,7 +79,7 @@ services:
       resources:
         limits:
           memory: 100M
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
   mdbrs2:
     image: mongo:4-bionic
     hostname: mdbrs2
@@ -101,7 +101,7 @@ services:
       resources:
         limits:
           memory: 100M
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
   traefik:
     image: traefik:v1.7
     hostname: traefik
