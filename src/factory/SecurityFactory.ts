@@ -37,7 +37,6 @@ JLcWQ6hFDpecIaaCJiqAXvFACr`;
         }
     }
 
-
     generateToken(data: object): Promise<string> {
         return new Promise((resolve, reject) => {
             jwt.sign(data, this.jwtPassword, {

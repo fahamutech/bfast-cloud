@@ -108,7 +108,7 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
         }
     }
 
-    // need to ne implemented
+    // need to be implemented
     async resetPassword(email: string): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);

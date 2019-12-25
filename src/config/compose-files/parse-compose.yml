@@ -52,7 +52,7 @@ services:
       resources:
         limits:
           # cpus: '0.50'
-          memory: 125M
+          memory: 90M
         # reservations:
         #   cpus: '0.25'
         #   memory: 20M

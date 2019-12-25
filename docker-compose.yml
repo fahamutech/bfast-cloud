@@ -47,6 +47,9 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: joshua
+        MONGO_INITDB_ROOT_PASSWORD: joshua
         #for test
       resources:
         limits:
@@ -67,6 +70,9 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: joshua
+        MONGO_INITDB_ROOT_PASSWORD: joshua
         #for test
       resources:
         limits:
@@ -85,6 +91,9 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: joshua
+        MONGO_INITDB_ROOT_PASSWORD: joshua
       # for test
       resources:
         limits:
