@@ -357,10 +357,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="migrate database to authentication of each project to a specific database" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577263075321">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577263112914">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577263075321" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577263112914" />
     <state width="1578" height="260" key="GridCell.Tab.0.bottom" timestamp="1577129256611">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -381,10 +381,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="154" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577261590886">
+    <state x="398" y="149" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577263116513">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="154" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577261590886" />
+    <state x="398" y="149" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577263116513" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
