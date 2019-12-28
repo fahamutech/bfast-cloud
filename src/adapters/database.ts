@@ -6,7 +6,7 @@ export interface ProjectDatabaseAdapter {
 
     deleteUserProject(userId: string, projectId: string): Promise<any>;
 
-    getProjectsOfUser(userId: string, size?: number, skip?: number): Promise<ProjectModel[]>;
+    getUserProjects(userId: string, size?: number, skip?: number): Promise<ProjectModel[]>;
 
     getProject(objectId: string): Promise<ProjectModel>;
 
@@ -22,9 +22,8 @@ export interface ProjectDatabaseAdapter {
      * @param projectId {string} project id
      */
     // need discussion upon name
-    getProjectByOwner(userId: string, projectId: string): Promise<any>;
+    getOwnerProject(userId: string, projectId: string): Promise<any>;
 }
-
 
 export interface UsersDatabaseAdapter {
     createUser(user: UserModel): Promise<any>;
@@ -39,7 +38,9 @@ export interface UsersDatabaseAdapter {
 
     login(username: string, password: string): Promise<any>;
 
-    resetPassword(email: string): Promise<any>;
+    requestResetPassword(email: string): Promise<any>;
+
+    resetPassword(email: string, code: string, password: string): Promise<any>;
 
     getRole(userId: string): Promise<string>;
 }

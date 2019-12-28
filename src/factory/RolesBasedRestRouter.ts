@@ -1,13 +1,13 @@
 import {SecureRestRouter} from "./SecureRestRouter";
 import {UserRoles} from "../model/user";
-import {UsersDatabaseFactory} from "./UsersDatabaseFactory";
+import {UserFactory} from "./userFactory";
 import {BFastSecurity} from "./SecurityFactory";
 import {EmailFactory} from "./EmailFactory";
-import {ProjectDatabaseFactory} from "./projectDatabaseFactory";
+import {ProjectFactory} from "./projectFactory";
 
 const bFastSecurity = new BFastSecurity();
-const userDatabase = new UsersDatabaseFactory(bFastSecurity, new EmailFactory());
-const projectDatabase = new ProjectDatabaseFactory();
+const userDatabase = new UserFactory(bFastSecurity, new EmailFactory());
+const projectDatabase = new ProjectFactory();
 
 export abstract class RolesBasedRestRouter extends SecureRestRouter {
 
@@ -32,7 +32,7 @@ export abstract class RolesBasedRestRouter extends SecureRestRouter {
 
     checkIsProjectOwner(request: any, response: any, next: any) {
         if (request.uid && request.params.projectId) {
-            projectDatabase.getProjectByOwner(request.uid, request.params.projectId).then(_ => {
+            projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                 next();
             }).catch(reason => {
                 response.status(403).json(reason);

@@ -8,13 +8,18 @@
       <w>bfastnet</w>
       <w>bfastweb</w>
       <w>brcypt</w>
+      <w>datavision</w>
       <w>faas</w>
       <w>faasdata</w>
       <w>fahamutech</w>
+      <w>gmail</w>
       <w>mdbhost</w>
       <w>mdbrs</w>
       <w>mongod</w>
+      <w>nodemailer</w>
+      <w>privkey</w>
       <w>reconfig</w>
+      <w>smtp</w>
       <w>traefik</w>
     </words>
   </dictionary>

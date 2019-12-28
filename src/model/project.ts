@@ -1,4 +1,4 @@
-import {UserModel} from "./user";
+import {BusinessModel, UserModel} from "./user";
 
 export interface ProjectModel {
     id?: string;
@@ -7,7 +7,8 @@ export interface ProjectModel {
     name: string;
     projectId: string;
     description: string;
-    type?: 'spring' | 'parse';
+    type: 'parse-server' | 'ssm';
+    ssm: BusinessModel;
     isParse?: boolean;
     parse: { appId: string; masterKey: string; };
     members: UserModel[] | [];

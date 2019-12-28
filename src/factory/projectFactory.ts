@@ -1,12 +1,13 @@
 import {ProjectDatabaseAdapter} from "../adapters/database";
 import {ProjectModel} from "../model/project";
 import {ProjectConfigurations} from "../config/projectConfigurations";
+import {Options} from "../config/Options";
 
-export class ProjectDatabaseFactory extends ProjectConfigurations implements ProjectDatabaseAdapter {
+export class ProjectFactory extends ProjectConfigurations implements ProjectDatabaseAdapter {
     PROJECT_COLL = this.collectionNames.project;
 
-    constructor() {
-        super();
+    constructor(private readonly options: Options) {
+        super(options);
     }
 
     insertProject(project: ProjectModel): Promise<ProjectModel> {
@@ -17,6 +18,7 @@ export class ProjectDatabaseFactory extends ProjectConfigurations implements Pro
                     name: project.name,
                     projectId: project.projectId,
                     description: project.description,
+                    type: project.type,
                     user: project.user,
                     members: project.members ? project.members : [],
                     isParse: project.isParse ? project.isParse : false,
@@ -63,12 +65,13 @@ export class ProjectDatabaseFactory extends ProjectConfigurations implements Pro
         }
     }
 
-    getProjectsOfUser(userId: string): Promise<ProjectModel[]> {
+    getUserProjects(userId: string): Promise<ProjectModel[]> {
         return new Promise<any>(async (resolve, reject) => {
             if (userId) {
                 try {
                     // let conn = await this.getConnection();
-                    const projectCollection = await this.getCollection(this.PROJECT_COLL); // conn.db(this.DB_NAME).collection(this.collectionNames.project);
+                    const projectCollection = await this.getCollection(this.PROJECT_COLL);
+                    // conn.db(this.DB_NAME).collection(this.collectionNames.project);
                     const results = await projectCollection.find({
                         $or: [{'user.uid': userId}, {"members.user.uid": userId}]
                     }).toArray();
@@ -129,7 +132,8 @@ export class ProjectDatabaseFactory extends ProjectConfigurations implements Pro
         }
     }
 
-    async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }): Promise<any> {
+    async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }):
+        Promise<any> {
         try {
             const projectCollection = await this.getCollection(this.PROJECT_COLL);
             const result = await projectCollection.findOneAndUpdate({
@@ -149,7 +153,7 @@ export class ProjectDatabaseFactory extends ProjectConfigurations implements Pro
         }
     }
 
-    async getProjectByOwner(userId: string, projectId: string): Promise<any> {
+    async getOwnerProject(userId: string, projectId: string): Promise<any> {
         try {
             const projectCollection = await this.getCollection(this.PROJECT_COLL);
             const project = await projectCollection.findOne({

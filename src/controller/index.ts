@@ -1,8 +1,8 @@
 import {UserController} from "./userController";
 import {ProjectController} from "./projectController";
 import {FunctionsController} from "./functionsController";
-import {NodeShellFactory} from "../factory/nodeShellFactory";
-import {DockerCmdFactory} from "../factory/dockerCmdFactory";
+import {NodeShellFactory} from "../factory/NodeShellFactory";
+import {SwarmOrchestration} from "../factory/swarmOrchestration";
 import {BFastSecurity} from "../factory/SecurityFactory";
 import {EmailFactory} from "../factory/EmailFactory";
 
@@ -16,6 +16,6 @@ export const BFastControllers = {
     },
 
     functions: () => {
-        return new FunctionsController(new DockerCmdFactory());
+        return new FunctionsController(new SwarmOrchestration());
     }
 };

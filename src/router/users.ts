@@ -110,7 +110,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
                         const body = request.body;
                         const valid = !!(body && body.email);
                         if (valid) {
-                            BFastControllers.user().resetPassword(body.email).then(value => {
+                            BFastControllers.user().requestResetPassword(body.email).then(value => {
                                 response.status(200).json(value);
                             }).catch(reason => {
                                 response.status(400).json(reason);

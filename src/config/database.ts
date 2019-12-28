@@ -1,5 +1,6 @@
 import {Collection, MongoClient, ObjectID} from "mongodb";
 import {Configurations} from "./configurations";
+import {Options} from "./Options";
 
 export abstract class DatabaseConfigurations extends Configurations {
     private readonly mongoClient: MongoClient;
@@ -9,15 +10,15 @@ export abstract class DatabaseConfigurations extends Configurations {
         project: '_Project',
     };
 
-    protected constructor() {
-        super();
+    protected constructor(options: Options) {
+        super(options);
         if (this.DB_HOST === 'mdb') {
             this.mongoClient = new MongoClient(
                 `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
                 {useNewUrlParser: true, useUnifiedTopology: true}
             );
         } else {
-            this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true});
+            this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true});
         }
     }
 
@@ -111,5 +112,9 @@ export abstract class DatabaseConfigurations extends Configurations {
             console.log(reason)
         }
     }
+
+    // getComposeFile(filename: string): string {
+    //     return "";
+    // }
 
 }

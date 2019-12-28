@@ -14,7 +14,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
                 onRequest: [
                     this.checkToken,
                     (request, response, _) => {
-                        BFastControllers.projects().getProjectsOfUser(request.uid).then((value: any) => {
+                        BFastControllers.projects().getUserProjects(request.uid).then((value: any) => {
                             response.json(value);
                         }).catch((reason: any) => {
                             response.status(404).json(reason);

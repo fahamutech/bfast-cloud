@@ -1,15 +1,17 @@
-import {DatabaseConfigurations} from "../config/mdbConfigurations";
+import {DatabaseConfigurations} from "../config/database";
 import {UsersDatabaseAdapter} from "../adapters/database";
 import {UserModel, UserRoles} from "../model/user";
-import {BFastCloudSecurityAdapter} from "../adapters/security";
+import {SecurityAdapter} from "../adapters/security";
 import {EmailAdapter} from "../adapters/email";
+import {Options} from "../config/Options";
 
-export class UsersDatabaseFactory extends DatabaseConfigurations implements UsersDatabaseAdapter {
+export class UserFactory extends DatabaseConfigurations implements UsersDatabaseAdapter {
     USER_COLL = this.collectionNames.user;
 
-    constructor(private readonly securityAdapter: BFastCloudSecurityAdapter,
+    constructor(private readonly securityAdapter: SecurityAdapter,
+                private readonly options: Options,
                 private readonly emailAdapter: EmailAdapter) {
-        super();
+        super(options);
     }
 
     async createUser(user: UserModel): Promise<any> {
@@ -98,7 +100,7 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
     async updateUserDetails(userId: string, data: object): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
-            const result = await userCollection.findOneAndUpdate({_id: this.convertToObjectId(userId)}, {
+            await userCollection.findOneAndUpdate({_id: this.convertToObjectId(userId)}, {
                 $set: JSON.parse(JSON.stringify(data)),
             });
             return await this.getUser(userId);
@@ -109,18 +111,26 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
     }
 
     // need to be implemented
-    async resetPassword(email: string): Promise<any> {
+    // todo: implement password reset mechanism
+    async requestResetPassword(email: string): Promise<any> {
         try {
             const userCollection = await this.getCollection(this.USER_COLL);
             const user = await userCollection.findOne({email: email});
             if (!user) {
                 throw 'User record with that email not found';
             }
-            await this.emailAdapter.sendEmail('', '', `check your email`);
+            const code = await this.securityAdapter.generateToken({email: email});
+            await userCollection.findOneAndUpdate({email: email}, {
+                $set: {
+                    rCode: code
+                }
+            });
+            await this.emailAdapter.sendEmail(email, 'jmshana@datavision.co.tz',
+                'Password reset', `Use this code to reset your password, code:${code}`);
             return {message: 'Follow Instruction sent to email : ' + user.email};
         } catch (e) {
             console.error(e);
-            throw {message: 'fail to send reset password email', reason: e.toString()}
+            throw {message: 'Fail to send reset password email', reason: e.toString()};
         }
     }
 
@@ -135,6 +145,31 @@ export class UsersDatabaseFactory extends DatabaseConfigurations implements User
         } catch (e) {
             console.error(e);
             throw {message: 'user role can not be determined', reason: e.toString()}
+        }
+    }
+
+    async resetPassword(email: string, code: string, password: string): Promise<any> {
+        try {
+            await this.securityAdapter.verifyToken(code);
+            const email = this.securityAdapter.decodeToken(code);
+            if (!password) {
+                throw 'Please provide a new password';
+            }
+            if (email && email.email === email) {
+                const hashedPassword = await this.securityAdapter.encryptPassword(password);
+                const userCollection = await this.getCollection(this.USER_COLL);
+                await userCollection.findOneAndUpdate({email: email, rCode: code}, {
+                    $set: {
+                        password: hashedPassword,
+                        rCode: null
+                    }
+                });
+                return 'Password updated';
+            } else {
+                throw 'code is invalid';
+            }
+        } catch (e) {
+            throw {message: "Reset password fails", reason: e.toString()};
         }
     }
 

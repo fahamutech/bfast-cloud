@@ -1,5 +1,5 @@
-export interface BFastCloudSecurityAdapter {
-    generateToken(data: object): Promise<string>;
+export interface SecurityAdapter {
+    generateToken(data: { [key: string]: any; }): Promise<string>;
 
     verifyToken(token: string): Promise<any>;
 

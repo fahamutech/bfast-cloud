@@ -1,4 +1,4 @@
-import {UsersDatabaseFactory} from "../factory/UsersDatabaseFactory";
+import {UserFactory} from "../factory/userFactory";
 
-export class UserController extends UsersDatabaseFactory {
+export class UserController extends UserFactory {
 }

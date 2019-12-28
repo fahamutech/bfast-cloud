@@ -1,8 +1,8 @@
-import {BFastCloudSecurityAdapter} from "../adapters/security";
+import {SecurityAdapter} from "../adapters/security";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 
-export class BFastSecurity implements BFastCloudSecurityAdapter {
+export class BFastSecurity implements SecurityAdapter {
     private jwtPassword = `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
 mk96COGGqySke+nVcJwNvuGqynxvahg6OFHamg29P9S5Ji73O1t+3uEhubv7lbaF
 f6WA1xnLzPSa3y3OdkFDUt8Px0SwnSJRxgNVG2g4gT6pA/huuJDuyleTPUKAqe/4

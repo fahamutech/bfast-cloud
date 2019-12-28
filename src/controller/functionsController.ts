@@ -1,4 +1,4 @@
-import {DockerAdapter} from "../adapters/docker";
+import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
 
 /**
  * @class FunctionsController. Manage BFast::Function instance include
@@ -7,10 +7,10 @@ import {DockerAdapter} from "../adapters/docker";
 export class FunctionsController {
     /**
      *
-     * @param docker {DockerAdapter} implementation of DockerI interface for
+     * @param docker {ContainerOrchestrationAdapter} implementation of DockerI interface for
      * communicate with outside docker system
      */
-    constructor(private readonly docker: DockerAdapter) {
+    constructor(private readonly docker: ContainerOrchestrationAdapter) {
     }
 
     private static _checkProjectId(projectId: string): string {
@@ -23,7 +23,7 @@ export class FunctionsController {
 
     async deploy(projectId: string = '', force: boolean = false): Promise<any> {
         try {
-            return await this.docker.deployFaaSEngine(FunctionsController._checkProjectId(projectId), force);
+            return await this.docker.cloudFunctionsDeploy(FunctionsController._checkProjectId(projectId), force);
         } catch (e) {
             throw e.toString();
         }
@@ -31,7 +31,7 @@ export class FunctionsController {
 
     async envAdd(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.docker.envAddToFaaSEngine(FunctionsController._checkProjectId(projectId), envs, force)
+            return await this.docker.cloudFunctionsAddEnv(FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();
         }
@@ -39,7 +39,7 @@ export class FunctionsController {
 
     async envRemove(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.docker.envRemoveFromFaaSEngine(FunctionsController._checkProjectId(projectId), envs, force)
+            return await this.docker.cloudFunctionsRemoveEnv(FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();
         }

@@ -1,8 +1,7 @@
-import {RestAdapter} from "../adapters/rest";
-import {RestRouterAdapter, RouterMethod} from "../adapters/restRouter";
+import {RestAdapter, RestRouterAdapter, RestRouterMethod} from "../adapters/rest";
 import * as http from "http";
 
-export class RestApiFactory implements RestAdapter {
+export class ExpressRestFactory implements RestAdapter {
     private readonly express: any;
     private readonly expressApp: any;
 
@@ -17,27 +16,23 @@ export class RestApiFactory implements RestAdapter {
         expressApp.use(this.express.json());
         expressApp.use(this.express.urlencoded({extended: false}));
         expressApp.use(require('cookie-parser')());
-       // expressApp.use(this.express.static(`${__dirname}/../public`));
-        // BFastControllers.database;
     }
 
     mountRoutes(routerAdapters: RestRouterAdapter[]): any {
         routerAdapters.forEach(routerAdapter => {
-            // console.log(routerAdapter);
             const expressRouter = this.express.Router();
             routerAdapter.getRoutes().forEach(router => {
-                // console.log(router);
                 switch (router.method) {
-                    case RouterMethod.GET:
+                    case RestRouterMethod.GET:
                         expressRouter.get(router.path, router.onRequest);
                         break;
-                    case RouterMethod.POST:
+                    case RestRouterMethod.POST:
                         expressRouter.post(router.path, router.onRequest);
                         break;
-                    case RouterMethod.DELETE:
+                    case RestRouterMethod.DELETE:
                         expressRouter.delete(router.path, router.onRequest);
                         break;
-                    case RouterMethod.PATCH:
+                    case RestRouterMethod.PATCH:
                         expressRouter.patch(router.path, router.onRequest);
                         break;
                 }
@@ -48,12 +43,12 @@ export class RestApiFactory implements RestAdapter {
 
     startHttpServer(port: string): any {
         const server = http.createServer(this.expressApp);
-        server.listen(RestApiFactory.normalizePort(port));
+        server.listen(ExpressRestFactory.normalizePort(port));
         server.on('error', args => {
-            RestApiFactory.onError(args, port);
+            ExpressRestFactory.onError(args, port);
         });
         server.on('listening', () => {
-            console.log('BFast::Cloud listen at 0.0.0.0 -> ' + port);
+            console.log('bfast::cloud start listen at 0.0.0.0 -> ' + port);
         });
     }
 

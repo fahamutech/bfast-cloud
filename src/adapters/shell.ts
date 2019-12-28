@@ -1,5 +1,5 @@
 export interface ShellAdapter {
-    exec(cmd: string, options: ShellOptions): Promise<any>;
+    exec(cmd: string, options?: ShellOptions): Promise<any>;
 }
 
 export interface ShellOptions {
