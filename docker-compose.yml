@@ -57,7 +57,7 @@ services:
           memory: 100M
       # rollback_config:
       #   failure_action: continue
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs1:
     image: mongo:4-bionic
     hostname: mdbrs1
@@ -79,7 +79,7 @@ services:
       resources:
         limits:
           memory: 100M
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs2:
     image: mongo:4-bionic
     hostname: mdbrs2
@@ -101,7 +101,27 @@ services:
       resources:
         limits:
           memory: 100M
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS", "--auth" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
+  redis:
+    image: redis:5-alpine
+    hostname: redis
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          memory: 100M
+    networks:
+      - bfastnet
+      - default
+    volumes:
+      - redisdata:/data
+    command:
+      - --appendonly yes
   traefik:
     image: traefik:v1.7
     hostname: traefik
@@ -154,6 +174,7 @@ volumes:
   traefikdata:
   mongodatars2:
   mongodatars1:
+  redisdata:
 networks:
   bfastnet:
     # driver: overlay

@@ -2,42 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/compose-files/ssm-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/NodeShellFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/docker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/containerOrchestration.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/email.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/email.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/rest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/restRouter.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/adapters/security.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/security.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/shell.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/shell.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bfast-cloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast::cloud.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/configurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/configurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/mdbConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/database.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/projectConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/projectConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/functionsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/functionsController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/EmailFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/EmailFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/Initializer.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/UsersDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/userFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/dockerCmdFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/swarmOrchestration.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/nodeShellFactory.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/projectFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/restApiFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/expressRestFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/userFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/userFactory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +150,8 @@
       <workItem from="1575113863645" duration="653000" />
       <workItem from="1575139332979" duration="9000" />
       <workItem from="1577259084620" duration="5259000" />
-      <workItem from="1577526999537" duration="10040000" />
+      <workItem from="1577526999537" duration="11347000" />
+      <workItem from="1577639847285" duration="3847000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -376,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577263728450</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="start implementing password reset mechanism">
+      <created>1577539240652</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1577539240652</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,17 +399,18 @@
     <MESSAGE value="migrate database to authentication of each project to a specific database" />
     <MESSAGE value="add authentication database" />
     <MESSAGE value="fix yaml problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix yaml problem" />
+    <MESSAGE value="start implementing password reset mechanism" />
+    <option name="LAST_COMMIT_MESSAGE" value="start implementing password reset mechanism" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577538243968">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577538243968" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577263728146">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577539240272">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577263728146" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577539240272" />
     <state width="1578" height="260" key="GridCell.Tab.0.bottom" timestamp="1577129256611">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -450,10 +431,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="134" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577263734241">
+    <state x="398" y="129" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577539245300">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="134" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577263734241" />
+    <state x="398" y="129" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577539245300" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

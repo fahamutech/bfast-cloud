@@ -122,7 +122,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
             const code = await this.securityAdapter.generateToken({email: email});
             await userCollection.findOneAndUpdate({email: email}, {
                 $set: {
-                    rCode: code
+                    resetCode: code
                 }
             });
             await this.emailAdapter.sendEmail(email, 'jmshana@datavision.co.tz',
@@ -158,10 +158,10 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
             if (email && email.email === email) {
                 const hashedPassword = await this.securityAdapter.encryptPassword(password);
                 const userCollection = await this.getCollection(this.USER_COLL);
-                await userCollection.findOneAndUpdate({email: email, rCode: code}, {
+                await userCollection.findOneAndUpdate({email: email, resetCode: code}, {
                     $set: {
                         password: hashedPassword,
-                        rCode: null
+                        resetCode: null
                     }
                 });
                 return 'Password updated';
