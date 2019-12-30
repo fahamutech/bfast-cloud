@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapters/security.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/security.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/userFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/userFactory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +64,7 @@
       <recent name="$PROJECT_DIR$/src/controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.compose-files/parse-compose.yml.daas: Compose Deployment">
+  <component name="RunManager" selected="npm.start:dev">
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
@@ -101,13 +102,23 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start:dev" />
         <item itemvalue="Docker.compose-files/parse-compose.yml.daas: Compose Deployment" />
         <item itemvalue="npm.dev" />
         <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="npm.dev" />
-        <item itemvalue="Docker.Dockerfile" />
       </list>
     </recent_temporary>
   </component>
@@ -151,7 +162,8 @@
       <workItem from="1575139332979" duration="9000" />
       <workItem from="1577259084620" duration="5259000" />
       <workItem from="1577526999537" duration="11347000" />
-      <workItem from="1577639847285" duration="3847000" />
+      <workItem from="1577639847285" duration="4115000" />
+      <workItem from="1577732801847" duration="3695000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -356,7 +368,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577539240652</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add redis in jwt for persistence or session">
+      <created>1577656882009</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1577656882009</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,41 +419,42 @@
     <MESSAGE value="add authentication database" />
     <MESSAGE value="fix yaml problem" />
     <MESSAGE value="start implementing password reset mechanism" />
-    <option name="LAST_COMMIT_MESSAGE" value="start implementing password reset mechanism" />
+    <MESSAGE value="add redis in jwt for persistence or session" />
+    <option name="LAST_COMMIT_MESSAGE" value="add redis in jwt for persistence or session" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577538243968">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577538243968" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577539240272">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577737059769">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577539240272" />
-    <state width="1578" height="260" key="GridCell.Tab.0.bottom" timestamp="1577129256611">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577737059769" />
+    <state width="1600" height="459" key="GridCell.Tab.0.bottom" timestamp="1577735125777">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="260" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577129256611" />
-    <state width="1578" height="260" key="GridCell.Tab.0.center" timestamp="1577129256611">
+    <state width="1600" height="459" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577735125777" />
+    <state width="1600" height="459" key="GridCell.Tab.0.center" timestamp="1577735125775">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="260" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577129256611" />
-    <state width="1578" height="260" key="GridCell.Tab.0.left" timestamp="1577129256610">
+    <state width="1600" height="459" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577735125775" />
+    <state width="1600" height="459" key="GridCell.Tab.0.left" timestamp="1577735125773">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="260" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577129256610" />
-    <state width="1578" height="260" key="GridCell.Tab.0.right" timestamp="1577129256611">
+    <state width="1600" height="459" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577735125773" />
+    <state width="1600" height="459" key="GridCell.Tab.0.right" timestamp="1577735125776">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="260" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577129256611" />
+    <state width="1600" height="459" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577735125776" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="129" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577539245300">
+    <state x="398" y="124" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577656885511">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="129" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577539245300" />
+    <state x="398" y="124" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577656885511" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

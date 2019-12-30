@@ -1,26 +1,13 @@
 const gulp = require('gulp');
 const process = require('child_process');
 const pkg = require('./package');
+const MongoMemoryServer = require('mongodb-memory-server-core').MongoMemoryServer;
 
 function build() {
     return new Promise((resolve, reject) => {
         console.log('start compile typescript');
-        const npmBuildProcess = process.exec('tsc');
-        npmBuildProcess.on("error", err => {
-            console.log(err);
-            reject(err);
-        });
-        npmBuildProcess.on("exit", (code, signal) => {
-            console.log(`build done with code: ${code} and signal: ${signal}`);
-            resolve();
-        });
-        npmBuildProcess.stdout.on('data', (data) => {
-            console.log(data);
-        });
-        npmBuildProcess.stderr.on('data', (data) => {
-            console.log(data);
-            reject(data);
-        });
+        const childProcess = process.exec('tsc');
+        handleProcessEvents(childProcess, resolve, reject);
     })
 }
 
@@ -36,99 +23,63 @@ function copyComposeFiles() {
         .pipe(gulp.dest('./lib/config/compose-files/'));
 }
 
+function handleProcessEvents(childProcess, resolve, reject) {
+    childProcess.on("error", err => {
+        console.log(err);
+        reject(err);
+    });
+    childProcess.on("exit", (code, signal) => {
+        console.log(`build done with code: ${code} and signal: ${signal}`);
+        resolve();
+    });
+    childProcess.stdout.on('data', (data) => {
+        console.log(data);
+    });
+    childProcess.stderr.on('data', (data) => {
+        console.log(data);
+        reject(data);
+    });
+}
+
 function buildDocker() {
     return new Promise((resolve, reject) => {
         console.log('start build docker image');
-        const buildDockerProcess = process.exec(`sudo docker build -t joshuamshana/bfast-ee:v${pkg.version} .`);
-        buildDockerProcess.on("error", err => {
-            console.log(err);
-            reject(err);
-        });
-        buildDockerProcess.on("exit", (code, signal) => {
-            console.log(`build done with code: ${code} and signal: ${signal}`);
-            resolve();
-        });
-        buildDockerProcess.stdout.on('data', (data) => {
-            console.log(data);
-        });
-        buildDockerProcess.stderr.on('data', (data) => {
-            console.log(data);
-            reject(data);
-        });
-        console.log('build docker image succeed');
-    })
+        const childProcess = process.exec(`sudo docker build -t joshuamshana/bfast-ee:v${pkg.version} .`);
+        handleProcessEvents(childProcess, resolve, reject);
+    });
 }
 
 function publishDockerImage() {
     return new Promise((resolve, reject) => {
         console.log('start publish docker image');
         const publishDockerImageProcess = process.exec(`sudo docker push joshuamshana/bfast-ee:v${pkg.version}`);
-        publishDockerImageProcess.on("error", err => {
-            console.log(err);
-            reject(err);
-        });
-        publishDockerImageProcess.on("exit", (code, signal) => {
-            console.log(`build done with code: ${code} and signal: ${signal}`);
-            resolve();
-        });
-        publishDockerImageProcess.stdout.on('data', (data) => {
-            console.log(data);
-        });
-        publishDockerImageProcess.stderr.on('data', (data) => {
-            console.log(data);
-        });
-        console.log('publish docker image succeed');
-    })
+        handleProcessEvents(publishDockerImageProcess, resolve, reject);
+    });
 }
 
 function publishDockerImageLatest() {
     return new Promise((resolve, reject) => {
         console.log('start publish docker image');
         const publishDockerImageProcess = process.exec(`sudo docker push joshuamshana/bfast-ee:latest`);
-        publishDockerImageProcess.on("error", err => {
-            console.log(err);
-            reject(err);
-        });
-        publishDockerImageProcess.on("exit", (code, signal) => {
-            console.log(`build done with code: ${code} and signal: ${signal}`);
-            resolve();
-        });
-        publishDockerImageProcess.stdout.on('data', (data) => {
-            console.log(data);
-        });
-        publishDockerImageProcess.stderr.on('data', (data) => {
-            console.log(data);
-        });
-        console.log('publish docker image succeed');
-    })
+        handleProcessEvents(publishDockerImageProcess, resolve, reject);
+    });
 }
 
 function startDevServer() {
-    return new Promise((resolve, reject) => {
-        const d = process.execSync('which docker');
-        console.log(d.toString());
-        const devStartProcess = process.exec(`npm run devInit`, {
+    return new Promise(async (resolve, reject) => {
+        const dockerPath = process.execSync('which docker');
+        const mongoServer = new MongoMemoryServer({
+            autoStart: true,
+        });
+        const mongoUrl = await mongoServer.getConnectionString();
+        const childProcess = process.exec(`npm run poststart:dev`, {
             env: {
-                debug: true,
-                mdbhost: "mongodb://localhost:27017/_BFAST_ADMIN",
-                dSocket: d.toString()
+                debug: "true",
+                mdbhost: mongoUrl, // "mongodb://localhost:27017/_BFAST_ADMIN",
+                dSocket: dockerPath.toString()
             }
         });
-        devStartProcess.on('exit', (code, signal) => {
-            console.log(`dev server stop with code: ${code} and signal: ${signal}`);
-            resolve();
-        });
-        devStartProcess.on('error', err => {
-            reject(err);
-        });
-
-        devStartProcess.stdout.on('data', (data) => {
-            console.log(data);
-        });
-
-        devStartProcess.stderr.on('data', (data) => {
-            console.log(data);
-        });
+        handleProcessEvents(childProcess, resolve, reject);
     });
 }
 

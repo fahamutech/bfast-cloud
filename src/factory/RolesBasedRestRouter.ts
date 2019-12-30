@@ -1,19 +1,21 @@
 import {SecureRestRouter} from "./SecureRestRouter";
 import {UserRoles} from "../model/user";
-import {UserFactory} from "./userFactory";
-import {BFastSecurity} from "./SecurityFactory";
-import {EmailFactory} from "./EmailFactory";
 import {ProjectFactory} from "./projectFactory";
+import {UsersDatabaseAdapter} from "../adapters/database";
+import {Options} from "../config/Options";
 
-const bFastSecurity = new BFastSecurity();
-const userDatabase = new UserFactory(bFastSecurity, new EmailFactory());
-const projectDatabase = new ProjectFactory();
 
 export abstract class RolesBasedRestRouter extends SecureRestRouter {
 
+    constructor(private readonly userDatabase: UsersDatabaseAdapter,
+                options: Options,
+                private readonly projectDatabase: ProjectFactory) {
+        super(options);
+    }
+
     checkIsAdmin(request: any, response: any, next: any) {
         if (request.uid) {
-            userDatabase.getRole(request.uid).then(role => {
+            this.userDatabase.getRole(request.uid).then(role => {
                 if (role === UserRoles.ADMIN_ROLE) {
                     next();
                 } else {
@@ -32,7 +34,7 @@ export abstract class RolesBasedRestRouter extends SecureRestRouter {
 
     checkIsProjectOwner(request: any, response: any, next: any) {
         if (request.uid && request.params.projectId) {
-            projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+            this.projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                 next();
             }).catch(reason => {
                 response.status(403).json(reason);

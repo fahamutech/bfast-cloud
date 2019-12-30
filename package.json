@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "start": "node ./lib/index.js",
-    "dev": "gulp devStart",
+    "start:dev": "gulp devStart",
     "build": "gulp",
-    "devInit": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "poststart:dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "test": "mocha --timeout 60000 ./specs",
     "push": "gulp pubishDockerImage"
   },
@@ -16,7 +16,6 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "jsonwebtoken": "^8.5.1",
     "jwt-redis": "^5.0.9",
     "mongodb": "^3.3.2",
     "morgan": "~1.9.1",

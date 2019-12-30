@@ -1,11 +1,13 @@
 import {ProjectModel} from "../model/project";
 import {ShellAdapter} from "../adapters/shell";
 import {ProjectFactory} from "../factory/projectFactory";
+import {Options} from "../config/Options";
 
 export class ProjectController extends ProjectFactory {
 
-    constructor(private readonly shell: ShellAdapter) {
-        super();
+    constructor(options: Options,
+                private readonly shell: ShellAdapter) {
+        super(options);
     }
 
     async createProject(project: ProjectModel): Promise<any> {

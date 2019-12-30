@@ -8,8 +8,8 @@ import {Options} from "../config/Options";
 export class UserFactory extends DatabaseConfigurations implements UsersDatabaseAdapter {
     USER_COLL = this.collectionNames.user;
 
-    constructor(private readonly securityAdapter: SecurityAdapter,
-                private readonly options: Options,
+    constructor(private readonly options: Options,
+                private readonly securityAdapter: SecurityAdapter,
                 private readonly emailAdapter: EmailAdapter) {
         super(options);
     }

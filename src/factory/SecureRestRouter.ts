@@ -1,9 +1,7 @@
 import {BFastSecurity} from "./SecurityFactory";
 
-const bFastSecurity = new BFastSecurity();
-
 // need to be modified
-export abstract class SecureRestRouter {
+export abstract class SecureRestRouter extends BFastSecurity {
 
     checkToken(request: any, response: any, next: any) {
         const header = request.headers['authorization'];
@@ -11,7 +9,7 @@ export abstract class SecureRestRouter {
         if (header) {
             const bearer = header.split(' ');
             const token = bearer[1];
-            bFastSecurity.verifyToken(token)
+            this.verifyToken(token)
                 .then(value => {
                     request.uid = value.uid ? value.uid : null;
                     next();
