@@ -1,15 +1,15 @@
-import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 import {BFastControllers} from "../controller";
 import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel} from "../adapters/rest";
 
 export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/users';
 
-    getRoutes(): RouterModel[] {
+    getRoutes(): RestRouterModel[] {
         return [
             {
                 name: 'getUserDetails',
-                method: RouterMethod.GET,
+                method: RestRouterMethod.GET,
                 path: '/me',
                 onRequest: [
                     this.checkToken,
@@ -28,7 +28,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
             },
             {
                 name: 'updateUserDetails',
-                method: RouterMethod.PATCH,
+                method: RestRouterMethod.PATCH,
                 path: '/me',
                 onRequest: [
                     this.checkToken,
@@ -49,7 +49,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
             },
             {
                 name: 'getAllUsers',
-                method: RouterMethod.GET,
+                method: RestRouterMethod.GET,
                 path: '/',
                 onRequest: [
                     this.checkToken,
@@ -63,7 +63,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
             },
             {
                 name: 'createUserAccount',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/',
                 onRequest: [
                     (request, response) => {
@@ -83,7 +83,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
             },
             {
                 name: 'login',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/login',
                 onRequest: [
                     (request, response) => {
@@ -103,7 +103,7 @@ export class UsersRouter extends RolesBasedRestRouter implements RestRouterAdapt
             },
             {
                 name: 'resetPassword',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/reset',
                 onRequest: [
                     (request, response) => {

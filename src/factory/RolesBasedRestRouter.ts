@@ -1,15 +1,14 @@
 import {SecureRestRouter} from "./SecureRestRouter";
 import {UserRoles} from "../model/user";
-import {ProjectFactory} from "./projectFactory";
-import {UsersDatabaseAdapter} from "../adapters/database";
+import {ProjectDatabaseAdapter, UsersDatabaseAdapter} from "../adapters/database";
 import {Options} from "../config/Options";
 
 
 export abstract class RolesBasedRestRouter extends SecureRestRouter {
 
-    constructor(private readonly userDatabase: UsersDatabaseAdapter,
-                options: Options,
-                private readonly projectDatabase: ProjectFactory) {
+    constructor(options: Options,
+                private readonly userDatabase: UsersDatabaseAdapter,
+                private readonly projectDatabase: ProjectDatabaseAdapter) {
         super(options);
     }
 

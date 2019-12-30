@@ -1,15 +1,15 @@
 import {BFastControllers} from "../controller";
-import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel} from "../adapters/rest";
 
 export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/projects';
 
-    getRoutes(): RouterModel[] {
+    getRoutes(): RestRouterModel[] {
         return [
             {
                 name: 'getProjects',
-                method: RouterMethod.GET,
+                method: RestRouterMethod.GET,
                 path: '/',
                 onRequest: [
                     this.checkToken,
@@ -24,7 +24,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
             },
             {
                 name: 'getProject',
-                method: RouterMethod.GET,
+                method: RestRouterMethod.GET,
                 path: '/:projectId',
                 onRequest: [
                     this.checkToken,
@@ -46,7 +46,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
             },
             {
                 name: 'createNewProject',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/',
                 onRequest: [
                     this.checkToken,
@@ -73,7 +73,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
             },
             {
                 name: 'deleteProject',
-                method: RouterMethod.DELETE,
+                method: RestRouterMethod.DELETE,
                 path: '/:projectId',
                 onRequest: [
                     this.checkToken,
@@ -94,7 +94,7 @@ export class ProjectRouter extends RolesBasedRestRouter implements RestRouterAda
             },
             {
                 name: 'patchProjectDetails',
-                method: RouterMethod.PATCH,
+                method: RestRouterMethod.PATCH,
                 path: '/:projectId',
                 onRequest: [
                     this.checkToken,

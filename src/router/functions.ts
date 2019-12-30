@@ -1,15 +1,15 @@
-import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
 import {BFastControllers} from "../controller";
 import {RolesBasedRestRouter} from "../factory/RolesBasedRestRouter";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel} from "../adapters/rest";
 
 export class FunctionsRouter extends RolesBasedRestRouter implements RestRouterAdapter {
     prefix: string = '/functions';
 
-    getRoutes(): RouterModel[] {
+    getRoutes(): RestRouterModel[] {
         return [
             {
                 name: 'deployFunctions',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/:projectId',
                 onRequest: [
                     this.checkToken,
@@ -25,7 +25,7 @@ export class FunctionsRouter extends RolesBasedRestRouter implements RestRouterA
             },
             {
                 name: 'addEnvironment',
-                method: RouterMethod.POST,
+                method: RestRouterMethod.POST,
                 path: '/:projectId/env',
                 onRequest: [
                     this.checkToken,
@@ -42,7 +42,7 @@ export class FunctionsRouter extends RolesBasedRestRouter implements RestRouterA
             },
             {
                 name: 'removeEnvironment',
-                method: RouterMethod.DELETE,
+                method: RestRouterMethod.DELETE,
                 path: '/:projectId/env',
                 onRequest: [
                     this.checkToken,

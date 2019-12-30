@@ -1,4 +1,4 @@
-import {RestRouterAdapter, RouterMethod, RouterModel} from "../adapters/restRouter";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel} from "../adapters/rest";
 
 export class LandingRouter implements RestRouterAdapter {
     prefix: string = '/';
@@ -6,11 +6,11 @@ export class LandingRouter implements RestRouterAdapter {
     constructor() {
     }
 
-    getRoutes(): RouterModel[] {
+    getRoutes(): RestRouterModel[] {
         return [
             {
                 name: 'getLandingUi',
-                method: RouterMethod.GET,
+                method: RestRouterMethod.GET,
                 path: '/',
                 onRequest: [
                     (request, response) => {
