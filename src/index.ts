@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import {BfastCloud} from "./bfast::cloud";
+import {Bfast} from "./bfast";
 
-new BfastCloud({port: process.env.PORT || '3000'});
+new Bfast({port: process.env.PORT || '3000'});

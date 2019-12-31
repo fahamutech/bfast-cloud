@@ -1,5 +1,4 @@
 import {BFastSecurity} from "./SecurityFactory";
-import {Options} from "../config/Options";
 
 // need to be modified
 export abstract class SecureRestRouter extends BFastSecurity {
