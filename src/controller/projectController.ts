@@ -1,9 +1,9 @@
 import {ProjectModel} from "../model/project";
 import {ShellAdapter} from "../adapters/shell";
-import {ProjectFactory} from "../factory/projectFactory";
+import {ProjectDatabaseFactory} from "../factory/projectDatabaseFactory";
 import {Options} from "../config/Options";
 
-export class ProjectController extends ProjectFactory {
+export class ProjectController extends ProjectDatabaseFactory {
 
     constructor(options: Options,
                 private readonly shell: ShellAdapter) {

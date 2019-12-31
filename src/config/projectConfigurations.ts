@@ -1,14 +1,12 @@
 import * as path from "path";
-import {DatabaseConfigurations} from "./database";
 import {Options} from "./Options";
 
-export abstract class ProjectConfigurations extends DatabaseConfigurations {
-    protected constructor(options: Options) {
-        super(options);
+export abstract class ProjectConfigurations{
+    protected constructor(private readonly options: Options) {
     }
 
     getComposeFile(filename: string): string {
-        return path.join(__dirname, `./compose-files/${filename}`);
+        return path.join(__dirname, `./compose-files/${filename}-compose.yml`);
     }
 
     /**

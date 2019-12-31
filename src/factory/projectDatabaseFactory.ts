@@ -1,19 +1,21 @@
-import {ProjectDatabaseAdapter} from "../adapters/database";
+import {DatabaseConfigAdapter, ProjectDatabaseAdapter} from "../adapters/database";
 import {ProjectModel} from "../model/project";
-import {ProjectConfigurations} from "../config/projectConfigurations";
 import {Options} from "../config/Options";
+import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 
-export class ProjectFactory extends ProjectConfigurations implements ProjectDatabaseAdapter {
-    PROJECT_COLL = this.collectionNames.project;
+export class ProjectDatabaseFactory implements ProjectDatabaseAdapter {
+    collectionName = '_Project';
+    private readonly database: DatabaseConfigAdapter;
 
     constructor(private readonly options: Options) {
-        super(options);
+        this.database = this.options.databaseConfigAdapter ?
+            this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options)
     }
 
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
             try {
-                const projectColl = await this.getCollection(this.PROJECT_COLL);
+                const projectColl = await this.database.collection(this.collectionName);
                 const result = await projectColl.insertOne({
                     name: project.name,
                     projectId: project.projectId,
@@ -48,7 +50,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
 
     async deleteUserProject(userId: string, projectId: string): Promise<any> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const projectCollection = await this.database.collection(this.collectionName);
             const result = await projectCollection.findOneAndDelete({
                 $or: [
                     {projectId: projectId},
@@ -70,7 +72,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
             if (userId) {
                 try {
                     // let conn = await this.getConnection();
-                    const projectCollection = await this.getCollection(this.PROJECT_COLL);
+                    const projectCollection = await this.database.collection(this.collectionName);
                     // conn.db(this.DB_NAME).collection(this.collectionNames.project);
                     const results = await projectCollection.find({
                         $or: [{'user.uid': userId}, {"members.user.uid": userId}]
@@ -88,8 +90,8 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
 
     async getProject(objectId: string): Promise<ProjectModel> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
-            const project = await projectCollection.findOne({_id: this.convertToObjectId(objectId)});
+            const projectCollection = await this.database.collection(this.collectionName);
+            const project = await projectCollection.findOne({_id: this.database.getObjectId(objectId)});
             if (!project) {
                 throw 'Project not found';
             }
@@ -102,7 +104,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
 
     async getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const projectCollection = await this.database.collection(this.collectionName);
             return await projectCollection.find()
                 .limit(size ? size : 100)
                 .skip(skip ? skip : 0)
@@ -115,7 +117,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
     // under discussion
     async getUserProject(userId: string, projectId: string): Promise<ProjectModel[]> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const projectCollection = await this.database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
                     {"user.uid": userId},
@@ -135,7 +137,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
     async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }):
         Promise<any> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const projectCollection = await this.database.collection(this.collectionName);
             const result = await projectCollection.findOneAndUpdate({
                 $or: [
                     {"user.uid": userId},
@@ -155,7 +157,7 @@ export class ProjectFactory extends ProjectConfigurations implements ProjectData
 
     async getOwnerProject(userId: string, projectId: string): Promise<any> {
         try {
-            const projectCollection = await this.getCollection(this.PROJECT_COLL);
+            const projectCollection = await this.database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
                     {"user.uid": userId},

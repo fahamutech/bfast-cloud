@@ -20,7 +20,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
             user.createdAt = Date.now();
             user.password = await this.securityAdapter.encryptPassword(user.password);
             user.role = UserRoles.USER_ROLE;
-            const userCollection = await this.getCollection(this.USER_COLL);
+            const userCollection = await this.collection(this.USER_COLL);
             const insertUser = await userCollection.insertOne(user);
             const indexExist = await userCollection.indexExists('email');
             if (!indexExist) {
@@ -42,8 +42,8 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
     // under discussion
     async deleteUser(userId: string): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
-            return await userCollection.deleteOne({_id: this.convertToObjectId(userId)});
+            const userCollection = await this.collection(this.USER_COLL);
+            return await userCollection.deleteOne({_id: this.getObjectId(userId)});
         } catch (e) {
             console.error(e);
             throw {message: 'user not deleted'};
@@ -52,7 +52,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
 
     async getAllUsers(size?: number, skip?: number): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
+            const userCollection = await this.collection(this.USER_COLL);
             return await userCollection.find({})
                 .skip(skip ? skip : 0)
                 .limit(size ? size : 100)
@@ -66,8 +66,8 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
 
     async getUser(userId: string): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
-            const user = await userCollection.findOne({_id: this.convertToObjectId(userId)});
+            const userCollection = await this.collection(this.USER_COLL);
+            const user = await userCollection.findOne({_id: this.getObjectId(userId)});
             user.uid = user._id;
             delete user.password;
             return user;
@@ -78,7 +78,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
 
     async login(email: string, password: string): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
+            const userCollection = await this.collection(this.USER_COLL);
             const user = await userCollection.findOne({email: email});
             if (!user) {
                 throw 'User with that email not exist';
@@ -99,8 +99,8 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
 
     async updateUserDetails(userId: string, data: object): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
-            await userCollection.findOneAndUpdate({_id: this.convertToObjectId(userId)}, {
+            const userCollection = await this.collection(this.USER_COLL);
+            await userCollection.findOneAndUpdate({_id: this.getObjectId(userId)}, {
                 $set: JSON.parse(JSON.stringify(data)),
             });
             return await this.getUser(userId);
@@ -114,7 +114,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
     // todo: implement password reset mechanism
     async requestResetPassword(email: string): Promise<any> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
+            const userCollection = await this.collection(this.USER_COLL);
             const user = await userCollection.findOne({email: email});
             if (!user) {
                 throw 'User record with that email not found';
@@ -136,8 +136,8 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
 
     async getRole(userId: string): Promise<string> {
         try {
-            const userCollection = await this.getCollection(this.USER_COLL);
-            const user = await userCollection.findOne({_id: this.convertToObjectId(userId)});
+            const userCollection = await this.collection(this.USER_COLL);
+            const user = await userCollection.findOne({_id: this.getObjectId(userId)});
             if (!user) {
                 throw 'no such user in records';
             }
@@ -157,7 +157,7 @@ export class UserFactory extends DatabaseConfigurations implements UsersDatabase
             }
             if (email && email.email === email) {
                 const hashedPassword = await this.securityAdapter.encryptPassword(password);
-                const userCollection = await this.getCollection(this.USER_COLL);
+                const userCollection = await this.collection(this.USER_COLL);
                 await userCollection.findOneAndUpdate({email: email, resetCode: code}, {
                     $set: {
                         password: hashedPassword,

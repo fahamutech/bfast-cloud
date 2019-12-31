@@ -1,7 +1,20 @@
 import {ProjectModel} from "../model/project";
 import {UserModel} from "../model/user";
+import {Collection, MongoClient, ObjectID} from "mongodb";
+
+export interface DatabaseConfigAdapter {
+    getConnection(): Promise<MongoClient>;
+
+    collection(collectionName: string): Promise<Collection>;
+
+    getObjectId(id: string): ObjectID;
+
+    initiateReplicaSet(): void;
+}
 
 export interface ProjectDatabaseAdapter {
+    collectionName: string;
+
     insertProject(project: ProjectModel): Promise<ProjectModel>;
 
     deleteUserProject(userId: string, projectId: string): Promise<any>;
@@ -26,6 +39,8 @@ export interface ProjectDatabaseAdapter {
 }
 
 export interface UsersDatabaseAdapter {
+    collectionName: string;
+
     createUser(user: UserModel): Promise<any>;
 
     deleteUser(userId: string): Promise<any>;

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="change Options.ts configurations and change initiation of bfast.ts to be used as a module">
+      <change afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bfast::cloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bfast.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/configurations.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/database.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/projectConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/projectConfigurations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/expressRestFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/projectFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/userFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/userFactory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +168,8 @@
       <workItem from="1577639847285" duration="4115000" />
       <workItem from="1577732801847" duration="3798000" />
       <workItem from="1577743305961" duration="1532000" />
-      <workItem from="1577785481178" duration="1768000" />
+      <workItem from="1577785481178" duration="3112000" />
+      <workItem from="1577799146199" duration="3847000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -388,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577744827975</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="change Options.ts configurations and change initiation of bfast.ts to be used as a module">
+      <created>1577787296538</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1577787296538</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +422,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update env remove endpoint" />
     <MESSAGE value="update docker compose for bfast-ee" />
     <MESSAGE value="start migrate code to be testable" />
     <MESSAGE value="start migrate route to testable" />
@@ -433,17 +446,18 @@
     <MESSAGE value="add redis in jwt for persistence or session" />
     <MESSAGE value="start update design architecture and update jwt to persist to redis" />
     <MESSAGE value="start organize files for api" />
-    <option name="LAST_COMMIT_MESSAGE" value="start organize files for api" />
+    <MESSAGE value="change Options.ts configurations and change initiation of bfast.ts to be used as a module" />
+    <option name="LAST_COMMIT_MESSAGE" value="change Options.ts configurations and change initiation of bfast.ts to be used as a module" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577538243968">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577538243968" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577744827748">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577797675848">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577744827748" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577797675848" />
     <state width="1600" height="459" key="GridCell.Tab.0.bottom" timestamp="1577737156824">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -464,10 +478,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="114" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577744831772">
+    <state x="398" y="109" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577787299853">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="114" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577744831772" />
+    <state x="398" y="109" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577787299853" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

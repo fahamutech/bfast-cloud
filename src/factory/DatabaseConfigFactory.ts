@@ -1,25 +1,21 @@
+import {DatabaseConfigAdapter} from "../adapters/database";
 import {Collection, MongoClient, ObjectID} from "mongodb";
-import {Configurations} from "./configurations";
-import {Options} from "./Options";
+import {Options} from "../config/Options";
 
-export abstract class DatabaseConfigurations extends Configurations {
+export class DatabaseConfigFactory implements DatabaseConfigAdapter {
     private readonly mongoClient: MongoClient;
-    DB_NAME = '_BFAST_ADMIN';
-    collectionNames = {
-        user: '_User',
-        project: '_Project',
-    };
+    // DB_NAME = '_BFAST_ADMIN';
+    //  collectionNames = {
+    //      user: '_User',
+    //      project: '_Project',
+    //  };
 
-    protected constructor(options: Options) {
-        super(options);
-        if (this.DB_HOST === 'mdb') {
-            this.mongoClient = new MongoClient(
-                `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
-                {useNewUrlParser: true, useUnifiedTopology: true}
-            );
-        } else {
-            this.mongoClient = new MongoClient(this.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true});
-        }
+    constructor(private readonly options: Options) {
+        // `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`
+        this.mongoClient = new MongoClient(this.options.mongoURL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
     }
 
     /**
@@ -40,26 +36,30 @@ export abstract class DatabaseConfigurations extends Configurations {
         });
     }
 
-    async getCollection(collectionName: string): Promise<Collection> {
+    async collection(collectionName: string): Promise<Collection> {
         try {
             if (this.mongoClient.isConnected()) {
-                return this.mongoClient.db(this.DB_NAME).collection(collectionName);
+                return this.mongoClient.db().collection(collectionName);
             } else {
                 const conn = await this.mongoClient.connect();
-                return conn.db(this.DB_NAME).collection(collectionName);
+                return conn.db().collection(collectionName);
             }
         } catch (e) {
             console.log(e);
-            throw {message: 'can not get collection', reason: e.toString()};
+            throw {message: 'Fails to get collection', reason: e.toString()};
         }
     }
 
-    convertToObjectId(id: string): ObjectID {
-        return new ObjectID(id)
+    // async table(tableName: string): Promise<Collection> {
+    //     return this.collection(tableName);
+    // }
+
+    getObjectId(id: string): ObjectID {
+        return new ObjectID(id);
     }
 
     // will be removed in future
-    initiateRs() {
+    initiateReplicaSet() {
         try {
             const repInterval = setInterval(async () => {
                 console.log('************initiate replica set******************');
@@ -112,9 +112,5 @@ export abstract class DatabaseConfigurations extends Configurations {
             console.log(reason)
         }
     }
-
-    // getComposeFile(filename: string): string {
-    //     return "";
-    // }
 
 }
