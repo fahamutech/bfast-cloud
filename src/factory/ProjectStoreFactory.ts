@@ -1,11 +1,11 @@
-import {DatabaseConfigAdapter, ProjectDatabaseAdapter} from "../adapters/database";
+import {DatabaseAdapter, ProjectStoreAdapter} from "../adapters/database";
 import {ProjectModel} from "../model/project";
 import {Options} from "../config/Options";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 
-export class ProjectDatabaseFactory implements ProjectDatabaseAdapter {
+export class ProjectStoreFactory implements ProjectStoreAdapter {
     collectionName = '_Project';
-    private readonly database: DatabaseConfigAdapter;
+    private readonly database: DatabaseAdapter;
 
     constructor(private readonly options: Options) {
         this.database = this.options.databaseConfigAdapter ?

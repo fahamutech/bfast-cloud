@@ -1,16 +1,17 @@
 import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
+import {Options} from "../config/Options";
+import {SwarmOrchestrationFactory} from "../factory/SwarmOrchestrationFactory";
 
 /**
  * @class FunctionsController. Manage BFast::Function instance include
  * deploy and add or remove environment variable(s)
  */
 export class FunctionsController {
-    /**
-     *
-     * @param docker {ContainerOrchestrationAdapter} implementation of DockerI interface for
-     * communicate with outside docker system
-     */
-    constructor(private readonly docker: ContainerOrchestrationAdapter) {
+    private readonly containerOrch: ContainerOrchestrationAdapter;
+
+    constructor(private readonly options: Options) {
+        this.containerOrch = this.options.containerOrchAdapter ?
+            this.options.containerOrchAdapter : new SwarmOrchestrationFactory(this.options);
     }
 
     private static _checkProjectId(projectId: string): string {
@@ -23,7 +24,8 @@ export class FunctionsController {
 
     async deploy(projectId: string = '', force: boolean = false): Promise<any> {
         try {
-            return await this.docker.cloudFunctionsDeploy(FunctionsController._checkProjectId(projectId), force);
+            return await this.containerOrch.cloudFunctionsDeploy(
+                FunctionsController._checkProjectId(projectId), force);
         } catch (e) {
             throw e.toString();
         }
@@ -31,7 +33,8 @@ export class FunctionsController {
 
     async envAdd(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.docker.cloudFunctionsAddEnv(FunctionsController._checkProjectId(projectId), envs, force)
+            return await this.containerOrch.cloudFunctionsAddEnv(
+                FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();
         }
@@ -39,7 +42,8 @@ export class FunctionsController {
 
     async envRemove(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.docker.cloudFunctionsRemoveEnv(FunctionsController._checkProjectId(projectId), envs, force)
+            return await this.containerOrch.cloudFunctionsRemoveEnv(
+                FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();
         }

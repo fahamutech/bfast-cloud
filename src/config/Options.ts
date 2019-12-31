@@ -1,5 +1,10 @@
-import {RestAdapter} from "../adapters/rest";
-import {DatabaseConfigAdapter} from "../adapters/database";
+import {RestAdapter, RouterGuardAdapter} from "../adapters/rest";
+import {DatabaseAdapter, ProjectStoreAdapter, UsersStoreAdapter} from "../adapters/database";
+import {ShellAdapter} from "../adapters/shell";
+import {ResourcesAdapter} from "../adapters/resources";
+import {SecurityAdapter} from "../adapters/security";
+import {EmailAdapter} from "../adapters/email";
+import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
 
 export interface Options {
     mongoURL: string;
@@ -8,7 +13,15 @@ export interface Options {
     dockerSocket: string;
     port: string;
     RESTAdapter?: RestAdapter;
-    databaseConfigAdapter?: DatabaseConfigAdapter;
+    databaseConfigAdapter?: DatabaseAdapter;
+    projectStoreAdapter?: ProjectStoreAdapter;
+    userStoreAdapter?: UsersStoreAdapter;
+    shellAdapter?: ShellAdapter;
+    resourcesAdapter?: ResourcesAdapter;
+    securityAdapter?: SecurityAdapter;
+    emailAdapter?: EmailAdapter;
+    containerOrchAdapter?: ContainerOrchestrationAdapter;
+    routerGuard: RouterGuardAdapter;
 }
 
 

@@ -1,8 +1,8 @@
-import {DatabaseConfigAdapter} from "../adapters/database";
+import {DatabaseAdapter} from "../adapters/database";
 import {Collection, MongoClient, ObjectID} from "mongodb";
 import {Options} from "../config/Options";
 
-export class DatabaseConfigFactory implements DatabaseConfigAdapter {
+export class DatabaseConfigFactory implements DatabaseAdapter {
     private readonly mongoClient: MongoClient;
     // DB_NAME = '_BFAST_ADMIN';
     //  collectionNames = {

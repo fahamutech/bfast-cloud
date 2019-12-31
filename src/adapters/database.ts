@@ -2,7 +2,7 @@ import {ProjectModel} from "../model/project";
 import {UserModel} from "../model/user";
 import {Collection, MongoClient, ObjectID} from "mongodb";
 
-export interface DatabaseConfigAdapter {
+export interface DatabaseAdapter {
     getConnection(): Promise<MongoClient>;
 
     collection(collectionName: string): Promise<Collection>;
@@ -12,7 +12,7 @@ export interface DatabaseConfigAdapter {
     initiateReplicaSet(): void;
 }
 
-export interface ProjectDatabaseAdapter {
+export interface ProjectStoreAdapter {
     collectionName: string;
 
     insertProject(project: ProjectModel): Promise<ProjectModel>;
@@ -38,7 +38,7 @@ export interface ProjectDatabaseAdapter {
     getOwnerProject(userId: string, projectId: string): Promise<any>;
 }
 
-export interface UsersDatabaseAdapter {
+export interface UsersStoreAdapter {
     collectionName: string;
 
     createUser(user: UserModel): Promise<any>;

@@ -1,3 +1,5 @@
+import {NextFunction, Request, Response} from "express";
+
 export interface RestAdapter {
     mountRoutes(routes: RestRouterAdapter[]): any;
 
@@ -12,11 +14,19 @@ export interface RestRouterAdapter {
     getRoutes(): RestRouterModel[];
 }
 
+export interface RouterGuardAdapter {
+    checkIsAdmin(request: Request, response: Response, next: NextFunction): void;
+
+    checkIsProjectOwner(request: Request, response: Response, next: NextFunction): void;
+
+    checkToken(request: Request, response: Response, next: NextFunction): void;
+}
+
 export interface RestRouterModel {
     name: string;
     method: string;
     path: string;
-    onRequest: { (request: any, response: any, next: any): void; } [];
+    onRequest: { (request: Request, response: Response, next: NextFunction): void; } [];
 }
 
 export class RestRouterMethod {

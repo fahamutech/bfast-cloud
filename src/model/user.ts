@@ -16,9 +16,9 @@ export class UserRoles {
     static USER_ROLE: string = 'USER';
 }
 
-export interface BusinessModel {
-    name: string;
-    country: string;
-    state: string;
-    street: string;
-}
+// export interface SmartStockModel {
+//     name: string;
+//     country: string;
+//     state: string;
+//     street: string;
+// }

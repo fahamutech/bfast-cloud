@@ -4,6 +4,7 @@
       <w>bcrypt</w>
       <w>bfaas</w>
       <w>bfast</w>
+      <w>bfastapp</w>
       <w>bfastcoreadmin</w>
       <w>bfastnet</w>
       <w>bfastweb</w>
@@ -18,6 +19,7 @@
       <w>mdbrs</w>
       <w>mongod</w>
       <w>nodemailer</w>
+      <w>orch</w>
       <w>poststart</w>
       <w>privkey</w>
       <w>reconfig</w>

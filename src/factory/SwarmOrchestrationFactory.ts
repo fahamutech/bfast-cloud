@@ -1,13 +1,15 @@
 import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
-import {Configurations} from "../config/configurations";
 import {Options} from "../config/Options";
 import {ShellAdapter} from "../adapters/shell";
+import {NodeShellFactory} from "./NodeShellFactory";
 
-export class SwarmOrchestration extends Configurations implements ContainerOrchestrationAdapter {
+export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter {
 
-    constructor(private readonly options: Options,
-                private readonly shell: ShellAdapter) {
-        super(options);
+    private readonly shell: ShellAdapter;
+
+    constructor(private readonly options: Options) {
+        this.shell = this.options.shellAdapter ?
+            this.options.shellAdapter : new NodeShellFactory();
     }
 
     async cloudFunctionsDeploy(projectId: string, force: boolean): Promise<any> {

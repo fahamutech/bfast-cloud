@@ -1,11 +1,11 @@
 import {RestRouterModel} from "../adapters/rest";
 import {Options} from "../config/Options";
-import {ProjectDatabaseAdapter, UsersDatabaseAdapter} from "../adapters/database";
+import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapters/database";
 
 export class BFastRouters {
     constructor(private readonly options: Options,
-                private readonly userDatabase: UsersDatabaseAdapter,
-                private readonly projectDatabase: ProjectDatabaseAdapter,
+                private readonly userDatabase: UsersStoreAdapter,
+                private readonly projectDatabase: ProjectStoreAdapter,
     ) {
     }
 

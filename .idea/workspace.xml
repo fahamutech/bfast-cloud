@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="change Options.ts configurations and change initiation of bfast.ts to be used as a module">
-      <change afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
+    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/ProjectController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/UserController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/ResourceFactory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/RouterGuardFactory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/adapters/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/database.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bfast.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapters/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/rest.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/configurations.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/database.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/projectConfigurations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/projectConfigurations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/projectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/expressRestFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/projectFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/userFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/userFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/compose-files/parse-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/compose-files/spring-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/spring-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapters/resources.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/projectConfigurations.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/functionsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/FunctionsController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/projectController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/userController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/RolesBasedRestRouter.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecureRestRouter.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/projectDatabaseFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ProjectStoreFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/swarmOrchestration.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SwarmOrchestrationFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/userFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/UserStoreFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/FunctionsRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/ProjectRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,15 +74,15 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/factory" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/factory/config" />
       <recent name="$PROJECT_DIR$/src/factory" />
       <recent name="$PROJECT_DIR$/src/controller" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/factory" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start:dev">
@@ -169,7 +187,7 @@
       <workItem from="1577732801847" duration="3798000" />
       <workItem from="1577743305961" duration="1532000" />
       <workItem from="1577785481178" duration="3112000" />
-      <workItem from="1577799146199" duration="3847000" />
+      <workItem from="1577799146199" duration="17296000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -402,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577787296538</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="change database.ts configurations and configuration file and shift database config in adapter">
+      <created>1577803058571</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1577803058571</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +447,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update docker compose for bfast-ee" />
     <MESSAGE value="start migrate code to be testable" />
     <MESSAGE value="start migrate route to testable" />
     <MESSAGE value="update web router section" />
@@ -447,17 +471,18 @@
     <MESSAGE value="start update design architecture and update jwt to persist to redis" />
     <MESSAGE value="start organize files for api" />
     <MESSAGE value="change Options.ts configurations and change initiation of bfast.ts to be used as a module" />
-    <option name="LAST_COMMIT_MESSAGE" value="change Options.ts configurations and change initiation of bfast.ts to be used as a module" />
+    <MESSAGE value="change database.ts configurations and configuration file and shift database config in adapter" />
+    <option name="LAST_COMMIT_MESSAGE" value="change database.ts configurations and configuration file and shift database config in adapter" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577538243968">
+    <state x="611" y="136" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577809380543">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="611" y="146" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577538243968" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577797675848">
+    <state x="611" y="136" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577809380543" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577803058144">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577797675848" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577803058144" />
     <state width="1600" height="459" key="GridCell.Tab.0.bottom" timestamp="1577737156824">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -478,10 +503,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="109" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577787299853">
+    <state x="398" y="104" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577803061412">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="109" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577787299853" />
+    <state x="398" y="104" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577803061412" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

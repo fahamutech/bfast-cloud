@@ -1,4 +1,4 @@
-import {BusinessModel, UserModel} from "./user";
+import {UserModel} from "./user";
 
 export interface ProjectModel {
     id?: string;
@@ -7,8 +7,7 @@ export interface ProjectModel {
     name: string;
     projectId: string;
     description: string;
-    type: 'parse-server' | 'ssm';
-    ssm: BusinessModel;
+    type: 'bfast' | 'ssm';
     isParse?: boolean;
     parse: { appId: string; masterKey: string; };
     members: UserModel[] | [];
