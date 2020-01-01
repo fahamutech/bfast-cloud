@@ -5,6 +5,8 @@ export interface RestServerAdapter {
 
     startHttpServer(port: string): any;
 
+    stopHttpServer(): any;
+
     // startHttpsServer(port: string, ssl: {cert: any, privkey: any}): any;
 }
 

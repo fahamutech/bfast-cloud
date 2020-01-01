@@ -1,12 +1,14 @@
 import {SecurityAdapter} from "../adapter/security";
 import * as bcrypt from 'bcrypt';
 import JWTRedis from "jwt-redis";
-import {RedisClient} from "redis";
+import * as redis from 'redis';
 import {Options} from "../config/Options";
+
+const redisMock = require('redis-mock');
 
 export class SecurityFactory implements SecurityAdapter {
     private jwtPassword =
-`MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
+        `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
 mk96COGGqySke+nVcJwNvuGqynxvahg6OFHamg29P9S5Ji73O1t+3uEhubv7lbaF
 f6WA1xnLzPSa3y3OdkFDUt8Px0SwnSJRxgNVG2g4gT6pA/huuJDuyleTPUKAqe/4
 Ty/jbmj+dco+nTXzxo2VDB/uCGUTibPE7TvuAG3O5QbYVM2GBEPntha8L3IQ9GKc
@@ -24,9 +26,15 @@ JLcWQ6hFDpecIaaCJiqAXvFACr`;
     private readonly jwt: JWTRedis;
 
     constructor(private readonly options: Options) {
-        const redisClient = new RedisClient({
-            host: options.redisURL,
-        });
+        let redisClient;
+        if (this.options.devMode) {
+            redisClient = redisMock.createClient();
+            // console.log(redisClient.host);
+        } else {
+            redisClient = redis.createClient({
+                host: options.redisURL,
+            });
+        }
         this.jwt = new JWTRedis(redisClient);
     }
 

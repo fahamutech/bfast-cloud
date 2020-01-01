@@ -2,12 +2,14 @@ version: "3.3"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.4.0-alpha
+    image: joshuamshana/bfast-ee:v0.4.0-beta0
     hostname: bfast
     restart: always
     networks:
       - bfastnet
       - default
+    environment:
+#      - DEBUG='false'
     ports:
       - 3000
     volumes:
@@ -42,9 +44,9 @@ services:
       - mdbrs1
       - mdbrs2
     environment:
-      MONGO_INITDB_ROOT_USERNAME: joshua
-      MONGO_INITDB_ROOT_PASSWORD: joshua
-      MONGO_INITDB_DATABASE: admin
+      - MONGO_INITDB_ROOT_USERNAME=joshua
+      - MONGO_INITDB_ROOT_PASSWORD=joshua
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -68,9 +70,9 @@ services:
       - bfastnet
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: joshua
-      MONGO_INITDB_ROOT_PASSWORD: joshua
-      MONGO_INITDB_DATABASE: admin
+      - MONGO_INITDB_ROOT_USERNAME=joshua
+      - MONGO_INITDB_ROOT_PASSWORD=joshua
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
@@ -90,9 +92,9 @@ services:
       - bfastnet
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: joshua
-      MONGO_INITDB_ROOT_PASSWORD: joshua
-      MONGO_INITDB_DATABASE: admin
+      - MONGO_INITDB_ROOT_USERNAME=joshua
+      - MONGO_INITDB_ROOT_PASSWORD=joshua
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
@@ -102,9 +104,9 @@ services:
         limits:
           memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
-  redis:
+  rdb:
     image: redis:5-alpine
-    hostname: redis
+    hostname: rdb
     restart: always
     deploy:
       restart_policy:

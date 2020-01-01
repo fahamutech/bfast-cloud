@@ -1,3 +1,6 @@
+# v0.4.0-beta0
+
+
 # v0.3.3
 
 Fix parse-composer files to be included in build

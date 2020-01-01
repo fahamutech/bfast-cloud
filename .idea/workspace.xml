@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/specs/containerOrchMock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/optionsMock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/shellMock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/users.specs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/project.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/project.specs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapter/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapter/rest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bfast-cloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast-cloud.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/UsersRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/UsersRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -60,21 +76,7 @@
       <recent name="$PROJECT_DIR$/src/factory" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start:dev">
-    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="buildCliOptions" value="" />
-          <option name="command" value="" />
-          <option name="containerName" value="" />
-          <option name="entrypoint" value="" />
-          <option name="imageTag" value="" />
-          <option name="commandLineOptions" value="" />
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="npm.test">
     <configuration name="compose-files/parse-compose.yml.daas: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -86,6 +88,16 @@
           <option name="sourceFilePath" value="src/config/compose-files/parse-compose.yml" />
         </settings>
       </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
       <method v="2" />
     </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -108,12 +120,22 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.start:dev" />
         <item itemvalue="Docker.compose-files/parse-compose.yml.daas: Compose Deployment" />
-        <item itemvalue="npm.dev" />
-        <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
@@ -163,7 +185,7 @@
       <workItem from="1577743305961" duration="1532000" />
       <workItem from="1577785481178" duration="3112000" />
       <workItem from="1577799146199" duration="17568000" />
-      <workItem from="1577867316550" duration="8521000" />
+      <workItem from="1577867316550" duration="16569000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -417,7 +439,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577874774282</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="update compose files">
+      <created>1577877702582</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1577877702582</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,7 +466,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update web router section" />
     <MESSAGE value="start testing new app" />
     <MESSAGE value="update route to implement an adapter" />
     <MESSAGE value="fix rest server not start because of not initialize cookie parse module" />
@@ -462,41 +490,42 @@
     <MESSAGE value="change database.ts configurations and configuration file and shift database config in adapter" />
     <MESSAGE value="start add ssm project type" />
     <MESSAGE value="finish initial code clean and structure change" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish initial code clean and structure change" />
+    <MESSAGE value="update compose files" />
+    <option name="LAST_COMMIT_MESSAGE" value="update compose files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="131" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577868756370">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="131" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577868756370" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577874774016">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577877701821">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577874774016" />
-    <state width="1600" height="459" key="GridCell.Tab.0.bottom" timestamp="1577737156824">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577877701821" />
+    <state width="1578" height="235" key="GridCell.Tab.0.bottom" timestamp="1577885709612">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="459" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577737156824" />
-    <state width="1600" height="459" key="GridCell.Tab.0.center" timestamp="1577737156822">
+    <state width="1578" height="235" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577885709612" />
+    <state width="1578" height="235" key="GridCell.Tab.0.center" timestamp="1577885709610">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="459" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577737156822" />
-    <state width="1600" height="459" key="GridCell.Tab.0.left" timestamp="1577737156821">
+    <state width="1578" height="235" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577885709610" />
+    <state width="1578" height="235" key="GridCell.Tab.0.left" timestamp="1577885709609">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="459" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577737156821" />
-    <state width="1600" height="459" key="GridCell.Tab.0.right" timestamp="1577737156823">
+    <state width="1578" height="235" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577885709609" />
+    <state width="1578" height="235" key="GridCell.Tab.0.right" timestamp="1577885709611">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="459" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577737156823" />
+    <state width="1578" height="235" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577885709611" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="94" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577874779924">
+    <state x="398" y="89" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577877705653">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="94" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577874779924" />
+    <state x="398" y="89" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577877705653" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

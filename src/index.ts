@@ -8,7 +8,7 @@ new BfastCloud({
     port: process.env.PORT
         || '3000',
     redisURL: process.env.REDIS_URL
-        || 'redis',
+        || 'redis://rdb',
     mongoURL: process.env.MONGO_URL
         || 'mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/_BFAST_ADMIN?replicaSet=bfastRS',
     dockerSocket: process.env.DOCKER_SOCKET

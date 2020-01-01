@@ -1,8 +1,8 @@
 version: '3.3'
 services:
-  daas:
+  ssm_database:
     image: parseplatform/parse-server:3.9.0
-    hostname: ${projectId}-daas
+    hostname: ${projectId}-ssm-database
     restart: always
     networks:
       - default
@@ -19,7 +19,7 @@ services:
       labels:
         - "traefik.docker.network=bfastnet"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:${projectId}-ssm-database.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-daas"
         # - "traefik.backend.rule=PathPrefix:/parse"
         - "traefik.port=3000"
@@ -36,7 +36,7 @@ services:
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
       - PORT=3000
       - PARSE_SERVER_MOUNT_PATH=/
-  dashboard:
+  ssm_dashboard:
     image: parseplatform/parse-dashboard:2.0.3
     hostname: ${projectId}-dashboard
     restart: always
@@ -65,7 +65,7 @@ services:
         - "traefik.protocol=http"
     environment:
       - PORT=3443
-      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
+      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-ssm-database.bfast.fahamutech.com
       - PARSE_DASHBOARD_APP_ID=${appId}
       - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
       - PARSE_DASHBOARD_APP_NAME=${projectName}

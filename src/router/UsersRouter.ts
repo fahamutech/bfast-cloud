@@ -199,7 +199,9 @@ export class UsersRouter implements RestRouterAdapter {
                             response.status(400).json(reason);
                         });
                     } else {
-                        response.status(400).json({message: 'invalid data supplied'});
+                        response.status(400).json({
+                            message: 'invalid data supplied, displayName, phoneNumber, email and password required'
+                        });
                     }
                 }
             ]

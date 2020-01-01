@@ -21,4 +21,11 @@ export class BfastCloud {
         this.restServerAdapter.mountRoutes(new BFastRouters(this.options).getApiRoutes());
         this.restServerAdapter.startHttpServer(this.options.port);
     }
+
+    /**
+     * stop a running node js server
+     */
+    stop() {
+        this.restServerAdapter.stopHttpServer();
+    }
 }

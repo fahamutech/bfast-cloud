@@ -1,9 +1,12 @@
-import {RestServerAdapter, RestRouterAdapter, RestRouterMethod} from "../adapter/rest";
+import {RestRouterAdapter, RestRouterMethod, RestServerAdapter} from "../adapter/rest";
 import * as http from "http";
+import {Server} from "http";
 
 export class ExpressRestFactory implements RestServerAdapter {
     private readonly express: any;
     private readonly expressApp: any;
+    // @ts-ignore
+    private httpServer: Server;
 
     constructor() {
         this.express = require('express');
@@ -42,14 +45,28 @@ export class ExpressRestFactory implements RestServerAdapter {
     }
 
     startHttpServer(port: string): any {
-        const server = http.createServer(this.expressApp);
-        server.listen(ExpressRestFactory.normalizePort(port));
-        server.on('error', args => {
+        this.httpServer = http.createServer(this.expressApp);
+        this.httpServer.listen(ExpressRestFactory.normalizePort(port));
+        this.httpServer.on('error', args => {
             ExpressRestFactory.onError(args, port);
         });
-        server.on('listening', () => {
+        this.httpServer.on('listening', () => {
             console.log('bfast::cloud start listen at 0.0.0.0 -> ' + port);
         });
+    }
+
+    stopHttpServer() {
+        if (!this.httpServer) {
+            console.log('You can not stop non exist server');
+            return;
+        }
+        this.httpServer.close(err => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log('bfast::cloud stop listen');
+            }
+        })
     }
 
     private static normalizePort(val: string) {

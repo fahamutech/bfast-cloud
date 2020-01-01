@@ -1,10 +1,14 @@
 const assert = require('assert');
-const MongoMockReplicaSet = require('mongodb-memory-server-core').MongoMemoryReplSet;
+const BfastCloud = require('../lib/bfast-cloud').BfastCloud;
+const OptionsMock = require('./optionsMock').OptionsMock;
+// const MongoMockReplicaSet = require('mongodb-memory-server-core').MongoMemoryReplSet;
 const MongoMemoryServer = require('mongodb-memory-server-core').MongoMemoryServer;
-let mongoReplica;
+// let mongoReplica;
 let mongoServer;
+let bfastCloud;
 
-describe("Integration test for project", function () {
+
+describe("Integration test for users", function () {
 
     before(async () => {
         mongoServer = new MongoMemoryServer({
@@ -13,15 +17,16 @@ describe("Integration test for project", function () {
         const mongoUrl = await mongoServer.getConnectionString();
         process.env.DEBUG = true;
         process.env.MONGO_URL = mongoUrl;
+        bfastCloud = new BfastCloud(new OptionsMock().getOptions(mongoUrl));
     });
 
     after(async () => {
         await mongoServer.stop();
+        bfastCloud.stop();
     });
 
-    it('should accept a simple test', function () {
-        console.log(process.env.MONGO_URL);
-        console.log(process.env.DEBUG);
+    it('should create account', function () {
+        console.log('crate user in bfast');
         assert(true);
     });
 
