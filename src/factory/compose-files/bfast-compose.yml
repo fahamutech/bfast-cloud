@@ -6,7 +6,7 @@ services:
     restart: always
     networks:
       - default
-      - bfastweb # to access mdb
+      - bfastnet # to access mdb
     deploy:
       mode: replicated
       replicas: 1
@@ -17,7 +17,7 @@ services:
         limits:
           memory: 125M
       labels:
-        - "traefik.docker.network=bfastweb"
+        - "traefik.docker.network=bfastnet"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-daas"
@@ -42,7 +42,7 @@ services:
     restart: always
     networks:
       - default
-      - bfastweb
+      - bfastnet
     deploy:
       mode: replicated
       replicas: 1
@@ -57,7 +57,7 @@ services:
         #   cpus: '0.25'
         #   memory: 20M
       labels:
-        - "traefik.docker.network=bfastweb"
+        - "traefik.docker.network=bfastnet"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-dashboard"
@@ -80,7 +80,7 @@ services:
     # - faasdata:/faas/src/function
     networks:
       - default
-      - bfastweb # to access mdb
+      - bfastnet # to access mdb
     deploy:
       resources:
         limits:
@@ -92,7 +92,7 @@ services:
         # max_attempts: 3
         # window: 120s
       labels:
-        - "traefik.docker.network=bfastweb"
+        - "traefik.docker.network=bfastnet"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-faas"
@@ -103,7 +103,7 @@ services:
       - APPLICATION_ID=${appId}
       - PROJECT_ID=${projectId}
 networks:
-  bfastweb:
+  bfastnet:
     # driver: overlay
     # attachable: true
     external: true
