@@ -2,25 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/specs/containerOrchMock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specs/optionsMock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specs/shellMock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specs/users.specs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/project.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/project.specs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapter/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapter/rest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/optionsMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/optionsMock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/users.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/users.specs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bfast-cloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast-cloud.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/FunctionsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/FunctionsController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ProjectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProjectController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UserController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ExpressRestFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/NodeShellFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/NodeShellFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/ProjectStoreFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ProjectStoreFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/RouterGuardFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/RouterGuardFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SwarmOrchestrationFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SwarmOrchestrationFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/UserStoreFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/UserStoreFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/FunctionsRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/FunctionsRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/ProjectRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/ProjectRouter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/UsersRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/UsersRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +188,7 @@
       <workItem from="1577743305961" duration="1532000" />
       <workItem from="1577785481178" duration="3112000" />
       <workItem from="1577799146199" duration="17568000" />
-      <workItem from="1577867316550" duration="16569000" />
+      <workItem from="1577867316550" duration="35765000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -446,7 +449,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577877702582</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="now you can stop a server, and start working on test case">
+      <created>1577885876939</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1577885876939</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +476,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start testing new app" />
     <MESSAGE value="update route to implement an adapter" />
     <MESSAGE value="fix rest server not start because of not initialize cookie parse module" />
     <MESSAGE value="remove unused code, and initiate database replicas on start bfast-cloud" />
@@ -491,41 +500,42 @@
     <MESSAGE value="start add ssm project type" />
     <MESSAGE value="finish initial code clean and structure change" />
     <MESSAGE value="update compose files" />
-    <option name="LAST_COMMIT_MESSAGE" value="update compose files" />
+    <MESSAGE value="now you can stop a server, and start working on test case" />
+    <option name="LAST_COMMIT_MESSAGE" value="now you can stop a server, and start working on test case" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="131" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577868756370">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="131" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577868756370" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577877701821">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577885876658">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577877701821" />
-    <state width="1578" height="235" key="GridCell.Tab.0.bottom" timestamp="1577885709612">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577885876658" />
+    <state width="1578" height="293" key="GridCell.Tab.0.bottom" timestamp="1577906248195">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="235" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577885709612" />
-    <state width="1578" height="235" key="GridCell.Tab.0.center" timestamp="1577885709610">
+    <state width="1578" height="293" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1577906248195" />
+    <state width="1578" height="293" key="GridCell.Tab.0.center" timestamp="1577906248195">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="235" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577885709610" />
-    <state width="1578" height="235" key="GridCell.Tab.0.left" timestamp="1577885709609">
+    <state width="1578" height="293" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1577906248195" />
+    <state width="1578" height="293" key="GridCell.Tab.0.left" timestamp="1577906248194">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="235" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577885709609" />
-    <state width="1578" height="235" key="GridCell.Tab.0.right" timestamp="1577885709611">
+    <state width="1578" height="293" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1577906248194" />
+    <state width="1578" height="293" key="GridCell.Tab.0.right" timestamp="1577906248195">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1578" height="235" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577885709611" />
+    <state width="1578" height="293" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1577906248195" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="89" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577877705653">
+    <state x="398" y="84" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577885879513">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="89" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577877705653" />
+    <state x="398" y="84" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577885879513" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -534,5 +544,9 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="547" y="56" width="502" height="744" key="git4idea.branch.GitSmartOperationDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128697364" />
+    <state x="528" y="265" width="540" height="345" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1577887668912">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="528" y="265" width="540" height="345" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/52.27.1548.873@52.27.1548.873" timestamp="1577887668912" />
   </component>
 </project>

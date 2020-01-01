@@ -3,18 +3,18 @@ import {Options} from "../config/Options";
 import {ShellAdapter} from "../adapter/shell";
 import {NodeShellFactory} from "./NodeShellFactory";
 
+let shell: ShellAdapter;
+
 export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter {
 
-    private readonly shell: ShellAdapter;
-
-    constructor(private readonly options: Options) {
-        this.shell = this.options.shellAdapter ?
+    constructor(private  options: Options) {
+        shell = this.options.shellAdapter ?
             this.options.shellAdapter : new NodeShellFactory();
     }
 
     async cloudFunctionsDeploy(projectId: string, force: boolean): Promise<any> {
         try {
-            const response = await this.shell.exec(
+            const response = await shell.exec(
                 `docker service update ${Boolean(force) ? '--force' : ''} ${projectId}_faas`);
             return {message: response};
         } catch (e) {
@@ -34,7 +34,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             envs.forEach(env => {
                 envQuery = envQuery.concat(' --env-add ', env);
             });
-            const response = await this.shell.exec(
+            const response = await shell.exec(
                 `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
             return {message: response.toString()};
         } catch (e) {
@@ -54,7 +54,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             envs.forEach(env => {
                 envQuery = envQuery.concat(' --env-rm ', env);
             });
-            const response = await this.shell.exec(
+            const response = await shell.exec(
                 `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
             return {message: response.toString()};
         } catch (e) {

@@ -2,17 +2,13 @@ import {DatabaseAdapter} from "../adapter/database";
 import {Collection, MongoClient, ObjectID} from "mongodb";
 import {Options} from "../config/Options";
 
-export class DatabaseConfigFactory implements DatabaseAdapter {
-    private readonly mongoClient: MongoClient;
-    // DB_NAME = '_BFAST_ADMIN';
-    //  collectionNames = {
-    //      user: '_User',
-    //      project: '_Project',
-    //  };
+let mongoClient: MongoClient;
 
-    constructor(private readonly options: Options) {
+export class DatabaseConfigFactory implements DatabaseAdapter {
+
+    constructor(private  options: Options) {
         // `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`
-        this.mongoClient = new MongoClient(this.options.mongoURL, {
+        mongoClient = new MongoClient(this.options.mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -25,10 +21,10 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
     getConnection(): Promise<MongoClient> {
         return new Promise(async (resolve, reject) => {
             try {
-                if (this.mongoClient.isConnected()) {
-                    resolve(this.mongoClient);
+                if (mongoClient.isConnected()) {
+                    resolve(mongoClient);
                 } else {
-                    resolve(this.mongoClient.connect());
+                    resolve(mongoClient.connect());
                 }
             } catch (e) {
                 reject(e);
@@ -38,10 +34,10 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
 
     async collection(collectionName: string): Promise<Collection> {
         try {
-            if (this.mongoClient.isConnected()) {
-                return this.mongoClient.db().collection(collectionName);
+            if (mongoClient.isConnected()) {
+                return mongoClient.db().collection(collectionName);
             } else {
-                const conn = await this.mongoClient.connect();
+                const conn = await mongoClient.connect();
                 return conn.db().collection(collectionName);
             }
         } catch (e) {

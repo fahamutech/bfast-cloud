@@ -6,7 +6,7 @@ import {ProjectRouter} from "./ProjectRouter";
 import {UsersRouter} from "./UsersRouter";
 
 export class BFastRouters {
-    constructor(private readonly options: Options) {
+    constructor(private options: Options) {
     }
 
     getApiRoutes(): RestRouterAdapter[] {

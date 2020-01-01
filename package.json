@@ -14,6 +14,7 @@
     "push": "gulp pubishDockerImage"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.3.5",
     "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -33,6 +34,7 @@
     "@types/nodemailer": "^6.4.0",
     "@types/redis": "^2.8.14",
     "@types/redis-mock": "^0.17.0",
+    "axios": "^0.19.0",
     "chai": "^4.2.0",
     "gulp": "^4.0.2",
     "mocha": "^6.2.1",

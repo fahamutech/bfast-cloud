@@ -7,19 +7,20 @@ import {SecurityFactory} from "./SecurityFactory";
 import {EmailFactory} from "./EmailFactory";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 
-// todo: composition of security and email factory must be moved to controller
+let security: SecurityAdapter;
+let emailAdapter: EmailAdapter;
+let database: DatabaseAdapter;
+
+// todo: composition of security and emailAdapter factory must be moved to controller
 export class UserStoreFactory implements UsersStoreAdapter {
     collectionName = '_User';
-    private readonly security: SecurityAdapter;
-    private readonly email: EmailAdapter;
-    private readonly database: DatabaseAdapter;
 
-    constructor(private readonly options: Options) {
-        this.security = this.options.securityAdapter ?
+    constructor(private  options: Options) {
+        security = this.options.securityAdapter ?
             this.options.securityAdapter : new SecurityFactory(this.options);
-        this.email = this.options.emailAdapter ?
+        emailAdapter = this.options.emailAdapter ?
             this.options.emailAdapter : new EmailFactory();
-        this.database = this.options.databaseConfigAdapter ?
+        database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options);
     }
 
@@ -27,9 +28,9 @@ export class UserStoreFactory implements UsersStoreAdapter {
         try {
             delete user.uid;
             user.createdAt = Date.now();
-            user.password = await this.security.encryptPassword(user.password);
+            user.password = await security.encryptPassword(user.password);
             user.role = UserRoles.USER_ROLE;
-            const userCollection = await this.database.collection(this.collectionName);
+            const userCollection = await database.collection(this.collectionName);
             const insertUser = await userCollection.insertOne(user);
             const indexExist = await userCollection.indexExists('email');
             if (!indexExist) {
@@ -37,7 +38,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
             }
             user.uid = insertUser.insertedId as string;
             delete user.password;
-            user.token = await this.security.generateToken({uid: insertUser.insertedId as string});
+            user.token = await security.generateToken({uid: insertUser.insertedId as string});
             return user;
         } catch (e) {
             console.error(e);
@@ -51,8 +52,8 @@ export class UserStoreFactory implements UsersStoreAdapter {
     // under discussion
     async deleteUser(userId: string): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
-            return await userCollection.deleteOne({_id: this.database.getObjectId(userId)});
+            const userCollection = await database.collection(this.collectionName);
+            return await userCollection.deleteOne({_id: database.getObjectId(userId)});
         } catch (e) {
             console.error(e);
             throw {message: 'user not deleted'};
@@ -61,7 +62,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     async getAllUsers(size?: number, skip?: number): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
+            const userCollection = await database.collection(this.collectionName);
             return await userCollection.find({})
                 .skip(skip ? skip : 0)
                 .limit(size ? size : 100)
@@ -75,8 +76,8 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     async getUser(userId: string): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
-            const user = await userCollection.findOne({_id: this.database.getObjectId(userId)});
+            const userCollection = await database.collection(this.collectionName);
+            const user = await userCollection.findOne({_id: database.getObjectId(userId)});
             user.uid = user._id;
             delete user.password;
             return user;
@@ -87,17 +88,17 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     async login(email: string, password: string): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
+            const userCollection = await database.collection(this.collectionName);
             const user = await userCollection.findOne({email: email});
             if (!user) {
                 throw 'User with that email not exist';
             }
-            const passwordOk = await this.security.comparePassword(password, user.password);
+            const passwordOk = await security.comparePassword(password, user.password);
             if (!passwordOk) {
                 throw 'Password/Username is incorrect'
             }
             delete user.password;
-            user.token = await this.security.generateToken({uid: user._id});
+            user.token = await security.generateToken({uid: user._id});
             user.uid = user._id;
             return user;
         } catch (e) {
@@ -108,8 +109,8 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     async updateUserDetails(userId: string, data: object): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
-            await userCollection.findOneAndUpdate({_id: this.database.getObjectId(userId)}, {
+            const userCollection = await database.collection(this.collectionName);
+            await userCollection.findOneAndUpdate({_id: database.getObjectId(userId)}, {
                 $set: JSON.parse(JSON.stringify(data)),
             });
             return await this.getUser(userId);
@@ -124,18 +125,18 @@ export class UserStoreFactory implements UsersStoreAdapter {
     // todo: remove security and email code to a controller
     async requestResetPassword(email: string): Promise<any> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
+            const userCollection = await database.collection(this.collectionName);
             const user = await userCollection.findOne({email: email});
             if (!user) {
                 throw 'User record with that email not found';
             }
-            const code = await this.security.generateToken({email: email});
+            const code = await security.generateToken({email: email});
             await userCollection.findOneAndUpdate({email: email}, {
                 $set: {
                     resetCode: code
                 }
             });
-            await this.email.sendEmail(email, 'jmshana@datavision.co.tz',
+            await emailAdapter.sendEmail(email, 'jmshana@datavision.co.tz',
                 'Password reset', `Use this code to reset your password, code:${code}`);
             return {message: 'Follow Instruction sent to email : ' + user.email};
         } catch (e) {
@@ -146,8 +147,8 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     async getRole(userId: string): Promise<string> {
         try {
-            const userCollection = await this.database.collection(this.collectionName);
-            const user = await userCollection.findOne({_id: this.database.getObjectId(userId)});
+            const userCollection = await database.collection(this.collectionName);
+            const user = await userCollection.findOne({_id: database.getObjectId(userId)});
             if (!user) {
                 throw 'no such user in records';
             }
@@ -161,21 +162,21 @@ export class UserStoreFactory implements UsersStoreAdapter {
     // todo: remove security, and add it in controller
     async resetPassword(email: string, code: string, password: string): Promise<any> {
         try {
-            await this.security.verifyToken(code);
-            const email = this.security.decodeToken(code);
+            await security.verifyToken(code);
+            const email = security.decodeToken(code);
             if (!password) {
                 throw 'Please provide a new password';
             }
             if (email && email.email === email) {
-                const hashedPassword = await this.security.encryptPassword(password);
-                const userCollection = await this.database.collection(this.collectionName);
+                const hashedPassword = await security.encryptPassword(password);
+                const userCollection = await database.collection(this.collectionName);
                 await userCollection.findOneAndUpdate({email: email, resetCode: code}, {
                     $set: {
                         password: hashedPassword,
                         resetCode: null
                     }
                 });
-                await this.security.revokeToken(code);
+                await security.revokeToken(code);
                 return 'Password updated';
             } else {
                 throw 'code is invalid';

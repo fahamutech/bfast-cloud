@@ -7,25 +7,25 @@ import {ProjectStoreFactory} from "./ProjectStoreFactory";
 import {SecurityAdapter} from "../adapter/security";
 import {RouterGuardAdapter} from "../adapter/rest";
 
+let userDatabase: UsersStoreAdapter;
+let projectDatabase: ProjectStoreAdapter;
+let security: SecurityAdapter;
+
 // need to be modified
 export class RouterGuardFactory implements RouterGuardAdapter {
 
-    private readonly userDatabase: UsersStoreAdapter;
-    private readonly projectDatabase: ProjectStoreAdapter;
-    private readonly security: SecurityAdapter;
-
     constructor(private readonly options: Options) {
-        this.userDatabase = this.options.userStoreAdapter ?
+        userDatabase = this.options.userStoreAdapter ?
             this.options.userStoreAdapter : new UserStoreFactory(this.options);
-        this.projectDatabase = this.options.projectStoreAdapter ?
+        projectDatabase = this.options.projectStoreAdapter ?
             this.options.projectStoreAdapter : new ProjectStoreFactory(this.options);
-        this.security = this.options.securityAdapter ?
+        security = this.options.securityAdapter ?
             this.options.securityAdapter : new SecurityFactory(this.options);
     }
 
     checkIsAdmin(request: any, response: any, next: any) {
         if (request.uid) {
-            this.userDatabase.getRole(request.uid).then(role => {
+            userDatabase.getRole(request.uid).then(role => {
                 if (role === UserRoles.ADMIN_ROLE) {
                     next();
                 } else {
@@ -44,7 +44,7 @@ export class RouterGuardFactory implements RouterGuardAdapter {
 
     checkIsProjectOwner(request: any, response: any, next: any) {
         if (request.uid && request.params.projectId) {
-            this.projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+            projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                 next();
             }).catch(reason => {
                 response.status(403).json(reason);
@@ -59,13 +59,13 @@ export class RouterGuardFactory implements RouterGuardAdapter {
         if (header) {
             const bearer = header.split(' ');
             const token = bearer[1];
-            this.security.verifyToken(token)
+            security.verifyToken(token)
                 .then(value => {
                     request.uid = value.uid ? value.uid : null;
                     next();
                 }).catch(reason => {
-                console.log(reason);
-                response.status(401).json({message: 'Unauthorized request', reason: reason.toString()})
+                // console.log(reason);
+                response.status(401).json(reason)
             });
         } else {
             //If header is undefined return Forbidden (403)

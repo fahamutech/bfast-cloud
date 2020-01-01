@@ -8,7 +8,7 @@ module.exports.OptionsMock = class {
     getOptions(mongoUrl) {
         return {
             devMode: true,
-            port: '8090',
+            port: '64647',
             // redisURL: process.env.REDIS_URL
             //     || 'redis://rdb',
             // mongoURL: process.env.MONGO_URL

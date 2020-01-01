@@ -2,15 +2,15 @@ import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 import {Options} from "../config/Options";
 import {SwarmOrchestrationFactory} from "../factory/SwarmOrchestrationFactory";
 
+let containerOrch: ContainerOrchestrationAdapter;
 /**
  * @class FunctionsController. Manage BFast::Function instance include
  * deploy and add or remove environment variable(s)
  */
 export class FunctionsController {
-    private readonly containerOrch: ContainerOrchestrationAdapter;
 
-    constructor(private readonly options: Options) {
-        this.containerOrch = this.options.containerOrchAdapter ?
+    constructor(private  options: Options) {
+        containerOrch = this.options.containerOrchAdapter ?
             this.options.containerOrchAdapter : new SwarmOrchestrationFactory(this.options);
     }
 
@@ -24,7 +24,7 @@ export class FunctionsController {
 
     async deploy(projectId: string = '', force: boolean = false): Promise<any> {
         try {
-            return await this.containerOrch.cloudFunctionsDeploy(
+            return await containerOrch.cloudFunctionsDeploy(
                 FunctionsController._checkProjectId(projectId), force);
         } catch (e) {
             throw e.toString();
@@ -33,7 +33,7 @@ export class FunctionsController {
 
     async envAdd(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.containerOrch.cloudFunctionsAddEnv(
+            return await containerOrch.cloudFunctionsAddEnv(
                 FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();
@@ -42,7 +42,7 @@ export class FunctionsController {
 
     async envRemove(projectId: string, envs: string[], force: boolean = false): Promise<any> {
         try {
-            return await this.containerOrch.cloudFunctionsRemoveEnv(
+            return await containerOrch.cloudFunctionsRemoveEnv(
                 FunctionsController._checkProjectId(projectId), envs, force)
         } catch (e) {
             throw e.toString();

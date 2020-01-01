@@ -5,27 +5,27 @@ import {RestServerAdapter} from "./adapter/rest";
 import {DatabaseAdapter} from "./adapter/database";
 import {DatabaseConfigFactory} from "./factory/DatabaseConfigFactory";
 
+let restServerAdapter: RestServerAdapter;
+let database: DatabaseAdapter;
+
 export class BfastCloud {
 
-    private readonly restServerAdapter: RestServerAdapter;
-    private readonly database: DatabaseAdapter;
-
-    constructor(private readonly options: Options) {
-        this.restServerAdapter = this.options.restServerAdapter ?
+    constructor(private  options: Options) {
+        restServerAdapter = this.options.restServerAdapter ?
             this.options.restServerAdapter : new ExpressRestFactory();
-        this.database = this.options.databaseConfigAdapter ?
+        database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options);
 
-        if (!this.options.devMode) this.database.initiateReplicaSet();
+        if (!this.options.devMode) database.initiateReplicaSet();
 
-        this.restServerAdapter.mountRoutes(new BFastRouters(this.options).getApiRoutes());
-        this.restServerAdapter.startHttpServer(this.options.port);
+        restServerAdapter.mountRoutes(new BFastRouters(this.options).getApiRoutes());
+        restServerAdapter.startHttpServer(this.options.port);
     }
 
     /**
      * stop a running node js server
      */
     stop() {
-        this.restServerAdapter.stopHttpServer();
+        restServerAdapter.stopHttpServer();
     }
 }

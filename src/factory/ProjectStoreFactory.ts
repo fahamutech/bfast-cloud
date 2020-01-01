@@ -3,19 +3,20 @@ import {ProjectModel} from "../model/project";
 import {Options} from "../config/Options";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 
+let database: DatabaseAdapter;
+
 export class ProjectStoreFactory implements ProjectStoreAdapter {
     collectionName = '_Project';
-    private readonly database: DatabaseAdapter;
 
     constructor(private readonly options: Options) {
-        this.database = this.options.databaseConfigAdapter ?
+        database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options)
     }
 
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
             try {
-                const projectColl = await this.database.collection(this.collectionName);
+                const projectColl = await database.collection(this.collectionName);
                 const result = await projectColl.insertOne({
                     name: project.name,
                     projectId: project.projectId,
@@ -50,7 +51,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     async deleteUserProject(userId: string, projectId: string): Promise<any> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
+            const projectCollection = await database.collection(this.collectionName);
             const result = await projectCollection.findOneAndDelete({
                 $or: [
                     {projectId: projectId},
@@ -72,7 +73,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
             if (userId) {
                 try {
                     // let conn = await this.getConnection();
-                    const projectCollection = await this.database.collection(this.collectionName);
+                    const projectCollection = await database.collection(this.collectionName);
                     // conn.db(this.DB_NAME).collection(this.collectionNames.project);
                     const results = await projectCollection.find({
                         $or: [{'user.uid': userId}, {"members.user.uid": userId}]
@@ -90,8 +91,8 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     async getProject(objectId: string): Promise<ProjectModel> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
-            const project = await projectCollection.findOne({_id: this.database.getObjectId(objectId)});
+            const projectCollection = await database.collection(this.collectionName);
+            const project = await projectCollection.findOne({_id: database.getObjectId(objectId)});
             if (!project) {
                 throw 'Project not found';
             }
@@ -104,7 +105,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     async getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
+            const projectCollection = await database.collection(this.collectionName);
             return await projectCollection.find()
                 .limit(size ? size : 100)
                 .skip(skip ? skip : 0)
@@ -117,7 +118,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     // under discussion
     async getUserProject(userId: string, projectId: string): Promise<ProjectModel[]> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
+            const projectCollection = await database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
                     {"user.uid": userId},
@@ -137,7 +138,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }):
         Promise<any> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
+            const projectCollection = await database.collection(this.collectionName);
             const result = await projectCollection.findOneAndUpdate({
                 $or: [
                     {"user.uid": userId},
@@ -157,7 +158,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     async getOwnerProject(userId: string, projectId: string): Promise<any> {
         try {
-            const projectCollection = await this.database.collection(this.collectionName);
+            const projectCollection = await database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
                     {"user.uid": userId},

@@ -5,64 +5,65 @@ import {UserModel} from "../model/user";
 import {SecurityAdapter} from "../adapter/security";
 import {SecurityFactory} from "../factory/SecurityFactory";
 
-export class UserController {
-    private readonly userStore: UsersStoreAdapter;
-    private readonly security: SecurityAdapter;
+let userStore: UsersStoreAdapter;
+let security: SecurityAdapter;
 
-    constructor(private readonly options: Options) {
-        this.userStore = this.options.userStoreAdapter ?
+export class UserController {
+
+    constructor(private  options: Options) {
+        userStore = this.options.userStoreAdapter ?
             this.options.userStoreAdapter : new UserStoreFactory(this.options);
-        this.security = this.options.securityAdapter ?
+        security = this.options.securityAdapter ?
             this.options.securityAdapter : new SecurityFactory(this.options);
     }
 
     async createUser(user: UserModel): Promise<any> {
-        return this.userStore.createUser(user);
+        return userStore.createUser(user);
     }
 
     async deleteUser(userId: string): Promise<any> {
-        return this.userStore.deleteUser(userId);
+        return userStore.deleteUser(userId);
     }
 
     async getAllUsers(size?: number, skip?: number): Promise<any[]> {
-        return this.userStore.getAllUsers(size, skip);
+        return userStore.getAllUsers(size, skip);
     }
 
     async getRole(userId: string): Promise<string> {
-        return this.userStore.getRole(userId);
+        return userStore.getRole(userId);
     }
 
     async getUser(userId: string): Promise<any> {
-        return this.userStore.getUser(userId);
+        return userStore.getUser(userId);
     }
 
     async login(username: string, password: string): Promise<any> {
-        return this.userStore.login(username, password);
+        return userStore.login(username, password);
     }
 
     async logoutFromAllDevice(token: string): Promise<any> {
         try {
-            return await this.security.revokeToken(token);
+            return await security.revokeToken(token);
         } catch (e) {
             throw {message: 'Fails to log you out from all devices', reason: e.toString()};
         }
     }
 
     async requestResetPassword(email: string): Promise<any> {
-        return this.userStore.requestResetPassword(email);
+        return userStore.requestResetPassword(email);
     }
 
     async resetPassword(email: string, code: string, password: string): Promise<any> {
-        try{
-            await this.userStore.resetPassword(email, code, password);
-            await this.security.revokeToken(code);
-        }catch (e) {
-            if (this.options.devMode)console.log(e);
+        try {
+            await userStore.resetPassword(email, code, password);
+            await security.revokeToken(code);
+        } catch (e) {
+            if (this.options.devMode) console.log(e);
             throw e;
         }
     }
 
     async updateUserDetails(userId: string, data: object): Promise<any> {
-        return this.userStore.updateUserDetails(userId, data);
+        return userStore.updateUserDetails(userId, data);
     }
 }

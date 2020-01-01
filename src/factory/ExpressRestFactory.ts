@@ -2,28 +2,29 @@ import {RestRouterAdapter, RestRouterMethod, RestServerAdapter} from "../adapter
 import * as http from "http";
 import {Server} from "http";
 
+let express: any;
+let expressApp: any;
+// @ts-ignore
+let httpServer: Server;
+
 export class ExpressRestFactory implements RestServerAdapter {
-    private readonly express: any;
-    private readonly expressApp: any;
-    // @ts-ignore
-    private httpServer: Server;
 
     constructor() {
-        this.express = require('express');
-        this.expressApp = this.express();
-        this.initiateExpressApp(this.expressApp);
+        express = require('express');
+        expressApp = express();
+        ExpressRestFactory.initiateExpressApp(expressApp);
     }
 
-    private initiateExpressApp(expressApp: any) {
+    private static initiateExpressApp(expressApp: any) {
         expressApp.use(require('morgan')('dev'));
-        expressApp.use(this.express.json());
-        expressApp.use(this.express.urlencoded({extended: false}));
+        expressApp.use(express.json());
+        expressApp.use(express.urlencoded({extended: false}));
         expressApp.use(require('cookie-parser')());
     }
 
     mountRoutes(routerAdapters: RestRouterAdapter[]): any {
         routerAdapters.forEach(routerAdapter => {
-            const expressRouter = this.express.Router();
+            const expressRouter = express.Router();
             routerAdapter.getRoutes().forEach(router => {
                 switch (router.method) {
                     case RestRouterMethod.GET:
@@ -40,27 +41,27 @@ export class ExpressRestFactory implements RestServerAdapter {
                         break;
                 }
             });
-            this.expressApp.use(routerAdapter.prefix, expressRouter);
+            expressApp.use(routerAdapter.prefix, expressRouter);
         });
     }
 
     startHttpServer(port: string): any {
-        this.httpServer = http.createServer(this.expressApp);
-        this.httpServer.listen(ExpressRestFactory.normalizePort(port));
-        this.httpServer.on('error', args => {
+        httpServer = http.createServer(expressApp);
+        httpServer.listen(ExpressRestFactory.normalizePort(port));
+        httpServer.on('error', args => {
             ExpressRestFactory.onError(args, port);
         });
-        this.httpServer.on('listening', () => {
+        httpServer.on('listening', () => {
             console.log('bfast::cloud start listen at 0.0.0.0 -> ' + port);
         });
     }
 
     stopHttpServer() {
-        if (!this.httpServer) {
+        if (!httpServer) {
             console.log('You can not stop non exist server');
             return;
         }
-        this.httpServer.close(err => {
+        httpServer.close(err => {
             if (err) {
                 console.error(err);
             } else {
