@@ -1,4 +1,4 @@
-import {DatabaseAdapter, ProjectStoreAdapter} from "../adapters/database";
+import {DatabaseAdapter, ProjectStoreAdapter} from "../adapter/database";
 import {ProjectModel} from "../model/project";
 import {Options} from "../config/Options";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";

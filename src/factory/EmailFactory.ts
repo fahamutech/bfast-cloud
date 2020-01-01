@@ -1,4 +1,4 @@
-import {EmailAdapter} from "../adapters/email";
+import {EmailAdapter} from "../adapter/email";
 import * as nodemailer from 'nodemailer';
 
 export class EmailFactory implements EmailAdapter {

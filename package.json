@@ -3,6 +3,7 @@
   "description": "bfaas cloud for project management",
   "version": "0.4.0-alpha1",
   "private": true,
+  "main": "bfast.js",
   "scripts": {
     "start": "node ./lib/index.js",
     "start:dev": "gulp devStart",

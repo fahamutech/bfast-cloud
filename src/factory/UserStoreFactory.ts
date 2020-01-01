@@ -1,12 +1,13 @@
-import {DatabaseAdapter, UsersStoreAdapter} from "../adapters/database";
+import {DatabaseAdapter, UsersStoreAdapter} from "../adapter/database";
 import {UserModel, UserRoles} from "../model/user";
-import {SecurityAdapter} from "../adapters/security";
-import {EmailAdapter} from "../adapters/email";
+import {SecurityAdapter} from "../adapter/security";
+import {EmailAdapter} from "../adapter/email";
 import {Options} from "../config/Options";
 import {SecurityFactory} from "./SecurityFactory";
 import {EmailFactory} from "./EmailFactory";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 
+// todo: composition of security and email factory must be moved to controller
 export class UserStoreFactory implements UsersStoreAdapter {
     collectionName = '_User';
     private readonly security: SecurityAdapter;
@@ -120,6 +121,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
 
     // need to be implemented
     // todo: implement password reset mechanism
+    // todo: remove security and email code to a controller
     async requestResetPassword(email: string): Promise<any> {
         try {
             const userCollection = await this.database.collection(this.collectionName);
@@ -156,6 +158,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
         }
     }
 
+    // todo: remove security, and add it in controller
     async resetPassword(email: string, code: string, password: string): Promise<any> {
         try {
             await this.security.verifyToken(code);
@@ -172,6 +175,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
                         resetCode: null
                     }
                 });
+                await this.security.revokeToken(code);
                 return 'Password updated';
             } else {
                 throw 'code is invalid';

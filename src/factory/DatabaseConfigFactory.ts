@@ -1,4 +1,4 @@
-import {DatabaseAdapter} from "../adapters/database";
+import {DatabaseAdapter} from "../adapter/database";
 import {Collection, MongoClient, ObjectID} from "mongodb";
 import {Options} from "../config/Options";
 

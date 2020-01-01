@@ -1,7 +1,7 @@
-import {RestAdapter, RestRouterAdapter, RestRouterMethod} from "../adapters/rest";
+import {RestServerAdapter, RestRouterAdapter, RestRouterMethod} from "../adapter/rest";
 import * as http from "http";
 
-export class ExpressRestFactory implements RestAdapter {
+export class ExpressRestFactory implements RestServerAdapter {
     private readonly express: any;
     private readonly expressApp: any;
 

@@ -1,8 +1,8 @@
-import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapters/rest";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
 import {Options} from "../config/Options";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {ProjectController} from "../controller/ProjectController";
-import {UsersStoreAdapter} from "../adapters/database";
+import {UsersStoreAdapter} from "../adapter/database";
 import {UserStoreFactory} from "../factory/UserStoreFactory";
 
 export class ProjectRouter implements RestRouterAdapter {
@@ -24,13 +24,18 @@ export class ProjectRouter implements RestRouterAdapter {
         return [
             this._getProject(),
             this._createNewProject(),
-
             this._getProjects(),
             this._deleteProject(),
             this._patchProject()
         ];
     }
 
+    /**
+     *  rest: /projects/:projectId -X GET
+     *  input:  -H'Authorization': token,
+     *  output: json
+     * @private
+     */
     private _getProject(): RestRouterModel {
         return {
             name: 'getProject',
@@ -58,9 +63,12 @@ export class ProjectRouter implements RestRouterAdapter {
         }
     }
 
-    // private _validateProjectName(body: any): boolean{
-    //
-    // }
+    /**
+     *  rest: /projects/:type -X POST
+     *  input:  -H'Authorization': token, --data json
+     *  output: json
+     * @private
+     */
     private _createNewProject(): RestRouterModel {
         return {
             name: 'createNewProject',
@@ -89,9 +97,9 @@ export class ProjectRouter implements RestRouterAdapter {
                         try {
                             // @ts-ignore
                             body.user = await this.users.getUser(request.uid);
-                            const project = await this.projects.createBFastProject(body);
-                            delete project.fileUrl;
-                            response.status(200).json(project);
+                            const result = await this.projects.createBFastProject(body);
+                            delete result.fileUrl;
+                            response.status(200).json(result);
                         } catch (e) {
                             response.status(500).json(e);
                         }
@@ -103,6 +111,12 @@ export class ProjectRouter implements RestRouterAdapter {
         }
     }
 
+    /**
+     *  rest: /projects/ -X GET
+     *  input:  -H'Authorization': token,
+     *  output: json
+     * @private
+     */
     private _getProjects(): RestRouterModel {
         return {
             name: 'getProjects',
@@ -122,6 +136,12 @@ export class ProjectRouter implements RestRouterAdapter {
         };
     }
 
+    /**
+     *  rest: /projects/:projectId -X DELETE
+     *  input:  -H'Authorization': token
+     *  output: json
+     * @private
+     */
     private _deleteProject(): RestRouterModel {
         return {
             name: 'deleteProject',
@@ -149,6 +169,12 @@ export class ProjectRouter implements RestRouterAdapter {
         };
     }
 
+    /**
+     *  rest: /projects/:projectId -X PATCH
+     *  input:  -H'Authorization': token, --data json
+     *  output: json
+     * @private
+     */
     private _patchProject(): RestRouterModel {
         return {
             name: 'patchProjectDetails',

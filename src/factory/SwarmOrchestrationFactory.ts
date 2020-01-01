@@ -1,6 +1,6 @@
-import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
+import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 import {Options} from "../config/Options";
-import {ShellAdapter} from "../adapters/shell";
+import {ShellAdapter} from "../adapter/shell";
 import {NodeShellFactory} from "./NodeShellFactory";
 
 export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter {

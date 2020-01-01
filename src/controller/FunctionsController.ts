@@ -1,4 +1,4 @@
-import {ContainerOrchestrationAdapter} from "../adapters/containerOrchestration";
+import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 import {Options} from "../config/Options";
 import {SwarmOrchestrationFactory} from "../factory/SwarmOrchestrationFactory";
 

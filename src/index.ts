@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
-import {Bfast} from "./bfast";
+import {BfastCloud} from "./bfast-cloud";
 
-new Bfast({port: process.env.PORT || '3000'});
+new BfastCloud({
+    devMode: Boolean(process.env.DEBUG)
+        || false,
+    port: process.env.PORT
+        || '3000',
+    redisURL: process.env.REDIS_URL
+        || 'redis',
+    mongoURL: process.env.MONGO_URL
+        || 'mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/_BFAST_ADMIN?replicaSet=bfastRS',
+    dockerSocket: process.env.DOCKER_SOCKET
+        || '/usr/local/bin/docker'
+});

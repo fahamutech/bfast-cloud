@@ -1,11 +1,11 @@
 import {SecurityFactory} from "./SecurityFactory";
 import {UserRoles} from "../model/user";
-import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapters/database";
+import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapter/database";
 import {Options} from "../config/Options";
 import {UserStoreFactory} from "./UserStoreFactory";
 import {ProjectStoreFactory} from "./ProjectStoreFactory";
-import {SecurityAdapter} from "../adapters/security";
-import {RouterGuardAdapter} from "../adapters/rest";
+import {SecurityAdapter} from "../adapter/security";
+import {RouterGuardAdapter} from "../adapter/rest";
 
 // need to be modified
 export class RouterGuardFactory implements RouterGuardAdapter {

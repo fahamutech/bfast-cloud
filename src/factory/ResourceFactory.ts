@@ -1,4 +1,4 @@
-import {ResourcesAdapter} from "../adapters/resources";
+import {ResourcesAdapter} from "../adapter/resources";
 import * as path from "path";
 
 export class ResourceFactory implements ResourcesAdapter {

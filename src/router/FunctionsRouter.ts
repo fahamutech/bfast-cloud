@@ -1,4 +1,4 @@
-import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapters/rest";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
 import {Options} from "../config/Options";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {FunctionsController} from "../controller/FunctionsController";
@@ -23,6 +23,12 @@ export class FunctionsRouter implements RestRouterAdapter {
         ]
     }
 
+    /**
+     *  rest: /functions/:projectId/env?force= -X DELETE
+     *  input:  -H'Authorization': token
+     *  output: json
+     * @private
+     */
     private _removeEnvironment(): RestRouterModel {
         return {
             name: 'removeEnvironment',
@@ -49,6 +55,12 @@ export class FunctionsRouter implements RestRouterAdapter {
         };
     }
 
+    /**
+     *  rest: /functions/:projectId/env?force= -X POST
+     *  input:  -H'Authorization': token, --data json
+     *  output: json
+     * @private
+     */
     private _addEnvironment(): RestRouterModel {
         return {
             name: 'addEnvironment',
@@ -69,6 +81,12 @@ export class FunctionsRouter implements RestRouterAdapter {
         };
     }
 
+    /**
+     *  rest: /functions/:projectId?force= -X POST
+     *  input:  -H'Authorization': token
+     *  output: json
+     * @private
+     */
     private _deployFunctions(): RestRouterModel {
         return {
             name: 'deployFunctions',

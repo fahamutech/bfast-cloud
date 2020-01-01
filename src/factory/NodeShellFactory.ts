@@ -1,4 +1,4 @@
-import {ShellAdapter, ShellOptions} from "../adapters/shell";
+import {ShellAdapter, ShellOptions} from "../adapter/shell";
 
 export class NodeShellFactory implements ShellAdapter {
     private _childProcess: any;

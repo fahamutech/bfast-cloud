@@ -1,10 +1,10 @@
 import {ProjectModel} from "../model/project";
-import {ShellAdapter} from "../adapters/shell";
+import {ShellAdapter} from "../adapter/shell";
 import {Options} from "../config/Options";
 import {NodeShellFactory} from "../factory/NodeShellFactory";
-import {ProjectStoreAdapter} from "../adapters/database";
+import {ProjectStoreAdapter} from "../adapter/database";
 import {ProjectStoreFactory} from "../factory/ProjectStoreFactory";
-import {ResourcesAdapter} from "../adapters/resources";
+import {ResourcesAdapter} from "../adapter/resources";
 import {ResourceFactory} from "../factory/ResourceFactory";
 
 export class ProjectController {

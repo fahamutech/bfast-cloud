@@ -1,4 +1,4 @@
-import {SecurityAdapter} from "../adapters/security";
+import {SecurityAdapter} from "../adapter/security";
 import * as bcrypt from 'bcrypt';
 import JWTRedis from "jwt-redis";
 import {RedisClient} from "redis";

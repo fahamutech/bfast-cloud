@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 
-export interface RestAdapter {
+export interface RestServerAdapter {
     mountRoutes(routes: RestRouterAdapter[]): any;
 
     startHttpServer(port: string): any;
