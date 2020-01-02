@@ -9,6 +9,7 @@ module.exports.OptionsMock = class {
         return {
             devMode: true,
             port: '64647',
+            masterKey: 'masterkeytest',
             // redisURL: process.env.REDIS_URL
             //     || 'redis://rdb',
             // mongoURL: process.env.MONGO_URL

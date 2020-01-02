@@ -29,7 +29,7 @@ export class UserController {
         return userStore.getAllUsers(size, skip);
     }
 
-    async getRole(userId: string): Promise<string> {
+    async getRole(userId: string): Promise<any> {
         return userStore.getRole(userId);
     }
 
@@ -43,7 +43,8 @@ export class UserController {
 
     async logoutFromAllDevice(token: string): Promise<any> {
         try {
-            return await security.revokeToken(token);
+            await security.revokeToken(token);
+            return {message: 'token destroyed'};
         } catch (e) {
             throw {message: 'Fails to log you out from all devices', reason: e.toString()};
         }
@@ -65,5 +66,9 @@ export class UserController {
 
     async updateUserDetails(userId: string, data: object): Promise<any> {
         return userStore.updateUserDetails(userId, data);
+    }
+
+    async createAdmin(userModel: UserModel) {
+        return userStore.createAdmin(userModel);
     }
 }

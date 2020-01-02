@@ -22,6 +22,8 @@ export interface RouterGuardAdapter {
     checkIsProjectOwner(request: Request, response: Response, next: NextFunction): void;
 
     checkToken(request: Request, response: Response, next: NextFunction): void;
+
+    checkMasterKey(request: Request, response: Response, next: NextFunction): void;
 }
 
 export interface RestRouterModel {

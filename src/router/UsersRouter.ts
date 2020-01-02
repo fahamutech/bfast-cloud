@@ -17,6 +17,7 @@ export class UsersRouter implements RestRouterAdapter {
 
     getRoutes(): RestRouterModel[] {
         return [
+            this._addSuperAdmin(),
             this._getUserRole(),
             this._getUserDetails(),
             this._deleteUser(),
@@ -249,6 +250,7 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.POST,
             path: '/logout',
             onRequest: [
+                // routerGuard.checkToken,
                 (request, response) => {
                     const body = request.body;
                     const valid = !!(body && body.token);
@@ -322,5 +324,37 @@ export class UsersRouter implements RestRouterAdapter {
                 }
             ]
         }
+    }
+
+    /**
+     *  rest: /users/admin -X POST
+     *  input: --data json
+     *  output: json
+     * @private
+     */
+    private _addSuperAdmin(): RestRouterModel {
+        return {
+            name: 'addSuperAdmin',
+            method: RestRouterMethod.POST,
+            path: '/admin',
+            onRequest: [
+                routerGuard.checkMasterKey,
+                (request, response) => {
+                    const body = request.body;
+                    const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
+                    if (valid) {
+                        users.createAdmin(body).then(value => {
+                            response.status(200).json(value);
+                        }).catch(reason => {
+                            response.status(400).json(reason);
+                        });
+                    } else {
+                        response.status(400).json({
+                            message: 'invalid data supplied, displayName, phoneNumber, email and password required'
+                        });
+                    }
+                }
+            ]
+        };
     }
 }

@@ -28,6 +28,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
         try {
             delete user.uid;
             user.createdAt = Date.now();
+            user.updatedAt = Date.now();
             user.password = await security.encryptPassword(user.password);
             user.role = UserRoles.USER_ROLE;
             const userCollection = await database.collection(this.collectionName);
@@ -49,11 +50,38 @@ export class UserStoreFactory implements UsersStoreAdapter {
         }
     }
 
+    async createAdmin(user: UserModel): Promise<any> {
+        try {
+            delete user.uid;
+            user.createdAt = Date.now();
+            user.updatedAt = Date.now();
+            user.password = await security.encryptPassword(user.password);
+            user.role = UserRoles.ADMIN_ROLE;
+            const userCollection = await database.collection(this.collectionName);
+            const insertUser = await userCollection.insertOne(user);
+            const indexExist = await userCollection.indexExists('email');
+            if (!indexExist) {
+                await userCollection.createIndex({email: 1}, {unique: true});
+            }
+            user.uid = insertUser.insertedId as string;
+            delete user.password;
+            user.token = await security.generateToken({uid: insertUser.insertedId as string});
+            return user;
+        } catch (reason) {
+            throw {message: 'Admin not created', reason: reason.toString()};
+        }
+    }
+
     // under discussion
     async deleteUser(userId: string): Promise<any> {
         try {
             const userCollection = await database.collection(this.collectionName);
-            return await userCollection.deleteOne({_id: database.getObjectId(userId)});
+            const response = await userCollection.deleteOne({_id: database.getObjectId(userId)});
+            if (response && response.deletedCount === 1 && response.result.ok === 1) {
+                return {message: "User deleted"};
+            } else {
+                throw 'Operation was not successful';
+            }
         } catch (e) {
             console.error(e);
             throw {message: 'user not deleted'};
@@ -145,14 +173,14 @@ export class UserStoreFactory implements UsersStoreAdapter {
         }
     }
 
-    async getRole(userId: string): Promise<string> {
+    async getRole(userId: string): Promise<any> {
         try {
             const userCollection = await database.collection(this.collectionName);
             const user = await userCollection.findOne({_id: database.getObjectId(userId)});
             if (!user) {
                 throw 'no such user in records';
             }
-            return user.role;
+            return {role: user.role};
         } catch (e) {
             console.error(e);
             throw {message: 'user role can not be determined', reason: e.toString()}

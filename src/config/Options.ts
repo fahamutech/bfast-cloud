@@ -12,6 +12,7 @@ export interface Options {
     devMode: boolean;
     dockerSocket: string;
     port: string;
+    masterKey: string;
     restServerAdapter?: RestServerAdapter;
     databaseConfigAdapter?: DatabaseAdapter;
     projectStoreAdapter?: ProjectStoreAdapter;

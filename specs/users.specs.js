@@ -189,6 +189,25 @@ describe("Integration test for users", function () {
                 assert(response.data.message === 'invalid data supplied');
             }
         });
+
+        it('should logout from all device', async function () {
+            try {
+                const response = await axios.post(hostname + '/users/logout', {
+                    token: token
+                });
+                const details = await axios.get(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                console.log(details.data);
+                console.log(response.data);
+                assert(response.status === 200);
+                assert(response.data.message === 'token destroyed');
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
     });
 
     describe("User profile", function () {
@@ -208,7 +227,6 @@ describe("Integration test for users", function () {
                 throw {message: 'Fails to create user'};
             }
         });
-
         after(async function () {
             try {
                 await axios.delete(hostname + '/users/me', {
@@ -221,7 +239,6 @@ describe("Integration test for users", function () {
                 throw {message: 'Fails to create user'};
             }
         });
-
         it('should get user details with valid token', async function () {
             try {
                 const response = await axios.get(hostname + '/users/me', {
@@ -300,7 +317,6 @@ describe("Integration test for users", function () {
                 });
             } catch (reason) {
                 const response = reason.response;
-                console.log(response.data);
                 assert(response.status === 401);
                 assert(response.data.message === 'Identify yourself');
             }
@@ -337,6 +353,433 @@ describe("Integration test for users", function () {
                 throw {message: 'Fails to create user'};
             }
         });
+
+        it('should get user role with valid token', async function () {
+            try {
+                const response = await axios.get(hostname + '/users/me/role', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                assert(response.status === 200);
+                assert(response.data.role === 'USER');
+            } catch (reason) {
+                const response = reason.response;
+                throw response.data;
+            }
+        });
+        it('should not get user role with invalid token', async function () {
+            try {
+                await axios.get(hostname + '/users/me/role', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token + '89798kk'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Fails to verify token');
+                assert(response.data.reason === 'JsonWebTokenError: invalid signature');
+            }
+        });
+        it('should not get user role with non token value', async function () {
+            try {
+                await axios.get(hostname + '/users/me/role', {
+                    headers: {
+                        'Authorization': 'Bearer 89798kk'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Fails to verify token');
+                assert(response.data.reason === 'JsonWebTokenError: jwt malformed');
+            }
+        });
+        it('should not get user role with no authorization header', async function () {
+            try {
+                await axios.get(hostname + '/users/me/role');
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Identify yourself');
+            }
+        });
+        it('should not get user role with empty authorization header', async function () {
+            try {
+                await axios.get(hostname + '/users/me/role', {
+                    headers: {
+                        'Authorization': ''
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Identify yourself');
+            }
+        });
     });
 
+    describe('Delete user', function () {
+        let token = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: "Ethan",
+                    email: 'ethan@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                token = response.data.token;
+            } catch (reason) {
+                console.error(reason.response.data);
+                throw {message: 'Fails to create user'};
+            }
+        });
+        after(async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token.trim()
+                    }
+                });
+            } catch (reason) {
+                const data = reason.response.data;
+                data.reason = 'afterHook run when there is no such user maybe';
+                console.log(reason.response.data);
+
+            }
+        });
+        it('should delete a user with valid token', async function () {
+            try {
+                const response = await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                assert(response.status === 200);
+                assert(response.data.message === "User deleted");
+            } catch (reason) {
+                console.error(reason.response.data);
+                throw {message: 'Fails to create user'};
+            }
+        });
+        it('should not delete a user with invalid token', async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token + 'no898'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === "Fails to verify token");
+                assert(response.data.reason === "JsonWebTokenError: invalid signature");
+            }
+        });
+        it('should not delete a user with no token', async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer '
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === "Fails to verify token");
+                assert(response.data.reason === "JsonWebTokenError: jwt must be provided");
+            }
+        });
+        it('should not delete a user with malformed token', async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer nlkjhuiiugo898'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === "Fails to verify token");
+                assert(response.data.reason === "JsonWebTokenError: jwt malformed");
+            }
+        });
+        it('should not delete a user with empty authorization header', async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': ''
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === "Identify yourself");
+            }
+        });
+        it('should not delete a user with no authorization header', async function () {
+            try {
+                await axios.delete(hostname + '/users/me');
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === "Identify yourself");
+            }
+        });
+    });
+
+    describe('Admin', function () {
+        let token = '';
+        before(async function () {
+            // try {
+            //     const admin = {
+            //         displayName: "Ethan1",
+            //         email: 'eth1@gmail.com',
+            //         phoneNumber: '0765456464',
+            //         password: 'joshua'
+            //     };
+            //     const response = await axios.post(hostname + '/users/admin', admin, {
+            //         headers: {
+            //             'Authorization': 'masterkeytespt'
+            //         }
+            //     });
+            //     console.log(response.data);
+            //     // const users = [
+            //     //     {
+            //     //         displayName: "Ethan1",
+            //     //         email: 'eth1@gmail.com',
+            //     //         phoneNumber: '0765456464',
+            //     //         password: 'joshua'
+            //     //     },
+            //     //     {
+            //     //         displayName: "Ethan3",
+            //     //         email: 'ethn3@gmail.com',
+            //     //         phoneNumber: '0765456464',
+            //     //         password: 'joshua'
+            //     //     },
+            //     //     {
+            //     //         displayName: "Ethan2",
+            //     //         email: 'etoan3@gmail.com',
+            //     //         phoneNumber: '0765456464',
+            //     //         password: 'joshua'
+            //     //     }
+            //     // ];
+            //     // await axios.all([
+            //     //     axios.post(hostname + '/users/', users[0]),
+            //     //     axios.post(hostname + '/users/', users[1]),
+            //     //     axios.post(hostname + '/users/', users[2]),
+            //     // ]);
+            // } catch (reason) {
+            //     console.error(reason.response.data);
+            //     throw {message: 'Fails to create users'};
+            // }
+        });
+        after(async function () {
+            // try {
+            //     await axios.delete(hostname + '/users/me', {
+            //         headers: {
+            //             'Authorization': 'Bearer ' + token.trim()
+            //         }
+            //     });
+            // } catch (reason) {
+            //     const data = reason.response.data;
+            //     data.reason = 'afterHook run when there is no such user maybe';
+            //     console.log(reason.response.data);
+            //
+            // }
+        });
+
+        it('should create admin user using right masterKey', async function () {
+            try {
+                const admin = {
+                    displayName: "Ethan1",
+                    email: 'eth1@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/admin', admin, {
+                    headers: {
+                        'Authorization': 'masterkeytest'
+                    }
+                });
+                // console.log(response.data);
+                assert(response.status === 200);
+                assert(response.data.displayName === 'Ethan1');
+                assert(response.data.email === 'eth1@gmail.com');
+                assert(response.data.phoneNumber === '0765456464');
+                assert(response.data.role === 'ADMIN');
+                assert(response.data.token !== undefined && response.data.token !== null);
+                assert(response.data.uid !== undefined && response.data.uid !== null);
+            } catch (reason) {
+                console.log(reason.response.data);
+                throw {message: 'Fails to create admin'};
+            }
+        });
+        it('should not create admin user using right masterKey and no data', async function () {
+            try {
+                await axios.post(hostname + '/users/admin', null, {
+                    headers: {
+                        'Authorization': 'masterkeytest'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 400);
+                assert(response.data.message
+                    === 'invalid data supplied, displayName, phoneNumber, email and password required');
+            }
+        });
+        it('should not create admin user using right masterKey and incomplete data', async function () {
+            try {
+                const user = {
+                    displayName: 'Ethan1'
+                };
+                await axios.post(hostname + '/users/admin', user, {
+                    headers: {
+                        'Authorization': 'masterkeytest'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 400);
+                assert(response.data.message
+                    === 'invalid data supplied, displayName, phoneNumber, email and password required');
+            }
+        });
+        it('should not create admin user using wrong masterKey', async function () {
+            try {
+                const admin = {
+                    displayName: "Ethan1",
+                    email: 'eth1@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                await axios.post(hostname + '/users/admin', admin, {
+                    headers: {
+                        'Authorization': 'masterk99kdshdeytest'
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Unauthorized action');
+            }
+        });
+        it('should not create admin user using no masterKey', async function () {
+            try {
+                const admin = {
+                    displayName: "Ethan1",
+                    email: 'eth1@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                await axios.post(hostname + '/users/admin', admin, {
+                    headers: {
+                        'Authorization': ''
+                    }
+                });
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Unauthorized action');
+            }
+        });
+        it('should not create admin user with no authorization header', async function () {
+            try {
+                const admin = {
+                    displayName: "Ethan1",
+                    email: 'eth1@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                await axios.post(hostname + '/users/admin', admin);
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Unauthorized action');
+            }
+        });
+        it('should not create admin user with no authorization header and no user data', async function () {
+            try {
+                await axios.post(hostname + '/users/admin');
+            } catch (reason) {
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Unauthorized action');
+            }
+        });
+        /*
+        need to be modified
+         */
+        describe('All Users', function () {
+            let adminToken = '';
+            before(async function () {
+                try {
+                    const admin = {
+                        displayName: "Ethan2",
+                        email: 'eth2@gmail.com',
+                        phoneNumber: '0765456464',
+                        password: 'joshua2'
+                    };
+                    const response = await axios.post(hostname + '/users/admin', admin, {
+                        headers: {
+                            'Authorization': 'masterkeytest'
+                        }
+                    });
+                    adminToken = response.data.token;
+                    // console.log(response.data);
+                } catch (reason) {
+                    console.log(reason.response.data);
+                    throw {message: 'Fails to create admin'};
+                }
+            });
+            after(async function () {
+                try {
+                    await axios.delete(hostname + '/users/me', {
+                        headers: {
+                            'Authorization': 'Bearer ' + adminToken,
+                        }
+                    });
+                    // console.log(response.data);
+                } catch (reason) {
+                    console.log(reason.response.data);
+                    console.log('Fails to delete admin');
+                }
+            });
+
+            it('should get all users with valid admin token', async function () {
+                try {
+                    const response = await axios.get(hostname + '/users/', {
+                        headers: {
+                            'Authorization': 'Bearer ' + adminToken
+                        }
+                    });
+                    // console.log(response.data);
+                    assert(response.status === 200);
+                } catch (reason) {
+                    const response = reason.response;
+                    console.log(response.data);
+                    throw response.data;
+                }
+            });
+            it('should not get all users with invalid admin token', async function () {
+                try {
+                    await axios.get(hostname + '/users/', {
+                        headers: {
+                            'Authorization': 'Bearer ' + adminToken + '*y7iiugu'
+                        }
+                    });
+                } catch (reason) {
+                    const response = reason.response;
+                    // console.log(response.data);
+                    assert(response.status === 401);
+                    assert(response.data.message === 'Fails to verify token');
+                    assert(response.data.reason === 'JsonWebTokenError: invalid token');
+                }
+            });
+        });
+    });
 });

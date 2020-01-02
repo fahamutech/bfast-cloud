@@ -43,6 +43,8 @@ export interface UsersStoreAdapter {
 
     createUser(user: UserModel): Promise<any>;
 
+    createAdmin(user: UserModel): Promise<any>;
+
     deleteUser(userId: string): Promise<any>;
 
     updateUserDetails(userId: string, data: object): Promise<any>;
@@ -57,5 +59,5 @@ export interface UsersStoreAdapter {
 
     resetPassword(email: string, code: string, password: string): Promise<any>;
 
-    getRole(userId: string): Promise<string>;
+    getRole(userId: string): Promise<any>;
 }
