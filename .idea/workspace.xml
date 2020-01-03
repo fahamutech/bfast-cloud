@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +184,7 @@
       <workItem from="1578001942898" duration="818000" />
       <workItem from="1578032690322" duration="27718000" />
       <workItem from="1578073952114" duration="6851000" />
-      <workItem from="1578089249754" duration="1956000" />
+      <workItem from="1578089249754" duration="2554000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -514,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578090919296</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="bump better version">
+      <created>1578091217043</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1578091217043</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add user management and start to secure routes" />
     <MESSAGE value="start work with project router" />
     <MESSAGE value="update router" />
     <MESSAGE value="change port of traefik to 80" />
@@ -559,41 +566,42 @@
     <MESSAGE value="update CHANGELOG.md" />
     <MESSAGE value="update docker-compose.yml" />
     <MESSAGE value="fix redis mock require error in production" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix redis mock require error in production" />
+    <MESSAGE value="bump better version" />
+    <option name="LAST_COMMIT_MESSAGE" value="bump better version" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578090919181">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578091216870">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578090919181" />
-    <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578090345462">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578091216870" />
+    <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578091439599">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578090345462" />
-    <state width="1600" height="364" key="GridCell.Tab.0.center" timestamp="1578090345461">
+    <state width="1600" height="364" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578091439599" />
+    <state width="1600" height="364" key="GridCell.Tab.0.center" timestamp="1578091439595">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578090345461" />
-    <state width="1600" height="364" key="GridCell.Tab.0.left" timestamp="1578090345461">
+    <state width="1600" height="364" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578091439595" />
+    <state width="1600" height="364" key="GridCell.Tab.0.left" timestamp="1578091439594">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578090345461" />
-    <state width="1600" height="364" key="GridCell.Tab.0.right" timestamp="1578090345462">
+    <state width="1600" height="364" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578091439594" />
+    <state width="1600" height="364" key="GridCell.Tab.0.right" timestamp="1578091439596">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578090345462" />
+    <state width="1600" height="364" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578091439596" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="39" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578090921828">
+    <state x="398" y="34" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578091219014">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="39" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578090921828" />
+    <state x="398" y="34" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578091219014" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
