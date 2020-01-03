@@ -8,8 +8,8 @@ services:
     networks:
       - bfastnet
       - default
-    environment:
-#      - DEBUG='false'
+#    environment:
+##      - DEBUG='false'
     ports:
       - 3000
     volumes:
