@@ -104,9 +104,9 @@ services:
         limits:
           memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
-  rdb:
+  redis_db:
     image: redis:5-alpine
-    hostname: rdb
+    hostname: redis_db
     restart: always
     deploy:
       restart_policy:
