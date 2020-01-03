@@ -3,7 +3,7 @@
 import {BfastCloud} from "./bfast-cloud";
 
 new BfastCloud({
-    devMode: Boolean(process.env.DEBUG)
+    devMode: process.env.DEBUG === 'true'
         || false,
     port: process.env.PORT
         || '3000',

@@ -5,9 +5,6 @@ import {RedisClient} from 'redis';
 import * as _jwt from 'jsonwebtoken';
 import {Options} from "../config/Options";
 
-
-const redisMock = require('redis-mock');
-
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
 mk96COGGqySke+nVcJwNvuGqynxvahg6OFHamg29P9S5Ji73O1t+3uEhubv7lbaF
@@ -30,8 +27,9 @@ export class SecurityFactory implements SecurityAdapter {
 
     constructor(private  options: Options) {
         if (this.options.devMode) {
+            const redisMock = require('redis-mock');
             _redisClient = redisMock.createClient();
-            // console.log(_redisClient.host);
+           // console.log(_redisClient);
         } else {
             _redisClient = redis.createClient({
                 host: options.redisURL,
