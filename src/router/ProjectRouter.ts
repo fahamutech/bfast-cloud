@@ -92,6 +92,9 @@ export class ProjectRouter implements RestRouterAdapter {
                         && body.projectId !== 'api'
                         && body.projectId !== '_BFAST_ADMIN'
                         && body.projectId !== 'dashboard'
+                        && body.parse
+                        && body.parse.appId
+                        && body.parse.masterKey
                         && body.description);
                     if (valid) {
                         try {
@@ -100,6 +103,7 @@ export class ProjectRouter implements RestRouterAdapter {
                             body.type = request.params.type;
                             const result = await _projects.createBFastProject(body);
                             delete result.fileUrl;
+                            delete result.parse.masterKey;
                             response.status(200).json(result);
                         } catch (reason) {
                             response.status(500).json(reason);

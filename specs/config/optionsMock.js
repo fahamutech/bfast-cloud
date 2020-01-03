@@ -19,7 +19,7 @@ module.exports.OptionsMock = class {
             containerOrchAdapter: new DockerMock(),
             shellAdapter: new NodeShell(),
             emailAdapter: new EmailMock(),
-            dockerSocket: ''
+            dockerSocket: '/usr/local/bin/docker'
         }
     }
 };

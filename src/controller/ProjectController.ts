@@ -24,18 +24,17 @@ export class ProjectController {
 
     async createBFastProject(project: ProjectModel): Promise<any> {
         try {
+            project.members = [project.user];
             const value = await database.insertProject(project);
             if (value && value.type === 'bfast' && value.parse && value.parse.appId && value.parse.masterKey) {
                 return await this._deployProjectInCluster(value);
             } else if (value && value.type === 'ssm') {
                 return await this._deployProjectInCluster(value);
             } else {
-                console.log(value);
                 throw {message: 'project type is undefined'};
             }
         } catch (reason) {
-            console.error(reason);
-            throw {message: 'Fails to create project', reason: reason};
+            throw reason
         }
     }
 
@@ -59,7 +58,7 @@ export class ProjectController {
     private async _deployProjectInCluster(project: ProjectModel): Promise<any> {
         project.fileUrl = resources.getComposeFile(project.type);
         try {
-            const value = await shell.exec(
+            await shell.exec(
                 `$docker stack deploy -c ${project.fileUrl} ${project.projectId}`,
                 {
                     env: {
@@ -71,8 +70,7 @@ export class ProjectController {
                         docker: this.options.dockerSocket
                     }
                 });
-            console.log(value);
-            return {message: 'Project created', project: project};
+            return project;
         } catch (reason) {
             try {
                 // @ts-ignore
