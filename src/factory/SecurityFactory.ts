@@ -27,9 +27,13 @@ export class SecurityFactory implements SecurityAdapter {
 
     constructor(private  options: Options) {
         if (this.options.devMode) {
-            const redisMock = require('redis-mock');
-            _redisClient = redisMock.createClient();
-           // console.log(_redisClient);
+            try {
+                const redisMock = require('redis-mock'); // this must ne removed and to pass only a redis url
+                _redisClient = redisMock.createClient();
+                // console.log(_redisClient);
+            } catch (e) {
+                console.log('fail to set mock redis')
+            }
         } else {
             _redisClient = redis.createClient({
                 host: options.redisURL,
