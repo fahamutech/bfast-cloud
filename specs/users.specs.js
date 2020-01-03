@@ -1,7 +1,7 @@
 const assert = require('assert');
 const axios = require('axios');
 const BfastCloud = require('../lib/bfast-cloud').BfastCloud;
-const OptionsMock = require('./optionsMock').OptionsMock;
+const OptionsMock = require('./config/optionsMock').OptionsMock;
 const MongoMemoryServer = require('mongodb-memory-server-core').MongoMemoryServer;
 let mongoServer;
 let bfastCloud;
@@ -17,18 +17,16 @@ describe("Integration test for users", function () {
         process.env.MONGO_URL = mongoUrl;
         bfastCloud = new BfastCloud(new OptionsMock().getOptions(mongoUrl));
     });
-
     after(async () => {
         await mongoServer.stop();
         bfastCloud.stop();
     });
-
     describe("User create", function () {
         it('should create account with valid data', async function () {
             try {
                 const user = {
                     displayName: "Joshua Mshana",
-                    email: 'mama27j@gmail.com',
+                    email: 'jos87687a@gmail.com',
                     phoneNumber: '07654564464',
                     password: 'joshua'
                 };
@@ -36,7 +34,7 @@ describe("Integration test for users", function () {
                 assert(response.status === 200);
                 assert(response.data.role === 'USER');
                 assert(response.data.displayName === 'Joshua Mshana');
-                assert(response.data.email === 'mama27j@gmail.com');
+                assert(response.data.email === 'jos87687a@gmail.com');
                 assert(response.data.phoneNumber === '07654564464');
                 assert(response.data.password === undefined);
                 assert(response.data.token !== undefined && response.data.token !== null);
@@ -70,7 +68,6 @@ describe("Integration test for users", function () {
             }
         });
     });
-
     describe("User login", function () {
         let token = '';
         before(async function () {
@@ -83,11 +80,9 @@ describe("Integration test for users", function () {
                 };
                 await axios.post(hostname + '/users/', user);
             } catch (reason) {
-                console.error(reason.response.data);
-                throw {message: 'Fails to create user'};
+                throw reason.response.data;
             }
         });
-
         after(async function () {
             try {
                 await axios.delete(hostname + '/users/me', {
@@ -96,11 +91,9 @@ describe("Integration test for users", function () {
                     }
                 });
             } catch (reason) {
-                console.error(reason.response.data);
-                throw {message: 'Fails to create user'};
+                throw reason.response.data;
             }
         });
-
         it('should login with valid email and password', async function () {
             try {
                 const response = await axios.post(hostname + '/users/login', {
@@ -189,27 +182,53 @@ describe("Integration test for users", function () {
                 assert(response.data.message === 'invalid data supplied');
             }
         });
-
+    });
+    describe("User logout", function () {
+        let token = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: "Joshua2",
+                    email: 'joshua@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                token = response.data.token;
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+        // after(async function () {
+        //     try {
+        //         await axios.delete(hostname + '/users/me', {
+        //             headers: {
+        //                 'Authorization': 'Bearer ' + token
+        //             }
+        //         });
+        //     } catch (reason) {
+        //         throw reason.response.data;
+        //     }
+        // });
         it('should logout from all device', async function () {
             try {
                 const response = await axios.post(hostname + '/users/logout', {
                     token: token
                 });
-                const details = await axios.get(hostname + '/users/me', {
+                assert(response.status === 200);
+                assert(response.data.message === 'Token revoked');
+                await axios.get(hostname + '/users/me', {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
-                console.log(details.data);
-                console.log(response.data);
-                assert(response.status === 200);
-                assert(response.data.message === 'token destroyed');
             } catch (reason) {
-                throw reason.response.data;
+                const response = reason.response;
+                assert(response.status === 401);
+                assert(response.data.message === 'Token revoked');
             }
         });
     });
-
     describe("User profile", function () {
         let token = '';
         before(async function () {
@@ -253,7 +272,7 @@ describe("Integration test for users", function () {
                 assert(response.data.role === 'USER');
                 assert(response.data.uid !== null && response.data.uid !== undefined);
             } catch (reason) {
-                console.log(reason.response.data);
+                ;
                 throw reason.response.data;
             }
         });
@@ -322,8 +341,7 @@ describe("Integration test for users", function () {
             }
         });
     });
-
-    describe("User role", function () {
+    describe('User role', function () {
         let token = '';
         before(async function () {
             try {
@@ -419,7 +437,6 @@ describe("Integration test for users", function () {
             }
         });
     });
-
     describe('Delete user', function () {
         let token = '';
         before(async function () {
@@ -433,8 +450,7 @@ describe("Integration test for users", function () {
                 const response = await axios.post(hostname + '/users/', user);
                 token = response.data.token;
             } catch (reason) {
-                console.error(reason.response.data);
-                throw {message: 'Fails to create user'};
+                throw reason.response.data;
             }
         });
         after(async function () {
@@ -447,7 +463,7 @@ describe("Integration test for users", function () {
             } catch (reason) {
                 const data = reason.response.data;
                 data.reason = 'afterHook run when there is no such user maybe';
-                console.log(reason.response.data);
+                console.log(data);
 
             }
         });
@@ -530,7 +546,6 @@ describe("Integration test for users", function () {
             }
         });
     });
-
     describe('Admin', function () {
         let token = '';
         before(async function () {
@@ -546,7 +561,7 @@ describe("Integration test for users", function () {
             //             'Authorization': 'masterkeytespt'
             //         }
             //     });
-            //     console.log(response.data);
+            //     ;
             //     // const users = [
             //     //     {
             //     //         displayName: "Ethan1",
@@ -587,7 +602,7 @@ describe("Integration test for users", function () {
             // } catch (reason) {
             //     const data = reason.response.data;
             //     data.reason = 'afterHook run when there is no such user maybe';
-            //     console.log(reason.response.data);
+            //     ;
             //
             // }
         });
@@ -605,7 +620,7 @@ describe("Integration test for users", function () {
                         'Authorization': 'masterkeytest'
                     }
                 });
-                // console.log(response.data);
+                // ;
                 assert(response.status === 200);
                 assert(response.data.displayName === 'Ethan1');
                 assert(response.data.email === 'eth1@gmail.com');
@@ -614,8 +629,7 @@ describe("Integration test for users", function () {
                 assert(response.data.token !== undefined && response.data.token !== null);
                 assert(response.data.uid !== undefined && response.data.uid !== null);
             } catch (reason) {
-                console.log(reason.response.data);
-                throw {message: 'Fails to create admin'};
+                throw reason.response.data;
             }
         });
         it('should not create admin user using right masterKey and no data', async function () {
@@ -730,10 +744,9 @@ describe("Integration test for users", function () {
                         }
                     });
                     adminToken = response.data.token;
-                    // console.log(response.data);
+                    // ;
                 } catch (reason) {
-                    console.log(reason.response.data);
-                    throw {message: 'Fails to create admin'};
+                    throw reason.response.data;
                 }
             });
             after(async function () {
@@ -743,13 +756,12 @@ describe("Integration test for users", function () {
                             'Authorization': 'Bearer ' + adminToken,
                         }
                     });
-                    // console.log(response.data);
+                    // ;
                 } catch (reason) {
                     console.log(reason.response.data);
                     console.log('Fails to delete admin');
                 }
             });
-
             it('should get all users with valid admin token', async function () {
                 try {
                     const response = await axios.get(hostname + '/users/', {
@@ -757,11 +769,11 @@ describe("Integration test for users", function () {
                             'Authorization': 'Bearer ' + adminToken
                         }
                     });
-                    // console.log(response.data);
+                    // ;
                     assert(response.status === 200);
                 } catch (reason) {
                     const response = reason.response;
-                    console.log(response.data);
+                    ;
                     throw response.data;
                 }
             });
@@ -774,12 +786,105 @@ describe("Integration test for users", function () {
                     });
                 } catch (reason) {
                     const response = reason.response;
-                    // console.log(response.data);
+                    // ;
                     assert(response.status === 401);
                     assert(response.data.message === 'Fails to verify token');
                     assert(response.data.reason === 'JsonWebTokenError: invalid token');
                 }
             });
+        });
+    });
+    // need more test case
+    describe('Update user details', function () {
+        let token = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: "Joshua3",
+                    email: 'josh3@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                token = response.data.token;
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+        after(async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+
+        it('should update user details with valid token', async function () {
+            try {
+                const data = {
+                    displayName: 'Joshua33',
+                    role: 'ADMIN',
+                    uid: 'iy68567iuy',
+                    age: 23
+                };
+                const response = await axios.patch(hostname + '/users/me', data, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                // console.log(response.data);
+                assert(response.status === 200);
+                assert(response.data.displayName === 'Joshua33');
+                assert(response.data.role === 'USER');
+                assert(response.data.age === 23);
+            } catch (reason) {
+                throw reason.reason.data;
+            }
+        });
+    });
+    describe('Reset user password', function () {
+        let token = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: "Joshua3",
+                    email: 'mama27j@gmail.com',
+                    phoneNumber: '0765456464',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                token = response.data.token;
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+        after(async function () {
+            try {
+                await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+
+        it('should send reset password code to user email', async function () {
+            try {
+                const response = await axios.post(hostname + '/users/password/request', {
+                    email: 'mama27j@gmail.com'
+                });
+                // console.log(response.data);
+                assert(response.status === 200);
+                assert(response.data.message === 'Follow Instruction sent to email : mama27j@gmail.com');
+            } catch (reason) {
+                throw reason.response.data;
+            }
         });
     });
 });

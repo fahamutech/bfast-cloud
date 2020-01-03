@@ -2,18 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/config/emailMock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/factory/ui/reset-password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bfast-ee.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bfast-ee.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/optionsMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/optionsMock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/containerOrchMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/config/containerOrchMock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/optionsMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/config/optionsMock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/project.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/project.specs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/shellMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/config/shellMock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/specs/users.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/users.specs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/adapter/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapter/database.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapter/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapter/rest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapter/resources.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapter/resources.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bfast-cloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfast-cloud.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UserController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/EmailFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/EmailFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/ResourceFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/ResourceFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/RouterGuardFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/RouterGuardFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/SecurityFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/UserStoreFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/UserStoreFactory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/LandingRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/LandingRouter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/UsersRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/UsersRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -44,6 +57,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -54,18 +68,19 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/factory" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/specs/config" />
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/factory/config" />
-      <recent name="$PROJECT_DIR$/src/factory" />
-      <recent name="$PROJECT_DIR$/src/controller" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/factory" />
     </key>
   </component>
@@ -93,16 +108,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="dev" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -123,13 +128,28 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="Integration test for project" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/specs/project.specs.js</test-file>
+      <test-names>
+        <name value="Integration test for project" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
+        <item itemvalue="Mocha.Integration test for project" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.start:dev" />
         <item itemvalue="Docker.compose-files/parse-compose.yml.daas: Compose Deployment" />
-        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -180,7 +200,9 @@
       <workItem from="1577799146199" duration="17568000" />
       <workItem from="1577867316550" duration="41844000" />
       <workItem from="1577968908505" duration="2870000" />
-      <workItem from="1577995061942" duration="5638000" />
+      <workItem from="1577995061942" duration="5967000" />
+      <workItem from="1578001942898" duration="818000" />
+      <workItem from="1578032690322" duration="25402000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -455,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577906411003</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="add more test in user router">
+      <created>1578000961452</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1578000961452</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -475,7 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix rest server not start because of not initialize cookie parse module" />
     <MESSAGE value="remove unused code, and initiate database replicas on start bfast-cloud" />
     <MESSAGE value="update mongo database url" />
     <MESSAGE value="fix controller in routes due to change in structure of controller" />
@@ -500,41 +528,42 @@
     <MESSAGE value="update compose files" />
     <MESSAGE value="now you can stop a server, and start working on test case" />
     <MESSAGE value="start to add user test cases for earch api endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="start to add user test cases for earch api endpoint" />
+    <MESSAGE value="add more test in user router" />
+    <option name="LAST_COMMIT_MESSAGE" value="add more test in user router" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="611" y="126" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1577969494141">
+    <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="611" y="126" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1577969494141" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1577906410639">
+    <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578000960944">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1577906410639" />
-    <state width="1600" height="277" key="GridCell.Tab.0.bottom" timestamp="1578000888536">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578000960944" />
+    <state width="1600" height="332" key="GridCell.Tab.0.bottom" timestamp="1578062390164">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="277" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578000888536" />
-    <state width="1600" height="277" key="GridCell.Tab.0.center" timestamp="1578000888535">
+    <state width="1600" height="332" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578062390164" />
+    <state width="1600" height="332" key="GridCell.Tab.0.center" timestamp="1578062390163">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="277" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578000888535" />
-    <state width="1600" height="277" key="GridCell.Tab.0.left" timestamp="1578000888534">
+    <state width="1600" height="332" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578062390163" />
+    <state width="1600" height="332" key="GridCell.Tab.0.left" timestamp="1578062390163">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="277" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578000888534" />
-    <state width="1600" height="277" key="GridCell.Tab.0.right" timestamp="1578000888535">
+    <state width="1600" height="332" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578062390163" />
+    <state width="1600" height="332" key="GridCell.Tab.0.right" timestamp="1578062390164">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="277" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578000888535" />
+    <state width="1600" height="332" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578062390164" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="79" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1577906413237">
+    <state x="398" y="74" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578000964114">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="79" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1577906413237" />
+    <state x="398" y="74" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578000964114" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

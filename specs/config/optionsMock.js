@@ -1,5 +1,6 @@
 const DockerMock = require('./containerOrchMock').DockerMock;
 const NodeShell = require('./shellMock').NodeShell;
+const EmailMock = require('./emailMock').EmailMock;
 
 module.exports.OptionsMock = class {
     constructor() {
@@ -17,6 +18,7 @@ module.exports.OptionsMock = class {
             mongoURL: mongoUrl,
             containerOrchAdapter: new DockerMock(),
             shellAdapter: new NodeShell(),
+            emailAdapter: new EmailMock(),
             dockerSocket: ''
         }
     }

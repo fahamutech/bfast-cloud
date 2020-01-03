@@ -9,12 +9,12 @@ export class EmailFactory implements EmailAdapter {
                 port: 465,
                 secure: true, // true for 465, false for other ports
                 auth: {
-                    user: "jmshana@datavision.co.tz", // generated ethereal user
-                    pass: "@Joshua&5715" // generated ethereal password
+                    user: "fahamutechdevelopers@gmail.com", // generated ethereal user
+                    pass: "fahamutech::developers::password" // generated ethereal password
                 }
             });
-            const response = await transporter.sendMail({
-                from: `"BFast::Cloud👻" <${from}>`, // sender address
+            await transporter.sendMail({
+                from: `"BFast::Cloud👻" ☁️`, // sender address
                 to: `${to}`, // list of receivers
                 subject: subject, // Subject line
                 // text: "Hello", // plain text body

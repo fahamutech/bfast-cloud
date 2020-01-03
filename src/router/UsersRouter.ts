@@ -3,15 +3,15 @@ import {Options} from "../config/Options";
 import {UserController} from "../controller/UserController";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 
-let users: UserController;
-let routerGuard: RouterGuardAdapter;
+let _users: UserController;
+let _routerGuard: RouterGuardAdapter;
 
 export class UsersRouter implements RestRouterAdapter {
     prefix: string = '/users';
 
     constructor(private readonly options: Options) {
-        users = new UserController(this.options);
-        routerGuard = this.options.routerGuard !== undefined ?
+        _users = new UserController(this.options);
+        _routerGuard = this.options.routerGuard !== undefined ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
     }
 
@@ -22,12 +22,12 @@ export class UsersRouter implements RestRouterAdapter {
             this._getUserDetails(),
             this._deleteUser(),
             this._updateUserDetails(),
-            this._getAllUsers(),
+            this._getAllUsers(), /*need more test*/
             this._createAccount(),
             this._login(),
             this._logout(),
-            this._requestResetPasswordCode(),
-            this._resetPassword(),
+            this._requestResetPasswordCode(), /*need more test*/
+            this._resetPassword(),  /*need more test*/
         ];
     }
 
@@ -43,12 +43,12 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.GET,
             path: '/me/role',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response) => {
                     // @ts-ignore
                     if (request.uid) {
                         // @ts-ignore
-                        users.getRole(request.uid).then(user => {
+                        _users.getRole(request.uid).then(user => {
                             response.status(200).json(user);
                         }).catch(reason => {
                             response.status(400).json(reason)
@@ -73,12 +73,12 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.DELETE,
             path: '/me',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response) => {
                     // @ts-ignore
                     if (request.uid) {
                         // @ts-ignore
-                        users.deleteUser(request.uid).then(user => {
+                        _users.deleteUser(request.uid).then(user => {
                             response.status(200).json(user);
                         }).catch(reason => {
                             response.status(400).json(reason)
@@ -103,12 +103,12 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.GET,
             path: '/me',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response) => {
                     // @ts-ignore
                     if (request.uid) {
                         // @ts-ignore
-                        users.getUser(request.uid).then(user => {
+                        _users.getUser(request.uid).then(user => {
                             response.status(200).json(user);
                         }).catch(reason => {
                             response.status(400).json(reason)
@@ -133,14 +133,14 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.PATCH,
             path: '/me',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response) => {
                     const body = request.body;
                     // @ts-ignore
                     const valid = !!(request.uid && body && Object.keys(body).length > 0);
                     if (valid) {
                         // @ts-ignore
-                        users.updateUserDetails(request.uid, body).then(user => {
+                        _users.updateUserDetails(request.uid, body).then(user => {
                             response.status(200).json(user);
                         }).catch(reason => {
                             response.status(400).json(reason)
@@ -165,12 +165,12 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.GET,
             path: '/',
             onRequest: [
-                routerGuard.checkToken,
-                routerGuard.checkIsAdmin,
+                _routerGuard.checkToken,
+                _routerGuard.checkIsAdmin,
                 (request, response, next) => {
                     const size = request.query && request.query.size ? request.query.size : 20;
                     const skip = request.query && request.query.skip ? request.query.skip : 0;
-                    users.getAllUsers(size, skip).then(users => {
+                    _users.getAllUsers(size, skip).then(users => {
                         response.status(200).json({users: users});
                     });
                 }
@@ -194,7 +194,7 @@ export class UsersRouter implements RestRouterAdapter {
                     const body = request.body;
                     const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
                     if (valid) {
-                        users.createUser(body).then(value => {
+                        _users.createUser(body).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
@@ -225,7 +225,7 @@ export class UsersRouter implements RestRouterAdapter {
                     const body = request.body;
                     const valid = !!(body && body.email && body.password);
                     if (valid) {
-                        users.login(body.email, body.password).then(value => {
+                        _users.login(body.email, body.password).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
@@ -255,7 +255,7 @@ export class UsersRouter implements RestRouterAdapter {
                     const body = request.body;
                     const valid = !!(body && body.token);
                     if (valid) {
-                        users.logoutFromAllDevice(body.token).then(value => {
+                        _users.logoutFromAllDevice(body.token).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
@@ -269,22 +269,24 @@ export class UsersRouter implements RestRouterAdapter {
     }
 
     /**
-     *  rest: /users/me -X POST
+     *  rest: /users/password/reset -X POST
      *  input: --data json
      *  output: json
      * @private
      */
+
+    // should be test by using e2e or by human for now
     private _resetPassword(): RestRouterModel {
         return {
             name: 'resetPassword',
             method: RestRouterMethod.POST,
-            path: '/resetPassword',
+            path: '/password/reset',
             onRequest: [
                 (request, response) => {
                     const body = request.body;
                     const valid = !!(body && body.email && body.code && body.password);
                     if (valid) {
-                        users.resetPassword(body.email, body.code, body.password).then(value => {
+                        _users.resetPassword(body.email, body.code, body.password).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
@@ -298,7 +300,7 @@ export class UsersRouter implements RestRouterAdapter {
     }
 
     /**
-     *  rest: /users/requestPasswordResetCode -X POST
+     *  rest: /users/password/request -X POST
      *  input: --data json
      *  output: json
      * @private
@@ -307,13 +309,13 @@ export class UsersRouter implements RestRouterAdapter {
         return {
             name: 'requestResetPasswordCode',
             method: RestRouterMethod.POST,
-            path: '/requestPasswordResetCode',
+            path: '/password/request',
             onRequest: [
                 (request, response) => {
                     const body = request.body;
                     const valid = !!(body && body.email);
                     if (valid) {
-                        users.requestResetPassword(body.email).then(value => {
+                        _users.requestResetPassword(body.email).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
@@ -338,12 +340,12 @@ export class UsersRouter implements RestRouterAdapter {
             method: RestRouterMethod.POST,
             path: '/admin',
             onRequest: [
-                routerGuard.checkMasterKey,
+                _routerGuard.checkMasterKey,
                 (request, response) => {
                     const body = request.body;
                     const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
                     if (valid) {
-                        users.createAdmin(body).then(value => {
+                        _users.createAdmin(body).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);

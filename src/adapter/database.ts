@@ -47,7 +47,7 @@ export interface UsersStoreAdapter {
 
     deleteUser(userId: string): Promise<any>;
 
-    updateUserDetails(userId: string, data: object): Promise<any>;
+    updateUserDetails(userId: string, data: UserModel): Promise<UserModel>;
 
     getUser(userId: string): Promise<any>;
 

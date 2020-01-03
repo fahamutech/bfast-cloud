@@ -14,12 +14,11 @@
     "push": "gulp pubishDockerImage"
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^8.3.5",
     "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "jwt-redis": "^5.0.9",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.2",
     "morgan": "~1.9.1",
     "nodemailer": "^6.4.2",
@@ -34,6 +33,7 @@
     "@types/nodemailer": "^6.4.0",
     "@types/redis": "^2.8.14",
     "@types/redis-mock": "^0.17.0",
+    "@types/jsonwebtoken": "^8.3.5",
     "axios": "^0.19.0",
     "chai": "^4.2.0",
     "gulp": "^4.0.2",

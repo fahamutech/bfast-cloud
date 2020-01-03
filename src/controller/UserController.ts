@@ -43,8 +43,7 @@ export class UserController {
 
     async logoutFromAllDevice(token: string): Promise<any> {
         try {
-            await security.revokeToken(token);
-            return {message: 'token destroyed'};
+            return await security.revokeToken(token);
         } catch (e) {
             throw {message: 'Fails to log you out from all devices', reason: e.toString()};
         }
@@ -64,7 +63,7 @@ export class UserController {
         }
     }
 
-    async updateUserDetails(userId: string, data: object): Promise<any> {
+    async updateUserDetails(userId: string, data: UserModel): Promise<any> {
         return userStore.updateUserDetails(userId, data);
     }
 

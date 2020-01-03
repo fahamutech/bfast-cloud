@@ -5,7 +5,7 @@ import {Options} from "../config/Options";
 import {UserStoreFactory} from "./UserStoreFactory";
 import {ProjectStoreFactory} from "./ProjectStoreFactory";
 import {RouterGuardAdapter} from "../adapter/rest";
-import {Request} from "express";
+import {Request, Response} from "express";
 import {SecurityAdapter} from "../adapter/security";
 
 let _userDatabase: UsersStoreAdapter;
@@ -57,17 +57,22 @@ export class RouterGuardFactory implements RouterGuardAdapter {
         }
     }
 
-    checkToken(request: any, response: any, next: any) {
+    checkToken(request: Request, response: Response, next: any) {
         const header = request.headers['authorization'];
         if (header) {
-            const bearer = header.split(' ');
-            const token = bearer[1];
+            let bearer = header.split(' ');
+            let token = bearer[1];
+            if (!token /* try to get a token from query*/) {
+                token = request.query.token
+            }
             _security.verifyToken(token)
                 .then(value => {
+                    // @ts-ignore
                     request.uid = value.uid ? value.uid : null;
+                    // @ts-ignore
+                    request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
-                // console.log(reason);
                 response.status(401).json(reason)
             });
         } else {

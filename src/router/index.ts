@@ -12,7 +12,7 @@ export class BFastRouters {
     getApiRoutes(): RestRouterAdapter[] {
         return [
             new FunctionsRouter(this.options),
-            new LandingRouter(),
+            new LandingRouter(this.options),
             new ProjectRouter(this.options),
             new UsersRouter(this.options)
         ]
