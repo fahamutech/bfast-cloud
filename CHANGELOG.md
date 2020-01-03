@@ -1,4 +1,10 @@
 # v0.4.0-beta0
+This version come with a new apis and many brake change. 
+#### Whats new
+
+* Add `smart stock` project type to be created
+* All request required to be authenticated
+* Allow user to create an account
 
 
 # v0.3.3

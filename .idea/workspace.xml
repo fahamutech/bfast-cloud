@@ -3,12 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/config/optionsMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/config/optionsMock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/config/shellMock.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/config/shellMock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/project.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/project.specs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/users.specs.js" beforeDir="false" afterPath="$PROJECT_DIR$/specs/users.specs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ProjectController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProjectController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/ProjectRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/ProjectRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +183,7 @@
       <workItem from="1577995061942" duration="5967000" />
       <workItem from="1578001942898" duration="818000" />
       <workItem from="1578032690322" duration="27718000" />
-      <workItem from="1578073952114" duration="5939000" />
+      <workItem from="1578073952114" duration="6818000" />
     </task>
     <task id="LOCAL-00001" summary="refresh">
       <created>1574693030685</created>
@@ -482,7 +479,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578064724875</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="start writing test for projects router">
+      <created>1578088307932</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1578088307932</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix controller in routes due to change in structure of controller" />
     <MESSAGE value="fix missing composer files" />
     <MESSAGE value="start to implement authentication and authorisation" />
     <MESSAGE value="add create and login account router" />
@@ -527,41 +530,42 @@
     <MESSAGE value="add more test in user router" />
     <MESSAGE value="finish first draft of users router test" />
     <MESSAGE value="start project creation test" />
-    <option name="LAST_COMMIT_MESSAGE" value="start project creation test" />
+    <MESSAGE value="start writing test for projects router" />
+    <option name="LAST_COMMIT_MESSAGE" value="start writing test for projects router" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578064724701">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578088307690">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578064724701" />
-    <state width="1600" height="334" key="GridCell.Tab.0.bottom" timestamp="1578088257084">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578088307690" />
+    <state width="1600" height="605" key="GridCell.Tab.0.bottom" timestamp="1578088316246">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="334" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578088257084" />
-    <state width="1600" height="334" key="GridCell.Tab.0.center" timestamp="1578088257083">
+    <state width="1600" height="605" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578088316246" />
+    <state width="1600" height="605" key="GridCell.Tab.0.center" timestamp="1578088316243">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="334" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578088257083" />
-    <state width="1600" height="334" key="GridCell.Tab.0.left" timestamp="1578088257083">
+    <state width="1600" height="605" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578088316243" />
+    <state width="1600" height="605" key="GridCell.Tab.0.left" timestamp="1578088316242">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="334" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578088257083" />
-    <state width="1600" height="334" key="GridCell.Tab.0.right" timestamp="1578088257084">
+    <state width="1600" height="605" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578088316242" />
+    <state width="1600" height="605" key="GridCell.Tab.0.right" timestamp="1578088316244">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="334" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578088257084" />
+    <state width="1600" height="605" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578088316244" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="64" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578064727590">
+    <state x="398" y="59" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578088311076">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="64" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578064727590" />
+    <state x="398" y="59" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578088311076" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
