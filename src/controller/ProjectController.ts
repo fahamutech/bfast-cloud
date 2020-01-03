@@ -28,8 +28,9 @@ export class ProjectController {
             if (value && value.type === 'bfast' && value.parse && value.parse.appId && value.parse.masterKey) {
                 return await this._deployProjectInCluster(value);
             } else if (value && value.type === 'ssm') {
-
+                return await this._deployProjectInCluster(value);
             } else {
+                console.log(value);
                 throw {message: 'project type is undefined'};
             }
         } catch (reason) {

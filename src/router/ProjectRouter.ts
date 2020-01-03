@@ -5,19 +5,19 @@ import {ProjectController} from "../controller/ProjectController";
 import {UsersStoreAdapter} from "../adapter/database";
 import {UserStoreFactory} from "../factory/UserStoreFactory";
 
-let routerGuard: RouterGuardAdapter;
-let projects: ProjectController;
-let users: UsersStoreAdapter;
+let _routerGuard: RouterGuardAdapter;
+let _projects: ProjectController;
+let _users: UsersStoreAdapter;
 
 export class ProjectRouter implements RestRouterAdapter {
     prefix: string = '/projects';
 
     constructor(private  options: Options) {
-        routerGuard = this.options.routerGuard ?
+        _routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
-        users = this.options.userStoreAdapter ?
+        _users = this.options.userStoreAdapter ?
             this.options.userStoreAdapter : new UserStoreFactory(this.options);
-        projects = new ProjectController(this.options);
+        _projects = new ProjectController(this.options);
     }
 
     getRoutes(): RestRouterModel[] {
@@ -42,13 +42,13 @@ export class ProjectRouter implements RestRouterAdapter {
             method: RestRouterMethod.GET,
             path: '/:projectId',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response, next) => {
                     // @ts-ignore
                     const valid = !!(request.uid && request.params.projectId);
                     if (valid) {
                         // @ts-ignore
-                        projects.getUserProject(request.uid, request.params.projectId)
+                        _projects.getUserProject(request.uid, request.params.projectId)
                             .then((project: any) => {
                                 response.status(200).json(project);
                             })
@@ -75,7 +75,7 @@ export class ProjectRouter implements RestRouterAdapter {
             method: RestRouterMethod.POST,
             path: '/:type',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 /*check for payments if there is enough fund to proceed*/
                 async (request, response) => {
                     const body = request.body;
@@ -96,12 +96,13 @@ export class ProjectRouter implements RestRouterAdapter {
                     if (valid) {
                         try {
                             // @ts-ignore
-                            body.user = await users.getUser(request.uid);
-                            const result = await projects.createBFastProject(body);
+                            body.user = await _users.getUser(request.uid);
+                            body.type = request.params.type;
+                            const result = await _projects.createBFastProject(body);
                             delete result.fileUrl;
                             response.status(200).json(result);
-                        } catch (e) {
-                            response.status(500).json(e);
+                        } catch (reason) {
+                            response.status(500).json(reason);
                         }
                     } else {
                         response.status(400).json({message: 'Invalid project data'});
@@ -123,10 +124,10 @@ export class ProjectRouter implements RestRouterAdapter {
             method: RestRouterMethod.GET,
             path: '/',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response, _) => {
                     // @ts-ignore
-                    projects.getUserProjects(request.uid, 10000, 0).then((value: any) => {
+                    _projects.getUserProjects(request.uid, 10000, 0).then((value: any) => {
                         response.json(value);
                     }).catch((reason: any) => {
                         response.status(404).json(reason);
@@ -148,7 +149,7 @@ export class ProjectRouter implements RestRouterAdapter {
             method: RestRouterMethod.DELETE,
             path: '/:projectId',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response, _) => {
                     const projectId = request.params.projectId;
 
@@ -156,7 +157,7 @@ export class ProjectRouter implements RestRouterAdapter {
                     const valid = !!(projectId && request.uid);
                     if (valid) {
                         // @ts-ignore
-                        projects.deleteUserProject(request.uid, projectId).then((value: any) => {
+                        _projects.deleteUserProject(request.uid, projectId).then((value: any) => {
                             response.status(200).json(value);
                         }).catch((reason: any) => {
                             response.status(500).json(reason);
@@ -181,14 +182,14 @@ export class ProjectRouter implements RestRouterAdapter {
             method: RestRouterMethod.PATCH,
             path: '/:projectId',
             onRequest: [
-                routerGuard.checkToken,
+                _routerGuard.checkToken,
                 (request, response) => {
                     const body = request.body;
                     const projectId = request.params.projectId;
                     // @ts-ignore
                     const valid = !!(projectId && request.uid);
                     if (valid) {
-                        projects
+                        _projects
                             // @ts-ignore
                             .patchProjectDetails(request.uid, projectId, body).then((value: any) => {
                             response.status(200).json(value);

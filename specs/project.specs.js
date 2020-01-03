@@ -17,16 +17,61 @@ describe("Integration test for project", function () {
         process.env.MONGO_URL = mongoUrl;
         _bfastCloud = new BfastCloud(new OptionsMock().getOptions(mongoUrl));
     });
-
     after(async () => {
         await _mongoServer.stop();
         _bfastCloud.stop();
     });
 
-    it('should accept a simple test', function () {
-        console.log(process.env.MONGO_URL);
-        console.log(process.env.DEBUG);
-        assert(true);
+    describe('Create project', function () {
+        let token = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: 'Joshua',
+                    email: 'josh@gmail.com',
+                    phoneNumber: '0765456638',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                token = response.data.token;
+                assert(response.status === 200);
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+        after(async function () {
+            try {
+                const response = await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                assert(response.status === 200);
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+
+        it('should create a project of type ssm with valid token and project data', async function () {
+            try {
+                const project = {
+                    name: 'Lbpharmacy',
+                    projectId: 'lb1234',
+                    description: 'short description',
+                    isParse: true,
+                    parse: {appId: 'lb123456', masterKey: 'lbmasterkey'},
+                    // user: UserModel;
+                };
+                const response = await axios.post(hostname + '/projects/ssm', project, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                console.log(response.data);
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
     });
 
 });
