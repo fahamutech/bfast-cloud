@@ -79,7 +79,7 @@ function startDevServer() {
             env: {
                 DEBUG: "true",
                 MONGO_URL: mongoUrl, // "mongodb://localhost:27017/_BFAST_ADMIN",
-                // REDIS_URL: '',
+                // REDIS_HOST: '',
                 DOCKER_SOCKET: dockerPath.toString()
             }
         });

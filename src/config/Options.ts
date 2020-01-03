@@ -8,7 +8,7 @@ import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 
 export interface Options {
     mongoURL: string;
-    redisURL: string;
+    redisHOST: string;
     devMode: boolean;
     dockerSocket: string;
     port: string;

@@ -4,6 +4,7 @@
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -183,21 +184,7 @@
       <workItem from="1578001942898" duration="818000" />
       <workItem from="1578032690322" duration="27718000" />
       <workItem from="1578073952114" duration="6851000" />
-      <workItem from="1578089249754" duration="3190000" />
-    </task>
-    <task id="LOCAL-00001" summary="refresh">
-      <created>1574693030685</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1574693030685</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update env remove endpoint">
-      <created>1574711789248</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1574711789248</updated>
+      <workItem from="1578089249754" duration="3571000" />
     </task>
     <task id="LOCAL-00003" summary="update docker compose for bfast-ee">
       <created>1574712031819</created>
@@ -528,7 +515,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578091816427</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="change redis url">
+      <created>1578092466520</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1578092466522</updated>
+    </task>
+    <task id="LOCAL-00051" summary="change redis url">
+      <created>1578092485571</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1578092485572</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +549,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update router" />
     <MESSAGE value="change port of traefik to 80" />
     <MESSAGE value="migrate database to authentication of each project to a specific database" />
     <MESSAGE value="add authentication database" />
@@ -573,17 +573,18 @@
     <MESSAGE value="fix redis mock require error in production" />
     <MESSAGE value="bump better version" />
     <MESSAGE value="bump beta version" />
-    <option name="LAST_COMMIT_MESSAGE" value="bump beta version" />
+    <MESSAGE value="change redis url" />
+    <option name="LAST_COMMIT_MESSAGE" value="change redis url" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578092466337">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578092485376">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578092466337" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578092485376" />
     <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578091439599">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -604,10 +605,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="24" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578092468827">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578092487713">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="24" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578092468827" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578092487713" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

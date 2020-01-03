@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.4.0-beta3
+    image: joshuamshana/bfast-ee:v0.4.0-beta4
     hostname: bfast
     restart: always
     networks:
@@ -104,9 +104,9 @@ services:
         limits:
           memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
-  redis_db:
+  rdb:
     image: redis:5-alpine
-    hostname: redis_db
+    hostname: rdb
     restart: always
     deploy:
       restart_policy:

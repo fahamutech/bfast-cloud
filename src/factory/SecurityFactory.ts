@@ -36,7 +36,7 @@ export class SecurityFactory implements SecurityAdapter {
             }
         } else {
             _redisClient = redis.createClient({
-                host: options.redisURL,
+                host: options.redisHOST,
             });
         }
     }
