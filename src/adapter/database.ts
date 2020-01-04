@@ -1,9 +1,9 @@
 import {ProjectModel} from "../model/project";
 import {UserModel} from "../model/user";
-import {Collection, MongoClient, ObjectID} from "mongodb";
+import {Collection, ObjectID} from "mongodb";
 
 export interface DatabaseAdapter {
-    getConnection(): Promise<MongoClient>;
+    // getConnection(): Promise<MongoClient>;
 
     collection(collectionName: string): Promise<Collection>;
 

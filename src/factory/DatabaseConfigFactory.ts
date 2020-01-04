@@ -14,23 +14,23 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
         });
     }
 
-    /**
-     * @deprecated since v0.3.3 and will be removed in v0.4.0 use this#getCollection instead
-     * to get a collection ready to be consumed
-     */
-    getConnection(): Promise<MongoClient> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                if (mongoClient.isConnected()) {
-                    resolve(mongoClient);
-                } else {
-                    resolve(mongoClient.connect());
-                }
-            } catch (e) {
-                reject(e);
-            }
-        });
-    }
+    // /**
+    //  * @deprecated since v0.3.3 and will be removed in v0.4.0 use this#getCollection instead
+    //  * to get a collection ready to be consumed
+    //  */
+    // getConnection(): Promise<MongoClient> {
+    //     return new Promise(async (resolve, reject) => {
+    //         try {
+    //             if (mongoClient.isConnected()) {
+    //                 resolve(mongoClient);
+    //             } else {
+    //                 resolve(mongoClient.connect());
+    //             }
+    //         } catch (e) {
+    //             reject(e);
+    //         }
+    //     });
+    // }
 
     async collection(collectionName: string): Promise<Collection> {
         try {
@@ -61,20 +61,24 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
                 console.log('************initiate replica set******************');
                 try {
                     console.log('start to connect');
-                    let conn = await this.getConnection();
+                    const _mongoClientRS: MongoClient = new MongoClient(this.options.mongoMasterURL, {
+                        useNewUrlParser: true,
+                        useUnifiedTopology: true
+                    });
+                    let _connectionToRS = await _mongoClientRS.connect();
                     console.log('start to call master');
-                    const isM = await conn.db().executeDbAdminCommand({isMaster: 1});
+                    const isM = await _connectionToRS.db().executeDbAdminCommand({isMaster: 1});
                     if (isM && isM.ismaster) {
                         console.log('master exist');
                         try {
-                            await conn.db().executeDbAdminCommand({
+                            await _connectionToRS.db().executeDbAdminCommand({
                                 replSetReconfig: {
                                     host: "mdbrs1",
                                     priority: 0,
                                     votes: 0
                                 }
                             });
-                            await conn.db().executeDbAdminCommand({
+                            await _connectionToRS.db().executeDbAdminCommand({
                                 replSetReconfig: {
                                     host: "mdbrs2",
                                     priority: 0,
@@ -86,7 +90,7 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
                         }
                     } else {
                         console.log('master not exist');
-                        await conn.db().executeDbAdminCommand({
+                        await _connectionToRS.db().executeDbAdminCommand({
                             replSetInitiate: {
                                 "_id": "bfastRS",
                                 "members": [
