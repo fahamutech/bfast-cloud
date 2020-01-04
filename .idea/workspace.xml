@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,14 +178,7 @@
       <workItem from="1578001942898" duration="818000" />
       <workItem from="1578032690322" duration="27718000" />
       <workItem from="1578073952114" duration="6851000" />
-      <workItem from="1578089249754" duration="10039000" />
-    </task>
-    <task id="LOCAL-00009" summary="fix rest server not start because of not initialize cookie parse module">
-      <created>1574928814107</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1574928814107</updated>
+      <workItem from="1578089249754" duration="10778000" />
     </task>
     <task id="LOCAL-00010" summary="remove unused code, and initiate database replicas on start bfast-cloud">
       <created>1574936693145</created>
@@ -526,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578116217267</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="fix stack error when initiate replicas set in mongodb">
+      <created>1578119293275</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1578119293275</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add redis in jwt for persistence or session" />
     <MESSAGE value="start update design architecture and update jwt to persist to redis" />
     <MESSAGE value="start organize files for api" />
     <MESSAGE value="change Options.ts configurations and change initiation of bfast.ts to be used as a module" />
@@ -571,17 +567,18 @@
     <MESSAGE value="update how replica set of mongo initiated and remove getConnection method in database config adapter" />
     <MESSAGE value="add database name in mongo master url for replicas set" />
     <MESSAGE value="remove docker-compose Dockerfile of bfast_api service" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove docker-compose Dockerfile of bfast_api service" />
+    <MESSAGE value="fix stack error when initiate replicas set in mongodb" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix stack error when initiate replicas set in mongodb" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578116217130">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578119293076">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578116217130" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578119293076" />
     <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -602,10 +599,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578116219460">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578119295648">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578116219460" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578119295648" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
