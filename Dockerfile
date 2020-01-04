@@ -19,7 +19,11 @@ COPY *.json ./
 ##RUN apt-get install docker-ce docker-ce-cli containerd.io
 #RUN apt-get install -y docker-ce-cli
 #RUN apt-get install -y nodejs
-RUN apk add --update nodejs npm docker-compose
+RUN apk update
+RUN apk upgrade
+RUN apk add nodejs
+RUN apk add npm
+#RUN apk add docker-compose
 RUN apk --no-cache add --virtual builds-deps build-base python
 RUN npm ci --only=production
 RUN npm rebuild bcrypt --build-from-source
