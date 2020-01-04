@@ -14,7 +14,7 @@ new BfastCloud({
     mongoURL: process.env.MONGO_URL
         || 'mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/_BFAST_ADMIN?replicaSet=bfastRS',
     mongoMasterURL: process.env.MONGO_MASTER_URL
-        || 'mongodb://mdb:27017',
+        || 'mongodb://mdb:27017/_BFAST_ADMIN',
     dockerSocket: process.env.DOCKER_SOCKET
         || '/usr/local/bin/docker'
 });

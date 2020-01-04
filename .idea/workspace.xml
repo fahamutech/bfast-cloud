@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/Options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/Options.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/DatabaseConfigFactory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -183,14 +181,7 @@
       <workItem from="1578001942898" duration="818000" />
       <workItem from="1578032690322" duration="27718000" />
       <workItem from="1578073952114" duration="6851000" />
-      <workItem from="1578089249754" duration="7117000" />
-    </task>
-    <task id="LOCAL-00006" summary="update web router section">
-      <created>1574838137795</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1574838137795</updated>
+      <workItem from="1578089249754" duration="7722000" />
     </task>
     <task id="LOCAL-00007" summary="start testing new app">
       <created>1574851212636</created>
@@ -528,7 +519,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578113579887</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="update how replica set of mongo initiated and remove getConnection method in database config adapter">
+      <created>1578114992725</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1578114992725</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +546,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add authentication database" />
     <MESSAGE value="fix yaml problem" />
     <MESSAGE value="start implementing password reset mechanism" />
     <MESSAGE value="add redis in jwt for persistence or session" />
@@ -573,41 +570,42 @@
     <MESSAGE value="fix redis host" />
     <MESSAGE value="bump beta version" />
     <MESSAGE value="bump beta version to fix index not found" />
-    <option name="LAST_COMMIT_MESSAGE" value="bump beta version to fix index not found" />
+    <MESSAGE value="update how replica set of mongo initiated and remove getConnection method in database config adapter" />
+    <option name="LAST_COMMIT_MESSAGE" value="update how replica set of mongo initiated and remove getConnection method in database config adapter" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578114938844">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1578114992612">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578114938844" />
-    <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578113204180">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1578114992612" />
+    <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578113204180" />
-    <state width="1600" height="364" key="GridCell.Tab.0.center" timestamp="1578113204179">
+    <state width="1600" height="364" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1578115010788" />
+    <state width="1600" height="364" key="GridCell.Tab.0.center" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578113204179" />
-    <state width="1600" height="364" key="GridCell.Tab.0.left" timestamp="1578113204178">
+    <state width="1600" height="364" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1578115010788" />
+    <state width="1600" height="364" key="GridCell.Tab.0.left" timestamp="1578115010787">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578113204178" />
-    <state width="1600" height="364" key="GridCell.Tab.0.right" timestamp="1578113204179">
+    <state width="1600" height="364" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1578115010787" />
+    <state width="1600" height="364" key="GridCell.Tab.0.right" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state width="1600" height="364" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578113204179" />
+    <state width="1600" height="364" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1578115010788" />
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1577128711846">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578113581830">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1578114995078">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578113581830" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1578114995078" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
