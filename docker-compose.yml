@@ -206,6 +206,7 @@ volumes:
   mongodatars2:
   mongodatars1:
   redisdata:
+  cbddata:
 networks:
   bfastweb:
     # driver: overlay
