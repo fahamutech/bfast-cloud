@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.4.0-beta10
+    image: joshuamshana/bfast-ee:v0.4.0-beta11
     hostname: bfast
     restart: always
     networks:
@@ -26,40 +26,30 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-#      resources:
-#        limits:
-#          memory: 256M
-  cdb:
-    image: couchbase:community
-    hostname: cbd
-    restart: always
-    networks:
-      - bfastweb
-      - default
-    ports:
-      - 8091-8094
-      - 11210
-    volumes:
-      - cbddata:/opt/couchbase/var
-    deploy:
-      labels:
-        - "traefik.docker.network=bfastweb"
-        - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:io.bfast.fahamutech.com"
-        - "traefik.port=8091"
-#        - "traefik.port2=11210"
-#        - "traefik.port3=8092"
-#        - "traefik.port4=8093"
-#        - "traefik.port5=8094"
-        - "traefik.protocol=http"
-      placement:
-        constraints: [node.role == manager]
-      restart_policy:
-        condition: any
-        delay: 2s
-#      resources:
-#        limits:
-#          memory: 256M
+  #  cdb:
+  #    image: couchbase:community
+  #    hostname: cbd
+  #    restart: always
+  #    networks:
+  #      - bfastweb
+  #      - default
+  #    ports:
+  #      - 8091-8094
+  #      - 11210
+  #    volumes:
+  #      - cbddata:/opt/couchbase/var
+  #    deploy:
+  #      labels:
+  #        - "traefik.docker.network=bfastweb"
+  #        - "traefik.enable=true"
+  #        - "traefik.frontend.rule=Host:io.bfast.fahamutech.com"
+  #        - "traefik.port=8091"
+  #        - "traefik.protocol=http"
+  #      placement:
+  #        constraints: [node.role == manager]
+  #      restart_policy:
+  #        condition: any
+  #        delay: 2s
   mdb:
     image: mongo:4-bionic
     hostname: mdb
@@ -72,22 +62,12 @@ services:
     depends_on:
       - mdbrs1
       - mdbrs2
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=joshua
-#      - MONGO_INITDB_ROOT_PASSWORD=joshua
-#      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints: [node.role == manager]
       restart_policy:
         condition: any
         delay: 2s
-        #for test
-#      resources:
-#        limits:
-#          memory: 100M
-      # rollback_config:
-      #   failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs1:
     image: mongo:4-bionic
@@ -98,18 +78,10 @@ services:
       - default
       - bfastweb
     restart: always
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=joshua
-#      - MONGO_INITDB_ROOT_PASSWORD=joshua
-#      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
-        #for test
-#      resources:
-#        limits:
-#          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs2:
     image: mongo:4-bionic
@@ -120,18 +92,10 @@ services:
       - default
       - bfastweb
     restart: always
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=joshua
-#      - MONGO_INITDB_ROOT_PASSWORD=joshua
-#      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
-      # for test
-#      resources:
-#        limits:
-#          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
   rdb:
     image: redis:5-alpine
@@ -143,9 +107,6 @@ services:
         delay: 2s
       placement:
         constraints: [node.role == manager]
-#      resources:
-#        limits:
-#          memory: 80M
     networks:
       - bfastweb
       - default
@@ -156,7 +117,6 @@ services:
   traefik:
     image: traefik:v1.7
     hostname: traefik
-    # container_name: "traefik"
     working_dir: /app
     restart: always
     deploy:
@@ -165,10 +125,6 @@ services:
         delay: 2s
       placement:
         constraints: [node.role == manager]
-      # for test
-#      resources:
-#        limits:
-#          memory: 80M
     ports:
       - 80:80
       - 443:443
@@ -179,10 +135,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ssl/fullchain2.pem:/app/fullchain.pem
       - ./ssl/privkey2.pem:/app/privkey.pem
-
     command:
-      # - "--api.insecure=true"
-      # - "--providers.docker=true"
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
@@ -195,11 +148,6 @@ services:
       - --docker.domain=api.bfast.fahamutech.com
       - --docker.watch=true
       - --docker.exposedbydefault=false
-      # - "--acme.email=mama27j@gmail.com"
-      # - "--acme.storage=acme.json"
-      # - "--acme.entryPoint=https"
-      # - "--acme.onHostRule=true"
-      # - "--acme.tlsChallenge=true"
 volumes:
   mdbdata:
   traefikdata:
@@ -209,6 +157,4 @@ volumes:
   cbddata:
 networks:
   bfastweb:
-    # driver: overlay
-    # attachable: true
     external: true
