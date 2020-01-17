@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,13 +180,6 @@
       <workItem from="1578073952114" duration="6851000" />
       <workItem from="1578089249754" duration="12594000" />
       <workItem from="1579240513829" duration="1070000" />
-    </task>
-    <task id="LOCAL-00015" summary="fix missing composer files">
-      <created>1574953125645</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1574953125645</updated>
     </task>
     <task id="LOCAL-00016" summary="fix missing composer files">
       <created>1574953141750</created>
@@ -525,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579243745672</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="add couchbase volume">
+      <created>1579243893521</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1579243893522</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,7 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start add ssm project type" />
     <MESSAGE value="finish initial code clean and structure change" />
     <MESSAGE value="update compose files" />
     <MESSAGE value="now you can stop a server, and start working on test case" />
@@ -570,17 +568,18 @@
     <MESSAGE value="change ssl port to default port" />
     <MESSAGE value="update overlay network and hostname for ssm and bfast project" />
     <MESSAGE value="update deploy.sh deploy.bat to bfastweb network" />
-    <option name="LAST_COMMIT_MESSAGE" value="update deploy.sh deploy.bat to bfastweb network" />
+    <MESSAGE value="add couchbase volume" />
+    <option name="LAST_COMMIT_MESSAGE" value="add couchbase volume" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579243745505">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579243893288">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579243745505" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579243893288" />
     <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -601,10 +600,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579243747881">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579243895650">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579243747881" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579243895650" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
