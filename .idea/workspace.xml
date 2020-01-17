@@ -4,6 +4,8 @@
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,10 +123,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.build:docker" />
         <item itemvalue="npm.start:dev" />
-        <item itemvalue="Mocha.Integration test for project" />
+        <item itemvalue="npm.build:docker" />
         <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.Integration test for project" />
       </list>
     </recent_temporary>
   </component>

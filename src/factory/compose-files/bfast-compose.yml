@@ -1,12 +1,12 @@
 version: '3.3'
 services:
-  bfast_database:
+  daas:
     image: parseplatform/parse-server:3.9.0
-    hostname: ${projectId}-database
+    hostname: ${projectId}-daas
     restart: always
     networks:
       - default
-      - bfastnet # to access mdb
+      - bfastweb # to access mdb
     deploy:
       mode: replicated
       replicas: 1
@@ -17,9 +17,9 @@ services:
         limits:
           memory: 125M
       labels:
-        - "traefik.docker.network=bfastnet"
+        - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-database.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-database"
         # - "traefik.backend.rule=PathPrefix:/parse"
         - "traefik.port=3000"
@@ -36,13 +36,13 @@ services:
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
       - PORT=3000
       - PARSE_SERVER_MOUNT_PATH=/
-  bfast_dashboard:
+  dashboard:
     image: parseplatform/parse-dashboard:2.0.3
     hostname: ${projectId}-dashboard
     restart: always
     networks:
       - default
-      - bfastnet
+      - bfastweb
     deploy:
       mode: replicated
       replicas: 1
@@ -57,7 +57,7 @@ services:
         #   cpus: '0.25'
         #   memory: 20M
       labels:
-        - "traefik.docker.network=bfastnet"
+        - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-dashboard"
@@ -72,7 +72,7 @@ services:
       - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=0
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
-  bfast_functions:
+  faas:
     image: joshuamshana/bfastfaas:v1.8.0
     hostname: ${projectId}-functions
     restart: always
@@ -80,7 +80,7 @@ services:
     # - faasdata:/faas/src/function
     networks:
       - default
-      - bfastnet # to access mdb
+      - bfastweb # to access mdb
     deploy:
       resources:
         limits:
@@ -92,9 +92,9 @@ services:
         # max_attempts: 3
         # window: 120s
       labels:
-        - "traefik.docker.network=bfastnet"
+        - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-functions.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-faas"
         # - "traefik.backend.rule=PathPrefix:/faas"
         - "traefik.port=3000"
@@ -104,7 +104,7 @@ services:
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
 networks:
-  bfastnet:
+  bfastweb:
     # driver: overlay
     # attachable: true
     external: true

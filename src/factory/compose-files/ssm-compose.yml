@@ -1,12 +1,12 @@
 version: '3.3'
 services:
-  ssm_database:
+  ssm:
     image: parseplatform/parse-server:3.9.0
-    hostname: ${projectId}-ssm-database
+    hostname: ${projectId}-ssm
     restart: always
     networks:
       - default
-      - bfastnet # to access mdb
+      - bfastweb # to access mdb
     deploy:
       mode: replicated
       replicas: 1
@@ -17,9 +17,9 @@ services:
         limits:
           memory: 100M
       labels:
-        - "traefik.docker.network=bfastnet"
+        - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-ssm-database.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:${projectId}-ssm.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-daas"
         # - "traefik.backend.rule=PathPrefix:/parse"
         - "traefik.port=3000"
@@ -38,11 +38,11 @@ services:
       - PARSE_SERVER_MOUNT_PATH=/
   ssm_dashboard:
     image: parseplatform/parse-dashboard:2.0.3
-    hostname: ${projectId}-dashboard
+    hostname: ${projectId}
     restart: always
     networks:
       - default
-      - bfastnet
+      - bfastweb
     deploy:
       mode: replicated
       replicas: 0
@@ -57,7 +57,7 @@ services:
         #   cpus: '0.25'
         #   memory: 20M
       labels:
-        - "traefik.docker.network=bfastnet"
+        - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
         # - "traefik.backend=${projectId}-dashboard"
@@ -73,7 +73,7 @@ services:
       - PARSE_DASHBOARD_USER_ID=${userEmail}
       - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
 networks:
-  bfastnet:
+  bfastweb:
     external: true
 volumes:
   daasdata: {}
