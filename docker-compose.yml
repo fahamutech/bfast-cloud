@@ -29,6 +29,18 @@ services:
       resources:
         limits:
           memory: 256M
+  cdb:
+    image: couchbase:community
+    hostname: cbd
+    restart: always
+    networks:
+      - bfastnet
+      - default
+    ports:
+      - 8091-8094:8091-8094
+      - 11210:11210
+    volumes:
+      - cbddata:/opt/couchbase/var
   mdb:
     image: mongo:4-bionic
     hostname: mdb
