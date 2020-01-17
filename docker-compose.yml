@@ -8,8 +8,6 @@ services:
     networks:
       - bfastnet
       - default
-#    environment:
-##      - DEBUG='false'
     ports:
       - 3000
     volumes:
@@ -30,7 +28,7 @@ services:
         delay: 2s
       resources:
         limits:
-          memory: 100M
+          memory: 256M
   mdb:
     image: mongo:4-bionic
     hostname: mdb
@@ -43,10 +41,10 @@ services:
     depends_on:
       - mdbrs1
       - mdbrs2
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=joshua
-      - MONGO_INITDB_ROOT_PASSWORD=joshua
-      - MONGO_INITDB_DATABASE=admin
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=joshua
+#      - MONGO_INITDB_ROOT_PASSWORD=joshua
+#      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -54,9 +52,9 @@ services:
         condition: any
         delay: 2s
         #for test
-      resources:
-        limits:
-          memory: 100M
+#      resources:
+#        limits:
+#          memory: 100M
       # rollback_config:
       #   failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
@@ -69,18 +67,18 @@ services:
       - default
       - bfastnet
     restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=joshua
-      - MONGO_INITDB_ROOT_PASSWORD=joshua
-      - MONGO_INITDB_DATABASE=admin
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=joshua
+#      - MONGO_INITDB_ROOT_PASSWORD=joshua
+#      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
         #for test
-      resources:
-        limits:
-          memory: 100M
+#      resources:
+#        limits:
+#          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs2:
     image: mongo:4-bionic
@@ -91,18 +89,18 @@ services:
       - default
       - bfastnet
     restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=joshua
-      - MONGO_INITDB_ROOT_PASSWORD=joshua
-      - MONGO_INITDB_DATABASE=admin
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=joshua
+#      - MONGO_INITDB_ROOT_PASSWORD=joshua
+#      - MONGO_INITDB_DATABASE=admin
     deploy:
       restart_policy:
         condition: any
         delay: 2s
       # for test
-      resources:
-        limits:
-          memory: 100M
+#      resources:
+#        limits:
+#          memory: 100M
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
   rdb:
     image: redis:5-alpine
@@ -114,9 +112,9 @@ services:
         delay: 2s
       placement:
         constraints: [node.role == manager]
-      resources:
-        limits:
-          memory: 80M
+#      resources:
+#        limits:
+#          memory: 80M
     networks:
       - bfastnet
       - default
@@ -137,12 +135,12 @@ services:
       placement:
         constraints: [node.role == manager]
       # for test
-      resources:
-        limits:
-          memory: 80M
+#      resources:
+#        limits:
+#          memory: 80M
     ports:
       - 80:80
-      - 8443:8443
+      - 443:443
     networks:
       - bfastnet
       - default
@@ -157,7 +155,7 @@ services:
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --entryPoints=Name:https Address::8443 TLS:/app/fullchain.pem,/app/privkey.pem
+      - --entryPoints=Name:https Address::443 TLS:/app/fullchain.pem,/app/privkey.pem
       - --retry
       - --docker
       - --docker.swarmMode
