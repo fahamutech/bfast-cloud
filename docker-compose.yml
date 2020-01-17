@@ -46,11 +46,11 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:io.bfast.fahamutech.com"
-        - "traefik.port1=8091"
-        - "traefik.port2=11210"
-        - "traefik.port3=8092"
-        - "traefik.port4=8093"
-        - "traefik.port5=8094"
+        - "traefik.port=8091"
+#        - "traefik.port2=11210"
+#        - "traefik.port3=8092"
+#        - "traefik.port4=8093"
+#        - "traefik.port5=8094"
         - "traefik.protocol=http"
       placement:
         constraints: [node.role == manager]
