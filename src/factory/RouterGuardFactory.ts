@@ -58,19 +58,18 @@ export class RouterGuardFactory implements RouterGuardAdapter {
     }
 
     checkToken(request: Request, response: Response, next: any) {
-        let header;
-        if (request.query.token) {
+        let header = request.headers['authorization'];
+        if (!header && request.query.token) {
             header = `Bearer ${request.query.token}`;
         }
-        if (!header) {
-            header = request.headers['authorization'];
-        }
+        console.log(header);
         if (header) {
             let bearer = header.split(' ');
             let token = bearer[1];
-            if (!token /* try to get a token from query*/) {
-                token = request.query.token
-            }
+            console.log(token);
+            // if (!token /* try to get a token from query*/) {
+            //     token = request.query.token
+            // }
             _security.verifyToken(token)
                 .then(value => {
                     // @ts-ignore
