@@ -20,9 +20,15 @@ function copyStaticFiles() {
 }
 
 function copyComposeFiles() {
-    console.log('start copying compose file');
+    console.log('start copying compose files');
     return gulp.src('./src/factory/compose-files/**/*')
         .pipe(gulp.dest('./lib/factory/compose-files/'));
+}
+
+function copyUIFiles() {
+    console.log('start copying ui files');
+    return gulp.src('./src/factory/ui/**/*')
+        .pipe(gulp.dest('./lib/factory/ui/'));
 }
 
 function handleProcessEvents(childProcess, resolve, reject) {
@@ -88,8 +94,8 @@ function startDevServer() {
 }
 
 exports.devStart = gulp.series(startDevServer);
-exports.copyResiurceFolders = gulp.series(copyComposeFiles);
-exports.buildDocker = gulp.series(build, copyComposeFiles, buildDocker)
-exports.pubishDockerImage = gulp.series(build, copyComposeFiles,
+exports.copyResiurceFolders = gulp.series(copyComposeFiles, copyUIFiles);
+exports.buildDocker = gulp.series(build, copyComposeFiles, copyUIFiles, buildDocker);
+exports.pubishDockerImage = gulp.series(build, copyComposeFiles,copyUIFiles,
     buildDocker, publishDockerImage, publishDockerImageLatest);
-exports.default = gulp.series(build, copyComposeFiles);
+exports.default = gulp.series(build, copyComposeFiles, copyUIFiles);
