@@ -10,7 +10,7 @@ export class EmailFactory implements EmailAdapter {
                 secure: true, // true for 465, false for other ports
                 auth: {
                     user: "fahamutechdevelopers@gmail.com", // generated ethereal user
-                    pass: "fahamutech::developers::password" // generated ethereal password
+                    pass: "fahamutech::developers::email" // generated ethereal password
                 }
             });
             await transporter.sendMail({
