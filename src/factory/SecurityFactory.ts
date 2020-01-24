@@ -117,6 +117,7 @@ export class SecurityFactory implements SecurityAdapter {
                     }
 
                     const data = JSON.parse(reply);
+                    console.log(data);
                     if (!data.uid || data.uid !== decoded.uid) {
                         reject({message: 'Token revoked', reason: 'token tempered'});
                         return;
