@@ -60,7 +60,7 @@ export class RouterGuardFactory implements RouterGuardAdapter {
     checkToken(request: Request, response: Response, next: any) {
         let header = request.headers['authorization'];
         if (!header && request.query.token) {
-            header = `Bearer ${request.query.token}`;
+            header = 'Bearer ' + request.query.token;
         }
         console.log(header);
         if (header) {
@@ -78,6 +78,7 @@ export class RouterGuardFactory implements RouterGuardAdapter {
                     request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
+                console.log(reason);
                 response.status(401).json(reason)
             });
         } else {
