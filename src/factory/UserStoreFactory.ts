@@ -186,7 +186,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
                 'Password reset',
                 `
                 Use this link to reset your password : <br>
-                <a href="${host}/ui/password/reset/?token='${code}'">
+                <a href="${host}/ui/password/reset/?token=${code}">
                     ${host}/ui/password/reset/?token=${code}
                 </a>`
             );
