@@ -319,7 +319,7 @@ export class UsersRouter implements RestRouterAdapter {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
-                        })
+                        });
                     } else {
                         response.status(400).json({message: 'invalid data supplied, email required'});
                     }

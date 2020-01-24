@@ -22,7 +22,7 @@ export class EmailFactory implements EmailAdapter {
             });
             return 'Email sent';
         } catch (e) {
-            throw {message: "Fails to send email", reason: e.toString()};
+            throw e.toString();
         }
     }
 }
