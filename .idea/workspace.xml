@@ -189,14 +189,7 @@
       <workItem from="1579419362562" duration="1212000" />
       <workItem from="1579774949898" duration="1467000" />
       <workItem from="1579854239252" duration="192000" />
-      <workItem from="1579857922815" duration="6009000" />
-    </task>
-    <task id="LOCAL-00030" summary="add redis in jwt for persistence or session">
-      <created>1577656882009</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1577656882009</updated>
+      <workItem from="1579857922815" duration="9622000" />
     </task>
     <task id="LOCAL-00031" summary="start update design architecture and update jwt to persist to redis">
       <created>1577737142528</created>
@@ -534,7 +527,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579863371389</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="iterate verify token method in security factory">
+      <created>1579863954223</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1579863954224</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,10 +586,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579863371158">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579863954077">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579863371158" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579863954077" />
     <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl" timestamp="1579418154525">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -614,10 +614,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579863373629">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579863956382">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579863373629" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579863956382" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>

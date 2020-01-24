@@ -112,11 +112,10 @@ export class SecurityFactory implements SecurityAdapter {
                     }
 
                     if (!reply) {
-                        reject({message: 'Token revoked', reason: 'user not cached'});
+                        reject({message: 'Token revoked', reason: 'token not cached'});
                         return;
                     }
 
-                    console.log(reply);
                     const data = JSON.parse(reply);
                     console.log('*********from redis****************');
                     console.log(data);
@@ -124,12 +123,20 @@ export class SecurityFactory implements SecurityAdapter {
                     console.log('**********from decoded****************');
                     console.log(decoded);
                     console.log('**********from decoded****************');
-                    // if (data && data.uid && data.uid !== decoded.uid) {
-                    //     reject({message: 'Token revoked', reason: 'token tempered'});
-                    //     return;
-                    // }else{
+
+                    let validEmail = false;
+                    let validUid = false;
+                    if (data && data.email && decoded && data.email === decoded.email) {
+                        validEmail = true;
+                    }
+                    if (data && data.uid && decoded && data.uid === decoded.uid) {
+                        validUid = true;
+                    }
+                    if (validEmail || validUid) {
                         resolve(decoded);
-                    //}
+                    } else {
+                        reject({message: 'Token revoked', reason: 'token tempered'});
+                    }
                 });
             });
         });
