@@ -117,7 +117,10 @@ export class SecurityFactory implements SecurityAdapter {
                     }
 
                     const data = JSON.parse(reply);
+                    console.log('*********from redis');
                     console.log(data);
+                    console.log('**********from decoded');
+                    console.log(decoded);
                     if (!data.uid || data.uid !== decoded.uid) {
                         reject({message: 'Token revoked', reason: 'token tempered'});
                         return;
