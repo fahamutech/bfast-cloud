@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design/bfastcoreadmin_index.bsdesign" beforeDir="false" afterPath="$PROJECT_DIR$/design/bfastcoreadmin_index.bsdesign" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/sync-compose.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
