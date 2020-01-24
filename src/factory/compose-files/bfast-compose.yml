@@ -42,13 +42,13 @@ services:
       - bfastweb
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 0
       restart_policy:
         condition: any
         delay: 2s
       resources:
         limits:
-          memory: 90M
+          memory: 80M
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
@@ -57,7 +57,7 @@ services:
         - "traefik.protocol=http"
     environment:
       - PORT=3443
-      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-database.bfast.fahamutech.com:8443
+      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
       - PARSE_DASHBOARD_APP_ID=${appId}
       - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
       - PARSE_DASHBOARD_APP_NAME=${projectName}

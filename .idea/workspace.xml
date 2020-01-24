@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/factory/compose-files/my-sg-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/factory/compose-files/sync-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/joshua.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/bfastcoreadmin_index.bsdesign" beforeDir="false" afterPath="$PROJECT_DIR$/design/bfastcoreadmin_index.bsdesign" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/sync-compose.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,14 +187,11 @@
       <workItem from="1578073952114" duration="6851000" />
       <workItem from="1578089249754" duration="12594000" />
       <workItem from="1579240513829" duration="1070000" />
-      <workItem from="1579268949804" duration="1079000" />
-    </task>
-    <task id="LOCAL-00018" summary="add create and login account router">
-      <created>1575026274684</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1575026274684</updated>
+      <workItem from="1579268949804" duration="1881000" />
+      <workItem from="1579417420101" duration="736000" />
+      <workItem from="1579419362562" duration="1212000" />
+      <workItem from="1579774949898" duration="1467000" />
+      <workItem from="1579854239252" duration="192000" />
     </task>
     <task id="LOCAL-00019" summary="add user management and start to secure routes">
       <created>1575041627918</created>
@@ -532,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579245308058</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="remove couchbase">
+      <created>1579270073146</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1579270073147</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -552,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update compose files" />
     <MESSAGE value="now you can stop a server, and start working on test case" />
     <MESSAGE value="start to add user test cases for earch api endpoint" />
     <MESSAGE value="add more test in user router" />
@@ -577,17 +580,22 @@
     <MESSAGE value="add couchbase volume" />
     <MESSAGE value="refresh" />
     <MESSAGE value="update port for couchbase in traefik" />
-    <option name="LAST_COMMIT_MESSAGE" value="update port for couchbase in traefik" />
+    <MESSAGE value="remove couchbase" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove couchbase" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579245307951">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579270072546">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579245307951" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579270072546" />
+    <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl" timestamp="1579418154525">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl/52.27.1548.873@52.27.1548.873" timestamp="1579418154525" />
     <state width="1600" height="364" key="GridCell.Tab.0.bottom" timestamp="1578115010788">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -608,10 +616,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="137" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1577128711846" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579245310228">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579270197825">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579245310228" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579270197825" />
     <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
