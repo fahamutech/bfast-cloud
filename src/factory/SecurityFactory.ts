@@ -116,16 +116,20 @@ export class SecurityFactory implements SecurityAdapter {
                         return;
                     }
 
+                    console.log(reply);
                     const data = JSON.parse(reply);
-                    console.log('*********from redis');
+                    console.log('*********from redis****************');
                     console.log(data);
-                    console.log('**********from decoded');
+                    console.log('*********from redis****************');
+                    console.log('**********from decoded****************');
                     console.log(decoded);
-                    if (!data.uid || data.uid !== decoded.uid) {
-                        reject({message: 'Token revoked', reason: 'token tempered'});
-                        return;
-                    }
-                    resolve(decoded);
+                    console.log('**********from decoded****************');
+                    // if (data && data.uid && data.uid !== decoded.uid) {
+                    //     reject({message: 'Token revoked', reason: 'token tempered'});
+                    //     return;
+                    // }else{
+                        resolve(decoded);
+                    //}
                 });
             });
         });
