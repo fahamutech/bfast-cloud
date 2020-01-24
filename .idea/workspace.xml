@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,11 +13,19 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="joshua" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1U6XOWKNi3eHehL05ip2baq4uPC" />
   <component name="ProjectViewState">
@@ -26,22 +34,32 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/factory/compose-files" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/specs/config" />
+      <recent name="$PROJECT_DIR$/src/config" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/factory/config" />
       <recent name="$PROJECT_DIR$/src/factory" />
-      <recent name="$PROJECT_DIR$/src/controller" />
-      <recent name="$PROJECT_DIR$/src/adapters" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/factory/compose-files" />
+      <recent name="$PROJECT_DIR$/src/factory" />
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
@@ -69,10 +87,43 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
         <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.start:dev" />
       </list>
     </recent_temporary>
   </component>
@@ -103,30 +154,382 @@
       <workItem from="1574711170756" duration="883000" />
       <workItem from="1574744776759" duration="4577000" />
       <workItem from="1574759521404" duration="5486000" />
-      <workItem from="1577126046101" duration="307000" />
+      <workItem from="1574787525302" duration="597000" />
+      <workItem from="1574830910636" duration="26993000" />
+      <workItem from="1574882316279" duration="497000" />
+      <workItem from="1574919376049" duration="13665000" />
+      <workItem from="1574961272552" duration="847000" />
+      <workItem from="1574963344405" duration="13179000" />
+      <workItem from="1575021161163" duration="135000" />
+      <workItem from="1575021342800" duration="28199000" />
+      <workItem from="1575089819182" duration="10236000" />
+      <workItem from="1575113863645" duration="653000" />
+      <workItem from="1575139332979" duration="9000" />
+      <workItem from="1577259084620" duration="5259000" />
+      <workItem from="1577526999537" duration="11347000" />
+      <workItem from="1577639847285" duration="4115000" />
+      <workItem from="1577732801847" duration="3798000" />
+      <workItem from="1577743305961" duration="1532000" />
+      <workItem from="1577785481178" duration="3112000" />
+      <workItem from="1577799146199" duration="17568000" />
+      <workItem from="1577867316550" duration="41844000" />
+      <workItem from="1577968908505" duration="2870000" />
+      <workItem from="1577995061942" duration="5967000" />
+      <workItem from="1578001942898" duration="818000" />
+      <workItem from="1578032690322" duration="27718000" />
+      <workItem from="1578073952114" duration="6851000" />
+      <workItem from="1578089249754" duration="12594000" />
+      <workItem from="1579240513829" duration="1070000" />
+      <workItem from="1579268949804" duration="1881000" />
+      <workItem from="1579417420101" duration="736000" />
+      <workItem from="1579419362562" duration="1212000" />
+      <workItem from="1579774949898" duration="1467000" />
+      <workItem from="1579854239252" duration="1670000" />
     </task>
-    <task id="LOCAL-00001" summary="refresh">
-      <created>1574693030685</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
+    <task id="LOCAL-00020" summary="start work with project router">
+      <created>1575053171028</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1574693030685</updated>
+      <updated>1575053171028</updated>
     </task>
-    <task id="LOCAL-00002" summary="update env remove endpoint">
-      <created>1574711789248</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00021" summary="update router">
+      <created>1575113429801</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
       <option name="project" value="LOCAL" />
-      <updated>1574711789248</updated>
+      <updated>1575113429801</updated>
     </task>
-    <task id="LOCAL-00003" summary="update docker compose for bfast-ee">
-      <created>1574712031819</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+    <task id="LOCAL-00022" summary="update router">
+      <created>1575114300487</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1574712031819</updated>
+      <updated>1575114300487</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00023" summary="change port of traefik to 80">
+      <created>1577127087565</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1577127087565</updated>
+    </task>
+    <task id="LOCAL-00024" summary="migrate database to authentication of each project to a specific database">
+      <created>1577261584338</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1577261584339</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add authentication database">
+      <created>1577263113026</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263113026</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add authentication database">
+      <created>1577263157145</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263157145</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix yaml problem">
+      <created>1577263413662</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263413662</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix yaml problem">
+      <created>1577263728450</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1577263728450</updated>
+    </task>
+    <task id="LOCAL-00029" summary="start implementing password reset mechanism">
+      <created>1577539240652</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1577539240652</updated>
+    </task>
+    <task id="LOCAL-00030" summary="add redis in jwt for persistence or session">
+      <created>1577656882009</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1577656882009</updated>
+    </task>
+    <task id="LOCAL-00031" summary="start update design architecture and update jwt to persist to redis">
+      <created>1577737142528</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1577737142528</updated>
+    </task>
+    <task id="LOCAL-00032" summary="start organize files for api">
+      <created>1577744827975</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1577744827975</updated>
+    </task>
+    <task id="LOCAL-00033" summary="change Options.ts configurations and change initiation of bfast.ts to be used as a module">
+      <created>1577787296538</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1577787296538</updated>
+    </task>
+    <task id="LOCAL-00034" summary="change database.ts configurations and configuration file and shift database config in adapter">
+      <created>1577803058571</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1577803058571</updated>
+    </task>
+    <task id="LOCAL-00035" summary="start add ssm project type">
+      <created>1577821776199</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1577821776199</updated>
+    </task>
+    <task id="LOCAL-00036" summary="finish initial code clean and structure change">
+      <created>1577874774282</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1577874774282</updated>
+    </task>
+    <task id="LOCAL-00037" summary="update compose files">
+      <created>1577877702582</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1577877702582</updated>
+    </task>
+    <task id="LOCAL-00038" summary="now you can stop a server, and start working on test case">
+      <created>1577885876939</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1577885876939</updated>
+    </task>
+    <task id="LOCAL-00039" summary="start to add user test cases for earch api endpoint">
+      <created>1577906411003</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1577906411003</updated>
+    </task>
+    <task id="LOCAL-00040" summary="add more test in user router">
+      <created>1578000961452</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1578000961452</updated>
+    </task>
+    <task id="LOCAL-00041" summary="finish first draft of users router test">
+      <created>1578062513227</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1578062513227</updated>
+    </task>
+    <task id="LOCAL-00042" summary="start project creation test">
+      <created>1578064724875</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1578064724875</updated>
+    </task>
+    <task id="LOCAL-00043" summary="start writing test for projects router">
+      <created>1578088307932</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1578088307932</updated>
+    </task>
+    <task id="LOCAL-00044" summary="update CHANGELOG.md">
+      <created>1578088947621</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1578088947621</updated>
+    </task>
+    <task id="LOCAL-00045" summary="update docker-compose.yml">
+      <created>1578089286830</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1578089286830</updated>
+    </task>
+    <task id="LOCAL-00046" summary="fix redis mock require error in production">
+      <created>1578090447193</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1578090447193</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fix redis mock require error in production">
+      <created>1578090919296</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1578090919296</updated>
+    </task>
+    <task id="LOCAL-00048" summary="bump better version">
+      <created>1578091217043</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1578091217043</updated>
+    </task>
+    <task id="LOCAL-00049" summary="bump beta version">
+      <created>1578091816427</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1578091816427</updated>
+    </task>
+    <task id="LOCAL-00050" summary="change redis url">
+      <created>1578092466520</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1578092466522</updated>
+    </task>
+    <task id="LOCAL-00051" summary="change redis url">
+      <created>1578092485571</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1578092485572</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix redis host">
+      <created>1578092941026</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1578092941026</updated>
+    </task>
+    <task id="LOCAL-00053" summary="bump beta version">
+      <created>1578093516796</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1578093516797</updated>
+    </task>
+    <task id="LOCAL-00054" summary="bump beta version to fix index not found">
+      <created>1578113579887</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1578113579887</updated>
+    </task>
+    <task id="LOCAL-00055" summary="update how replica set of mongo initiated and remove getConnection method in database config adapter">
+      <created>1578114992725</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1578114992725</updated>
+    </task>
+    <task id="LOCAL-00056" summary="add database name in mongo master url for replicas set">
+      <created>1578115526606</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1578115526607</updated>
+    </task>
+    <task id="LOCAL-00057" summary="remove docker-compose Dockerfile of bfast_api service">
+      <created>1578116217267</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1578116217267</updated>
+    </task>
+    <task id="LOCAL-00058" summary="fix stack error when initiate replicas set in mongodb">
+      <created>1578119293275</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1578119293275</updated>
+    </task>
+    <task id="LOCAL-00059" summary="fix stack error when initiate replicas set in mongodb">
+      <created>1578119958767</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1578119958767</updated>
+    </task>
+    <task id="LOCAL-00060" summary="refresh">
+      <created>1578122161579</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1578122161579</updated>
+    </task>
+    <task id="LOCAL-00061" summary="change ssl port to default port">
+      <created>1579241043499</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1579241043500</updated>
+    </task>
+    <task id="LOCAL-00062" summary="update overlay network and hostname for ssm and bfast project">
+      <created>1579243182265</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1579243182265</updated>
+    </task>
+    <task id="LOCAL-00063" summary="update deploy.sh deploy.bat to bfastweb network">
+      <created>1579243745672</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1579243745672</updated>
+    </task>
+    <task id="LOCAL-00064" summary="add couchbase volume">
+      <created>1579243893521</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1579243893522</updated>
+    </task>
+    <task id="LOCAL-00065" summary="refresh">
+      <created>1579245013273</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1579245013273</updated>
+    </task>
+    <task id="LOCAL-00066" summary="update port for couchbase in traefik">
+      <created>1579245308058</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1579245308058</updated>
+    </task>
+    <task id="LOCAL-00067" summary="remove couchbase">
+      <created>1579270073146</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1579270073147</updated>
+    </task>
+    <task id="LOCAL-00068" summary="fix bug in compose files">
+      <created>1579854623461</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1579854623462</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,10 +549,81 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add support for update of env(s) variable of faas engine and update route for deploy functions" />
+    <MESSAGE value="start to add user test cases for earch api endpoint" />
+    <MESSAGE value="add more test in user router" />
+    <MESSAGE value="finish first draft of users router test" />
+    <MESSAGE value="start project creation test" />
+    <MESSAGE value="start writing test for projects router" />
+    <MESSAGE value="update CHANGELOG.md" />
+    <MESSAGE value="update docker-compose.yml" />
+    <MESSAGE value="fix redis mock require error in production" />
+    <MESSAGE value="bump better version" />
+    <MESSAGE value="change redis url" />
+    <MESSAGE value="fix redis host" />
+    <MESSAGE value="bump beta version" />
+    <MESSAGE value="bump beta version to fix index not found" />
+    <MESSAGE value="update how replica set of mongo initiated and remove getConnection method in database config adapter" />
+    <MESSAGE value="add database name in mongo master url for replicas set" />
+    <MESSAGE value="remove docker-compose Dockerfile of bfast_api service" />
+    <MESSAGE value="fix stack error when initiate replicas set in mongodb" />
+    <MESSAGE value="change ssl port to default port" />
+    <MESSAGE value="update overlay network and hostname for ssm and bfast project" />
+    <MESSAGE value="update deploy.sh deploy.bat to bfastweb network" />
+    <MESSAGE value="add couchbase volume" />
     <MESSAGE value="refresh" />
-    <MESSAGE value="update env remove endpoint" />
-    <MESSAGE value="update docker compose for bfast-ee" />
-    <option name="LAST_COMMIT_MESSAGE" value="update docker compose for bfast-ee" />
+    <MESSAGE value="update port for couchbase in traefik" />
+    <MESSAGE value="remove couchbase" />
+    <MESSAGE value="fix bug in compose files" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug in compose files" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579854622490">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579854622489" />
+    <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl" timestamp="1579418154525">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl/52.27.1548.873@52.27.1548.873" timestamp="1579418154525" />
+    <state width="1578" height="352" key="GridCell.Tab.0.bottom" timestamp="1579855982913">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="352" key="GridCell.Tab.0.bottom/52.27.1548.873@52.27.1548.873" timestamp="1579855982913" />
+    <state width="1578" height="352" key="GridCell.Tab.0.center" timestamp="1579855982913">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="352" key="GridCell.Tab.0.center/52.27.1548.873@52.27.1548.873" timestamp="1579855982913" />
+    <state width="1578" height="352" key="GridCell.Tab.0.left" timestamp="1579855982912">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="352" key="GridCell.Tab.0.left/52.27.1548.873@52.27.1548.873" timestamp="1579855982912" />
+    <state width="1578" height="352" key="GridCell.Tab.0.right" timestamp="1579855982913">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state width="1578" height="352" key="GridCell.Tab.0.right/52.27.1548.873@52.27.1548.873" timestamp="1579855982913" />
+    <state x="508" y="132" width="580" height="592" key="MultipleFileMergeDialog" timestamp="1579856094905">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="508" y="132" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1579856094905" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579854626355">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579854626355" />
+    <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577126405481">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="584" y="347" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/52.27.1548.873@52.27.1548.873" timestamp="1577126405481" />
+    <state x="547" y="51" width="502" height="744" key="git4idea.branch.GitSmartOperationDialog" timestamp="1579856091368">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="547" y="51" width="502" height="744" key="git4idea.branch.GitSmartOperationDialog/52.27.1548.873@52.27.1548.873" timestamp="1579856091368" />
+    <state x="528" y="265" width="540" height="345" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1577887668912">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="528" y="265" width="540" height="345" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/52.27.1548.873@52.27.1548.873" timestamp="1577887668912" />
   </component>
 </project>
