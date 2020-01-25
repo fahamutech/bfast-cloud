@@ -65,6 +65,7 @@ export class ProjectRouter implements RestRouterAdapter {
 
     /**
      *  rest: /projects/:type -X POST
+     *  type can be bfast || ssm
      *  input:  -H'Authorization': token, --data json
      *  output: json
      * @private
