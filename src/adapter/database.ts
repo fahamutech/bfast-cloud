@@ -57,7 +57,7 @@ export interface UsersStoreAdapter {
 
     requestResetPassword(email: string): Promise<any>;
 
-    resetPassword(email: string, code: string, password: string): Promise<any>;
+    resetPassword(code: string, password: string): Promise<any>;
 
     getRole(userId: string): Promise<any>;
 }

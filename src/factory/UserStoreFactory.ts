@@ -215,14 +215,14 @@ export class UserStoreFactory implements UsersStoreAdapter {
     async resetPassword(code: string, password: string): Promise<any> {
         try {
             await _security.verifyToken(code);
-            const email = _security.decodeToken(code);
+            const decodedEmail = _security.decodeToken(code);
             if (!password) {
                 throw 'Please provide a new password';
             }
-            if (email && email.email === email) {
+            if (decodedEmail && decodedEmail.email) {
                 const hashedPassword = await _security.encryptPassword(password);
                 const userCollection = await _database.collection(this.collectionName);
-                await userCollection.findOneAndUpdate({email: email, resetCode: code}, {
+                await userCollection.findOneAndUpdate({email: decodedEmail.email, resetCode: code}, {
                     $set: {
                         password: hashedPassword,
                         resetCode: null
