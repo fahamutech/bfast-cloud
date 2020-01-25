@@ -848,13 +848,14 @@ describe("Integration test for users", function () {
     });
     describe('Reset user password', function () {
         let token = '';
+        let resetToken = '';
         before(async function () {
             try {
                 const user = {
                     displayName: "Joshua3",
                     email: 'mama27j@gmail.com',
                     phoneNumber: '0765456464',
-                    password: 'joshua'
+                    password: 'joshua@2019000'
                 };
                 const response = await axios.post(hostname + '/users/', user);
                 token = response.data.token;
@@ -879,9 +880,28 @@ describe("Integration test for users", function () {
                 const response = await axios.post(hostname + '/users/password/request', {
                     email: 'mama27j@gmail.com'
                 });
-                // console.log(response.data);
+                resetToken = response.data.token;
                 assert(response.status === 200);
                 assert(response.data.message === 'Follow Instruction sent to email : mama27j@gmail.com');
+                assert(response.data.token !== null && response.data.token !== undefined);
+            } catch (reason) {
+                throw reason
+            }
+        });
+
+        it('should reset password and login with new password', async function () {
+            try {
+                await axios.post(hostname + '/users/password/reset', {
+                    password: 'qwertyuiop',
+                    code: resetToken
+                });
+                const response = await axios.post(hostname + '/users/login', {
+                    email: 'mama27j@gmail.com',
+                    password: 'qwertyuiop'
+                });
+                assert(response.status === 200);
+                assert(response.data.email === 'mama27j@gmail.com');
+                assert(response.data.token !== null && response.data.token !== undefined);
             } catch (reason) {
                 throw reason.response.data;
             }

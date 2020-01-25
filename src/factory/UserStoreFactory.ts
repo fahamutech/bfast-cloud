@@ -190,7 +190,11 @@ export class UserStoreFactory implements UsersStoreAdapter {
                     ${host}/ui/password/reset/?token=${code}
                 </a>`
             );
-            return {message: 'Follow Instruction sent to email : ' + user.email};
+            if (_options.devMode) {
+                return {message: 'Follow Instruction sent to email : ' + user.email, token: code};
+            } else {
+                return {message: 'Follow Instruction sent to email : ' + user.email};
+            }
         } catch (e) {
             console.error(e);
             throw {message: 'Fail to send reset password email', reason: e.toString()};
@@ -214,9 +218,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
     // todo: remove security, and add it in controller
     async resetPassword(code: string, password: string): Promise<any> {
         try {
-            await _security.verifyToken(code);
-            const decodedEmail = _security.decodeToken(code);
-            console.log(decodedEmail);
+            const decodedEmail = await _security.verifyToken(code);
             if (!password) {
                 throw 'Please provide a new password';
             }
@@ -238,6 +240,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
                 throw 'code is invalid';
             }
         } catch (e) {
+            console.log(e);
             throw {message: "Reset password fails", reason: e.toString()};
         }
     }

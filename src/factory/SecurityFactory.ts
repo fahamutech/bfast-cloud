@@ -62,10 +62,10 @@ export class SecurityFactory implements SecurityAdapter {
     async revokeToken(token: string): Promise<any> {
         return new Promise((resolve, reject) => {
             _redisClient.del(token, (err, reply) => {
-                if (err || !reply) {
+                if (err) {
                     reject({
                         message: 'Fails to revoke a token',
-                        reason: err !== null ? err.toString() : 'unknown reason'
+                        reason: err.toString()
                     });
                     return;
                 }
