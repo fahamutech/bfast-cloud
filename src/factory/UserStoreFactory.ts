@@ -216,6 +216,7 @@ export class UserStoreFactory implements UsersStoreAdapter {
         try {
             await _security.verifyToken(code);
             const decodedEmail = _security.decodeToken(code);
+            console.log(decodedEmail);
             if (!password) {
                 throw 'Please provide a new password';
             }
