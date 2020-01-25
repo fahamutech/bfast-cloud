@@ -117,13 +117,6 @@ export class SecurityFactory implements SecurityAdapter {
                     }
 
                     const data = JSON.parse(reply);
-                    console.log('*********from redis****************');
-                    console.log(data);
-                    console.log('*********from redis****************');
-                    console.log('**********from decoded****************');
-                    console.log(decoded);
-                    console.log('**********from decoded****************');
-
                     let validEmail = false;
                     let validUid = false;
                     if (data && data.email && decoded && data.email === decoded.email) {

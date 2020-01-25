@@ -53,10 +53,11 @@ export class UserController {
         return userStore.requestResetPassword(email);
     }
 
-    async resetPassword(email: string, code: string, password: string): Promise<any> {
+    async resetPassword(code: string, password: string): Promise<any> {
         try {
-            await userStore.resetPassword(email, code, password);
+            await userStore.resetPassword(code, password);
             await security.revokeToken(code);
+            return 'Done reset password';
         } catch (e) {
             if (this.options.devMode) console.log(e);
             throw e;

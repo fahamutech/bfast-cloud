@@ -284,9 +284,9 @@ export class UsersRouter implements RestRouterAdapter {
             onRequest: [
                 (request, response) => {
                     const body = request.body;
-                    const valid = !!(body && body.email && body.code && body.password);
+                    const valid = !!(body && body.code && body.password);
                     if (valid) {
-                        _users.resetPassword(body.email, body.code, body.password).then(value => {
+                        _users.resetPassword(body.code, body.password).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
                             response.status(400).json(reason);
