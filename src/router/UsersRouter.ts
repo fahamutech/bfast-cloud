@@ -289,6 +289,7 @@ export class UsersRouter implements RestRouterAdapter {
                         _users.resetPassword(body.code, body.password).then(value => {
                             response.status(200).json(value);
                         }).catch(reason => {
+                            console.log(reason);
                             response.status(400).json(reason);
                         })
                     } else {
