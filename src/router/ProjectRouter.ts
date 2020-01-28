@@ -118,7 +118,7 @@ export class ProjectRouter implements RestRouterAdapter {
     }
 
     /**
-     *  rest: /projects/ -X GET
+     *  rest: /projects/?skip=0&size=20 -X GET
      *  input:  -H'Authorization': token,
      *  output: json
      * @private

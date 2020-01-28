@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="remove logs in RouterGuardFactory.ts">
+    <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/ProjectRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/ProjectRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,14 +188,7 @@
       <workItem from="1579854239252" duration="192000" />
       <workItem from="1579857922815" duration="12523000" />
       <workItem from="1579875355214" duration="1194000" />
-      <workItem from="1579958032389" duration="9705000" />
-    </task>
-    <task id="LOCAL-00041" summary="finish first draft of users router test">
-      <created>1578062513227</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1578062513227</updated>
+      <workItem from="1579958032389" duration="9741000" />
     </task>
     <task id="LOCAL-00042" summary="start project creation test">
       <created>1578064724875</created>
@@ -534,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579979948956</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="update ProjectRouter.ts">
+      <created>1579981393867</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1579981393867</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -554,7 +553,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix redis host" />
     <MESSAGE value="bump beta version" />
     <MESSAGE value="bump beta version to fix index not found" />
     <MESSAGE value="update how replica set of mongo initiated and remove getConnection method in database config adapter" />
@@ -579,17 +577,18 @@
     <MESSAGE value="update password reset to accept only token and password" />
     <MESSAGE value="add test for reset password and improve token revoke in SecurityFactory.ts" />
     <MESSAGE value="remove logs in RouterGuardFactory.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove logs in RouterGuardFactory.ts" />
+    <MESSAGE value="update ProjectRouter.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="update ProjectRouter.ts" />
   </component>
   <component name="WindowStateProjectService">
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser" timestamp="1578055744849">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="611" y="121" width="374" height="574" key="#com.intellij.ide.util.MemberChooser/52.27.1548.873@52.27.1548.873" timestamp="1578055744849" />
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579980314481">
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2" timestamp="1579981393012">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579980314481" />
+    <state x="385" y="22" width="825" height="878" key="CommitChangelistDialog2/52.27.1548.873@52.27.1548.873" timestamp="1579981393012" />
     <state x="586" y="190" width="424" height="496" key="FileChooserDialogImpl" timestamp="1579418154525">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
@@ -618,10 +617,10 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="508" y="132" width="580" height="592" key="MultipleFileMergeDialog/52.27.1548.873@52.27.1548.873" timestamp="1579958107107" />
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579979954372">
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2" timestamp="1579981399222">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
-    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579979954372" />
+    <state x="398" y="22" width="800" height="548" key="Vcs.Push.Dialog.v2/52.27.1548.873@52.27.1548.873" timestamp="1579981399222" />
     <state x="584" y="342" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579958064491">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
