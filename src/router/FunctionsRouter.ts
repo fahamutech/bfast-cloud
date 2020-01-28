@@ -99,7 +99,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                     functions.deploy(request.params.projectId, request.query.force).then(value => {
                         response.status(200).json({message: 'functions deployed'});
                     }).catch(reason => {
-                        response.status(503).json({message: 'fails to deploy', reason: reason.toString()});
+                        response.status(503).json(reason);
                     });
                 }
             ]
