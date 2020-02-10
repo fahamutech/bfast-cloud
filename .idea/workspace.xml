@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0e5cfbef-e6d7-4919-a24f-79868192098f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/bfast-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/my-sg-config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory/compose-files/ssm-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,6 +192,10 @@
       <workItem from="1579857922815" duration="12523000" />
       <workItem from="1579875355214" duration="1194000" />
       <workItem from="1579958032389" duration="9741000" />
+      <workItem from="1580227379788" duration="455000" />
+      <workItem from="1580835962061" duration="355000" />
+      <workItem from="1581078809972" duration="838000" />
+      <workItem from="1581309907756" duration="271000" />
     </task>
     <task id="LOCAL-00042" summary="start project creation test">
       <created>1578064724875</created>
