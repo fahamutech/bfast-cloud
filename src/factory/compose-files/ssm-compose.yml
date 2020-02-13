@@ -30,7 +30,7 @@ services:
       # - PARSE_SERVER_URL=http://localhost:3000
       - PARSE_SERVER_DATABASE_URI=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
-      - PARSE_SERVER_LIVE_QUERY={"classNames":['stocks','sales','purchases','units','categories','accounts','suppliers','orders']}
+      - PARSE_SERVER_LIVE_QUERY={"classNames":["stocks","sales","purchases","units","categories","accounts","suppliers","orders"]}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
       - PARSE_SERVER_OBJECT_ID_SIZE=16
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
