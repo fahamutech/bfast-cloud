@@ -62,4 +62,81 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
         }
     }
 
+    /**
+     * switch bfast dashboard component
+     * @param projectId {string}
+     * @param force {boolean}
+     */
+    async cloudDashboardSwitchOff(projectId: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --replicas=0 ${projectId}_dashboard`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+    async cloudDashboardSwitchOn(projectId: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --replicas=1 ${projectId}_dashboard`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+    async cloudFunctionAddDomain(projectId: string, domain: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com,${domain}.bfast.fahamutech.com" ${projectId}_daas`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+    async cloudFunctionRemoveDomain(projectId: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com" ${projectId}_daas`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+
+    async cloudFunctionSwitchOff(projectId: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --replicas=0 ${projectId}_faas`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+    async cloudFunctionSwitchOn(projectId: string, force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --replicas=1 ${projectId}_faas`);
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+        }
+    }
+
+    async liveQueryClasses(projectId: string, classes: string[], force: boolean): Promise<any> {
+        try {
+            const response = await shell.exec(
+                `docker service update ${force ? '--force' : ''} --env-add PARSE_SERVER_LIVE_QUERY={"classNames":${JSON.stringify(classes)} ${projectId}_daas`
+            );
+            return response.toString();
+        } catch (e) {
+            throw {message: "Fails to add class to listen in live query", reason: e.toString()};
+        }
+    }
+
 }

@@ -73,7 +73,7 @@ services:
       - bfastweb
     deploy:
       mode: replicated
-      replicas: 0
+      replicas: 1
       resources:
         limits:
           memory: 125M

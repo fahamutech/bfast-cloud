@@ -1,3 +1,10 @@
+# v0.5.0-beta0
+
+New router introduced, database and dashboard router. 
+You can switch on/off dashboard and a cloud function instances 
+and also you can add classes for liveQuery. check documentation for more info
+
+
 # v0.4.0-beta0
 This version come with a new apis and many brake change. 
 #### Whats new

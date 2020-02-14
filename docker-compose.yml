@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.4.1-beta0
+    image: joshuamshana/bfast-ee:v0.5.0-beta0
     hostname: bfast
     restart: always
     networks:
@@ -26,30 +26,6 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-  #  cdb:
-  #    image: couchbase:community
-  #    hostname: cbd
-  #    restart: always
-  #    networks:
-  #      - bfastweb
-  #      - default
-  #    ports:
-  #      - 8091-8094
-  #      - 11210
-  #    volumes:
-  #      - cbddata:/opt/couchbase/var
-  #    deploy:
-  #      labels:
-  #        - "traefik.docker.network=bfastweb"
-  #        - "traefik.enable=true"
-  #        - "traefik.frontend.rule=Host:io.bfast.fahamutech.com"
-  #        - "traefik.port=8091"
-  #        - "traefik.protocol=http"
-  #      placement:
-  #        constraints: [node.role == manager]
-  #      restart_policy:
-  #        condition: any
-  #        delay: 2s
   mdb:
     image: mongo:4-bionic
     hostname: mdb

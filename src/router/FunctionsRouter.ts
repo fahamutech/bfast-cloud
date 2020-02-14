@@ -19,7 +19,10 @@ export class FunctionsRouter implements RestRouterAdapter {
         return [
             this._deployFunctions(),
             this._addEnvironment(),
-            this._removeEnvironment()
+            this._removeEnvironment(),
+            this._addDomain(),
+            this._removeDomain(),
+            this._switch(),
         ]
     }
 
@@ -106,4 +109,91 @@ export class FunctionsRouter implements RestRouterAdapter {
         };
     }
 
+    /**
+     *  rest: /functions/:projectId/domain?force= -X POST
+     *  headers:  -H'Authorization': token
+     *  input: {domain: string}
+     *  output: json
+     * @private
+     */
+    private _addDomain(): RestRouterModel {
+        return {
+            name: 'addDomain',
+            method: RestRouterMethod.POST,
+            path: '/:projectId/domain',
+            onRequest: [
+                routerGuard.checkToken,
+                routerGuard.checkIsProjectOwner,
+                (request, response) => {
+                    functions.addDomain(request.params.projectId, request.body.domain, request.query.force).then(value => {
+                        response.status(200).json({message: 'domain added'});
+                    }).catch(reason => {
+                        response.status(503).json(reason);
+                    });
+                }
+            ]
+        };
+    }
+
+    /**
+     *  rest: /functions/:projectId/domain?force= -X DELETE
+     *  headers:  -H'Authorization': token
+     *  output: json
+     * @private
+     */
+    private _removeDomain(): RestRouterModel {
+        return {
+            name: 'removeDomain',
+            method: RestRouterMethod.DELETE,
+            path: '/:projectId/domain',
+            onRequest: [
+                routerGuard.checkToken,
+                routerGuard.checkIsProjectOwner,
+                (request, response) => {
+                    functions.removeDomain(request.params.projectId, request.query.force).then(value => {
+                        response.status(200).json({message: 'domain added'});
+                    }).catch(reason => {
+                        response.status(503).json(reason);
+                    });
+                }
+            ]
+        };
+    }
+
+    /**
+     *  rest: /functions/:projectId/switch/:mode?force= -X POST
+     *  mode can be 0/1 ( off/on )
+     *  headers:  -H'Authorization': token
+     *  output: json
+     * @private
+     */
+    private _switch(): RestRouterModel {
+        return {
+            name: 'switch off/on',
+            method: RestRouterMethod.POST,
+            path: '/:projectId/switch/:mode',
+            onRequest: [
+                routerGuard.checkToken,
+                routerGuard.checkIsProjectOwner,
+                (request, response) => {
+                    const mode = request.params.mode;
+                    if (mode.toString() === '0') {
+                        functions.faasOff(request.params.projectId, request.query.force).then(value => {
+                            response.status(200).json({message: 'faas engine switched off'});
+                        }).catch(reason => {
+                            response.status(503).json(reason);
+                        });
+                    } else if (mode.toString() === '1') {
+                        functions.faasOn(request.params.projectId, request.query.force).then(value => {
+                            response.status(200).json({message: 'faas engine switch on'});
+                        }).catch(reason => {
+                            response.status(503).json(reason);
+                        });
+                    } else {
+                        response.status(400).json({message: 'Action not known'});
+                    }
+                }
+            ]
+        };
+    }
 }
