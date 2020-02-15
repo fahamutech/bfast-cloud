@@ -135,11 +135,11 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
                 classesString = classesString + "\"" + table + "\",";
             });
             const response = await shell.exec(
-                `docker service update ${force ? '--force' : ''} --env-add PARSE_SERVER_LIVE_QUERY={\"classNames\":[${classesString}]} ${projectId}_daas`
+                'docker service update'+ force ? '--force ' : ' '+ ' --env-add PARSE_SERVER_LIVE_QUERY={"classNames":['+classesString+']} '+ projectId + '_daas'
             );
             return response.toString();
         } catch (e) {
-            throw {message: "Fails to add class to listen in live query", reason: e.toString()};
+            throw {message: "Fails to add classes to realtime engine", reason: e.toString()};
         }
     }
 
