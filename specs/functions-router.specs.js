@@ -7,7 +7,7 @@ let _mongoServer;
 let _bfastCloud;
 const hostname = 'http://127.0.0.1:64647';
 
-describe('DaaS and Dashboard Rest API', function () {
+describe('Functions Rest API', function () {
     before(async () => {
         _mongoServer = new _MongoMemoryServer({
             autoStart: true,
@@ -22,18 +22,31 @@ describe('DaaS and Dashboard Rest API', function () {
         _bfastCloud.stop();
     });
 
-    describe('Realtime classes updates test', function () {
+    describe('Custom Domain', function () {
         let token = '';
         before(async function () {
             try {
                 const user = {
                     displayName: 'Joshua',
-                    email: 'josh123@gmail.com',
+                    email: 'josh1234@gmail.com',
                     phoneNumber: '0765456638',
                     password: 'joshua'
                 };
                 const response = await axios.post(hostname + '/users/', user);
                 token = response.data.token;
+                const project = {
+                    name: 'DemoDaas',
+                    projectId: 'demo',
+                    description: 'short description',
+                    isParse: true,
+                    parse: {appId: 'demo', masterKey: 'demo'},
+                };
+                await axios.post(hostname + '/projects/bfast', project, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'content-type': 'application/json'
+                    }
+                });
                 assert(response.status === 200);
             } catch (reason) {
                 throw reason.response.data;
@@ -51,31 +64,18 @@ describe('DaaS and Dashboard Rest API', function () {
                 throw reason.response.data;
             }
         });
-        it('should update realtime engine with new collections', async function () {
+        it('should add custom domain', async function () {
             try {
-                const project = {
-                    name: 'DemoDaas',
-                    projectId: 'demo',
-                    description: 'short description',
-                    isParse: true,
-                    parse: {appId: 'demo', masterKey: 'demo'},
-                };
-                await axios.post(hostname + '/projects/bfast', project, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'content-type': 'application/json'
-                    }
-                });
-                const response = await axios.post(hostname + '/database/demo/liveQuery', {
-                    classNames: ['sales', 'stocks']
+                const response = await axios.post(hostname + '/functions/demo/domain', {
+                    domain: "example.com"
                 }, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                         'content-type': 'application/json'
                     }
                 });
+                console.log(response.data);
                 assert(response.status === 200);
-                assert(response.data.message === 'table/collections added to live query');
             } catch (e) {
                 if (e.response) {
                     console.log(e.response.data);

@@ -45,13 +45,20 @@ export class RouterGuardFactory implements RouterGuardAdapter {
         }
     }
 
-    checkIsProjectOwner(request: any, response: any, next: any) {
+    // ToDo: Implement this method in dev mode
+    checkIsProjectOwner(request: Request, response: Response, next: any) {
+        // @ts-ignore
         if (request.uid && request.params.projectId) {
-            _projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+            if (!_options.devMode) {
+                // @ts-ignore
+                _projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+                    next();
+                }).catch(reason => {
+                    response.status(403).json(reason);
+                })
+            } else {
                 next();
-            }).catch(reason => {
-                response.status(403).json(reason);
-            })
+            }
         } else {
             response.status(403).json({message: 'Fails to identify you and your project'});
         }
