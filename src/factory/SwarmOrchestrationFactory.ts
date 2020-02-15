@@ -134,12 +134,13 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             classes.forEach(table => {
                 classesString = classesString + "\"" + table + "\",";
             });
+            const forceString = force ? ' --force ' : ' ';
             const response = await shell.exec(
-                'docker service update'+ force ? '--force ' : ' '+ ' --env-add PARSE_SERVER_LIVE_QUERY={"classNames":['+classesString+']} '+ projectId + '_daas'
+                'docker service update ' + forceString + ' --env-add PARSE_SERVER_LIVE_QUERY={"classNames":[' + classesString + ']} ' + projectId + '_daas'
             );
             return response.toString();
         } catch (e) {
-            throw {message: "Fails to add classes to realtime engine", reason: e.toString()};
+            throw e;
         }
     }
 

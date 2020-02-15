@@ -62,9 +62,9 @@ function publishDockerImage() {
     return new Promise(async (resolve, reject) => {
         try {
             console.log('start publish docker image');
-            process.execSync(`sudo docker push joshuamshana/bfast-ee:v${pkg.version}`);
-            resolve('done publish image to docker hub');
-            //await handleProcessEvents(publishDockerImageProcess, resolve, reject);
+            const publishDockerImageProcess = process.exec(`sudo docker push joshuamshana/bfast-ee:v${pkg.version}`);
+            // resolve('done publish image to docker hub');
+            await handleProcessEvents(publishDockerImageProcess, resolve, reject);
         } catch (e) {
             reject(e);
         }
