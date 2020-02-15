@@ -90,7 +90,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
     async cloudFunctionAddDomain(projectId: string, domain: string, force: boolean): Promise<any> {
         try {
             const response = await shell.exec(
-                `docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-daas.bfast.fahamutech.com, ${domain}" ${projectId}_daas`
+                `docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
             );
             return response.toString();
         } catch (e) {
@@ -101,7 +101,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
     async cloudFunctionRemoveDomain(projectId: string, force: boolean): Promise<any> {
         try {
             const response = await shell.exec(
-                `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com" ${projectId}_daas`);
+                `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
             return response.toString();
         } catch (e) {
             throw {message: "Fails to remove all custom domain", reason: e.toString()};
