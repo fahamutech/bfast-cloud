@@ -134,6 +134,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             classes.forEach(table => {
                 classesString = classesString + "\"" + table + "\",";
             });
+            classesString = classesString.substr(0, classesString.length - 2);
             let forceString = ' ';
             if (force) {
                 forceString = '--force ';
