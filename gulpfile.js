@@ -60,9 +60,14 @@ function buildDocker() {
 
 function publishDockerImage() {
     return new Promise(async (resolve, reject) => {
-        console.log('start publish docker image');
-        const publishDockerImageProcess = process.exec(`sudo docker push joshuamshana/bfast-ee:v${pkg.version}`);
-        await handleProcessEvents(publishDockerImageProcess, resolve, reject);
+        try {
+            console.log('start publish docker image');
+            process.execSync(`sudo docker push joshuamshana/bfast-ee:v${pkg.version}`);
+            resolve('done publish image to docker hub');
+            //await handleProcessEvents(publishDockerImageProcess, resolve, reject);
+        } catch (e) {
+            reject(e);
+        }
     });
 }
 
@@ -96,6 +101,6 @@ function startDevServer() {
 exports.devStart = gulp.series(startDevServer);
 exports.copyResiurceFolders = gulp.series(copyComposeFiles, copyUIFiles);
 exports.buildDocker = gulp.series(build, copyComposeFiles, copyUIFiles, buildDocker);
-exports.pubishDockerImage = gulp.series(build, copyComposeFiles,copyUIFiles,
+exports.pubishDockerImage = gulp.series(build, copyComposeFiles, copyUIFiles,
     buildDocker, publishDockerImage, publishDockerImageLatest);
 exports.default = gulp.series(build, copyComposeFiles, copyUIFiles);
