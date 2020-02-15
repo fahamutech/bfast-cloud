@@ -130,11 +130,12 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
 
     async liveQueryClasses(projectId: string, classes: string[], force: boolean): Promise<any> {
         try {
-            let classesString = '';
-            classes.forEach(table => {
-                classesString = classesString + "\"" + table + "\",";
-            });
-            classesString = classesString.substr(0, classesString.length - 1);
+            let classesString = JSON.stringify(classes);
+            console.log(classesString);
+            // classes.forEach((table, index, array) => {
+            //     classesString = classesString + "\"" + table + "\",";
+            // });
+            // classesString = classesString.substr(0, classesString.length);
             let forceString = ' ';
             if (force) {
                 forceString = '--force ';
