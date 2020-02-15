@@ -41,7 +41,8 @@ export class DaasRouter implements RestRouterAdapter {
                         .classLiveQuery(request.params.projectId, request.body.classNames, request.query.force).then(value => {
                         response.status(200).json({message: 'table/collections added to live query'});
                     }).catch(reason => {
-                        response.status(503).json({message: 'fails to initiate liveQuery', reason: reason.toString()});
+                        console.log('**************');
+                        response.status(503).json(reason);
                     });
                 }
             ]

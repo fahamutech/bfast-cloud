@@ -160,9 +160,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
         try {
             const projectCollection = await database.collection(this.collectionName);
             const project = await projectCollection.findOne({
-                $or: [
-                    {"user.uid": userId},
-                ],
+                "user.uid": userId,
                 projectId: projectId
             });
             if (!project) {

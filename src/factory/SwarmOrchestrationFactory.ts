@@ -131,17 +131,11 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
     async liveQueryClasses(projectId: string, classes: string[], force: boolean): Promise<any> {
         try {
             let classesString = JSON.stringify(classes);
-            console.log(classesString);
-            // classes.forEach((table, index, array) => {
-            //     classesString = classesString + "\"" + table + "\",";
-            // });
-            // classesString = classesString.substr(0, classesString.length);
             let forceString = ' ';
             if (force) {
                 forceString = '--force ';
             }
-            const cmdString = 'docker service update ' + forceString.toString() + ' --env-add \'PARSE_SERVER_LIVE_QUERY={\"classNames\":[' + classesString.toString() + ']}\' ' + projectId.toString() + '_daas';
-            console.log(cmdString);
+            const cmdString = 'docker service update ' + forceString.toString() + ' --env-add \'PARSE_SERVER_LIVE_QUERY={\"classNames\":' + classesString.toString() + '}\' ' + projectId.toString() + '_daas';
             const response = await shell.exec(
                 cmdString.toString()
             );

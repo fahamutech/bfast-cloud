@@ -13,13 +13,14 @@ export class DaasController {
 
     async classLiveQuery(projectId: string, classes: string[], force: boolean = false): Promise<any> {
         try {
-            if (!Array.isArray(classes)) {
+            if (classes && !Array.isArray(classes)) {
                 throw {message: "classes is empty"};
             }
             return await containerOrch.liveQueryClasses(
                 Utils._checkProjectId(projectId), classes, force
             );
         } catch (e) {
+            console.log(e);
             throw e;
         }
     }
