@@ -93,7 +93,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
                 `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com,${domain}.bfast.fahamutech.com" ${projectId}_daas`);
             return response.toString();
         } catch (e) {
-            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+            throw {message: "Fails to add custom domain", reason: e.toString()};
         }
     }
 
@@ -103,7 +103,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
                 `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com" ${projectId}_daas`);
             return response.toString();
         } catch (e) {
-            throw {message: "Fails to switch off dashboard", reason: e.toString()};
+            throw {message: "Fails to remove all custom domain", reason: e.toString()};
         }
     }
 
