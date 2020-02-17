@@ -19,7 +19,7 @@ export interface ProjectStoreAdapter {
 
     deleteUserProject(userId: string, projectId: string): Promise<any>;
 
-    getUserProjects(userId: string, projectType: string, size?: number, skip?: number): Promise<ProjectModel[]>;
+    getUserProjects(userId: string, size?: number, skip?: number): Promise<ProjectModel[]>;
 
     getProject(objectId: string): Promise<ProjectModel>;
 

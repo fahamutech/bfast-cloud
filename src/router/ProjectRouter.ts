@@ -121,7 +121,7 @@ export class ProjectRouter implements RestRouterAdapter {
     }
 
     /**
-     *  rest: /projects/:type?skip=0&size=20 -X GET
+     *  rest: /projects/?skip=0&size=20 -X GET
      *  input:  -H'Authorization': token,
      *  output: json
      * @private
@@ -130,21 +130,16 @@ export class ProjectRouter implements RestRouterAdapter {
         return {
             name: 'getProjects',
             method: RestRouterMethod.GET,
-            path: '/:type',
+            path: '/',
             onRequest: [
                 _routerGuard.checkToken,
                 (request, response, _) => {
-                    const projectType = request.params.type;
-                    if (projectType) {
-                        // @ts-ignore
-                        _projects.getUserProjects(request.uid, projectType, 10000, 0).then((value: any) => {
-                            response.json(value);
-                        }).catch((reason: any) => {
-                            response.status(404).json(reason);
-                        });
-                    } else {
-                        response.status(400).json({message: 'Fails to determine project type'});
-                    }
+                    // @ts-ignore
+                    _projects.getUserProjects(request.uid, 10000, 0).then((value: any) => {
+                        response.json(value);
+                    }).catch((reason: any) => {
+                        response.status(404).json(reason);
+                    });
                 }
             ]
         };

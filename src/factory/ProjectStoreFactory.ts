@@ -71,7 +71,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
         }
     }
 
-    getUserProjects(userId: string, projectType: string, size?: number, skip?: number): Promise<ProjectModel[]> {
+    getUserProjects(userId: string, size?: number, skip?: number): Promise<ProjectModel[]> {
         return new Promise<any>(async (resolve, reject) => {
             if (userId) {
                 try {
@@ -81,8 +81,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                         $or: [
                             {'user.email': user.email},
                             {"members.user.email": user.email}
-                        ],
-                        type: projectType
+                        ]
                     }).toArray();
                     resolve(results);
                 } catch (reason) {
