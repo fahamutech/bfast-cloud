@@ -1,7 +1,7 @@
 {
   "name": "bfast-ee",
   "description": "bfaast cloud for project management",
-  "version": "0.5.14-beta2",
+  "version": "0.5.15-beta2",
   "private": true,
   "main": "bfast.js",
   "scripts": {
