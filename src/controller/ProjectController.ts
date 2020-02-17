@@ -50,7 +50,7 @@ export class ProjectController {
         }
         try {
             await this._removeProjectInCluster(projectId);
-            return {message: 'Project deleted'};
+            return {message: 'Project deleted and removed'};
         } catch (e) {
             console.warn(e);
             return {message: 'Project deleted'};

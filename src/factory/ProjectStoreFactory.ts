@@ -56,16 +56,15 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
         try {
             const user = await _users.getUser(userId);
             const projectCollection = await _database.collection(this.collectionName);
-            const result = await projectCollection.findOneAndDelete({
-                $or: [
-                    {projectId: projectId},
-                    {"user.email": user.email}
-                ]
+            const response = await projectCollection.deleteMany({
+                projectId: projectId,
+                "user.email": user.email
             });
-            if (!result.ok && !result.value) {
+            if (response && response.result.ok) {
+                return 'project deleted';
+            } else {
                 throw 'Project not found';
             }
-            return 'project deleted, id : ' + result.value._id;
         } catch (reason) {
             console.error(reason);
             throw {message: 'Fails to delete project', reason: reason.toString()};
