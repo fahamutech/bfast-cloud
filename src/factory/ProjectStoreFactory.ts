@@ -71,14 +71,18 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
         }
     }
 
-    getUserProjects(uid: string): Promise<ProjectModel[]> {
+    getUserProjects(userId: string, projectType: string, size?: number, skip?: number): Promise<ProjectModel[]> {
         return new Promise<any>(async (resolve, reject) => {
-            if (uid) {
+            if (userId) {
                 try {
-                    const user = await _users.getUser(uid);
+                    const user = await _users.getUser(userId);
                     const projectCollection = await _database.collection(this.collectionName);
                     const results = await projectCollection.find({
-                        $or: [{'user.email': user.email}, {"members.user.email": user.email}]
+                        $or: [
+                            {'user.email': user.email},
+                            {"members.user.email": user.email}
+                        ],
+                        type: projectType
                     }).toArray();
                     resolve(results);
                 } catch (reason) {

@@ -38,8 +38,8 @@ export class ProjectController {
         }
     }
 
-    async getUserProjects(uid: string, size?: number, skip?: number): Promise<any> {
-        return database.getUserProjects(uid, size, skip);
+    async getUserProjects(uid: string, projectType: string, size?: number, skip?: number): Promise<any> {
+        return database.getUserProjects(uid, projectType, size, skip);
     }
 
     async deleteUserProject(uid: string, projectId: string): Promise<any> {
