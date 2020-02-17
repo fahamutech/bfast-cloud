@@ -5,7 +5,7 @@ import {Options} from "../config/Options";
 import {UserStoreFactory} from "./UserStoreFactory";
 import {ProjectStoreFactory} from "./ProjectStoreFactory";
 import {RouterGuardAdapter} from "../adapter/rest";
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {SecurityAdapter} from "../adapter/security";
 
 let _userDatabase: UsersStoreAdapter;
@@ -26,7 +26,7 @@ export class RouterGuardFactory implements RouterGuardAdapter {
             _options.securityAdapter : new SecurityFactory(_options);
     }
 
-    checkIsAdmin(request: any, response: any, next: any) {
+    checkIsAdmin(request: any, response: Response, next: NextFunction) {
         if (request.uid) {
             _userDatabase.getRole(request.uid).then(value => {
                 if (value.role === UserRoles.ADMIN_ROLE) {

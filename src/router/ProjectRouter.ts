@@ -77,6 +77,9 @@ export class ProjectRouter implements RestRouterAdapter {
             path: '/:type',
             onRequest: [
                 _routerGuard.checkToken,
+                // check is admin is a temporary middle ware will be replaces
+                // a payment middleware
+                _routerGuard.checkIsAdmin,
                 /*check for payments if there is enough fund to proceed*/
                 async (request, response) => {
                     const body = request.body;

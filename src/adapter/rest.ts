@@ -40,3 +40,9 @@ export class RestRouterMethod {
     static PUT = 'PUT';
     static PATCH = 'PATCH';
 }
+
+export interface PaymentRouterAdapter {
+    checkIsPaid(request: Request, response: Response, next: NextFunction): void;
+    checkIsBalanceEnough(request: Request, response: Response, next: NextFunction): void;
+
+}
