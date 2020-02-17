@@ -49,7 +49,7 @@ export interface UsersStoreAdapter {
 
     updateUserDetails(userId: string, data: UserModel): Promise<UserModel>;
 
-    getUser(userId: string): Promise<any>;
+    getUser(userId: string): Promise<UserModel>;
 
     getAllUsers(size?: number, skip?: number): Promise<any[]>;
 

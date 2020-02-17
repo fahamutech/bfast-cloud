@@ -43,7 +43,18 @@ export class ProjectController {
     }
 
     async deleteUserProject(uid: string, projectId: string): Promise<any> {
-        return database.deleteUserProject(uid, projectId);
+        try {
+            await database.deleteUserProject(uid, projectId);
+        } catch (e) {
+            throw e;
+        }
+        try {
+            await this._removeProjectInCluster(projectId);
+            return {message: 'Project deleted'};
+        } catch (e) {
+            console.warn(e);
+            return {message: 'Project deleted'};
+        }
     }
 
     async patchProjectDetails(
@@ -53,6 +64,22 @@ export class ProjectController {
 
     async getUserProject(uid: string, projectId: string) {
         return database.getUserProject(uid, projectId);
+    }
+
+    private async _removeProjectInCluster(projectId: string): Promise<any> {
+        try {
+            await shell.exec(
+                `$docker stack rm ${projectId}`,
+                {
+                    env: {
+                        docker: this.options.dockerSocket
+                    }
+                }
+            );
+            return 'Project removed in cluster';
+        } catch (e) {
+            throw {message: "Project fails to be removed from stack", reason: e.toString()};
+        }
     }
 
     private async _deployProjectInCluster(project: ProjectModel): Promise<any> {

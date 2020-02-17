@@ -1,5 +1,6 @@
 export interface UserModel {
-    uid?: string
+    _id?: any
+    uid?: any
     createdAt?: any;
     updatedAt?: any;
     role: string;

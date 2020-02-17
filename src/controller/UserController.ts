@@ -33,7 +33,7 @@ export class UserController {
         return userStore.getRole(userId);
     }
 
-    async getUser(userId: string): Promise<any> {
+    async getUser(userId: string): Promise<UserModel> {
         return userStore.getUser(userId);
     }
 

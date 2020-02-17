@@ -106,15 +106,20 @@ export class UserStoreFactory implements UsersStoreAdapter {
         }
     }
 
-    async getUser(userId: string): Promise<any> {
+    async getUser(userId: string): Promise<UserModel> {
         try {
             const userCollection = await _database.collection(this.collectionName);
-            const user = await userCollection.findOne({_id: _database.getObjectId(userId)});
-            user.uid = user._id;
-            delete user.password;
-            return user;
+            const user = await userCollection.findOne<UserModel>({_id: _database.getObjectId(userId)});
+            if (user) {
+                user.uid = user._id;
+                delete user.password;
+                return user;
+            } else {
+                throw 'No such user in records'
+            }
         } catch (e) {
             console.error(e);
+            throw e;
         }
     }
 
