@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   daas:
-    image: parseplatform/parse-server:3.10.0
+    image: parseplatform/parse-server:4.1.0
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -34,7 +34,7 @@ services:
       - PORT=3000
       - PARSE_SERVER_MOUNT_PATH=/
   dashboard:
-    image: parseplatform/parse-dashboard:2.0.3
+    image: parseplatform/parse-dashboard:2.0.5
     hostname: ${projectId}-dashboard
     restart: always
     networks:
