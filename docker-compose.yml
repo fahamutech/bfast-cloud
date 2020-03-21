@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-  bfastapp:
-    image: joshuamshana/bfast-ee:v0.3.3
-    hostname: bfastapp
+  api:
+    image: joshuamshana/bfast-ee:v0.5.21
+    hostname: bfast
     restart: always
     networks:
       - bfastweb
@@ -18,7 +18,7 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:cloud.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:api.bfast.fahamutech.com"
         - "traefik.port=3000"
         - "traefik.protocol=http"
       placement:
@@ -44,8 +44,6 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-      # rollback_config:
-      #   failure_action: continue
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
   mdbrs1:
     image: mongo:4-bionic
@@ -74,11 +72,27 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
+  rdb:
+    image: redis:5-alpine
+    hostname: rdb
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - bfastweb
+      - default
+    volumes:
+      - redisdata:/data
+    command:
+      - --appendonly yes
   traefik:
     image: traefik:v1.7
     hostname: traefik
-    # container_name: "traefik"
     working_dir: /app
     restart: always
     deploy:
@@ -88,7 +102,7 @@ services:
       placement:
         constraints: [node.role == manager]
     ports:
-      - 81:80
+      - 80:80
       - 443:443
     networks:
       - bfastweb
@@ -97,10 +111,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ssl/fullchain2.pem:/app/fullchain.pem
       - ./ssl/privkey2.pem:/app/privkey.pem
-
     command:
-      # - "--api.insecure=true"
-      # - "--providers.docker=true"
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
@@ -110,21 +121,16 @@ services:
       - --docker.swarmMode
       - --docker.network=bfastweb
       - --docker.endpoint=unix:///var/run/docker.sock
-      - --docker.domain=bfast.fahamutech.com
+      - --docker.domain=api.bfast.fahamutech.com
       - --docker.watch=true
       - --docker.exposedbydefault=false
-      # - "--acme.email=mama27j@gmail.com"
-      # - "--acme.storage=acme.json"
-      # - "--acme.entryPoint=https"
-      # - "--acme.onHostRule=true"
-      # - "--acme.tlsChallenge=true"
 volumes:
   mdbdata:
   traefikdata:
   mongodatars2:
   mongodatars1:
+  redisdata:
+  cbddata:
 networks:
   bfastweb:
-    # driver: overlay
-    # attachable: true
     external: true

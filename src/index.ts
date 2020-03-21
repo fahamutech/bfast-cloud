@@ -1,90 +1,20 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+import {BfastCloud} from "./bfast-cloud";
 
-let expressApp = require('./app');
-let debug = require('debug')('bfastcoreadmin:server');
-let http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
-
-let port = normalizePort(process.env.PORT || '3000');
-expressApp.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-let server = http.createServer(expressApp);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val: string) {
-    let port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error: any) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
-
-    let bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
-
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-    let addr = server.address();
-    let bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
-}
+new BfastCloud({
+    devMode: process.env.DEBUG === 'true'
+        || false,
+    port: process.env.PORT
+        || '3000',
+    masterKey: process.env.MASTER_KEY
+        || 'qwertyuyttrwet7dfkgfger8966553333wt68746egckjegytgw79et9c7be',
+    redisHOST: process.env.REDIS_HOST
+        || 'rdb',
+    mongoURL: process.env.MONGO_URL
+        || 'mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/_BFAST_ADMIN?replicaSet=bfastRS',
+    mongoMasterURL: process.env.MONGO_MASTER_URL
+        || 'mongodb://mdb:27017/_BFAST_ADMIN',
+    dockerSocket: process.env.DOCKER_SOCKET
+        || '/usr/local/bin/docker'
+});

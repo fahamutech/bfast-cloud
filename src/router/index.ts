@@ -1,38 +1,24 @@
-import {Request, Response} from "express";
-import * as path from 'path'
+import {RestRouterAdapter} from "../adapter/rest";
+import {Options} from "../config/Options";
+import {FunctionsRouter} from "./FunctionsRouter";
+import {LandingRouter} from "./LandingRouter";
+import {ProjectRouter} from "./ProjectRouter";
+import {UsersRouter} from "./UsersRouter";
+import {DashboardRouter} from "./DashboardRouter";
+import {DaasRouter} from "./DaasRouter";
 
-let router = require('express').Router();
-// const Docker = require('dockerode');
+export class BFastRouters {
+    constructor(private options: Options) {
+    }
 
-// const platform = require('os').platform();
-// console.log(platform);
-
-// let docker;
-// try {
-//     docker = new Docker({
-//         host: 'localhost',
-//         port: process.env.DOCKER_PORT || 2375,
-//         socketPath: '/var/run/docker.sock'
-//     });
-// }catch (e) {
-//     docker = new Docker({
-//         host: 'localhost',
-//         port: process.env.DOCKER_PORT || 2375,
-//     });
-// }
-
-// // console.log(docker);
-// docker.listContainers(null, function (err, data) {
-//     if (err){
-//         console.log(err)
-//     } else {
-//         console.log(data)
-//     }
-// });
-
-/* GET home page. */
-router.get('/', function (req: Request, res: Response) {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-module.exports = router;
+    getApiRoutes(): RestRouterAdapter[] {
+        return [
+            new FunctionsRouter(this.options),
+            new LandingRouter(this.options),
+            new ProjectRouter(this.options),
+            new UsersRouter(this.options),
+            new DashboardRouter(this.options),
+            new DaasRouter(this.options),
+        ]
+    }
+}

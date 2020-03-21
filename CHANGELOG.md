@@ -1,3 +1,35 @@
+# v0.5.0-beta0
+
+New router introduced, database and dashboard router. 
+You can switch on/off dashboard and a cloud function instances 
+and also you can add classes for liveQuery. check documentation for more info
+
+
+# v0.4.0-beta0
+This version come with a new apis and many brake change. 
+#### Whats new
+
+* Add `smart stock` project type to be created
+* All request required to be authenticated
+* Allow user to create an account
+
+
+# v0.3.3
+
+Fix parse-composer files to be included in build
+
+# v0.3.2
+
+Fix controllers methods in routes
+
+# v0.3.1
+
+Fix mongodb database url from `mongodb://mdb:27017,mongodb://mdbrs1:27017,mongodb://mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`, to `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`,
+
+# v0.3.0
+Deprecated method and class removed. Nothing change in usage only code structure change to 
+make code testable
+
 # v0.2.1
 
 Update env remove endpoint to

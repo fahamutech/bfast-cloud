@@ -7,7 +7,7 @@ export interface ProjectModel {
     name: string;
     projectId: string;
     description: string;
-    type?: 'spring' | 'parse';
+    type: 'bfast' | 'ssm';
     isParse?: boolean;
     parse: { appId: string; masterKey: string; };
     members: UserModel[] | [];
