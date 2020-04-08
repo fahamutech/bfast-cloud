@@ -111,13 +111,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ssl/fullchain2.pem:/app/fullchain.pem
       - ./ssl/privkey2.pem:/app/privkey.pem
-      - ./acme.json:/acme.json
+      - /acme.json:/acme.json
     command:
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --entryPoints=Name:https Address::443 TLS
-      # :/app/fullchain.pem,/app/privkey.pem
+      - --entryPoints=Name:https Address::443 TLS:/app/fullchain.pem,/app/privkey.pem
       - --retry
       - --docker
       - --docker.swarmMode
@@ -126,11 +125,11 @@ services:
       - --docker.domain=api.bfast.fahamutech.com
       - --docker.watch=true
       - --docker.exposedbydefault=false
-      - --acme.email=mama27j@gmail.com
-      - --acme.storage=acme.json
-      - --acme.entryPoint=https
-      - --acme.onHostRule=true
-      - --acme.httpchallenge.entrypoint=http
+#      - --acme.email=mama27j@gmail.com
+#      - --acme.storage=acme.json
+#      - --acme.entryPoint=https
+#      - --acme.onHostRule=true
+#      - --acme.httpchallenge.entrypoint=http
 volumes:
   mdbdata:
   traefikdata:
