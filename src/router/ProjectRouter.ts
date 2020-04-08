@@ -24,6 +24,7 @@ export class ProjectRouter implements RestRouterAdapter {
         return [
             this._getProject(),
             this._createNewProject(),
+            this._addMemberToProject(),
             this._getProjects(),
             this._deleteProject(),
             this._patchProject()
@@ -207,6 +208,27 @@ export class ProjectRouter implements RestRouterAdapter {
                     } else {
                         response.status(400).json({message: 'Input not valid'});
                     }
+                }
+            ]
+        }
+    }
+
+    private _addMemberToProject(): RestRouterModel {
+        return {
+            name: 'addMemberToProject',
+            method: RestRouterMethod.POST,
+            path: '/:projectId/members',
+            onRequest: [
+                _routerGuard.checkToken,
+                _routerGuard.checkIsProjectOwner,
+                (request, response) => {
+                    const body = request.body;
+                    const projectId = request.params.projectId;
+                    _projects.addMemberToProject(projectId, body).then(value => {
+                        response.status(200).json(value);
+                    }).catch(reason => {
+                        response.status(400).json({message: 'member not added', reason: reason.toString()});
+                    });
                 }
             ]
         }

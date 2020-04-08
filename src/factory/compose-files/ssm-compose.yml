@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   ssm:
-    image: parseplatform/parse-server:4.1.0
+    image: parseplatform/parse-server:4.2.0
     hostname: ${projectId}-daas
     restart: always
     networks:

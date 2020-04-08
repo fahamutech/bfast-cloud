@@ -17,6 +17,8 @@ export interface ProjectStoreAdapter {
 
     insertProject(project: ProjectModel): Promise<ProjectModel>;
 
+    addMemberToProject(projectId:string, user: UserModel): Promise<ProjectModel>;
+
     deleteUserProject(userId: string, projectId: string): Promise<any>;
 
     getUserProjects(userId: string, size?: number, skip?: number): Promise<ProjectModel[]>;

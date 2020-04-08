@@ -3,11 +3,13 @@ import {ProjectModel} from "../model/project";
 import {Options} from "../config/Options";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 import {UserController} from "../controller/UserController";
+import {UserModel} from "../model/user";
 
 let _database: DatabaseAdapter;
 let _users: UserController;
 
 export class ProjectStoreFactory implements ProjectStoreAdapter {
+
     collectionName = '_Project';
 
     constructor(private readonly options: Options) {
@@ -178,6 +180,20 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
         } catch (e) {
             console.error(e);
             throw {message: 'Fails to identify owner', reason: e.toString()}
+        }
+    }
+
+    async addMemberToProject(projectId: string, user: UserModel): Promise<any> {
+        try {
+            const projectColl = await _database.collection(this.collectionName);
+            const response = await projectColl.updateOne({projectId: projectId}, {
+                $push: {
+                    'members': user
+                }
+            });
+            return response.result;
+        } catch (e) {
+            throw e;
         }
     }
 

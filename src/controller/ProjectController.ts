@@ -6,6 +6,7 @@ import {ProjectStoreAdapter} from "../adapter/database";
 import {ProjectStoreFactory} from "../factory/ProjectStoreFactory";
 import {ResourcesAdapter} from "../adapter/resources";
 import {ResourceFactory} from "../factory/ResourceFactory";
+import {UserModel} from "../model/user";
 
 let shell: ShellAdapter;
 let database: ProjectStoreAdapter;
@@ -20,6 +21,17 @@ export class ProjectController {
             this.options.projectStoreAdapter : new ProjectStoreFactory(this.options);
         resources = this.options.resourcesAdapter ?
             this.options.resourcesAdapter : new ResourceFactory();
+    }
+
+    async addMemberToProject(projectId: string, user: UserModel): Promise<any> {
+        try {
+            if (user && user.email) {
+                return await database.addMemberToProject(projectId, user);
+            }
+            throw new Error('User model miss required data');
+        } catch (e) {
+            throw e;
+        }
     }
 
     async createBFastProject(project: ProjectModel): Promise<any> {
