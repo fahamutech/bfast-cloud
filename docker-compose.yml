@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.22
+    image: joshuamshana/bfast-ee:v0.5.23
     hostname: bfast
     restart: always
     networks:
@@ -111,7 +111,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ssl/fullchain2.pem:/app/fullchain.pem
       - ./ssl/privkey2.pem:/app/privkey.pem
-      - /acme.json:/acme.json
     command:
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
