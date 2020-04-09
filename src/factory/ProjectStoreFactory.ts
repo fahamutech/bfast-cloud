@@ -78,6 +78,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
             if (userId) {
                 try {
                     const user = await _users.getUser(userId);
+                    console.log(user.email);
                     const projectCollection = await _database.collection(this.collectionName);
                     const results = await projectCollection.find({
                         $or: [
@@ -85,6 +86,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                             {"members.email": user.email}
                         ]
                     }).toArray();
+                    console.log(results);
                     resolve(results);
                 } catch (reason) {
                     console.log(reason);
