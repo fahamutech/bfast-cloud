@@ -20,6 +20,7 @@ describe("Integration test for project", function () {
     after(async () => {
         await _mongoServer.stop();
         _bfastCloud.stop();
+        //  process.exit(0);
     });
 
     describe('Create project', function () {
@@ -76,8 +77,7 @@ describe("Integration test for project", function () {
                 assert(response.data.user.displayName === 'Joshua');
                 assert(response.data.user.email === 'josh@gmail.com');
                 assert(response.data.type === 'ssm');
-                assert(response.data.members.length === 1);
-                assert(response.data.members[0].uid === response.data.user.uid);
+                assert(response.data.members.length === 0);
                 assert(response.data.id);
             } catch (reason) {
                 throw reason.response.data;
@@ -207,12 +207,109 @@ describe("Integration test for project", function () {
                 assert(response.data.user.displayName === 'Joshua');
                 assert(response.data.user.email === 'josh@gmail.com');
                 assert(response.data.type === 'bfast');
-                assert(response.data.members.length === 1);
-                assert(response.data.members[0].uid === response.data.user.uid);
+                assert(response.data.members.length === 0);
                 assert(response.data.id);
             } catch (reason) {
                 throw reason.response.data;
             }
+        });
+    });
+
+    describe('Get Projects', function () {
+
+        let token = '';
+        let tokenMember = '';
+        before(async function () {
+            try {
+                const user = {
+                    displayName: 'Joshua',
+                    email: 'josh2257@gmail.com',
+                    phoneNumber: '0765456638',
+                    role: 'ADMIN',
+                    password: 'joshua'
+                };
+                const memberUser = {
+                    displayName: 'jj',
+                    email: 'j2@gmail.com',
+                    phoneNumber: '0765456638',
+                    password: 'joshua'
+                };
+                const response = await axios.post(hostname + '/users/', user);
+                const responseMember = await axios.post(hostname + '/users/', memberUser);
+                token = response.data.token;
+                tokenMember = responseMember.data.token;
+                assert(response.status === 200);
+                assert(responseMember.status === 200);
+            } catch (reason) {
+                throw reason.toString();
+            }
+        });
+        after(async function () {
+            try {
+                const response = await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                const responseMember = await axios.delete(hostname + '/users/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + tokenMember
+                    }
+                });
+                assert(response.status === 200);
+                assert(responseMember.status === 200);
+            } catch (reason) {
+                throw reason.response.data;
+            }
+        });
+
+        describe('Invited project', function () {
+            before(async function () {
+                try {
+                    const project = {
+                        name: 'testInv',
+                        projectId: 'lb10989234',
+                        description: 'short description',
+                        isParse: true,
+                        parse: {appId: 'lb123werfdd456', masterKey: 'lbm900oujsterkey'},
+                    };
+                    const response = await axios.post(hostname + '/projects/bfast', project, {
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    });
+                    await axios.post(`${hostname}/projects/${response.data.projectId}/members`, {
+                        email: "j2@gmail.com",
+                        displayName: "Joshua"
+                    }, {
+                        headers: {
+                            'authorization': 'Bearer ' + token
+                        }
+                    })
+                    assert(response.status === 200);
+                } catch (e) {
+                    console.log(e.response);
+                    throw e;
+                }
+            });
+            it('should get project by member', async function () {
+                try {
+                    const response = await axios.get(`${hostname}/projects`, {
+                        headers: {
+                            'authorization': 'Bearer ' + tokenMember
+                        }
+                    });
+                    assert(response.status === 200);
+                    assert(response.data.length === 1);
+                    assert(response.data[0].projectId === 'lb10989234');
+                } catch (reason) {
+                    if (reason.response) {
+                        throw reason.response.data;
+                    } else {
+                        throw reason.toString();
+                    }
+                }
+            });
         });
     });
 

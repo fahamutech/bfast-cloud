@@ -8,11 +8,13 @@ import {UserStoreFactory} from "../factory/UserStoreFactory";
 let _routerGuard: RouterGuardAdapter;
 let _projects: ProjectController;
 let _users: UsersStoreAdapter;
+let _options: Options;
 
 export class ProjectRouter implements RestRouterAdapter {
     prefix: string = '/projects';
 
     constructor(private  options: Options) {
+        _options = this.options;
         _routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
         _users = this.options.userStoreAdapter ?
@@ -78,9 +80,11 @@ export class ProjectRouter implements RestRouterAdapter {
             path: '/:type',
             onRequest: [
                 _routerGuard.checkToken,
-                // check is admin is a temporary middle ware will be replaces
-                // a payment middleware
-                _routerGuard.checkIsAdmin,
+                // check is admin is a temporary middleware will be replaced
+                // with a payment middleware
+                _options.devMode ? (req, res, next) => {
+                    next();
+                } : _routerGuard.checkIsAdmin,
                 /*check for payments if there is enough fund to proceed*/
                 async (request, response) => {
                     const body = request.body;

@@ -36,7 +36,7 @@ export class ProjectController {
 
     async createBFastProject(project: ProjectModel): Promise<any> {
         try {
-            project.members = [project.user];
+            project.members = [];
             const value = await database.insertProject(project);
             if (value && value.type === 'bfast' && value.parse && value.parse.appId && value.parse.masterKey) {
                 return await this._deployProjectInCluster(value);
