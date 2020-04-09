@@ -39,7 +39,7 @@ export class DashboardRouter implements RestRouterAdapter {
                 (request, response) => {
                     const mode = request.params.mode;
                     if (mode.toString() === '0') {
-                        dashboard.dashboardOff(request.params.projectId, request.query.force).then(value => {
+                        dashboard.dashboardOff(request.params.projectId, request.query.force==='true').then(value => {
                             response.status(200).json({message: 'database dashboard switched off'});
                         }).catch((reason: any) => {
                             response.status(503).json({
@@ -48,7 +48,7 @@ export class DashboardRouter implements RestRouterAdapter {
                             });
                         });
                     } else if (mode.toString() === '1') {
-                        dashboard.dashboardOn(request.params.projectId, request.query.force).then(value => {
+                        dashboard.dashboardOn(request.params.projectId, request.query.force==='true').then(value => {
                             response.status(200).json({message: 'database dashboard switched on'});
                         }).catch((reason: any) => {
                             response.status(503).json({

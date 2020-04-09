@@ -38,7 +38,7 @@ export class DaasRouter implements RestRouterAdapter {
                 routerGuard.checkIsProjectOwner,
                 (request, response) => {
                     database
-                        .classLiveQuery(request.params.projectId, request.body.classNames, request.query.force).then(value => {
+                        .classLiveQuery(request.params.projectId, request.body.classNames, request.query.force === 'true').then(value => {
                         response.status(200).json({message: 'table/collections added to live query'});
                     }).catch(reason => {
                         console.log('**************');

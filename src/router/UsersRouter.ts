@@ -170,7 +170,7 @@ export class UsersRouter implements RestRouterAdapter {
                 (request, response, next) => {
                     const size = request.query && request.query.size ? request.query.size : 20;
                     const skip = request.query && request.query.skip ? request.query.skip : 0;
-                    _users.getAllUsers(size, skip).then(users => {
+                    _users.getAllUsers(size as number, skip as number).then(users => {
                         response.status(200).json({users: users});
                     });
                 }

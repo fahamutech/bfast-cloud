@@ -45,7 +45,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                     const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
                     if (valid) {
                         functions
-                            .envRemove(request.params.projectId, request.body.envs, request.query.force).then(value => {
+                            .envRemove(request.params.projectId, request.body.envs, request.query.force==='true').then(value => {
                             response.status(200).json({message: 'envs updated'});
                         }).catch(reason => {
                             response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
@@ -74,7 +74,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 routerGuard.checkIsProjectOwner,
                 (request, response) => {
                     functions
-                        .envAdd(request.params.projectId, request.body.envs, request.query.force).then(value => {
+                        .envAdd(request.params.projectId, request.body.envs, request.query.force==='true').then(value => {
                         response.status(200).json({message: 'envs updated'});
                     }).catch(reason => {
                         response.status(503).json({message: 'fails to add envs', reason: reason.toString()});
@@ -99,7 +99,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 routerGuard.checkToken,
                 routerGuard.checkIsProjectOwner,
                 (request, response) => {
-                    functions.deploy(request.params.projectId, request.query.force).then(value => {
+                    functions.deploy(request.params.projectId, request.query.force==='true').then(value => {
                         response.status(200).json({message: 'functions deployed'});
                     }).catch(reason => {
                         response.status(503).json(reason);
@@ -125,7 +125,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 routerGuard.checkToken,
                 routerGuard.checkIsProjectOwner,
                 (request, response) => {
-                    functions.addDomain(request.params.projectId, request.body.domain, request.query.force).then(value => {
+                    functions.addDomain(request.params.projectId, request.body.domain, request.query.force==='true').then(value => {
                         response.status(200).json({message: 'domain added'});
                     }).catch(reason => {
                         response.status(503).json(reason);
@@ -150,7 +150,7 @@ export class FunctionsRouter implements RestRouterAdapter {
                 routerGuard.checkToken,
                 routerGuard.checkIsProjectOwner,
                 (request, response) => {
-                    functions.removeDomain(request.params.projectId, request.query.force).then(value => {
+                    functions.removeDomain(request.params.projectId, request.query.force==='true').then(value => {
                         response.status(200).json({message: 'domain added'});
                     }).catch(reason => {
                         response.status(503).json(reason);
@@ -178,13 +178,13 @@ export class FunctionsRouter implements RestRouterAdapter {
                 (request, response) => {
                     const mode = request.params.mode;
                     if (mode.toString() === '0') {
-                        functions.faasOff(request.params.projectId, request.query.force).then(value => {
+                        functions.faasOff(request.params.projectId, request.query.force==='true').then(value => {
                             response.status(200).json({message: 'faas engine switched off'});
                         }).catch(reason => {
                             response.status(503).json(reason);
                         });
                     } else if (mode.toString() === '1') {
-                        functions.faasOn(request.params.projectId, request.query.force).then(value => {
+                        functions.faasOn(request.params.projectId, request.query.force==='true').then(value => {
                             response.status(200).json({message: 'faas engine switch on'});
                         }).catch(reason => {
                             response.status(503).json(reason);
