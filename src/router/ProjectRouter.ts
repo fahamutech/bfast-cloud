@@ -159,6 +159,7 @@ export class ProjectRouter implements RestRouterAdapter {
             path: '/:projectId',
             onRequest: [
                 _routerGuard.checkToken,
+                _routerGuard.checkIsProjectOwner,
                 (request, response, _) => {
                     const projectId = request.params.projectId;
 

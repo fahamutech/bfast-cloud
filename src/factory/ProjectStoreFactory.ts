@@ -82,8 +82,13 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     const results = await projectCollection.find({
                         $or: [
                             {'user.email': user.email},
-                            {"members.user.email": user.email}
-                        ]
+                            {
+                                'members': {
+                                    $elemMatch: {email: user.email}
+                                }
+                            },
+                            // {"members.user.email": user.email}
+                        ],
                     }).toArray();
                     resolve(results);
                 } catch (reason) {
