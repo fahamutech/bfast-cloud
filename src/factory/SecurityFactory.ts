@@ -84,6 +84,7 @@ export class SecurityFactory implements SecurityAdapter {
                     reject({message: 'Fails to generate a token', reason: err.toString()});
                     return;
                 }
+                // @ts-ignore
                 _redisClient.set(encoded, JSON.stringify(data), (err1, reply) => {
                     if (err1) {
                         reject({message: 'Fails to cache your token', reason: err1.toString()});
@@ -91,6 +92,7 @@ export class SecurityFactory implements SecurityAdapter {
                     }
                     resolve(encoded);
                 });
+                // @ts-ignore
                 _redisClient.expire(encoded, 360 * 86400);
             });
         });
