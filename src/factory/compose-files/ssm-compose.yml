@@ -20,6 +20,7 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
+        - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -33,41 +34,41 @@ services:
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
       - PORT=3000
       - PARSE_SERVER_MOUNT_PATH=/
-  ssm_dashboard:
-    image: parseplatform/parse-dashboard:2.0.5
-    hostname: ${projectId}
-    restart: always
-    networks:
-      - default
-      - bfastweb
-    deploy:
-      mode: replicated
-      replicas: 0
-      restart_policy:
-        condition: any
-        delay: 2s
-      resources:
-        limits:
-          # cpus: '0.50'
-          memory: 80M
-        # reservations:
-        #   cpus: '0.25'
-        #   memory: 20M
-      labels:
-        - "traefik.docker.network=bfastweb"
-        - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-        - "traefik.port=3443"
-        - "traefik.protocol=http"
-    environment:
-      - PORT=3443
-      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
-      - PARSE_DASHBOARD_APP_ID=${appId}
-      - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
-      - PARSE_DASHBOARD_APP_NAME=${projectName}
-      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=0
-      - PARSE_DASHBOARD_USER_ID=${userEmail}
-      - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
+#  ssm_dashboard:
+#    image: parseplatform/parse-dashboard:2.0.5
+#    hostname: ${projectId}
+#    restart: always
+#    networks:
+#      - default
+#      - bfastweb
+#    deploy:
+#      mode: replicated
+#      replicas: 0
+#      restart_policy:
+#        condition: any
+#        delay: 2s
+#      resources:
+#        limits:
+#          # cpus: '0.50'
+#          memory: 80M
+#        # reservations:
+#        #   cpus: '0.25'
+#        #   memory: 20M
+#      labels:
+#        - "traefik.docker.network=bfastweb"
+#        - "traefik.enable=true"
+#        - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
+#        - "traefik.port=3443"
+#        - "traefik.protocol=http"
+#    environment:
+#      - PORT=3443
+#      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
+#      - PARSE_DASHBOARD_APP_ID=${appId}
+#      - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
+#      - PARSE_DASHBOARD_APP_NAME=${projectName}
+#      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=0
+#      - PARSE_DASHBOARD_USER_ID=${userEmail}
+#      - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
 networks:
   bfastweb:
     external: true
