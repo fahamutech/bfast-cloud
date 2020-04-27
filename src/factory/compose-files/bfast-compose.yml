@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   daas:
-    image: parseplatform/parse-server:4.2.0
+    image: joshuamshana/bfast-ce-daas:v0.1.0
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -28,12 +28,16 @@ services:
       - PARSE_SERVER_MASTER_KEY=${masterKey}
       - PARSE_SERVER_DATABASE_URI=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
-      - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
+      - PARSE_SERVER_LIVE_QUERY={"classNames":[],redisURL:"redis://rdb:6379"}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
       - PARSE_SERVER_OBJECT_ID_SIZE=16
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
       - PORT=3000
       - PARSE_SERVER_MOUNT_PATH=/
+      - S3_BUCKET=bfast-${projectId}
+      - S3_ACCESS_KEY=5IGXSX5CU52C2RFZFALG
+      - S3_SECRET_KEY=2q2vteO9lQp6LaxT3lGMLdkUF5THdxZWmyWmb1y9
+      - S3_ENDPOINT=https://eu-central-1.linodeobjects.com/
   dashboard:
     image: parseplatform/parse-dashboard:2.0.5
     hostname: ${projectId}-dashboard
