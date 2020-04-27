@@ -108,7 +108,6 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
         }
     }
 
-
     async cloudFunctionSwitchOff(projectId: string, force: boolean): Promise<any> {
         try {
             const response = await shell.exec(
@@ -136,7 +135,7 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             if (force) {
                 forceString = '--force ';
             }
-            const cmdString = 'docker service update ' + forceString.toString() + ' --env-add \'PARSE_SERVER_LIVE_QUERY={\"classNames\":' + classesString.toString() + '}\' ' + projectId.toString() + '_daas';
+            const cmdString = `docker service update ${forceString.toString()}  --env-add 'PARSE_SERVER_LIVE_QUERY={"classNames":${classesString.toString()},"redisURL":"redis://rdb:6379"}'  ${projectId.toString()}_daas`;
             const response = await shell.exec(
                 cmdString.toString()
             );
