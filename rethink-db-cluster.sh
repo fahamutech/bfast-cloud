@@ -42,4 +42,4 @@ sleep 1
 #sleep 1
 
 # create and start rethinkdb proxy
-docker service create --name rdb-proxy --network bfastweb rethinkdb --publish 81:8080 --publish 28015:28015 rethinkdb:2.4.0 rethinkdb proxy --bind all --join rdb-primary --initial-password "@bfast&rethinkdb"
+docker service create --name rdb-proxy --network bfastweb --network rethinkdb --publish 81:8080 --publish 28015:28015 rethinkdb:2.4.0 rethinkdb proxy --bind all --join rdb-primary --initial-password "@bfast&rethinkdb"
