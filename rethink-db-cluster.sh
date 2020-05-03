@@ -16,7 +16,7 @@ docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=
 sleep 1
 
 # create and start rethinkdb secondary
-docker service create --mount type=volume,src=rethinkdbsecondary1,dst=/data,volume-driver=rexray/s3fs --name rdb-secondary-1 --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address --join rdb-primary --initial-password auto
+docker service create --mount type=volume,src=rethinkdbsecondary1,dst=/data,volume-driver=rexray/s3fs --name rdb-secondary-1 --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address rdb-primary:29015 --join rdb-primary --initial-password auto
 
 sleep 1
 
@@ -24,7 +24,7 @@ sleep 1
 #docker service scale rdb-secondary=2
 
 # create and start rethinkdb secondary
-docker service create --mount type=volume,src=rethinkdbsecondary2,dst=/data,volume-driver=rexray/s3fs --name rdb-secondary-2 --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address --join rdb-primary --initial-password auto
+docker service create --mount type=volume,src=rethinkdbsecondary2,dst=/data,volume-driver=rexray/s3fs --name rdb-secondary-2 --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address rdb-primary:29015 --join rdb-primary --initial-password auto
 
 sleep 1
 
@@ -33,7 +33,7 @@ sleep 1
 docker service rm rdb-primary
 
 # recreate primary with --join flag
-docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address --join rdb-secondary-1 --initial-password auto
+docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --canonical-address rdb-secondary-1:29015 --join rdb-secondary-1 --initial-password auto
 
 sleep 1
 
@@ -43,4 +43,4 @@ sleep 1
 #sleep 1
 
 # create and start rethinkdb proxy
-docker service create --name rdb-proxy --network bfastweb --network rethinkdb --publish 81:8080 --publish 28015:28015 rethinkdb:2.4.0 rethinkdb proxy --bind all --join rdb-primary --canonical-address --initial-password "@bfast&rethinkdb"
+docker service create --name rdb-proxy --network bfastweb --network rethinkdb --publish 81:8080 --publish 28015:28015 rethinkdb:2.4.0 rethinkdb proxy --bind all --join rdb-primary --canonical-address rdb-primary:29015 --initial-password "@bfast&rethinkdb"
