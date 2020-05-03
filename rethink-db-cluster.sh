@@ -10,7 +10,7 @@ docker service rm rdb-secondary-1 || echo "no rdb secondary 1"
 docker service rm rdb-secondary-2 || echo "no rdb secondary 2"
 
 # create and start rethinkdb primary
-docker service create --mount type=volume,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --initial-password auto
+docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --initial-password auto
 
 sleep 1
 
