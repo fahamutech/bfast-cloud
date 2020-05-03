@@ -26,53 +26,6 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-  mdb:
-    image: mongo:4-bionic
-    hostname: mdb
-    volumes:
-      - mdbdata:/data/db
-    restart: always
-    networks:
-      - default
-      - bfastweb
-    depends_on:
-      - mdbrs1
-      - mdbrs2
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
-  mdbrs1:
-    image: mongo:4-bionic
-    hostname: mdbrs1
-    volumes:
-      - mongodatars1:/data/db
-    networks:
-      - default
-      - bfastweb
-    restart: always
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
-  mdbrs2:
-    image: mongo:4-bionic
-    hostname: mdbrs2
-    volumes:
-      - mongodatars2:/data/db
-    networks:
-      - default
-      - bfastweb
-    restart: always
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
   rdb:
     image: redis:5-alpine
     hostname: rdb
@@ -124,18 +77,11 @@ services:
       - --docker.domain=api.bfast.fahamutech.com
       - --docker.watch=true
       - --docker.exposedbydefault=false
-#      - --acme.email=mama27j@gmail.com
-#      - --acme.storage=acme.json
-#      - --acme.entryPoint=https
-#      - --acme.onHostRule=true
-#      - --acme.httpchallenge.entrypoint=http
 volumes:
-  mdbdata:
+  rethinkdb:
+    external: true
   traefikdata:
-  mongodatars2:
-  mongodatars1:
   redisdata:
-  cbddata:
 networks:
   bfastweb:
     external: true
