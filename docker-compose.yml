@@ -78,8 +78,6 @@ services:
       - --docker.watch=true
       - --docker.exposedbydefault=false
 volumes:
-  rethinkdb:
-    external: true
   traefikdata:
   redisdata:
 networks:
