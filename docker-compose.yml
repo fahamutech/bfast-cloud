@@ -131,10 +131,12 @@ services:
 #      - --acme.httpchallenge.entrypoint=http
 volumes:
   mdbdata:
+#    driver: rexray/s3fs
   traefikdata:
   mongodatars2:
   mongodatars1:
   redisdata:
+#    driver: rexray/ebs
   cbddata:
 networks:
   bfastweb:
