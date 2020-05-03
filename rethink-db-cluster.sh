@@ -4,12 +4,12 @@ docker volume create --driver rexray/s3fs rethinkdb || echo "volume already crea
 docker volume create --driver rexray/s3fs rethinkdbsecondary || echo "volume already created"
 
 # create and start rethinkdb primary
-docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --restart always --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --initial-password auto
+docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --initial-password auto
 
 sleep 5
 
 # create and start rethinkdb secondary
-docker service create --mount type=volume,src=rethinkdbsecondary,dst=/data,volume-driver=rexray/s3fs --restart always --name rdb-secondary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --join rdb-primary --initial-password auto
+docker service create --mount type=volume,src=rethinkdbsecondary,dst=/data,volume-driver=rexray/s3fs --name rdb-secondary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --join rdb-primary --initial-password auto
 
 sleep 5
 
@@ -22,7 +22,7 @@ sleep 5
 docker service rm rdb-primary
 
 # recreate primary with --join flag
-docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --restart always --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --join rdb-secondary --initial-password auto
+docker service create --mount type=volume,src=rethinkdb,dst=/data,volume-driver=rexray/s3fs --name rdb-primary --network rethinkdb rethinkdb:2.4.0 rethinkdb --bind all --no-http-admin --join rdb-secondary --initial-password auto
 
 sleep 5
 
