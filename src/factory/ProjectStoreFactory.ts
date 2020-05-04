@@ -21,11 +21,10 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
             try {
-                project.projectId.toLowerCase();
                 const projectColl = await _database.collection(this.collectionName);
                 const result = await projectColl.insertOne({
                     name: project.name,
-                    projectId: project.projectId.toLowerCase(),
+                    projectId: project.projectId,
                     description: project.description,
                     type: project.type,
                     user: project.user,
@@ -51,7 +50,6 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     console.warn(e);
                 }
                 project.id = result.insertedId as string;
-                project.projectId.toLowerCase();
                 resolve(project);
             } catch (reason) {
                 let message;
@@ -145,7 +143,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     {"user.email": user.email},
                     {"members.user.email": user.email}
                 ],
-                projectId: projectId.toLowerCase()
+                projectId: projectId
             });
             if (!project) {
                 throw 'User does not have that project';
@@ -166,7 +164,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     {"user.email": user.email},
                     {"members.user.email": user.email}
                 ],
-                projectId: projectId.toLowerCase()
+                projectId: projectId
             }, data);
             if (!result.ok) {
                 throw 'Project not updated';
@@ -184,7 +182,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
             const projectCollection = await _database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 "user.email": user.email,
-                projectId: projectId.toLowerCase()
+                projectId: projectId
             });
             if (!project) {
                 throw 'User does not own that project';
@@ -199,7 +197,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     async addMemberToProject(projectId: string, user: UserModel): Promise<any> {
         try {
             const projectColl = await _database.collection(this.collectionName);
-            const response = await projectColl.updateOne({projectId: projectId.toLowerCase()}, {
+            const response = await projectColl.updateOne({projectId: projectId}, {
                 $push: {
                     'members': user
                 }

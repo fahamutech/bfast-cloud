@@ -101,7 +101,8 @@ export class ProjectController {
                 `$docker stack deploy -c ${project.fileUrl} ${project.projectId}`,
                 {
                     env: {
-                        projectId: project.projectId.toLowerCase(),
+                        projectId: project.projectId,
+                        bucketName: project.projectId.toLowerCase(),
                         projectName: project.name,
                         userEmail: project.user.email,
                         appId: project.parse.appId,
@@ -117,7 +118,7 @@ export class ProjectController {
             } catch (e) {
                 console.log(e);
             }
-            console.log(reason);
+            // console.log(reason);
             throw {message: 'Project not created', reason: reason.toString()};
         }
     }
