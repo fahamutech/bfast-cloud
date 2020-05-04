@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   daas:
-    image: joshuamshana/bfast-ce-daas:v1.0.4
+    image: joshuamshana/bfast-ce-daas
     hostname: ${projectId}-daas
     restart: always
     networks:
