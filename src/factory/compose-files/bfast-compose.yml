@@ -27,7 +27,7 @@ services:
       - PARSE_SERVER_APPLICATION_ID=${appId}
       - PARSE_SERVER_MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
-      - PARSE_SERVER_DATABASE_URI=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
+      - PARSE_SERVER_DATABASE_URI=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
@@ -66,7 +66,7 @@ services:
       - APPLICATION_ID=${appId}
       - MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
-      - MONGO_URL=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
+      - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - IS_LOCAL_BFAST=false
       - PRODUCTION=true
 networks:

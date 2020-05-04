@@ -2,18 +2,20 @@ version: "3.7"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.27
+    image: joshuamshana/bfast-ee:v0.5.28
     hostname: bfast
     restart: always
     networks:
       - bfastweb
       - default
-    ports:
-      - 3000
+#    ports:
+#      - 3000
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
     labels:
       - "traefik.docker.network=bfastweb"
+    environment:
+      - MONGO_URL=mongodb://fahamutechdb:fahamutechm0ng0db@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/_BFAST_ADMIN?authSource=admin&replicaSet=mdbRepl
     deploy:
       labels:
         - "traefik.docker.network=bfastweb"
@@ -26,53 +28,6 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-  mdb:
-    image: mongo:4-bionic
-    hostname: mdb
-    volumes:
-      - mdbdata:/data/db
-    restart: always
-    networks:
-      - default
-      - bfastweb
-    #    depends_on:
-    #      - mdbrs1
-    #      - mdbrs2
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
-  mdbrs1:
-    image: mongo:4-bionic
-    hostname: mdbrs1
-    volumes:
-      - mongodatars1:/data/db
-    networks:
-      - default
-      - bfastweb
-    restart: always
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
-  mdbrs2:
-    image: mongo:4-bionic
-    hostname: mdbrs2
-    volumes:
-      - mongodatars2:/data/db
-    networks:
-      - default
-      - bfastweb
-    restart: always
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 2s
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
   rdb:
     image: redis:5-alpine
     hostname: rdb
