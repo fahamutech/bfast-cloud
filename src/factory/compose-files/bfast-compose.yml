@@ -1,7 +1,7 @@
-version: '3.3'
+version: '3.7'
 services:
   daas:
-    image: joshuamshana/bfast-ce-daas:v0.1.0
+    image: joshuamshana/bfast-ce-daas
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -26,9 +26,10 @@ services:
     environment:
       - PARSE_SERVER_APPLICATION_ID=${appId}
       - PARSE_SERVER_MASTER_KEY=${masterKey}
+      - PROJECT_ID=${projectId}
       - PARSE_SERVER_DATABASE_URI=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
-      - PARSE_SERVER_LIVE_QUERY={"classNames":[],redisURL:"redis://rdb:6379"}
+      - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
       - PARSE_SERVER_OBJECT_ID_SIZE=16
       - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
@@ -38,40 +39,8 @@ services:
       - S3_ACCESS_KEY=5IGXSX5CU52C2RFZFALG
       - S3_SECRET_KEY=2q2vteO9lQp6LaxT3lGMLdkUF5THdxZWmyWmb1y9
       - S3_ENDPOINT=https://eu-central-1.linodeobjects.com/
-  dashboard:
-    image: parseplatform/parse-dashboard:2.0.5
-    hostname: ${projectId}-dashboard
-    restart: always
-    networks:
-      - default
-      - bfastweb
-    deploy:
-      mode: replicated
-      replicas: 0
-      restart_policy:
-        condition: any
-        delay: 2s
-      resources:
-        limits:
-          memory: 80M
-      labels:
-        - "traefik.docker.network=bfastweb"
-        - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}.bfast.fahamutech.com"
-        - "traefik.backend.loadbalancer.sticky=true"
-        - "traefik.port=3443"
-        - "traefik.protocol=http"
-    environment:
-      - PORT=3443
-      - PARSE_DASHBOARD_SERVER_URL=https://${projectId}-daas.bfast.fahamutech.com
-      - PARSE_DASHBOARD_APP_ID=${appId}
-      - PARSE_DASHBOARD_MASTER_KEY=${masterKey}
-      - PARSE_DASHBOARD_APP_NAME=${projectName}
-      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=0
-      - PARSE_DASHBOARD_USER_ID=${userEmail}
-      - PARSE_DASHBOARD_USER_PASSWORD=${masterKey}
   faas:
-    image: joshuamshana/bfastfaas:v1.9.0
+    image: joshuamshana/bfastfaas
     hostname: ${projectId}-faas
     restart: always
     networks:
@@ -95,6 +64,7 @@ services:
         - "traefik.protocol=http"
     environment:
       - APPLICATION_ID=${appId}
+      - MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${projectId}?replicaSet=bfastRS
       - IS_LOCAL_BFAST=false
@@ -102,7 +72,3 @@ services:
 networks:
   bfastweb:
     external: true
-volumes:
-  daasdata: {}
-  faasdata: {}
-  webdata: {}

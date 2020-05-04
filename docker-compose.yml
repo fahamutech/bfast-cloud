@@ -1,8 +1,8 @@
-version: "3.3"
+version: "3.7"
 
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.26
+    image: joshuamshana/bfast-ee:v0.5.27
     hostname: bfast
     restart: always
     networks:
@@ -26,6 +26,53 @@ services:
       restart_policy:
         condition: any
         delay: 2s
+  mdb:
+    image: mongo:4-bionic
+    hostname: mdb
+    volumes:
+      - mdbdata:/data/db
+    restart: always
+    networks:
+      - default
+      - bfastweb
+    #    depends_on:
+    #      - mdbrs1
+    #      - mdbrs2
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: any
+        delay: 2s
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+  mdbrs1:
+    image: mongo:4-bionic
+    hostname: mdbrs1
+    volumes:
+      - mongodatars1:/data/db
+    networks:
+      - default
+      - bfastweb
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS" ]
+  mdbrs2:
+    image: mongo:4-bionic
+    hostname: mdbrs2
+    volumes:
+      - mongodatars2:/data/db
+    networks:
+      - default
+      - bfastweb
+    restart: always
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 2s
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "bfastRS"]
   rdb:
     image: redis:5-alpine
     hostname: rdb
@@ -80,6 +127,9 @@ services:
 volumes:
   traefikdata:
   redisdata:
+  mongodatars2:
+  mongodatars1:
+  mdbdata:
 networks:
   bfastweb:
     external: true

@@ -1,6 +1,6 @@
 import {DatabaseAdapter, ProjectStoreAdapter} from "../adapter/database";
 import {ProjectModel} from "../model/project";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 import {UserController} from "../controller/UserController";
 import {UserModel} from "../model/user";
@@ -12,7 +12,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     collectionName = '_Project';
 
-    constructor(private readonly options: Options) {
+    constructor(private readonly options: BFastOptions) {
         _users = new UserController(this.options);
         _database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options)
@@ -21,10 +21,11 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     insertProject(project: ProjectModel): Promise<ProjectModel> {
         return new Promise<ProjectModel>(async (resolve, reject) => {
             try {
+                project.projectId.toLowerCase();
                 const projectColl = await _database.collection(this.collectionName);
                 const result = await projectColl.insertOne({
                     name: project.name,
-                    projectId: project.projectId,
+                    projectId: project.projectId.toLowerCase(),
                     description: project.description,
                     type: project.type,
                     user: project.user,
@@ -38,7 +39,19 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                 if (!pNameIndex) {
                     await projectColl.createIndex({projectId: 1}, {unique: true});
                 }
+                const adminColl = await _database.getDatabase('admin');
+                // testing
+                try {
+                    await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+                        roles: [
+                            {role: "readWrite", db: project.projectId}
+                        ]
+                    });
+                } catch (e) {
+                    console.warn(e);
+                }
                 project.id = result.insertedId as string;
+                project.projectId.toLowerCase();
                 resolve(project);
             } catch (reason) {
                 let message;
@@ -132,7 +145,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     {"user.email": user.email},
                     {"members.user.email": user.email}
                 ],
-                projectId: projectId
+                projectId: projectId.toLowerCase()
             });
             if (!project) {
                 throw 'User does not have that project';
@@ -153,7 +166,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     {"user.email": user.email},
                     {"members.user.email": user.email}
                 ],
-                projectId: projectId
+                projectId: projectId.toLowerCase()
             }, data);
             if (!result.ok) {
                 throw 'Project not updated';
@@ -171,7 +184,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
             const projectCollection = await _database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 "user.email": user.email,
-                projectId: projectId
+                projectId: projectId.toLowerCase()
             });
             if (!project) {
                 throw 'User does not own that project';
@@ -186,7 +199,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
     async addMemberToProject(projectId: string, user: UserModel): Promise<any> {
         try {
             const projectColl = await _database.collection(this.collectionName);
-            const response = await projectColl.updateOne({projectId: projectId}, {
+            const response = await projectColl.updateOne({projectId: projectId.toLowerCase()}, {
                 $push: {
                     'members': user
                 }

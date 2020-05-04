@@ -1,6 +1,6 @@
 import {ProjectModel} from "../model/project";
 import {ShellAdapter} from "../adapter/shell";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {NodeShellFactory} from "../factory/NodeShellFactory";
 import {ProjectStoreAdapter} from "../adapter/database";
 import {ProjectStoreFactory} from "../factory/ProjectStoreFactory";
@@ -14,7 +14,7 @@ let resources: ResourcesAdapter;
 
 export class ProjectController {
 
-    constructor(private options: Options) {
+    constructor(private options: BFastOptions) {
         shell = this.options.shellAdapter ?
             this.options.shellAdapter : new NodeShellFactory();
         database = this.options.projectStoreAdapter ?
@@ -101,7 +101,7 @@ export class ProjectController {
                 `$docker stack deploy -c ${project.fileUrl} ${project.projectId}`,
                 {
                     env: {
-                        projectId: project.projectId,
+                        projectId: project.projectId.toLowerCase(),
                         projectName: project.name,
                         userEmail: project.user.email,
                         appId: project.parse.appId,

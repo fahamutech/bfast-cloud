@@ -1,12 +1,12 @@
 import {Utils} from "./utils";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {SwarmOrchestrationFactory} from "../factory/SwarmOrchestrationFactory";
 import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 
 let containerOrch: ContainerOrchestrationAdapter;
 
 export class DashboardController {
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         containerOrch = this.options.containerOrchAdapter ?
             this.options.containerOrchAdapter : new SwarmOrchestrationFactory(this.options);
     }

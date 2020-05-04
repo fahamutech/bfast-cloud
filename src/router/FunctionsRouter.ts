@@ -1,5 +1,5 @@
 import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {FunctionsController} from "../controller/FunctionsController";
 
@@ -9,7 +9,7 @@ let functions: FunctionsController;
 export class FunctionsRouter implements RestRouterAdapter {
     prefix: string = '/functions';
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
         functions = new FunctionsController(this.options);

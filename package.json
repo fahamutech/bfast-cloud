@@ -1,7 +1,7 @@
 {
   "name": "bfast-ee",
   "description": "bfast cloud for project management",
-  "version": "0.5.26",
+  "version": "0.5.27",
   "private": true,
   "main": "bfast.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "build:docker": "gulp buildDocker",
     "poststart:dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "test": "npm run build && mocha --timeout 60000 ./specs",
-    "push": "gulp pubishDockerImage"
+    "push:docker": "gulp pubishDockerImage"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -19,24 +19,23 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.5",
-    "morgan": "~1.10.0",
+    "mongodb": "^3.5.7",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.4.6",
     "redis": "^3.0.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
-    "@types/express": "^4.17.5",
-    "@types/mongodb": "^3.5.5",
-    "@types/node": "^13.11.1",
-    "@types/nodemailer": "^6.4.0",
-    "@types/redis": "^2.8.17",
-    "@types/redis-mock": "^0.17.0",
+    "@types/express": "^4.17.6",
     "@types/jsonwebtoken": "^8.3.9",
+    "@types/mongodb": "^3.5.14",
+    "@types/nodemailer": "^6.4.0",
+    "@types/redis": "^2.8.18",
+    "@types/redis-mock": "^0.17.0",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "gulp": "^4.0.2",
-    "mocha": "^7.1.1",
+    "mocha": "^7.1.2",
     "mongodb-memory-server-core": "^6.5.2",
     "redis-mock": "^0.49.0",
     "ts-node-dev": "^1.0.0-pre.44",

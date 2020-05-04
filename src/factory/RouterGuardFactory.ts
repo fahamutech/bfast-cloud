@@ -1,7 +1,7 @@
 import {SecurityFactory} from "./SecurityFactory";
 import {UserRoles} from "../model/user";
 import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapter/database";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {UserStoreFactory} from "./UserStoreFactory";
 import {ProjectStoreFactory} from "./ProjectStoreFactory";
 import {RouterGuardAdapter} from "../adapter/rest";
@@ -11,12 +11,12 @@ import {SecurityAdapter} from "../adapter/security";
 let _userDatabase: UsersStoreAdapter;
 let _projectDatabase: ProjectStoreAdapter;
 let _security: SecurityAdapter;
-let _options: Options;
+let _options: BFastOptions;
 
 // need to be modified
 export class RouterGuardFactory implements RouterGuardAdapter {
 
-    constructor(private readonly options: Options) {
+    constructor(private readonly options: BFastOptions) {
         _options = this.options;
         _userDatabase = _options.userStoreAdapter ?
             _options.userStoreAdapter : new UserStoreFactory(_options);

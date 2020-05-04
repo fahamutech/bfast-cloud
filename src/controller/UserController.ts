@@ -1,5 +1,5 @@
 import {UserStoreFactory} from "../factory/UserStoreFactory";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {UsersStoreAdapter} from "../adapter/database";
 import {UserModel} from "../model/user";
 import {SecurityAdapter} from "../adapter/security";
@@ -10,7 +10,7 @@ let security: SecurityAdapter;
 
 export class UserController {
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         userStore = this.options.userStoreAdapter ?
             this.options.userStoreAdapter : new UserStoreFactory(this.options);
         security = this.options.securityAdapter ?

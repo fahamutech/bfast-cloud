@@ -1,5 +1,5 @@
 import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {ProjectController} from "../controller/ProjectController";
 import {UsersStoreAdapter} from "../adapter/database";
@@ -8,12 +8,12 @@ import {UserStoreFactory} from "../factory/UserStoreFactory";
 let _routerGuard: RouterGuardAdapter;
 let _projects: ProjectController;
 let _users: UsersStoreAdapter;
-let _options: Options;
+let _options: BFastOptions;
 
 export class ProjectRouter implements RestRouterAdapter {
     prefix: string = '/projects';
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         _options = this.options;
         _routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);

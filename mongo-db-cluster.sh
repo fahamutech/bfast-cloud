@@ -1,17 +1,13 @@
 docker network create -d overlay --attachable bfastweb || echo 'pass network creation...'
-docker network create -d overlay --attachable rethinkdb || echo 'pass network creation...'
-docker volume create --driver rexray/s3fs rethinkdb || echo "volume already created"
-docker volume create --driver rexray/s3fs rethinkdbsecondary1 || echo "volume already created"
-docker volume create --driver rexray/s3fs rethinkdbsecondary2 || echo "volume already created"
+docker network create -d overlay --attachable mongo-net || echo 'pass mongo network creation...'
 
 #remove previous services
-docker service rm rdb-primary || echo "no rdb primary"
-docker service rm rdb-secondary-1 || echo "no rdb secondary 1"
-docker service rm rdb-secondary-2 || echo "no rdb secondary 2"
-docker service rm rdb-proxy || echo "no rdb-proxy"
+docker service rm mdb || echo "no mongo primary"
+docker service rm mdbrs1 || echo "no mongo secondary 1"
+docker service rm mdbrs2 || echo "no mongo secondary 2"
 
-# create and start rethinkdb primary
-docker service create --constraint node.role==manager --mount type=volume,src=rethinkdblocal,dst=/data,volume-driver=local --name rdb-primary --publish 81:8080 --network bfastweb rethinkdb:2.4.0 rethinkdb --bind all --initial-password auto
+# create and start mongo primary
+# docker service create --constraint node.role==manager --mount type=volume,src=rethinkdblocal,dst=/data,volume-driver=local --name rdb-primary --publish 81:8080 --network bfastweb rethinkdb:2.4.0 rethinkdb --bind all --initial-password auto
 
 #sleep 1
 #

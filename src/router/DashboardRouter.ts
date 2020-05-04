@@ -1,5 +1,5 @@
 import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {DashboardController} from "../controller/DashboardController";
 
@@ -9,7 +9,7 @@ let dashboard: DashboardController;
 export class DashboardRouter implements RestRouterAdapter {
     prefix = '/dashboard';
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
         dashboard = new DashboardController(this.options);

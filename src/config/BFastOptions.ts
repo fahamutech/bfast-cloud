@@ -6,7 +6,7 @@ import {SecurityAdapter} from "../adapter/security";
 import {EmailAdapter} from "../adapter/email";
 import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 
-export interface Options {
+export interface BFastOptions {
     mongoURL: string;
     mongoMasterURL: string;
     redisHOST: string;

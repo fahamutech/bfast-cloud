@@ -1,13 +1,12 @@
 import {DatabaseAdapter} from "../adapter/database";
-import {Collection, MongoClient, ObjectID} from "mongodb";
-import {Options} from "../config/Options";
+import {Collection, Db, MongoClient, ObjectID} from "mongodb";
+import {BFastOptions} from "../config/BFastOptions";
 
 let mongoClient: MongoClient;
 
 export class DatabaseConfigFactory implements DatabaseAdapter {
 
-    constructor(private  options: Options) {
-        // `mongodb://mdb:27017,mdbrs1:27017,mdbrs2:27017/${this.DB_NAME}?replicaSet=bfastRS`
+    constructor(private  options: BFastOptions) {
         mongoClient = new MongoClient(this.options.mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -23,7 +22,7 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
                 return conn.db().collection(collectionName);
             }
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             throw {message: 'Fails to get collection', reason: e.toString()};
         }
     }
@@ -92,6 +91,15 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
             );
         } catch (reason) {
             console.log(reason)
+        }
+    }
+
+    async getDatabase(name: string): Promise<Db> {
+        if (mongoClient.isConnected()) {
+            return mongoClient.db(name);
+        } else {
+            const conn = await mongoClient.connect();
+            return conn.db(name);
         }
     }
 

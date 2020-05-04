@@ -1,5 +1,5 @@
 import {RestRouterAdapter} from "../adapter/rest";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {FunctionsRouter} from "./FunctionsRouter";
 import {LandingRouter} from "./LandingRouter";
 import {ProjectRouter} from "./ProjectRouter";
@@ -8,7 +8,7 @@ import {DashboardRouter} from "./DashboardRouter";
 import {DaasRouter} from "./DaasRouter";
 
 export class BFastRouters {
-    constructor(private options: Options) {
+    constructor(private options: BFastOptions) {
     }
 
     getApiRoutes(): RestRouterAdapter[] {

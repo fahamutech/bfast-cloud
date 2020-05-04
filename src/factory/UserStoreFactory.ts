@@ -2,7 +2,7 @@ import {DatabaseAdapter, UsersStoreAdapter} from "../adapter/database";
 import {UserModel, UserRoles} from "../model/user";
 import {SecurityAdapter} from "../adapter/security";
 import {EmailAdapter} from "../adapter/email";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {SecurityFactory} from "./SecurityFactory";
 import {EmailFactory} from "./EmailFactory";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
@@ -10,13 +10,13 @@ import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
 let _security: SecurityAdapter;
 let _emailAdapter: EmailAdapter;
 let _database: DatabaseAdapter;
-let _options: Options;
+let _options: BFastOptions;
 
 // todo: composition of security and emailAdapter factory must be moved to controller
 export class UserStoreFactory implements UsersStoreAdapter {
     collectionName = '_User';
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         _options = this.options;
         _security = this.options.securityAdapter ?
             this.options.securityAdapter : new SecurityFactory(this.options);

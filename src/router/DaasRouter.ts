@@ -1,5 +1,5 @@
 import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
 import {DaasController} from "../controller/DaasController";
 
@@ -9,7 +9,7 @@ let database: DaasController;
 export class DaasRouter implements RestRouterAdapter {
     prefix = '/database';
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
         database = new DaasController(this.options);

@@ -1,4 +1,4 @@
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {SwarmOrchestrationFactory} from "../factory/SwarmOrchestrationFactory";
 import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 import {Utils} from "./utils";
@@ -6,7 +6,7 @@ import {Utils} from "./utils";
 let containerOrch: ContainerOrchestrationAdapter;
 
 export class DaasController {
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         containerOrch = this.options.containerOrchAdapter ?
             this.options.containerOrchAdapter : new SwarmOrchestrationFactory(this.options);
     }

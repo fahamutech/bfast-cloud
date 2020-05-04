@@ -1,5 +1,5 @@
 import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
-import {Options} from "../config/Options";
+import {BFastOptions} from "../config/BFastOptions";
 import {ShellAdapter} from "../adapter/shell";
 import {NodeShellFactory} from "./NodeShellFactory";
 
@@ -7,7 +7,7 @@ let shell: ShellAdapter;
 
 export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter {
 
-    constructor(private  options: Options) {
+    constructor(private  options: BFastOptions) {
         shell = this.options.shellAdapter ?
             this.options.shellAdapter : new NodeShellFactory();
     }

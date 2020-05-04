@@ -1,9 +1,9 @@
 import {ProjectModel} from "../model/project";
 import {UserModel} from "../model/user";
-import {Collection, ObjectID} from "mongodb";
+import {Collection, Db, ObjectID} from "mongodb";
 
 export interface DatabaseAdapter {
-    // getConnection(): Promise<MongoClient>;
+    getDatabase(name: string): Promise<Db>;
 
     collection(collectionName: string): Promise<Collection>;
 
@@ -17,7 +17,7 @@ export interface ProjectStoreAdapter {
 
     insertProject(project: ProjectModel): Promise<ProjectModel>;
 
-    addMemberToProject(projectId:string, user: UserModel): Promise<ProjectModel>;
+    addMemberToProject(projectId: string, user: UserModel): Promise<ProjectModel>;
 
     deleteUserProject(userId: string, projectId: string): Promise<any>;
 
