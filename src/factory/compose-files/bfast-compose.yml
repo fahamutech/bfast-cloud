@@ -40,7 +40,7 @@ services:
       - S3_SECRET_KEY=2q2vteO9lQp6LaxT3lGMLdkUF5THdxZWmyWmb1y9
       - S3_ENDPOINT=https://eu-central-1.linodeobjects.com/
   faas:
-    image: joshuamshana/bfastfaas:v1.9.0
+    image: joshuamshana/bfastfaas:v1.10.1
     hostname: ${projectId}-faas
     restart: always
     networks:
@@ -68,6 +68,7 @@ services:
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - IS_LOCAL_BFAST=false
+      - PORT=3000
       - PRODUCTION=true
 networks:
   bfastweb:
