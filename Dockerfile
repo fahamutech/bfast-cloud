@@ -8,7 +8,7 @@ RUN apk upgrade
 RUN apk add nodejs
 RUN apk add npm
 #RUN apk add docker-compose
-RUN apk --no-cache add --virtual builds-deps build-base python
+# RUN apk --no-cache add --virtual builds-deps build-base python
 RUN npm ci --only=production
 RUN npm rebuild bcrypt --build-from-source
 
