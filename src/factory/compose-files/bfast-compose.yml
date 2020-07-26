@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   daas:
-    image: joshuamshana/bfast-ce-daas
+    image: joshuamshana/bfast-ce-daas:latest
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -20,7 +20,7 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
-        - "traefik.backend.loadbalancer.sticky=true"
+        #        - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -28,7 +28,7 @@ services:
       - PARSE_SERVER_MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
       - PARSE_SERVER_DATABASE_URI=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
-      - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
+      - PARSE_SERVER_START_LIVE_QUERY_SERVER=0
       - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
       - PARSE_SERVER_OBJECT_ID_SIZE=16
@@ -40,7 +40,7 @@ services:
       - S3_SECRET_KEY=2q2vteO9lQp6LaxT3lGMLdkUF5THdxZWmyWmb1y9
       - S3_ENDPOINT=https://eu-central-1.linodeobjects.com/
   faas:
-    image: joshuamshana/bfastfaas:v1.10.1
+    image: joshuamshana/bfastfaas:latest
     hostname: ${projectId}-faas
     restart: always
     networks:
@@ -59,7 +59,7 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
-        - "traefik.backend.loadbalancer.sticky=true"
+        #        - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -69,7 +69,7 @@ services:
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - IS_LOCAL_BFAST=false
       - PORT=3000
-      - PRODUCTION=true
+      - PRODUCTION=1
 networks:
   bfastweb:
     external: true

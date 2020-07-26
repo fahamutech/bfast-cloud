@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   ssm:
-    image: joshuamshana/bfast-ce-daas
+    image: joshuamshana/bfast-ce-daas:latest
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -20,7 +20,7 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.frontend.rule=Host:${projectId}-daas.bfast.fahamutech.com"
-        - "traefik.backend.loadbalancer.sticky=true"
+#        - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -28,7 +28,7 @@ services:
       - PARSE_SERVER_MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
       - PARSE_SERVER_DATABASE_URI=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
-      - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
+      - PARSE_SERVER_START_LIVE_QUERY_SERVER=0
       - PARSE_SERVER_LIVE_QUERY={"classNames":["stocks","sales","purchases","units","categories","accounts","suppliers","orders"]}
       - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
       - PARSE_SERVER_OBJECT_ID_SIZE=16
