@@ -1,5 +1,5 @@
 import {SecurityAdapter} from "../adapter/security";
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import * as redis from 'redis';
 import {RedisClient} from 'redis';
 import * as _jwt from 'jsonwebtoken';
