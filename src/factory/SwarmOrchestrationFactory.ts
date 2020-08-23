@@ -109,10 +109,10 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
             forceString = '--force ';
         }
         const cmdString = `docker service update ${forceString.toString()}  --image ${image}  ${projectId.toString()}_daas`;
-        const response = await shell.exec(
+        await shell.exec(
             cmdString.toString()
         );
-        return response.toString();
+        return "database instance image updated";
     }
 
 }

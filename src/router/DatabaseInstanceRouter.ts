@@ -42,7 +42,7 @@ export class DatabaseInstanceRouter implements RestRouterAdapter {
                         request.params.projectId, request.body.image,
                         request.query.force === 'true'
                     ).then(value => {
-                        response.status(200).json({message: value});
+                        response.status(200).send(value);
                     }).catch(reason => {
                         response.status(503).json(reason);
                     });

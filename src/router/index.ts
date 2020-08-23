@@ -4,7 +4,6 @@ import {FunctionsInstanceRouter} from "./FunctionsInstanceRouter";
 import {LandingRouter} from "./LandingRouter";
 import {ProjectRouter} from "./ProjectRouter";
 import {UsersRouter} from "./UsersRouter";
-import {DashboardRouter} from "./DashboardRouter";
 import {DatabaseInstanceRouter} from "./DatabaseInstanceRouter";
 
 export class BFastRouters {
@@ -17,7 +16,6 @@ export class BFastRouters {
             new LandingRouter(this.options),
             new ProjectRouter(this.options),
             new UsersRouter(this.options),
-            new DashboardRouter(this.options),
             new DatabaseInstanceRouter(this.options),
         ]
     }

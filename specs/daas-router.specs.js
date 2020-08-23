@@ -51,7 +51,7 @@ describe('DaaS and Dashboard Rest API', function () {
                 throw reason.response.data;
             }
         });
-        it('should update realtime engine with new collections', async function () {
+        it('should update instance image', async function () {
             try {
                 const project = {
                     name: 'DemoDaas',
@@ -66,16 +66,15 @@ describe('DaaS and Dashboard Rest API', function () {
                         'content-type': 'application/json'
                     }
                 });
-                const response = await axios.post(hostname + '/database/demo/liveQuery', {
-                    classNames: ['sales', 'stocks']
-                }, {
+                const response = await axios.post(hostname + '/database/demo/image', {image: 'joshuamshana/bfast-ce-daas:latest'}, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                         'content-type': 'application/json'
                     }
                 });
+                // console.log(response.data)
                 assert(response.status === 200);
-                assert(response.data.message === 'table/collections added to live query');
+                assert(response.data === "database instance image updated");
             } catch (e) {
                 if (e.response) {
                     console.log(e.response.data);
