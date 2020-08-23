@@ -62,31 +62,6 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
         }
     }
 
-    /**
-     * switch bfast dashboard component
-     * @param projectId {string}
-     * @param force {boolean}
-     */
-    async cloudDashboardSwitchOff(projectId: string, force: boolean): Promise<any> {
-        try {
-            const response = await shell.exec(
-                `docker service update ${force ? '--force' : ''} --replicas=0 ${projectId}_dashboard`);
-            return response.toString();
-        } catch (e) {
-            throw {message: "Fails to switch off dashboard", reason: e.toString()};
-        }
-    }
-
-    async cloudDashboardSwitchOn(projectId: string, force: boolean): Promise<any> {
-        try {
-            const response = await shell.exec(
-                `docker service update ${force ? '--force' : ''} --replicas=1 ${projectId}_dashboard`);
-            return response.toString();
-        } catch (e) {
-            throw {message: "Fails to switch off dashboard", reason: e.toString()};
-        }
-    }
-
     async cloudFunctionAddDomain(projectId: string, domain: string, force: boolean): Promise<any> {
         try {
             const response = await shell.exec(
@@ -128,21 +103,16 @@ export class SwarmOrchestrationFactory implements ContainerOrchestrationAdapter 
         }
     }
 
-    async liveQueryClasses(projectId: string, classes: string[], force: boolean): Promise<any> {
-        try {
-            let classesString = JSON.stringify(classes);
-            let forceString = ' ';
-            if (force) {
-                forceString = '--force ';
-            }
-            const cmdString = `docker service update ${forceString.toString()}  --env-add 'PARSE_SERVER_LIVE_QUERY={"classNames":${classesString.toString()},"redisURL":"redis://rdb:6379"}'  ${projectId.toString()}_daas`;
-            const response = await shell.exec(
-                cmdString.toString()
-            );
-            return response.toString();
-        } catch (e) {
-            throw e;
+    async updateDatabaseInstanceImage(projectId: string, image: string, force: boolean): Promise<string> {
+        let forceString = ' ';
+        if (force) {
+            forceString = '--force ';
         }
+        const cmdString = `docker service update ${forceString.toString()}  --image ${image}  ${projectId.toString()}_daas`;
+        const response = await shell.exec(
+            cmdString.toString()
+        );
+        return response.toString();
     }
 
 }

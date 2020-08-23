@@ -21,6 +21,8 @@ export interface RouterGuardAdapter {
 
     checkIsProjectOwner(request: Request, response: Response, next: NextFunction): void;
 
+    checkPayment(request: Request, response: Response, next: NextFunction): void;
+
     checkToken(request: Request, response: Response, next: NextFunction): void;
 
     checkMasterKey(request: Request, response: Response, next: NextFunction): void;
@@ -43,6 +45,7 @@ export class RestRouterMethod {
 
 export interface PaymentRouterAdapter {
     checkIsPaid(request: Request, response: Response, next: NextFunction): void;
+
     checkIsBalanceEnough(request: Request, response: Response, next: NextFunction): void;
 
 }

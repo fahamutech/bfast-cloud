@@ -9,7 +9,7 @@ let containerOrch: ContainerOrchestrationAdapter;
  * @class FunctionsController. Manage BFast::Function instance include
  * deploy and add or remove environment variable(s)
  */
-export class FunctionsController {
+export class FunctionsInstanceController {
 
     constructor(private  options: BFastOptions) {
         containerOrch = this.options.containerOrchAdapter ?

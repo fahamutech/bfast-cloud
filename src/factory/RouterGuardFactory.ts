@@ -98,4 +98,9 @@ export class RouterGuardFactory implements RouterGuardAdapter {
         }
     }
 
+    // todo: implement this
+    checkPayment(request: Request, response: Response, next: NextFunction): void {
+        next();
+    }
+
 }

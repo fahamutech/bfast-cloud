@@ -1,51 +1,53 @@
 import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
 import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
-import {DaasController} from "../controller/DaasController";
+import {DatabaseInstanceController} from "../controller/DatabaseInstanceController";
 
 let routerGuard: RouterGuardAdapter;
-let database: DaasController;
+let database: DatabaseInstanceController;
 
-export class DaasRouter implements RestRouterAdapter {
+export class DatabaseInstanceRouter implements RestRouterAdapter {
     prefix = '/database';
 
     constructor(private  options: BFastOptions) {
         routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
-        database = new DaasController(this.options);
+        database = new DatabaseInstanceController(this.options);
     }
 
     getRoutes(): RestRouterModel[] {
         return [
-            this._updateLiveQueryClasses()
+            this.updateImage()
         ];
     }
 
     /**
-     *  rest: /database/:projectId/liveQuery?force= -X POST
+     *  rest: /database/:projectId/image?force= -X POST
      *  headers:  -H'Authorization': token
-     *  body: {classNames: string[]}
+     *  body: {image: string}
      *  output: json
      * @private
      */
-    private _updateLiveQueryClasses(): RestRouterModel {
+    private updateImage(): RestRouterModel {
         return {
-            name: 'classLiveQuery',
+            name: 'updateImage',
             method: RestRouterMethod.POST,
-            path: '/:projectId/liveQuery',
+            path: '/:projectId/image',
             onRequest: [
                 routerGuard.checkToken,
                 routerGuard.checkIsProjectOwner,
+                routerGuard.checkPayment,
                 (request, response) => {
-                    database
-                        .classLiveQuery(request.params.projectId, request.body.classNames, request.query.force === 'true').then(value => {
-                        response.status(200).json({message: 'table/collections added to live query'});
+                    database.updateImage(
+                        request.params.projectId, request.body.image,
+                        request.query.force === 'true'
+                    ).then(value => {
+                        response.status(200).json({message: value});
                     }).catch(reason => {
-                        console.log('**************');
                         response.status(503).json(reason);
                     });
                 }
             ]
-        };
+        }
     }
 }

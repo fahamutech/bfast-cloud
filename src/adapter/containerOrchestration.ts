@@ -1,6 +1,6 @@
 export interface ContainerOrchestrationAdapter {
 
-    // cloud functions
+    /************ cloud functions instance *************/
     cloudFunctionsDeploy(projectId: string, force: boolean): Promise<any>;
 
     cloudFunctionsAddEnv(projectId: string, envs: string[], force: boolean): Promise<any>;
@@ -15,12 +15,7 @@ export interface ContainerOrchestrationAdapter {
 
     cloudFunctionsRemoveEnv(projectId: string, envs: string[], force: boolean): Promise<any>;
 
-    // dashboard
-    cloudDashboardSwitchOn(projectId: string, force: boolean): Promise<any>;
-
-    cloudDashboardSwitchOff(projectId: string, force: boolean): Promise<any>;
-
-    // database
-    liveQueryClasses(projectId: string, classes: string[], force: boolean): Promise<any>;
+    /************ database instance ***************/
+    updateDatabaseInstanceImage(projectId: string, image: string, force: boolean): Promise<any>;
 
 }

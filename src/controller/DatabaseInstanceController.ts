@@ -5,23 +5,21 @@ import {Utils} from "./utils";
 
 let containerOrch: ContainerOrchestrationAdapter;
 
-export class DaasController {
+export class DatabaseInstanceController {
     constructor(private  options: BFastOptions) {
         containerOrch = this.options.containerOrchAdapter ?
             this.options.containerOrchAdapter : new SwarmOrchestrationFactory(this.options);
     }
 
-    async classLiveQuery(projectId: string, classes: string[], force: boolean = false): Promise<any> {
-        try {
-            if (classes && !Array.isArray(classes)) {
-                throw {message: "classes is empty"};
-            }
-            return await containerOrch.liveQueryClasses(
-                Utils._checkProjectId(projectId), classes, force
+    async updateImage(projectId: string, image: string, force: boolean = false): Promise<any> {
+        if (image && typeof image === "string" && image.toString().trim().startsWith('joshuamshana/bfast-ce-daas') === true) {
+            return await containerOrch.updateDatabaseInstanceImage(
+                Utils._checkProjectId(projectId),
+                image,
+                force
             );
-        } catch (e) {
-            console.log(e);
-            throw e;
+        } else {
+            throw {message: "Bad image name format"};
         }
     }
 
