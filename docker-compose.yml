@@ -77,26 +77,21 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     command:
-     # - "--logLevel=ERROR"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
       - "--entrypoints.websecure.http.tls.certResolver=leresolver"
-    #  - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
-    #  - "--entryPoints=Name:https Address::443 TLS:/run/secrets/cert,/run/secrets/privkey"
       - "--retry"
       - "--providers.docker=true"
       - "--providers.docker.swarmMode=true"
-      - "--providers.docker.network=bfastweb"
+    #  - "--providers.docker.network=bfastweb"
       - "--providers.docker.endpoint=unix:///var/run/docker.sock"
       - "--providers.docker.domain=api.bfast.fahamutech.com"
-      - "--providers.docker.watch=true"
+     # - "--providers.docker.watch=true"
       - "--providers.docker.exposedbydefault=false"
-      #
       - "--certificatesresolvers.bfast.acme.email=mama27j@gmail.com"
       - "--certificatesresolvers.bfast.acme.storage=acme.json"
-        # used during the challenge
       - "--certificatesresolvers.bfast.acme.httpchallenge.entrypoint=web"
 volumes:
   traefikdata:
