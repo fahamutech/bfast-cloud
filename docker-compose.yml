@@ -6,7 +6,11 @@ secrets:
   cert:
     file: './secrets/ssl/fullchain.pem'
   s3endpoint:
-    file:
+    file: './secrets/s3endpoint.txt'
+  s3accessKey:
+    file: './secrets/s3accessKey.txt'
+  s3secretKey:
+    file: './secrets/s3secretKey.txt'
 services:
   api:
     image: joshuamshana/bfast-ee:v0.5.35-beta.5
