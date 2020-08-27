@@ -7,7 +7,7 @@ secrets:
     file: './ssl/fullchain.pem'
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.35-beta.4
+    image: joshuamshana/bfast-ee:v0.5.35-beta.5
     hostname: bfast
     restart: always
     networks:

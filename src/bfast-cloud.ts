@@ -16,8 +16,6 @@ export class BfastCloud {
         _database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options);
 
-        if (!this.options.devMode) _database.initiateReplicaSet();
-
         _restServerAdapter.mountRoutes(new BFastRouters(this.options).getApiRoutes());
         _restServerAdapter.startHttpServer(this.options.port);
     }

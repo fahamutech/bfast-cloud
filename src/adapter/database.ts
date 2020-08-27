@@ -9,7 +9,6 @@ export interface DatabaseAdapter {
 
     getObjectId(id: string): ObjectID;
 
-    initiateReplicaSet(): void;
 }
 
 export interface ProjectStoreAdapter {
