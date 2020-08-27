@@ -8,7 +8,6 @@ import {ContainerOrchestrationAdapter} from "../adapter/containerOrchestration";
 
 export interface BFastOptions {
     mongoURL: string;
-    mongoMasterURL: string;
     redisHOST: string;
     devMode: boolean;
     dockerSocket: string;

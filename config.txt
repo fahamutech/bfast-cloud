@@ -1,5 +1,1 @@
 export name=bfast
-export key="S3FS_ACCESSKEY=Q45MCYFT5C6SUTKB2C0G"
-export secret="S3FS_SECRETKEY=cFykMIgWg18PFauifESMiMFovfs2XafTPrOVOwtP"
-export endpoint="S3FS_ENDPOINT=https://eu-central-1.linodeobjects.com"
-export s3Options="S3FS_OPTIONS=url=https://eu-central-1.linodeobjects.com"

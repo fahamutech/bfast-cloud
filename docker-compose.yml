@@ -1,15 +1,18 @@
-version: "3.7"
+version: "3.8"
 
+secrets:
+  privkey:
+    file: './ssl/privkey.pem'
+  cert:
+    file: './ssl/fullchain.pem'
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.35-beta.3
+    image: joshuamshana/bfast-ee:v0.5.35-beta.4
     hostname: bfast
     restart: always
     networks:
       - bfastweb
       - default
-#    ports:
-#      - 3000
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
     labels:
@@ -50,6 +53,9 @@ services:
     hostname: traefik
     working_dir: /app
     restart: always
+    secrets:
+      - privkey
+      - fullchain
     deploy:
       restart_policy:
         condition: any
@@ -64,13 +70,11 @@ services:
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./ssl/fullchain1.pem:/app/fullchain.pem
-      - ./ssl/privkey1.pem:/app/privkey.pem
     command:
       - --logLevel=ERROR
       - --defaultentrypoints=http,https
       - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
-      - --entryPoints=Name:https Address::443 TLS:/app/fullchain.pem,/app/privkey.pem
+      - --entryPoints=Name:https Address::443 TLS:/run/secrets/fullchain,/run/secrets/privkey
       - --retry
       - --docker
       - --docker.swarmMode

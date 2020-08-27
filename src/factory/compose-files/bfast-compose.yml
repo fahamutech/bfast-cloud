@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   daas:
     image: joshuamshana/bfast-ce-daas:latest
@@ -24,17 +24,12 @@ services:
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
-      - PARSE_SERVER_APPLICATION_ID=${appId}
-      - PARSE_SERVER_MASTER_KEY=${masterKey}
+      - APPLICATION_ID=${appId}
+      - MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
-      - PARSE_SERVER_DATABASE_URI=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
-      - PARSE_SERVER_START_LIVE_QUERY_SERVER=0
-      - PARSE_SERVER_LIVE_QUERY={"classNames":[]}
-      - PARSE_SERVER_MAX_UPLOAD_SIZE=1048576mb
-      - PARSE_SERVER_OBJECT_ID_SIZE=16
-      - PARSE_SERVER_SCHEMA_CACHE_TTL=10000
+      - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - PORT=3000
-      - PARSE_SERVER_MOUNT_PATH=/
+      - MOUNT_PATH=/
       - S3_BUCKET=bfast-${bucketName}
       - S3_ACCESS_KEY=5IGXSX5CU52C2RFZFALG
       - S3_SECRET_KEY=2q2vteO9lQp6LaxT3lGMLdkUF5THdxZWmyWmb1y9
@@ -67,7 +62,6 @@ services:
       - MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
-      - IS_LOCAL_BFAST=false
       - PORT=3000
       - PRODUCTION=1
 networks:
