@@ -19,13 +19,12 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
+        - "traefik.http.routers.router0.rule=Host(`${projectId}-faas.bfast.fahamutech.com`) "
         #        - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
       - APPLICATION_ID=${appId}
-      - MASTER_KEY=${masterKey}
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - PORT=3000
