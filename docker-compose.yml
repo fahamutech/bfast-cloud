@@ -55,7 +55,7 @@ services:
     restart: always
     secrets:
       - privkey
-      - fullchain
+      - cert
     deploy:
       restart_policy:
         condition: any
