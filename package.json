@@ -1,7 +1,7 @@
 {
   "name": "bfast-ee",
   "description": "bfast cloud for project management",
-  "version": "0.5.35-beta.2",
+  "version": "0.5.35-beta.3",
   "private": true,
   "main": "bfast.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "start:dev": "gulp devStart",
     "build": "gulp",
     "build:docker": "gulp buildDocker",
-    "poststart:dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "poststart:dev": "ts-node-dev --respawn --transpileOnly script ./src/index.ts",
     "test": "npm run build && mocha --timeout 60000 ./specs",
     "push:docker": "gulp pubishDockerImage"
   },

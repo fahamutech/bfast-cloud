@@ -72,7 +72,7 @@ describe('DaaS and Dashboard Rest API', function () {
                         'content-type': 'application/json'
                     }
                 });
-                // console.log(response.data)
+                console.log(response.data)
                 assert(response.status === 200);
                 assert(response.data === "database instance image updated");
             } catch (e) {

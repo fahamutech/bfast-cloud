@@ -7,7 +7,7 @@ let routerGuard: RouterGuardAdapter;
 let database: DatabaseInstanceController;
 
 export class DatabaseInstanceRouter implements RestRouterAdapter {
-    prefix = '/database';
+    prefix: string = '/database';
 
     constructor(private  options: BFastOptions) {
         routerGuard = this.options.routerGuard ?

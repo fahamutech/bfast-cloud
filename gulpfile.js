@@ -88,6 +88,7 @@ function startDevServer() {
         const mongoUrl = await mongoServer.getConnectionString();
         const childProcess = process.exec(`npm run poststart:dev`, {
             env: {
+                PORT: 4000,
                 DEBUG: "true",
                 MONGO_URL: mongoUrl, // "mongodb://localhost:27017/_BFAST_ADMIN",
                 // REDIS_HOST: '',
