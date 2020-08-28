@@ -78,7 +78,7 @@ services:
       - default
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./traefik.yml:traefik.yml"
+      - "./traefik.yml:/traefik.yml"
     command:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
