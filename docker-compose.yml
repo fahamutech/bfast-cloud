@@ -89,8 +89,8 @@ services:
       - --providers.docker.network=bfastweb
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.watch=true
-      - --providers.file.watch=true
-      - --providers.file.directory=/app/traefik/
+      #- --providers.file.watch=true
+     # - --providers.file.directory=/app/traefik/
       - --providers.docker.exposedbydefault=false
 volumes:
   traefikdata:
