@@ -79,7 +79,7 @@ services:
       - "./traefik/:/app/traefik/"
     command:
       - --entryPoints.web.address=:80
-      #- --entryPoints.websecure.address=:443
+      - --entryPoints.websecure.address=:443
       #- --entrypoints.web.http.redirections.entryPoint.to=websecure
       #- --entrypoints.web.http.redirections.entryPoint.scheme=https
       # - --retry
