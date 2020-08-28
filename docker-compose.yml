@@ -29,8 +29,7 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.http.routers.router0.rule=Host(`api.bfast.fahamutech.com`)"
-        #- "traefik.http.routers.router0.tls.certResolver=le"
+        - "traefik.http.routers.bfast-api.rule=Host(`api.bfast.fahamutech.com`) "
         - "traefik.http.services.bfast-api.loadbalancer.server.port=3000"
         - "traefik.http.services.bfast-api.loadbalancer.server.scheme=http"
       placement:
