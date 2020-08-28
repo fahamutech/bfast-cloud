@@ -78,7 +78,7 @@ services:
       - default
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./traefik.yml:/traefik.yml"
+      - "./traefik/:/traefik/"
     command:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
@@ -91,7 +91,7 @@ services:
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.watch=true
       - --providers.file.watch=true
-      - --providers.file.filename=/traefik.yaml
+      - --providers.file.folder=/traefik/
       - --providers.docker.exposedbydefault=false
 volumes:
   traefikdata:
