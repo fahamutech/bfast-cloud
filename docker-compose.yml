@@ -33,7 +33,7 @@ services:
         - traefik.http.services.s0.loadbalancer.server.port=3000
         - traefik.http.services.s0.loadbalancer.server.scheme=http
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.rol e == manager]
       restart_policy:
         condition: any
         delay: 2s
@@ -79,17 +79,17 @@ services:
       - "./traefik/:/app/traefik/"
     command:
       - --entryPoints.web.address=:80
-      - --entryPoints.websecure.address=:443
-      - --entrypoints.web.http.redirections.entryPoint.to=websecure
-      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      #- --entryPoints.websecure.address=:443
+      #- --entrypoints.web.http.redirections.entryPoint.to=websecure
+      #- --entrypoints.web.http.redirections.entryPoint.scheme=https
       # - --retry
       - --providers.docker=true
       - --providers.docker.swarmMode=true
       - --providers.docker.network=bfastweb
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.watch=true
-      - --providers.file.watch=true
-      - --providers.file.directory=/app/traefik/
+      #- --providers.file.watch=true
+      #- --providers.file.directory=/app/traefik/
       - --providers.docker.exposedbydefault=false
 volumes:
   traefikdata:
