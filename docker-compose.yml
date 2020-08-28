@@ -30,7 +30,7 @@ services:
         - traefik.docker.network=bfastweb
         - traefik.enable=true
         - traefik.http.routers.r0.rule=Host(`api.bfast.fahamutech.com`)
-        - traefik.http.routers.r0.entrypoints=web
+        - traefik.http.routers.r0.entrypoints=web,websecure
         - traefik.http.services.s0.loadbalancer.server.port=3000
         - traefik.http.services.s0.loadbalancer.server.scheme=http
       placement:

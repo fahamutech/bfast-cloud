@@ -2,3 +2,8 @@ tls:
   certificates:
     - certFile: /run/secrets/cert
       keyFile: /run/secrets/privkey
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /run/secrets/cert
+        keyFile: /run/secrets/privkey
