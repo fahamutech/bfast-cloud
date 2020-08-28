@@ -1,4 +1,0 @@
-tls:
-  certificates:
-    - certFile: fullchain.pem
-      keyFile: privkey.pem
