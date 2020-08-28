@@ -1,4 +1,4 @@
 tls:
   certificates:
-    - certFile: /run/secret/cert
-      keyFile: /run/secret/privkey
+    - certFile: fullchain.pem
+      keyFile: privkey.pem
