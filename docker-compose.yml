@@ -1,8 +1,6 @@
 version: "3.8"
 
 secrets:
-  traefik:
-    file: './secrets/traefik.yml'
   privkey:
     file: './secrets/ssl/privkey.pem'
   cert:
@@ -31,8 +29,8 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.http.routers.router0.rule=Host(`console.bfast.fahamutech.com`)"
-        - "traefik.http.routers.router0.tls.certResolver=bfastcertresolver"
+        - "traefik.http.routers.router0.rule=Host(`api.bfast.fahamutech.com`)"
+        - "traefik.http.routers.router0.tls.certResolver=le"
         - "traefik.http.services.bfast-api.loadbalancer.server.port=3000"
         - "traefik.http.services.bfast-api.loadbalancer.server.scheme=http"
       placement:
@@ -65,7 +63,6 @@ services:
     secrets:
       - privkey
       - cert
-      - traefik
     deploy:
       restart_policy:
         condition: any
@@ -81,7 +78,6 @@ services:
       - default
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-     # - "traefik.yml:/var/run/docker.sock:ro"
     command:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
@@ -92,17 +88,15 @@ services:
      # - --retry
       - --providers.docker=true
       - --providers.docker.swarmMode=true
-      #  - "--providers.docker.network=bfastweb"
+      - --providers.docker.network=bfastweb
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       # - --providers.docker.domain=api.bfast.fahamutech.com
-      - --providers.docker.watch=true
-      - --providers.file.watch=true
-      - --providers.file.filename=/run/secrets/traefik
+      # - "--providers.docker.watch=true"
       - --providers.docker.exposedbydefault=false
-    #  - --certificatesresolvers.bfastcertresolver.acme.email=mama27j@gmail.com
-    #  - --certificatesresolvers.bfastcertresolver.acme.storage=acme.json
-    #  - --certificatesresolvers.bfastcertresolver.acme.httpchallenge.entrypoint=web-challenge
-    #  - --certificatesresolvers.bfastcertresolver.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.email=mama27j@gmail.com
+      - --certificatesresolvers.le.acme.storage=acme.json
+    #  - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web-challenge
+      - --certificatesresolvers.le.acme.tlschallenge=true
 volumes:
   traefikdata:
   redisdata:
