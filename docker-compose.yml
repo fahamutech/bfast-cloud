@@ -78,25 +78,21 @@ services:
       - default
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:traefik.yml"
     command:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entryPoints.web.address=:80
-     # - --entryPoints.web-challenge.address=:81
       - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls.certResolver=le
      # - --retry
       - --providers.docker=true
       - --providers.docker.swarmMode=true
       - --providers.docker.network=bfastweb
       - --providers.docker.endpoint=unix:///var/run/docker.sock
-      # - --providers.docker.domain=api.bfast.fahamutech.com
       - --providers.docker.watch=true
+      - --providers.file.watch=true
+      - --providers.file.filename=traefik.yaml
       - --providers.docker.exposedbydefault=false
-      - --certificatesresolvers.le.acme.email=mama27j@gmail.com
-      - --certificatesresolvers.le.acme.storage=acme.json
-    #  - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web-challenge
-      - --certificatesresolvers.le.acme.tlschallenge=true
 volumes:
   traefikdata:
   redisdata:
