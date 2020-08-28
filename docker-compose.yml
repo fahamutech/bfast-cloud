@@ -33,7 +33,7 @@ services:
         - traefik.http.services.s0.loadbalancer.server.port=3000
         - traefik.http.services.s0.loadbalancer.server.scheme=http
       placement:
-        constraints: [node.rol e == manager]
+        constraints: [node.role == manager]
       restart_policy:
         condition: any
         delay: 2s
