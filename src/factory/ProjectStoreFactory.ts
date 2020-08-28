@@ -39,7 +39,10 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
                     await projectColl.createIndex({projectId: 1}, {unique: true});
                 }
                 const adminColl = await _database.getDatabase('admin');
-                // add user for auth
+                try {
+                    await adminColl.removeUser(project.parse.appId);
+                } catch (_) {
+                }
                 try {
                     await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
                         roles: [
