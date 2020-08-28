@@ -19,8 +19,8 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.http.routers.router0.rule=Host(`${projectId}-faas.bfast.fahamutech.com`) "
-        #        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com"
+        # - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
