@@ -30,7 +30,7 @@ services:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
         - "traefik.http.routers.router0.rule=Host(`api.bfast.fahamutech.com`)"
-        # - "traefik.http.routers.router0.tls.certResolver=bfastcertresolver"
+        - "traefik.http.routers.router0.tls.certResolver=bfastcertresolver"
         - "traefik.http.services.bfast-api.loadbalancer.server.port=3000"
         - "traefik.http.services.bfast-api.loadbalancer.server.scheme=http"
       placement:
@@ -71,7 +71,7 @@ services:
         constraints: [node.role == manager]
     ports:
       - 80:80
-      - 81:81
+      # - 81:81
       - 443:443
     networks:
       - bfastweb
@@ -82,7 +82,7 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entryPoints.web.address=:80
-      - --entryPoints.web-challenge.address=:81
+     # - --entryPoints.web-challenge.address=:81
       - --entryPoints.websecure.address=:443
       - --entrypoints.websecure.http.tls.certResolver=bfastcertresolver
      # - --retry
@@ -95,7 +95,8 @@ services:
       - --providers.docker.exposedbydefault=false
       - --certificatesresolvers.bfastcertresolver.acme.email=mama27j@gmail.com
       - --certificatesresolvers.bfastcertresolver.acme.storage=acme.json
-      - --certificatesresolvers.bfastcertresolver.acme.httpchallenge.entrypoint=web-challenge
+    #  - --certificatesresolvers.bfastcertresolver.acme.httpchallenge.entrypoint=web-challenge
+      - --certificatesresolvers.bfastcertresolver.acme.tlschallenge=true
 volumes:
   traefikdata:
   redisdata:
