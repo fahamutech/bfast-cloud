@@ -55,7 +55,7 @@ services:
     command:
       - --appendonly yes
   traefik:
-    image: traefik:v2.0
+    image: traefik:v2.2
     hostname: traefik
     working_dir: /app
     restart: always
