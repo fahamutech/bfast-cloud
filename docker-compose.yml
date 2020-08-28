@@ -71,6 +71,7 @@ services:
         constraints: [node.role == manager]
     ports:
       - 80:80
+      - 81:81
       - 443:443
     networks:
       - bfastweb
