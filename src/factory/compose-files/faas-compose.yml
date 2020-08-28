@@ -1,10 +1,10 @@
 version: '3.8'
 #secrets:
-#  bfast_s3endpoint:
+#  s3endpoint:
 #    external: true
-#  bfast_s3accessKey:
+#  s3accessKey:
 #    external: true
-#  bfast_s3secretKey:
+#  s3secretKey:
 #    external: true
 services:
   faas:

@@ -6,14 +6,14 @@ secrets:
   cert:
     file: './secrets/ssl/fullchain.pem'
   s3endpoint:
-    file: './secrets/s3endpoint.txt'
+    external: true
   s3accessKey:
-    file: './secrets/s3accessKey.txt'
+    external: true
   s3secretKey:
-    file: './secrets/s3secretKey.txt'
+    external: true
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.36-alpha.4
+    image: joshuamshana/bfast-ee:v0.5.36-alpha.5
     hostname: bfast
     restart: always
     networks:

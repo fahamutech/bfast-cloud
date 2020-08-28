@@ -1,10 +1,10 @@
 version: '3.8'
 secrets:
-  bfast_s3endpoint:
+  s3endpoint:
     external: true
-  bfast_s3accessKey:
+  s3accessKey:
     external: true
-  bfast_s3secretKey:
+  s3secretKey:
     external: true
 services:
   daas:
@@ -15,9 +15,9 @@ services:
       - default
       - bfastweb
     secrets:
-      - bfast_s3endpoint
-      - bfast_s3accessKey
-      - bfast_s3secretKey
+      - s3endpoint
+      - s3accessKey
+      - s3secretKey
     deploy:
       mode: replicated
       replicas: 1
@@ -42,9 +42,9 @@ services:
       - PORT=3000
       - MOUNT_PATH=/
       - S3_BUCKET=smartstock-${bucketName}
-      - S3_ACCESS_KEY=/run/secrets/bfast_s3accessKey
-      - S3_SECRET_KEY=/run/secrets/bfast_s3secretKey
-      - S3_ENDPOINT=/run/secrets/bfast_s3endpoint
+      - S3_ACCESS_KEY=/run/secrets/s3accessKey
+      - S3_SECRET_KEY=/run/secrets/s3secretKey
+      - S3_ENDPOINT=/run/secrets/s3endpoint
 networks:
   bfastweb:
     external: true
