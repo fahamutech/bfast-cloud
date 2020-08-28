@@ -81,6 +81,7 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entryPoints.web.address=:80
+      - --entryPoints.web-challenge.address=:81
       - --entryPoints.websecure.address=:443
       - --entrypoints.websecure.http.tls.certResolver=bfastcertresolver
      # - --retry
@@ -93,7 +94,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --certificatesresolvers.bfastcertresolver.acme.email=mama27j@gmail.com
       - --certificatesresolvers.bfastcertresolver.acme.storage=acme.json
-      - --certificatesresolvers.bfastcertresolver.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.bfastcertresolver.acme.httpchallenge.entrypoint=web-challenge
 volumes:
   traefikdata:
   redisdata:
