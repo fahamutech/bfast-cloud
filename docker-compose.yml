@@ -84,14 +84,14 @@ services:
       - --entryPoints.web.address=:80
      # - --entryPoints.web-challenge.address=:81
       - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls.certResolver=bfastcertresolver
+      - --entrypoints.websecure.http.tls.certResolver=le
      # - --retry
       - --providers.docker=true
       - --providers.docker.swarmMode=true
       - --providers.docker.network=bfastweb
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       # - --providers.docker.domain=api.bfast.fahamutech.com
-      # - "--providers.docker.watch=true"
+      - --providers.docker.watch=true
       - --providers.docker.exposedbydefault=false
       - --certificatesresolvers.le.acme.email=mama27j@gmail.com
       - --certificatesresolvers.le.acme.storage=acme.json
