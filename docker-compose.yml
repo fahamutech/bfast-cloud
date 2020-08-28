@@ -27,11 +27,11 @@ services:
       - MONGO_URL=mongodb://fahamutechdb:fahamutechm0ng0db@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/_BFAST_ADMIN?authSource=admin&replicaSet=mdbRepl
     deploy:
       labels:
-        - "traefik.docker.network=bfastweb"
-        - "traefik.enable=true"
-        - "traefik.http.routers.r0.rule=Host(`api.bfast.fahamutech.com`)"
-        - "traefik.http.services.s0.loadbalancer.server.port=3000"
-        - "traefik.http.services.s0.loadbalancer.server.scheme=http"
+        - traefik.docker.network=bfastweb
+        - traefik.enable=true
+        - traefik.http.routers.r0.rule=Host(`api.bfast.fahamutech.com`)
+        - traefik.http.services.s0.loadbalancer.server.port=3000
+        - traefik.http.services.s0.loadbalancer.server.scheme=http
       placement:
         constraints: [node.role == manager]
       restart_policy:
