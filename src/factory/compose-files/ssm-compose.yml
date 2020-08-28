@@ -1,4 +1,11 @@
 version: '3.8'
+secrets:
+  s3endpoint:
+    external: true
+  s3accessKey:
+    external: true
+  s3secretKey:
+    external: true
 services:
   daas:
     image: joshuamshana/bfast-ce-daas:latest
