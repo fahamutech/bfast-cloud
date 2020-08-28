@@ -91,7 +91,7 @@ services:
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.watch=true
       - --providers.file.watch=true
-      - --providers.file.filename=traefik.yaml
+      - --providers.file.filename=/traefik.yaml
       - --providers.docker.exposedbydefault=false
 volumes:
   traefikdata:
