@@ -1,22 +1,23 @@
 import {SecurityFactory} from "./SecurityFactory";
-import {UserRoles} from "../model/user";
-import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapter/database";
-import {BFastOptions} from "../config/BFastOptions";
+import {ProjectStoreAdapter, UsersStoreAdapter} from "../adapters/database.adapter";
+import {SecurityAdapter} from "../adapters/security.adapter";
+import {RouterGuardAdapter} from "../adapters/rest.adapter";
+import {UserRoles} from "../models/user.model";
 import {UserStoreFactory} from "./UserStoreFactory";
 import {ProjectStoreFactory} from "./ProjectStoreFactory";
-import {RouterGuardAdapter} from "../adapter/rest";
 import {NextFunction, Request, Response} from "express";
-import {SecurityAdapter} from "../adapter/security";
+import {BfastConfig} from "../configs/bfast.config";
+
 
 let _userDatabase: UsersStoreAdapter;
 let _projectDatabase: ProjectStoreAdapter;
 let _security: SecurityAdapter;
-let _options: BFastOptions;
+let _options: BfastConfig;
 
 // need to be modified
 export class RouterGuardFactory implements RouterGuardAdapter {
 
-    constructor(private readonly options: BFastOptions) {
+    constructor(private readonly options: BfastConfig) {
         _options = this.options;
         _userDatabase = _options.userStoreAdapter ?
             _options.userStoreAdapter : new UserStoreFactory(_options);

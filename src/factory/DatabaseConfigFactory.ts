@@ -1,12 +1,12 @@
-import {DatabaseAdapter} from "../adapter/database";
 import {Collection, Db, MongoClient, ObjectID} from "mongodb";
-import {BFastOptions} from "../config/BFastOptions";
+import {BfastConfig} from "../configs/bfast.config";
+import {DatabaseAdapter} from "../adapters/database.adapter";
 
 let mongoClient: MongoClient;
 
 export class DatabaseConfigFactory implements DatabaseAdapter {
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         mongoClient = new MongoClient(this.options.mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true

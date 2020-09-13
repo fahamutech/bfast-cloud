@@ -1,17 +1,17 @@
-import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
-import {ResourcesAdapter} from "../adapter/resources";
 import {ResourceFactory} from "../factory/ResourceFactory";
+import {ResourcesAdapter} from "../adapters/resources.adapter";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapters/rest.adapter";
+import {BfastConfig} from "../configs/bfast.config";
 
 let _routerGuard: RouterGuardAdapter;
 let _resources: ResourcesAdapter;
-let _options: BFastOptions;
+let _options: BfastConfig;
 
 export class LandingRouter implements RestRouterAdapter {
     prefix: string = '/';
 
-    constructor(private readonly options: BFastOptions) {
+    constructor(private readonly options: BfastConfig) {
         _options = this.options;
         _routerGuard = _options.routerGuard ?
             _options.routerGuard : new RouterGuardFactory(_options);

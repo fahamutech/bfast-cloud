@@ -1,5 +1,6 @@
-import {EmailAdapter} from "../adapter/email";
 // import * as nodemailer from 'nodemailer';
+
+import {EmailAdapter} from "../adapters/email.adapter";
 
 export class EmailFactory implements EmailAdapter {
     async sendEmail(to: string, from: string, subject: string, message: string): Promise<any> {

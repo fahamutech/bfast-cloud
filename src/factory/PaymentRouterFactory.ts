@@ -1,13 +1,13 @@
-import {PaymentRouterAdapter} from "../adapter/rest";
+import {BfastConfig} from "../configs/bfast.config";
+import {PaymentRouterAdapter} from "../adapters/rest.adapter";
 import {NextFunction, Request, Response} from "express";
-import {BFastOptions} from "../config/BFastOptions";
 
 let _options;
 
 // Todo: Implement This class
 export class PaymentRouterFactory implements PaymentRouterAdapter {
 
-    constructor(private readonly options: BFastOptions) {
+    constructor(private readonly options: BfastConfig) {
         _options = this.options;
 
     }

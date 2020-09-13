@@ -2,6 +2,8 @@ version: '3.8'
 secrets:
   s3endpoint:
     external: true
+  s3endpointUsEast1:
+    external: true
   s3accessKey:
     external: true
   s3secretKey:
@@ -16,6 +18,7 @@ services:
       - bfastweb
     secrets:
       - s3endpoint
+      - s3endpointUsEast1
       - s3accessKey
       - s3secretKey
     deploy:
@@ -44,7 +47,7 @@ services:
       - S3_BUCKET=smartstock-${bucketName}
       - S3_ACCESS_KEY=/run/secrets/s3accessKey
       - S3_SECRET_KEY=/run/secrets/s3secretKey
-      - S3_ENDPOINT=/run/secrets/s3endpoint
+      - S3_ENDPOINT=/run/secrets/s3endpointUsEast1
 networks:
   bfastweb:
     external: true

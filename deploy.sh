@@ -4,10 +4,12 @@ if [ -e "$1" ]; then
   # shellcheck disable=SC1090
   source "${configPath}"
   docker swarm init || echo 'pass initialize swarm mode'
-  docker secret rm s3secretKey || echo 's3secretKey removed'
-  docker secret rm s3accessKey || echo 's3accessKey removed'
-  docker secret rm s3endpoint || echo 's3endpoint removed'
+  docker secret rm s3secretKey
+  docker secret rm s3accessKey
+  docker secret rm s3endpoint
+  docker secret rm s3endpointUsEast1
   docker secret create s3endpoint ./secrets/s3endpoint.txt
+  docker secret create s3endpointUsEast1 ./secrets/s3endpointUsEast1.txt
   docker secret create s3accessKey ./secrets/s3accessKey.txt
   docker secret create s3secretKey ./secrets/s3secretKey.txt
   docker network create -d overlay --attachable bfastweb || echo 'pass network creation...'

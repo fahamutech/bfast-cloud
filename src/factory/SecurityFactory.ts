@@ -1,9 +1,9 @@
-import {SecurityAdapter} from "../adapter/security";
 import * as bcrypt from 'bcryptjs';
 import * as redis from 'redis';
 import {RedisClient} from 'redis';
 import * as _jwt from 'jsonwebtoken';
-import {BFastOptions} from "../config/BFastOptions";
+import {BfastConfig} from "../configs/bfast.config";
+import {SecurityAdapter} from "../adapters/security.adapter";
 
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
@@ -25,7 +25,7 @@ let _redisClient: RedisClient;
 
 export class SecurityFactory implements SecurityAdapter {
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         if (this.options.devMode) {
             try {
                 const redisMock = require('redis-mock'); // this must ne removed and to pass only a redis url

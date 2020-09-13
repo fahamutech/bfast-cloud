@@ -1,18 +1,18 @@
-import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {BFastOptions} from "../config/BFastOptions";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
-import {FunctionsInstanceController} from "../controller/FunctionsInstanceController";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapters/rest.adapter";
+import {FunctionsController} from "../controllers/functions.controller";
+import {BfastConfig} from "../configs/bfast.config";
 
 let routerGuard: RouterGuardAdapter;
-let functions: FunctionsInstanceController;
+let functions: FunctionsController;
 
-export class FunctionsInstanceRouter implements RestRouterAdapter {
+export class FunctionsRouter implements RestRouterAdapter {
     prefix: string = '/functions';
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         routerGuard = this.options.routerGuard ?
             this.options.routerGuard : new RouterGuardFactory(this.options);
-        functions = new FunctionsInstanceController(this.options);
+        functions = new FunctionsController(this.options);
     }
 
     getRoutes(): RestRouterModel[] {

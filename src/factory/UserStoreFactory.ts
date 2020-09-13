@@ -1,22 +1,22 @@
-import {DatabaseAdapter, UsersStoreAdapter} from "../adapter/database";
-import {UserModel, UserRoles} from "../model/user";
-import {SecurityAdapter} from "../adapter/security";
-import {EmailAdapter} from "../adapter/email";
-import {BFastOptions} from "../config/BFastOptions";
 import {SecurityFactory} from "./SecurityFactory";
 import {EmailFactory} from "./EmailFactory";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
+import {UserModel, UserRoles} from "../models/user.model";
+import {SecurityAdapter} from "../adapters/security.adapter";
+import {DatabaseAdapter, UsersStoreAdapter} from "../adapters/database.adapter";
+import {EmailAdapter} from "../adapters/email.adapter";
+import {BfastConfig} from "../configs/bfast.config";
 
 let _security: SecurityAdapter;
 let _emailAdapter: EmailAdapter;
 let _database: DatabaseAdapter;
-let _options: BFastOptions;
+let _options: BfastConfig;
 
 // todo: composition of security and emailAdapter factory must be moved to controller
 export class UserStoreFactory implements UsersStoreAdapter {
     collectionName = '_User';
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         _options = this.options;
         _security = this.options.securityAdapter ?
             this.options.securityAdapter : new SecurityFactory(this.options);

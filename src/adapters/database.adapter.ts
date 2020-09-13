@@ -1,6 +1,6 @@
-import {ProjectModel} from "../model/project";
-import {UserModel} from "../model/user";
 import {Collection, Db, ObjectID} from "mongodb";
+import {UserModel} from "../models/user.model";
+import {ProjectModel} from "../models/project.model";
 
 export interface DatabaseAdapter {
     getDatabase(name: string): Promise<Db>;

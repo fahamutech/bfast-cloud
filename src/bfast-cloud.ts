@@ -1,16 +1,16 @@
 import {ExpressRestFactory} from "./factory/ExpressRestFactory";
-import {BFastRouters} from "./router";
-import {BFastOptions} from "./config/BFastOptions";
-import {RestServerAdapter} from "./adapter/rest";
-import {DatabaseAdapter} from "./adapter/database";
 import {DatabaseConfigFactory} from "./factory/DatabaseConfigFactory";
+import {BfastConfig} from "./configs/bfast.config";
+import {RestServerAdapter} from "./adapters/rest.adapter";
+import {DatabaseAdapter} from "./adapters/database.adapter";
+import {BFastRouters} from "./routers/index.router";
 
 let _restServerAdapter: RestServerAdapter;
 let _database: DatabaseAdapter;
 
 export class BfastCloud {
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         _restServerAdapter = this.options.restServerAdapter ?
             this.options.restServerAdapter : new ExpressRestFactory();
         _database = this.options.databaseConfigAdapter ?

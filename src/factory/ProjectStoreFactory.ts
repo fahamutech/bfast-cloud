@@ -1,9 +1,10 @@
-import {DatabaseAdapter, ProjectStoreAdapter} from "../adapter/database";
-import {ProjectModel} from "../model/project";
-import {BFastOptions} from "../config/BFastOptions";
+import {UserModel} from "../models/user.model";
+import {DatabaseAdapter, ProjectStoreAdapter} from "../adapters/database.adapter";
+import {UserController} from "../controllers/user.controller";
+import {ProjectModel} from "../models/project.model";
 import {DatabaseConfigFactory} from "./DatabaseConfigFactory";
-import {UserController} from "../controller/UserController";
-import {UserModel} from "../model/user";
+import {BfastConfig} from "../configs/bfast.config";
+
 
 let _database: DatabaseAdapter;
 let _users: UserController;
@@ -12,7 +13,7 @@ export class ProjectStoreFactory implements ProjectStoreAdapter {
 
     collectionName = '_Project';
 
-    constructor(private readonly options: BFastOptions) {
+    constructor(private readonly options: BfastConfig) {
         _users = new UserController(this.options);
         _database = this.options.databaseConfigAdapter ?
             this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options)

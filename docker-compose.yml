@@ -7,6 +7,8 @@ secrets:
     file: './secrets/ssl/fullchain.pem'
   s3endpoint:
     external: true
+  s3endpointUsEast1:
+    external: true
   s3accessKey:
     external: true
   s3secretKey:

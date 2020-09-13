@@ -1,16 +1,16 @@
 import {UserStoreFactory} from "../factory/UserStoreFactory";
-import {BFastOptions} from "../config/BFastOptions";
-import {UsersStoreAdapter} from "../adapter/database";
-import {UserModel} from "../model/user";
-import {SecurityAdapter} from "../adapter/security";
 import {SecurityFactory} from "../factory/SecurityFactory";
+import {UserModel} from "../models/user.model";
+import {UsersStoreAdapter} from "../adapters/database.adapter";
+import {SecurityAdapter} from "../adapters/security.adapter";
+import {BfastConfig} from "../configs/bfast.config";
 
 let userStore: UsersStoreAdapter;
 let security: SecurityAdapter;
 
 export class UserController {
 
-    constructor(private  options: BFastOptions) {
+    constructor(private  options: BfastConfig) {
         userStore = this.options.userStoreAdapter ?
             this.options.userStoreAdapter : new UserStoreFactory(this.options);
         security = this.options.securityAdapter ?

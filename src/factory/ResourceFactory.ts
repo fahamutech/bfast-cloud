@@ -1,6 +1,6 @@
-import {ResourcesAdapter} from "../adapter/resources";
 import * as path from "path";
 import * as fs from "fs";
+import {ResourcesAdapter} from "../adapters/resources.adapter";
 
 export class ResourceFactory implements ResourcesAdapter {
     getComposeFile(projectType: "bfast" | "ssm"): string {

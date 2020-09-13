@@ -1,12 +1,12 @@
-import {ProjectModel} from "../model/project";
-import {ShellAdapter} from "../adapter/shell";
-import {BFastOptions} from "../config/BFastOptions";
+import {BfastConfig} from "../configs/bfast.config";
+import {UserModel} from "../models/user.model";
+import {ShellAdapter} from "../adapters/shell.adapter";
+import {ProjectStoreAdapter} from "../adapters/database.adapter";
 import {NodeShellFactory} from "../factory/NodeShellFactory";
-import {ProjectStoreAdapter} from "../adapter/database";
-import {ProjectStoreFactory} from "../factory/ProjectStoreFactory";
-import {ResourcesAdapter} from "../adapter/resources";
 import {ResourceFactory} from "../factory/ResourceFactory";
-import {UserModel} from "../model/user";
+import {ResourcesAdapter} from "../adapters/resources.adapter";
+import {ProjectModel} from "../models/project.model";
+import {ProjectStoreFactory} from "../factory/ProjectStoreFactory";
 
 let shell: ShellAdapter;
 let database: ProjectStoreAdapter;
@@ -14,7 +14,7 @@ let resources: ResourcesAdapter;
 
 export class ProjectController {
 
-    constructor(private options: BFastOptions) {
+    constructor(private options: BfastConfig) {
         shell = this.options.shellAdapter ?
             this.options.shellAdapter : new NodeShellFactory();
         database = this.options.projectStoreAdapter ?

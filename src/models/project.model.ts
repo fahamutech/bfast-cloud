@@ -1,4 +1,4 @@
-import {UserModel} from "./user";
+import {UserModel} from "./user.model";
 
 export interface ProjectModel {
     id?: string;

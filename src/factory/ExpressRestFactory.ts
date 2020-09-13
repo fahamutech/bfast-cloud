@@ -1,10 +1,9 @@
-import {RestRouterAdapter, RestRouterMethod, RestServerAdapter} from "../adapter/rest";
 import * as http from "http";
 import {Server} from "http";
+import {RestRouterAdapter, RestRouterMethod, RestServerAdapter} from "../adapters/rest.adapter";
 
 let express: any;
 let expressApp: any;
-// @ts-ignore
 let httpServer: Server;
 
 export class ExpressRestFactory implements RestServerAdapter {

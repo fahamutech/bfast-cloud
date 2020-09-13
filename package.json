@@ -1,7 +1,7 @@
 {
   "name": "bfast-ee",
   "description": "bfast cloud for project management",
-  "version": "0.5.36-alpha.5",
+  "version": "0.5.37-alpha.0",
   "private": true,
   "main": "bfast.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.0",
+    "mongodb": "^3.6.2",
     "morgan": "^1.10.0",
     "redis": "^3.0.2"
   },

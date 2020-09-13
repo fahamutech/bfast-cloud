@@ -1,15 +1,15 @@
-import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapter/rest";
-import {BFastOptions} from "../config/BFastOptions";
-import {UserController} from "../controller/UserController";
 import {RouterGuardFactory} from "../factory/RouterGuardFactory";
+import {UserController} from "../controllers/user.controller";
+import {RestRouterAdapter, RestRouterMethod, RestRouterModel, RouterGuardAdapter} from "../adapters/rest.adapter";
+import {BfastConfig} from "../configs/bfast.config";
 
 let _users: UserController;
 let _routerGuard: RouterGuardAdapter;
 
-export class UsersRouter implements RestRouterAdapter {
+export class UserRouter implements RestRouterAdapter {
     prefix: string = '/users';
 
-    constructor(private readonly options: BFastOptions) {
+    constructor(private readonly options: BfastConfig) {
         _users = new UserController(this.options);
         _routerGuard = this.options.routerGuard !== undefined ?
             this.options.routerGuard : new RouterGuardFactory(this.options);

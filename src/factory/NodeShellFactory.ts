@@ -1,4 +1,4 @@
-import {ShellAdapter, ShellOptions} from "../adapter/shell";
+import {ShellAdapter, ShellOptions} from "../adapters/shell.adapter";
 
 let _childProcess: any;
 
