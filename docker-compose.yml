@@ -15,7 +15,7 @@ secrets:
     external: true
 services:
   api:
-    image: joshuamshana/bfast-ee:v0.5.36-alpha.5
+    image: joshuamshana/bfast-ee:v0.5.37-alpha.0
     hostname: bfast
     restart: always
     networks:
