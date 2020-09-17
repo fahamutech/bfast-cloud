@@ -17,9 +17,9 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-      resources:
-        limits:
-          memory: 125M
+#      resources:
+#        limits:
+#          memory: 125M
       restart_policy:
         condition: any
         delay: 2s

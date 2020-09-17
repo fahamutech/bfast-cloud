@@ -27,9 +27,9 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-      resources:
-        limits:
-          memory: 125M
+#      resources:
+#        limits:
+#          memory: 125M
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
