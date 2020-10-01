@@ -1,4 +1,4 @@
-export name=udicti
+export cluster=udicti
 export s3endpoint=./secrets/s3endpoint.txt
 export s3endpointUsEast1=./secrets/s3endpointUsEast1.txt
 export s3accessKey=./secrets/s3accessKey.txt

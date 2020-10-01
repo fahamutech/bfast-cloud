@@ -31,7 +31,7 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:api.bfast.fahamutech.com"
+        - "traefik.frontend.rule=Host:api.${cluster}.fahamutech.com"
         - "traefik.port=3000"
         - "traefik.protocol=http"
       placement:

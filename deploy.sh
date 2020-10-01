@@ -23,7 +23,7 @@ if [ -e "$1" ]; then
   else
     echo "mongo cluster not specified"
   fi
-  docker stack deploy -c ./docker-compose.yml --with-registry-auth "${name}"
+  docker stack deploy -c ./docker-compose.yml --with-registry-auth "${cluster}"
 else
   echo "please specify configPath as first argument"
 fi

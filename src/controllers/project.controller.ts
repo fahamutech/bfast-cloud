@@ -107,7 +107,8 @@ export class ProjectController {
                         userEmail: project.user.email,
                         appId: project.parse.appId,
                         masterKey: project.parse.masterKey,
-                        docker: this.options.dockerSocket
+                        docker: this.options.dockerSocket,
+                        cluster: project.cluster ? project.cluster : 'bfast'
                     }
                 });
             return project;
