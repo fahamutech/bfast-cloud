@@ -2,9 +2,9 @@ version: "3.8"
 
 secrets:
   privkey:
-    file: './secrets/ssl/privkey.pem'
+    external: true
   cert:
-    file: './secrets/ssl/fullchain.pem'
+    external: true
   s3endpoint:
     external: true
   s3endpointUsEast1:
@@ -26,7 +26,7 @@ services:
     labels:
       - "traefik.docker.network=bfastweb"
     environment:
-      - MONGO_URL=mongodb://fahamutechdb:fahamutechm0ng0db@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/_BFAST_ADMIN?authSource=admin&replicaSet=mdbRepl
+      - MONGO_URL=${mongoUrl}
     deploy:
       labels:
         - "traefik.docker.network=bfastweb"
@@ -78,7 +78,7 @@ services:
       - default
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./traefik/acme.json:/app/acme.json"
+    #      - "./traefik/acme.json:/app/acme.json"
     command:
       #      - --logLevel=ERROR
       - --defaultentrypoints=http,https
