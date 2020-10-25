@@ -1,7 +1,7 @@
 {
   "name": "bfast-ee",
   "description": "bfast cloud for project management",
-  "version": "0.5.37-alpha.3",
+  "version": "0.5.37-alpha.4",
   "private": true,
   "main": "bfast.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "axios": "^0.20.0",
     "chai": "^4.2.0",
     "gulp": "^4.0.2",
-    "mocha": "^8.1.2",
+    "mocha": "^8.2.0",
     "mongodb-memory-server-core": "^6.6.6",
     "redis-mock": "^0.51.0",
     "ts-node-dev": "^1.0.0-pre.61",

@@ -18,14 +18,14 @@ export class DatabaseRouter implements RestRouterAdapter {
     getRoutes(): RestRouterModel[] {
         return [
             this.updateImage(),
-            this._addEnvironment(),
-            this._removeEnvironment(),
+            this.addEnvironment(),
+            this.removeEnvironment(),
         ];
     }
 
     /**
      *  rest: /database/:projectId/image?force= -X POST
-     *  headers:  -H'Authorization': token
+     *  headers:  -H'Authorization: token'
      *  body: {image: string}
      *  output: json
      * @private
@@ -59,7 +59,7 @@ export class DatabaseRouter implements RestRouterAdapter {
      *  output: json
      * @private
      */
-    private _removeEnvironment(): RestRouterModel {
+    private removeEnvironment(): RestRouterModel {
         return {
             name: 'removeEnvironment',
             method: RestRouterMethod.DELETE,
@@ -91,7 +91,7 @@ export class DatabaseRouter implements RestRouterAdapter {
      *  output: json
      * @private
      */
-    private _addEnvironment(): RestRouterModel {
+    private addEnvironment(): RestRouterModel {
         return {
             name: 'addEnvironment',
             method: RestRouterMethod.POST,

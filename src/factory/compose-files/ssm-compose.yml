@@ -43,6 +43,7 @@ services:
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - PORT=3000
+      - PRODUCTION=1
       - MOUNT_PATH=/
       - S3_BUCKET=smartstock-${bucketName}
       - S3_ACCESS_KEY=/run/secrets/s3accessKey

@@ -23,43 +23,41 @@ export class SwarmOrchestrationFactory implements OrchestrationAdapter {
     }
 
     async functionsInstanceAddEnv(projectId: string = '', envs: string[] = [], force: boolean = false): Promise<any> {
-        try {
-            if (projectId.length < 1) {
-                throw 'projectId required'
-            }
-            if (envs.length < 1) {
-                throw 'at least one environment required';
-            }
-            let envQuery = '';
-            envs.forEach(env => {
-                envQuery = envQuery.concat(' --env-add ', env);
-            });
-            const response = await shell.exec(
-                `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
-            return {message: response.toString()};
-        } catch (e) {
-            throw {message: "Fails to add environments to cloud functions", reason: e.toString()};
+        if (projectId.length < 1) {
+            throw {message: "Fails to add environments to cloud functions", reason: 'projectId required'}
         }
+        if (envs.length < 1) {
+            throw {
+                message: "Fails to add environments to cloud functions",
+                reason: 'at least one environment required'
+            };
+        }
+        let envQuery = '';
+        envs.forEach(env => {
+            envQuery = envQuery.concat(' --env-add ', env);
+        });
+        const response = await shell.exec(
+            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
+        return {message: response.toString()};
     }
 
     async functionsInstanceRemoveEnv(projectId: string = '', envs: string[] = [], force: boolean = false): Promise<any> {
-        try {
-            if (projectId.length < 1) {
-                throw 'projectId required';
-            }
-            if (envs.length < 1) {
-                throw 'at least one environment required';
-            }
-            let envQuery = '';
-            envs.forEach(env => {
-                envQuery = envQuery.concat(' --env-rm ', env);
-            });
-            const response = await shell.exec(
-                `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
-            return {message: response.toString()};
-        } catch (e) {
-            throw {message: "Fails to remove environments to cloud functions", reason: e.toString()};
+        if (projectId.length < 1) {
+            throw {message: "Fails to remove environments to cloud functions", reason: 'projectId required'};
         }
+        if (envs.length < 1) {
+            throw {
+                message: "Fails to remove environments to cloud functions",
+                reason: 'at least one environment required'
+            };
+        }
+        let envQuery = '';
+        envs.forEach(env => {
+            envQuery = envQuery.concat(' --env-rm ', env);
+        });
+        const response = await shell.exec(
+            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
+        return {message: response.toString()};
     }
 
     async functionsInstanceAddDomain(projectId: string, domain: string, force: boolean): Promise<any> {
