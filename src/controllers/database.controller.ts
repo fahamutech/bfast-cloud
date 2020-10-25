@@ -12,7 +12,7 @@ export class DatabaseController {
     }
 
     async updateImage(projectId: string, image: string, force: boolean = false): Promise<any> {
-        if (image && typeof image === "string" && image.toString().trim().startsWith('joshuamshana/bfast-ce-daas') === true) {
+        if (image && typeof image === "string") {
             return await containerOrch.databaseInstanceImage(
                 UtilsController._checkProjectId(projectId),
                 image,
