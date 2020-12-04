@@ -1,8 +1,0 @@
-export cluster=udicti
-export s3endpoint=./secrets/s3endpoint.txt
-export s3endpointUsEast1=./secrets/s3endpointUsEast1.txt
-export s3accessKey=./secrets/s3accessKey.txt
-export s3secretKey=./secrets/s3secretKey.txt
-export privkey=/etc/letsencrypt/archive/udicti.fahamutech.com/privkey1.pem
-export cert=/etc/letsencrypt/archive/udicti.fahamutech.com/fullchain1.pem
-export mongoUrl=mongodb://udicti:udictidatabase@localhost:27017/_BFAST_ADMIN?authSource=admin&replicaSet=udicti

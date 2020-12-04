@@ -1,14 +1,7 @@
 version: '3.8'
-#secrets:
-#  s3endpoint:
-#    external: true
-#  s3accessKey:
-#    external: true
-#  s3secretKey:
-#    external: true
 services:
   faas:
-    image: joshuamshana/bfastfaas:latest
+    image: joshuamshana/bfastfunction:latest
     hostname: ${projectId}-faas
     restart: always
     networks:
@@ -17,17 +10,13 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-#      resources:
-#        limits:
-#          memory: 125M
       restart_policy:
         condition: any
         delay: 2s
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-faas.${cluster}.fahamutech.com"
-        # - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:

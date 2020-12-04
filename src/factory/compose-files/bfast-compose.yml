@@ -10,7 +10,7 @@ secrets:
     external: true
 services:
   daas:
-    image: joshuamshana/bfast-ce-daas:latest
+    image: joshuamshana/bfastfunction:latest
     hostname: ${projectId}-daas
     restart: always
     networks:
@@ -27,14 +27,10 @@ services:
       restart_policy:
         condition: any
         delay: 2s
-#      resources:
-#        limits:
-#          memory: 125M
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-daas.${cluster}.fahamutech.com"
-        # - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=Host:${projectId}-daas.${cluster}.${hostDomain}""
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -43,14 +39,16 @@ services:
       - PROJECT_ID=${projectId}
       - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
       - PORT=3000
+      - GIT_USERNAME=joshuamshana
+      - GIT_CLONE_URL=https://github.com/fahamutech/bfast-database.git
       - PRODUCTION=1
       - MOUNT_PATH=/
-      - S3_BUCKET=bfast-${bucketName}
+      - S3_BUCKET=${cluster}-${bucketName}
       - S3_ACCESS_KEY=/run/secrets/s3accessKey
       - S3_SECRET_KEY=/run/secrets/s3secretKey
       - S3_ENDPOINT=/run/secrets/s3endpointUsEast1
   faas:
-    image: joshuamshana/bfastfaas:latest
+    image: joshuamshana/bfastfunction:latest
     hostname: ${projectId}-faas
     restart: always
     networks:
@@ -59,17 +57,13 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-#      resources:
-#        limits:
-#          memory: 125M
       restart_policy:
         condition: any
         delay: 2s
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-faas.${cluster}.fahamutech.com"
-        # - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:

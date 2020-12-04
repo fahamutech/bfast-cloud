@@ -1,8 +1,0 @@
-export cluster=bfast
-export s3endpoint=./secrets/s3endpoint.txt
-export s3endpointUsEast1=./secrets/s3endpointUsEast1.txt
-export s3accessKey=./secrets/s3accessKey.txt
-export s3secretKey=./secrets/s3secretKey.txt
-export privkey=./secrets/ssl/privkey.pem
-export cert=./secrets/ssl/fullchain.pem
-export mongoUrl='mongodb://fahamutechdb:fahamutechm0ng0db@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/_BFAST_ADMIN?authSource=admin&replicaSet=mdbRepl'
