@@ -8,3 +8,8 @@ specs
 /specs
 gulpfile.js
 src
+Dockerfile
+.dockerignore
+tsconfig.json
+.github
+/.github
