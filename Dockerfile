@@ -14,6 +14,7 @@ RUN npm run build
 RUN rm -r src
 RUN rm -r node_modules
 RUN npm install --only=prod
+RUN npm rm gulpfile.js
 # RUN npm rebuild bcrypt --build-from-source
 
 CMD ["npm","start"]

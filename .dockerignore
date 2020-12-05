@@ -15,7 +15,6 @@ tsconfig.json
 design
 CHANGELOG.md
 Dockerfile
-gulpfile.js
 README.md
 t.js
 *.sh
