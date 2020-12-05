@@ -3,6 +3,7 @@ node_modules
 .vscode
 .npmignore
 CHANGELOG.md
+.npmrc
 .gitignore
 deploy.bat
 deploy.sh
