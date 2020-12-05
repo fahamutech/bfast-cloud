@@ -1,6 +1,8 @@
 node_modules
 .idea
 .vscode
+.npmignore
+CHANGELOG.md
 .gitignore
 deploy.bat
 deploy.sh
@@ -16,3 +18,4 @@ gulpfile.js
 README.md
 t.js
 *.sh
+.github
