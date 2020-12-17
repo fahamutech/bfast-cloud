@@ -30,7 +30,7 @@ services:
       labels:
         - "traefik.docker.network=bfastweb"
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:${projectId}-daas.${cluster}.${hostDomain}""
+        - "traefik.frontend.rule=Host:${projectId}-daas.${cluster}.${hostDomain}"
         - "traefik.port=3000"
         - "traefik.protocol=http"
     environment:
@@ -42,6 +42,8 @@ services:
       - GIT_USERNAME=joshuamshana
       - GIT_CLONE_URL=https://github.com/fahamutech/bfast-database.git
       - PRODUCTION=1
+      - MODE=npm
+      - NPM_TAR=bfast-database
       - MOUNT_PATH=/
       - S3_BUCKET=${cluster}-${bucketName}
       - S3_ACCESS_KEY=/run/secrets/s3accessKey
