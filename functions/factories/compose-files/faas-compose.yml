@@ -1,0 +1,30 @@
+#version: '3.8'
+#services:
+#  faas:
+##    image: joshuamshana/bfastfunction:latest
+##    hostname: ${projectId}-faas
+##    restart: always
+##    networks:
+##      - default
+##      - bfastweb
+#    deploy:
+##      mode: replicated
+##      replicas: 0
+##      restart_policy:
+##        condition: any
+##        delay: 2s
+##      labels:
+##        - "traefik.docker.network=bfastweb"
+##        - "traefik.enable=true"
+##        - "traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}"
+##        - "traefik.port=3000"
+##        - "traefik.protocol=http"
+##    environment:
+##      - APPLICATION_ID=${appId}
+##      - PROJECT_ID=${projectId}
+##      - MONGO_URL=mongodb://${appId}:${masterKey}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl
+##      - PORT=3000
+##      - PRODUCTION=1
+#networks:
+#  bfastweb:
+#    external: true
