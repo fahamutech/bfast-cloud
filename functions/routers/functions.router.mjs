@@ -1,21 +1,25 @@
-import {bfast} from "bfastnode";
+import bfastnode from "bfastnode";
+import {Options} from "../index.mjs";
+import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
+import {EmailFactory} from "../factories/email.factory.mjs";
+import {SecurityFactory} from "../factories/security.factory.mjs";
+import {UserStoreFactory} from "../factories/user-store.factory.mjs";
+import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
+import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
+import {FunctionsInstanceController} from "../controllers/functions-instance.controller.mjs";
 
-
+const {bfast} = bfastnode;
 const prefix = '/projects/:projectId/functions';
+const options = new Options();
+const functionsOrch = new FunctionsInstanceController(options.containerOrchAdapter());
+const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const emailFactory = new EmailFactory();
+const securityFactory = new SecurityFactory(options.redisHOST);
+const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
+const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
-// constructor(private  options: BfastConfig) {
-//     routerGuard = this.options.routerGuard ?
-//         this.options.routerGuard : new RouterGuardFactory(this.options);
-//     functions = new FunctionsController(this.options);
-// }
 
-
-/**
- *  rest: /projects/:projectId/functions/:projectId/env?force= -X DELETE
- *  input:  -H'Authorization': token
- *  output: json
- * @private
- */
 export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
@@ -23,7 +27,7 @@ export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(
             const body = request.body;
             const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
             if (valid) {
-                functions
+                functionsOrch
                     .envRemove(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
@@ -36,17 +40,11 @@ export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(
     ]
 );
 
-/**
- *  rest: /functions/:projectId/env?force= -X POST
- *  input:  -H'Authorization': token, --data json
- *  output: json
- * @private
- */
 export const addFunctionsEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         (request, response) => {
-            functions
+            functionsOrch
                 .envAdd(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
@@ -56,17 +54,11 @@ export const addFunctionsEnvironment = bfast.functions().onPostHttpRequest(`${pr
     ]
 );
 
-/**
- *  rest: /functions/:projectId?force= -X POST
- *  input:  -H'Authorization': token
- *  output: json
- * @private
- */
 export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         (request, response) => {
-            functions.deploy(request.params.projectId, request.query.force === 'true').then(value => {
+            functionsOrch.deploy(request.params.projectId, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'functions deployed'});
             }).catch(reason => {
                 response.status(503).json(reason);
@@ -75,18 +67,12 @@ export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, 
     ]
 );
 
-/**
- *  rest: /functions/:projectId/domain?force= -X POST
- *  headers:  -H'Authorization': token
- *  input: {domain: string}
- *  output: json
- * @private
- */
+
 export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefix}/domain`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         (request, response) => {
-            functions.addDomain(request.params.projectId, request.body.domain, request.query.force === 'true').then(value => {
+            functionsOrch.addDomain(request.params.projectId, request.body.domain, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'domain added'});
             }).catch(reason => {
                 response.status(503).json(reason);
@@ -95,17 +81,11 @@ export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefi
     ]
 );
 
-/**
- *  rest: /functions/:projectId/domain?force= -X DELETE
- *  headers:  -H'Authorization': token
- *  output: json
- * @private
- */
 export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${prefix}/domain`, [
     routerGuard.checkToken,
     routerGuard.checkIsProjectOwner,
     (request, response) => {
-        functions.removeDomain(request.params.projectId, request.query.force === 'true').then(value => {
+        functionsOrch.removeDomain(request.params.projectId, request.query.force === 'true').then(value => {
             response.status(200).json({message: 'domain added'});
         }).catch(reason => {
             response.status(503).json(reason);
@@ -113,26 +93,19 @@ export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${
     }
 ]);
 
-/**
- *  rest: /functions/:projectId/switch/:mode?force= -X POST
- *  mode can be 0/1 ( off/on )
- *  headers:  -H'Authorization': token
- *  output: json
- * @private
- */
 export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/switch/:mode`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         (request, response) => {
             const mode = request.params.mode;
             if (mode.toString() === '0') {
-                functions.faasOff(request.params.projectId, request.query.force === 'true').then(value => {
+                functionsOrch.faasOff(request.params.projectId, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'faas engine switched off'});
                 }).catch(reason => {
                     response.status(503).json(reason);
                 });
             } else if (mode.toString() === '1') {
-                functions.faasOn(request.params.projectId, request.query.force === 'true').then(value => {
+                functionsOrch.faasOn(request.params.projectId, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'faas engine switch on'});
                 }).catch(reason => {
                     response.status(503).json(reason);

@@ -1,12 +1,10 @@
 import {ShellAdapter, ShellOptions} from "../adapters/shell.adapter.mjs";
-
-let _childProcess;
+import {exec} from 'child_process';
 
 export class NodeShellFactory extends ShellAdapter {
 
     constructor() {
         super();
-        _childProcess = require('child_process');
     }
 
     /**
@@ -15,9 +13,9 @@ export class NodeShellFactory extends ShellAdapter {
      * @param options {ShellOptions}
      * @return {Promise<*>}
      */
-    async exec(cmd, options){
+    async exec(cmd, options) {
         return new Promise((resolve, reject) => {
-            _childProcess.exec(
+            exec(
                 cmd,
                 options ? options : {},
                 (error, stdout, stderr) => {

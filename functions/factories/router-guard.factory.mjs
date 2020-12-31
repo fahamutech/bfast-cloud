@@ -1,35 +1,27 @@
 import {SecurityFactory} from "./security.factory.mjs";
 import {UserRoles} from "../models/user.model.mjs";
-import {UserStoreFactory} from "./user-store.factory";
-import {ProjectStoreFactory} from "./project-store.factory";
-import {BfastConfig} from "../configs/bfast.config.mjs";
+import {OptionsConfig} from "../configs/options.config.mjs";
 
-
-let _userDatabase;
-let _projectDatabase;
-let _security;
-let _options;
-
-// need to be modified
 export class RouterGuardFactory {
 
     /**
      *
-     * @param options {BfastConfig}
+     * @param userStoreFactory {UserStoreFactory}
+     * @param projectStoreFactory {ProjectStoreFactory}
+     * @param securityFactory {SecurityFactory}
+     * @param options {OptionsConfig}
      */
-    constructor(options) {
-        _options = options;
-        _userDatabase = _options.userStoreAdapter ?
-            _options.userStoreAdapter : new UserStoreFactory(_options);
-        _projectDatabase = _options.projectStoreAdapter ?
-            _options.projectStoreAdapter : new ProjectStoreFactory(_options);
-        _security = _options.securityAdapter ?
-            _options.securityAdapter : new SecurityFactory(_options);
+    constructor(userStoreFactory, projectStoreFactory,
+                securityFactory, options) {
+        this._options = options;
+        this._userDatabase = userStoreFactory;
+        this._projectDatabase = projectStoreFactory;
+        this._security = securityFactory;
     }
 
     checkIsAdmin(request, response, next) {
         if (request.uid) {
-            _userDatabase.getRole(request.uid).then(value => {
+            this._userDatabase.getRole(request.uid).then(value => {
                 if (value.role === UserRoles.ADMIN_ROLE) {
                     next();
                 } else {
@@ -50,9 +42,9 @@ export class RouterGuardFactory {
     checkIsProjectOwner(request, response, next) {
         // @ts-ignore
         if (request.uid && request.params.projectId) {
-            if (!_options.devMode) {
+            if (!this._options.devMode) {
                 // @ts-ignore
-                _projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+                this._projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                     next();
                 }).catch(reason => {
                     response.status(403).json(reason);
@@ -73,7 +65,7 @@ export class RouterGuardFactory {
         if (header) {
             let bearer = header.split(' ');
             let token = bearer[1];
-            _security.verifyToken(token)
+            this._security.verifyToken(token)
                 .then(value => {
                     // @ts-ignore
                     request.uid = value.uid ? value.uid : null;
@@ -92,7 +84,7 @@ export class RouterGuardFactory {
 
     checkMasterKey(request, response, next) {
         const masterKey = request.headers.authorization;
-        if (masterKey && masterKey === _options.masterKey) {
+        if (masterKey && masterKey === this._options.masterKey) {
             next();
         } else {
             response.status(401).json({message: 'Unauthorized action'});

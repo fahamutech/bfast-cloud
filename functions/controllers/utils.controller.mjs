@@ -1,5 +1,10 @@
 export class UtilsController {
-    static _checkProjectId(projectId: string): string {
+    /**
+     *
+     * @param projectId {string}
+     * @return {*}
+     */
+    static checkProjectId(projectId) {
         if (projectId.length < 1) {
             throw 'projectId required and can not be empty';
         } else {

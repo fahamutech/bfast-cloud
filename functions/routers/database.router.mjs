@@ -1,21 +1,31 @@
-import {bfast} from "bfastnode";
+import bfastnode from "bfastnode";
+import {Options} from "../index.mjs";
+import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
+import {EmailFactory} from "../factories/email.factory.mjs";
+import {SecurityFactory} from "../factories/security.factory.mjs";
+import {UserStoreFactory} from "../factories/user-store.factory.mjs";
+import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
+import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
+import {DatabasesInstanceController} from "../controllers/databases-instance.controller.mjs";
 
-
+const {bfast} = bfastnode;
 const prefix = '/projects/:projectId/database';
+const options = new Options();
+const databaseOrch = new DatabasesInstanceController(options.containerOrchAdapter());
+const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const emailFactory = new EmailFactory();
+const securityFactory = new SecurityFactory(options.redisHOST);
+const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
+const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
-/**
- *  rest: /database/:projectId/image?force= -X POST
- *  headers:  -H'Authorization: token'
- *  body: {image: string}
- *  output: json
- * @private
- */
+
 export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`, [
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         routerGuard.checkPayment,
         (request, response) => {
-            database.updateImage(
+            databaseOrch.updateImage(
                 request.params.projectId, request.body.image,
                 request.query.force === 'true'
             ).then(value => {
@@ -40,8 +50,8 @@ export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix
             const body = request.body;
             const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
             if (valid) {
-                database
-                    .envRemove(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
+                databaseOrch.databaseInstanceRemoveEnv(request.params.projectId, request.body.envs,
+                    request.query.force === 'true').then(_ => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
                     response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
@@ -63,8 +73,8 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
         routerGuard.checkToken,
         routerGuard.checkIsProjectOwner,
         (request, response) => {
-            database
-                .envAdd(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
+            databaseOrch.databaseInstanceAddEnv(request.params.projectId,
+                request.body.envs, request.query.force === 'true').then(_ => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
                 response.status(503).json({message: 'fails to add envs', reason: reason.toString()});

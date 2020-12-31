@@ -1,13 +1,7 @@
 import {UserModel} from "../models/user.model.mjs";
-import {DatabaseAdapter, ProjectStoreAdapter} from "../adapters/database.adapter";
-import {UserController} from "../controllers/user.controller";
 import {ProjectModel} from "../models/project.model.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
-import {BfastConfig} from "../configs/bfast.config.mjs";
 
-
-let _database;
-let _users;
 
 export class ProjectStoreFactory {
 
@@ -15,19 +9,39 @@ export class ProjectStoreFactory {
 
     /**
      *
-     * @param options {BfastConfig}
+     * @param database {DatabaseConfigFactory}
+     * @param userFactory {UserStoreFactory}
+     * @param orchestration {OrchestrationAdapter}
      */
-    constructor(options) {
-        this.options = options;
-        _users = new UserController(this.options);
-        _database = this.options.databaseConfigAdapter ?
-            this.options.databaseConfigAdapter : new DatabaseConfigFactory(this.options)
+    constructor(database, userFactory, orchestration) {
+        this.orchestration = orchestration;
+        this._users = userFactory;
+        this._database = database;
     }
 
-    insertProject(project: ProjectModel): Promise<ProjectModel> {
-        return new Promise<ProjectModel>(async (resolve, reject) => {
-            try {
-                const projectColl = await _database.collection(this.collectionName);
+    /**
+     *
+     * @param project {ProjectModel}
+     * @return {Promise<ProjectModel>}
+     */
+    // TODO: must run inside transaction
+    async createProject(project) {
+        try {
+            if (project &&
+                project.projectId &&
+                project.projectId !== '' &&
+                project.name &&
+                project.name !== '' &&
+                project.parse &&
+                project.parse.appId &&
+                project.parse.appId !== '' &&
+                project.parse.masterKey !== '') {
+                project.members = [];
+                if (!project.type || project.type === '') {
+                    project.type = 'bfast';
+                }
+                // const value = await this.database.createProject(project);
+                const projectColl = await this._database.collection(this.collectionName);
                 const result = await projectColl.insertOne({
                     name: project.name,
                     projectId: project.projectId,
@@ -44,7 +58,7 @@ export class ProjectStoreFactory {
                 if (!pNameIndex) {
                     await projectColl.createIndex({projectId: 1}, {unique: true});
                 }
-                const adminColl = await _database.getDatabase('admin');
+                const adminColl = await this._database.getDatabase('admin');
                 try {
                     await adminColl.removeUser(project.parse.appId);
                 } catch (_) {
@@ -58,68 +72,143 @@ export class ProjectStoreFactory {
                 } catch (e) {
                     console.warn(e);
                 }
-                project.id = result.insertedId as string;
-                resolve(project);
-            } catch (reason) {
-                let message;
-                if (reason.code && reason.code == 11000) {
-                    const date = Date.now().toString();
-                    const sp = project.name + date.substring(9, date.length);
-                    message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
-                } else {
-                    message = reason.toString();
-                }
-                reject({message: message});
+                project.id = result.insertedId.toString()
+                return this._deployProjectInCluster(project);
+            } else {
+                throw {message: 'project object is not well defined'}
             }
-        });
+        } catch (reason) {
+            let message;
+            if (reason.code && reason.code === 11000) {
+                const date = Date.now().toString();
+                const sp = project.name + date.substring(9, date.length);
+                message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
+            } else {
+                message = reason && reason.message ? reason.message : reason.toString();
+            }
+            throw {message: message};
+        }
     }
 
-    async deleteUserProject(userId: string, projectId: string): Promise<any> {
+    /**
+     *
+     * @param project {ProjectModel}
+     * @return {Promise<ProjectModel>}
+     * @private
+     */
+    async _deployProjectInCluster(project) {
         try {
-            const user = await _users.getUser(userId);
-            const projectCollection = await _database.collection(this.collectionName);
+            await this.orchestration.databaseInstanceCreate(project);
+            await this.orchestration.functionsInstanceCreate(project);
+            return project;
+        } catch (reason) {
+            try {
+                await this.deleteUserProject(project.id ? project.id : '', project.projectId);
+            } catch (e) {
+                console.warn(e && e.message ? e.message : e.toString(), 'remove project when deploy fails');
+            }
+            throw {
+                message: 'Project not created',
+                reason: reason && reason.message ? reason.message : reason.toString()
+            };
+        }
+    }
+
+    /**
+     *
+     * @param userId {string}
+     * @param projectId {string}
+     * @return {Promise<*>}
+     */
+    //TODO: must run inside transaction
+    async deleteUserProject(userId, projectId) {
+        if (!userId || userId === '') {
+            throw {message: 'Please provide uid'};
+        } else if (!projectId || projectId === '') {
+            throw {message: 'projectId required'};
+        } else {
+            const user = await this._users.getUser(userId);
+            const projectCollection = await this._database.collection(this.collectionName);
             const response = await projectCollection.deleteMany({
                 projectId: projectId,
                 "user.email": user.email
             });
             if (response && response.result.ok) {
-                return 'project deleted';
+                try {
+                    await this._removeProjectInCluster(projectId);
+                    return {message: 'Project deleted and removed'};
+                } catch (e) {
+                    console.warn(e);
+                    return {message: 'Project deleted'};
+                }
             } else {
-                throw 'Project not found';
+                throw {message: 'Project not found'};
             }
-        } catch (reason) {
-            console.error(reason);
-            throw {message: 'Fails to delete project', reason: reason.toString()};
         }
     }
 
-    getUserProjects(userId: string, size?: number, skip?: number): Promise<ProjectModel[]> {
-        return new Promise<any>(async (resolve, reject) => {
+    /**
+     *
+     * @param projectId {string}
+     * @return {Promise<string>}
+     * @private
+     */
+    // TODO : Must throw error when async fails
+    async _removeProjectInCluster(projectId) {
+        try {
+            this.orchestration.functionsInstanceRemove(projectId).catch(_ => {
+            });
+            this.orchestration.databaseInstanceRemove(projectId).catch(_ => {
+            });
+            return 'Project removed in cluster';
+        } catch (e) {
+            throw {
+                message: "Project fails to be removed from stack",
+                reason: e && e.message ? e.message : e.toString()
+            };
+        }
+    }
+
+    /**
+     *
+     * @param userId {string}
+     * @param size {number}
+     * @param skip {number}
+     * @return {Promise<ProjectModel[]>}
+     */
+    async getUserProjects(userId, size, skip) {
+        if (!userId || userId === '') {
+            throw {message: 'uid field required'};
+        } else {
             if (userId) {
                 try {
-                    const user = await _users.getUser(userId);
-                    const projectCollection = await _database.collection(this.collectionName);
-                    const results = await projectCollection.find({
+                    const user = await this._users.getUser(userId);
+                    const projectCollection = await this._database.collection(this.collectionName);
+                    return await projectCollection.find({
                         $or: [
                             {'user.email': user.email},
                             {"members.email": user.email}
                         ]
                     }).toArray();
-                    resolve(results);
                 } catch (reason) {
                     console.log(reason);
-                    reject({message: reason.toString()});
+                    throw {message: reason.toString()};
                 }
             } else {
-                reject({message: 'Please provide a user id'});
+                throw {message: 'Please provide a user id'};
             }
-        });
+        }
     }
 
-    async getProject(objectId: string): Promise<ProjectModel> {
+    /**
+     *
+     * @param objectId {string}
+     * @return {Promise<ProjectModel>}
+     */
+    async getProject(objectId) {
         try {
-            const projectCollection = await _database.collection(this.collectionName);
-            const project = await projectCollection.findOne({_id: _database.getObjectId(objectId)});
+            const projectCollection = await this._database.collection(this.collectionName);
+            const project = await projectCollection.findOne({_id: this._database.getObjectId(objectId)});
             if (!project) {
                 throw 'Project not found';
             }
@@ -130,9 +219,15 @@ export class ProjectStoreFactory {
         }
     }
 
-    async getAllProjects(size?: number, skip?: number): Promise<ProjectModel[]> {
+    /**
+     *
+     * @param size {number}
+     * @param skip {number}
+     * @return {Promise<ProjectModel[]>}
+     */
+    async getAllProjects(size, skip) {
         try {
-            const projectCollection = await _database.collection(this.collectionName);
+            const projectCollection = await this._database.collection(this.collectionName);
             return await projectCollection.find()
                 .limit(size ? size : 100)
                 .skip(skip ? skip : 0)
@@ -142,11 +237,16 @@ export class ProjectStoreFactory {
         }
     }
 
-    // under discussion
-    async getUserProject(userId: string, projectId: string): Promise<ProjectModel[]> {
+    /**
+     *
+     * @param userId {string}
+     * @param projectId {string}
+     * @return {Promise<ProjectModel[]>}
+     */
+    async getUserProject(userId, projectId) {
         try {
-            const user = await _users.getUser(userId);
-            const projectCollection = await _database.collection(this.collectionName);
+            const user = await this._users.getUser(userId);
+            const projectCollection = await this._database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
                     {"user.email": user.email},
@@ -163,11 +263,17 @@ export class ProjectStoreFactory {
         }
     }
 
-    async patchProjectDetails(userId: string, projectId: string, data: { description?: string; name?: string }):
-        Promise<any> {
+    /**
+     *
+     * @param userId {string}
+     * @param projectId {string}
+     * @param data {{ description: string, name: string }}
+     * @return {Promise<*>}
+     */
+    async patchProjectDetails(userId, projectId, data) {
         try {
-            const user = await _users.getUser(userId);
-            const projectCollection = await _database.collection(this.collectionName);
+            const user = await this._users.getUser(userId);
+            const projectCollection = await this._database.collection(this.collectionName);
             const result = await projectCollection.findOneAndUpdate({
                 $or: [
                     {"user.email": user.email},
@@ -185,10 +291,16 @@ export class ProjectStoreFactory {
         }
     }
 
-    async getOwnerProject(userId: string, projectId: string): Promise<any> {
+    /**
+     *
+     * @param userId {string}
+     * @param projectId {string}
+     * @return {Promise<*>}
+     */
+    async getOwnerProject(userId, projectId) {
         try {
-            const user = await _users.getUser(userId);
-            const projectCollection = await _database.collection(this.collectionName);
+            const user = await this._users.getUser(userId);
+            const projectCollection = await this._database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 "user.email": user.email,
                 projectId: projectId
@@ -203,18 +315,24 @@ export class ProjectStoreFactory {
         }
     }
 
-    async addMemberToProject(projectId: string, user: UserModel): Promise<any> {
-        try {
-            const projectColl = await _database.collection(this.collectionName);
+    /**
+     *
+     * @param projectId {string}
+     * @param user {UserModel}
+     * @return {Promise<*>}
+     */
+    async addMemberToProject(projectId, user) {
+        if (user && user.email) {
+            const projectColl = await this._database.collection(this.collectionName);
             const response = await projectColl.updateOne({projectId: projectId}, {
                 $push: {
                     'members': user
                 }
             });
             return response.result;
-        } catch (e) {
-            throw e;
         }
+        throw new Error('User model miss required data');
+
     }
 
 }

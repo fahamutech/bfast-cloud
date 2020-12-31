@@ -1,11 +1,11 @@
 import {OrchestrationAdapter} from "../adapters/orchestration.adapter.mjs";
-import {UtilsController} from "./utils.controller";
+import {UtilsController} from "./utils.controller.mjs";
 
 /**
- * @class FunctionsController. Manage BFast::Function instance include
+ * @class FunctionsInstanceController. Manage BFast::Function instance include
  * deploy and add or remove environment variable(s)
  */
-export class FunctionsController {
+export class FunctionsInstanceController {
 
     /**
      *
@@ -22,7 +22,7 @@ export class FunctionsController {
      * @return {Promise<*>}
      */
     async deploy(projectId = '', force = false) {
-        return await this.containerOrch.functionsInstanceDeploy(UtilsController._checkProjectId(projectId), force);
+        return await this.containerOrch.functionsInstanceDeploy(UtilsController.checkProjectId(projectId), force);
     }
 
     /**
@@ -34,7 +34,7 @@ export class FunctionsController {
      */
     async envAdd(projectId, envs, force = false) {
         return await this.containerOrch
-            .functionsInstanceAddEnv(UtilsController._checkProjectId(projectId), envs, force);
+            .functionsInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 
     /**
@@ -46,7 +46,7 @@ export class FunctionsController {
      */
     async envRemove(projectId, envs, force = false) {
         return await this.containerOrch
-            .functionsInstanceRemoveEnv(UtilsController._checkProjectId(projectId), envs, force);
+            .functionsInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 
     /**
@@ -58,7 +58,7 @@ export class FunctionsController {
      */
     async addDomain(projectId, domain, force = false) {
         return await this.containerOrch
-            .functionsInstanceAddDomain(UtilsController._checkProjectId(projectId), domain, force);
+            .functionsInstanceAddDomain(UtilsController.checkProjectId(projectId), domain, force);
     }
 
     /**
@@ -69,7 +69,7 @@ export class FunctionsController {
      */
     async removeDomain(projectId, force = false) {
         return await this.containerOrch
-            .functionsInstanceRemoveDomain(UtilsController._checkProjectId(projectId), force);
+            .functionsInstanceRemoveDomain(UtilsController.checkProjectId(projectId), force);
     }
 
     /**
@@ -79,7 +79,7 @@ export class FunctionsController {
      * @return {Promise<*>}
      */
     async faasOn(projectId, force = false) {
-        return await this.containerOrch.functionsInstanceSwitchOn(UtilsController._checkProjectId(projectId), force);
+        return await this.containerOrch.functionsInstanceSwitchOn(UtilsController.checkProjectId(projectId), force);
     }
 
     /**
@@ -89,7 +89,7 @@ export class FunctionsController {
      * @return {Promise<*>}
      */
     async faasOff(projectId, force = false) {
-        return await this.containerOrch.functionsInstanceSwitchOff(UtilsController._checkProjectId(projectId), force);
+        return await this.containerOrch.functionsInstanceSwitchOff(UtilsController.checkProjectId(projectId), force);
     }
 
 }

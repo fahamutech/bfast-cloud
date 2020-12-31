@@ -1,6 +1,6 @@
-import {UtilsController} from "./utils.controller";
+import {UtilsController} from "./utils.controller.mjs";
 
-export class DatabasesController {
+export class DatabasesInstanceController {
     /**
      *
      * @param containerOrch {OrchestrationAdapter}
@@ -18,8 +18,8 @@ export class DatabasesController {
      */
     async updateImage(projectId, image, force = false) {
         if (image && typeof image === "string") {
-            return await this.containerOrch.databaseInstanceImage(
-                UtilsController._checkProjectId(projectId),
+            return await this.containerOrch.databaseInstanceUpdateImage(
+                UtilsController.checkProjectId(projectId),
                 image,
                 force
             );
@@ -36,7 +36,7 @@ export class DatabasesController {
      * @return {Promise<*>}
      */
     async envAdd(projectId, envs, force = false) {
-        return await this.containerOrch.databaseInstanceAddEnv(UtilsController._checkProjectId(projectId), envs, force);
+        return await this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 
     /**
@@ -47,7 +47,7 @@ export class DatabasesController {
      * @return {Promise<*>}
      */
     async envRemove(projectId, envs, force = false) {
-        return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController._checkProjectId(projectId), envs, force);
+        return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 
 }

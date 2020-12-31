@@ -1,6 +1,4 @@
-import {EmailAdapter} from "../adapters/email.adapter";
-
-export class EmailFactory extends EmailAdapter {
+export class EmailFactory {
 
     /**
      *
@@ -22,7 +20,7 @@ export class EmailFactory extends EmailAdapter {
             //     }
             // });
             // await transporter.sendMail({
-            //     from: `"BFast::Cloud👻" ☁️`, // sender address
+            //     from: `"BFast::Cloud" ☁️`, // sender address
             //     to: `${to}`, // list of receivers
             //     subject: subject, // Subject line
             //     // text: "Hello", // plain text body

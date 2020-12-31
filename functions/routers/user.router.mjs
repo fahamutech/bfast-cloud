@@ -1,7 +1,21 @@
-import {bfast} from "bfastnode";
+import bfastnode from "bfastnode";
+import {Options} from "../index.mjs";
+import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
+import {EmailFactory} from "../factories/email.factory.mjs";
+import {SecurityFactory} from "../factories/security.factory.mjs";
+import {UserStoreFactory} from "../factories/user-store.factory.mjs";
+import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
+import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 
+const {bfast} = bfastnode;
 const prefix = '/users';
-
+const options = new Options();
+const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const emailFactory = new EmailFactory();
+const securityFactory = new SecurityFactory(options.redisHOST);
+const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory)
+const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
 /**
  *  rest: /users/me/role -X GET
@@ -15,7 +29,7 @@ export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role
             // @ts-ignore
             if (request.uid) {
                 // @ts-ignore
-                _users.getRole(request.uid).then(user => {
+                userFactory.getRole(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
                     response.status(400).json(reason)
@@ -39,7 +53,7 @@ export const deleteUser = bfast.functions().onDeleteHttpRequest(`${prefix}/me`, 
             // @ts-ignore
             if (request.uid) {
                 // @ts-ignore
-                _users.deleteUser(request.uid).then(user => {
+                userFactory.deleteUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
                     response.status(400).json(reason)
@@ -63,7 +77,7 @@ export const getUserDetails = bfast.functions().onGetHttpRequest(`${prefix}/me`,
             // @ts-ignore
             if (request.uid) {
                 // @ts-ignore
-                _users.getUser(request.uid).then(user => {
+                userFactory.getUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
                     response.status(400).json(reason)
@@ -89,7 +103,7 @@ export const updateUserDetails = bfast.functions().onPutHttpRequest(`${prefix}/m
             const valid = !!(request.uid && body && Object.keys(body).length > 0);
             if (valid) {
                 // @ts-ignore
-                _users.updateUserDetails(request.uid, body).then(user => {
+                userFactory.updateUserDetails(request.uid, body).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
                     response.status(400).json(reason)
@@ -113,13 +127,7 @@ export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
         (request, response, next) => {
             const size = request.query && request.query.size ? request.query.size : 20;
             const skip = request.query && request.query.skip ? request.query.skip : 0;
-            _users.getAllUsers(size
-            as
-            number, skip
-            as
-            number
-        ).
-            then(users => {
+            userFactory.getAllUsers(parseInt(size), parseInt(skip)).then(users => {
                 response.status(200).json({users: users});
             });
         }
@@ -137,7 +145,7 @@ export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, [
             const body = request.body;
             const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
             if (valid) {
-                _users.createUser(body).then(value => {
+                userFactory.createUser(body).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     response.status(400).json(reason);
@@ -162,7 +170,7 @@ export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
             const body = request.body;
             const valid = !!(body && body.email && body.password);
             if (valid) {
-                _users.login(body.email, body.password).then(value => {
+                userFactory.login(body.email, body.password).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     response.status(400).json(reason);
@@ -186,7 +194,7 @@ export const logout = bfast.functions().onPostHttpRequest(`${prefix}/logout`, [
             const body = request.body;
             const valid = !!(body && body.token);
             if (valid) {
-                _users.logoutFromAllDevice(body.token).then(value => {
+                userFactory.logoutFromAllDevice(body.token).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     response.status(400).json(reason);
@@ -211,7 +219,7 @@ export const resetPassword = bfast.functions().onPostHttpRequest(`${prefix}/pass
             const body = request.body;
             const valid = !!(body && body.code && body.password);
             if (valid) {
-                _users.resetPassword(body.code, body.password).then(value => {
+                userFactory.resetPassword(body.code, body.password).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     console.log(reason);
@@ -235,7 +243,7 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
             const body = request.body;
             const valid = !!(body && body.email);
             if (valid) {
-                _users.requestResetPassword(body.email).then(value => {
+                userFactory.requestResetPassword(body.email).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     response.status(400).json(reason);
@@ -248,10 +256,10 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
 );
 
 /**
+ * create a super admin user by using master key
  *  rest: /users/admin -X POST
  *  input: --data json
  *  output: json
- * @private
  */
 export const addSuperAdmin = bfast.functions().onPostHttpRequest(`${prefix}/admin`, [
         _routerGuard.checkMasterKey,
@@ -259,7 +267,7 @@ export const addSuperAdmin = bfast.functions().onPostHttpRequest(`${prefix}/admi
             const body = request.body;
             const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
             if (valid) {
-                _users.createAdmin(body).then(value => {
+                userFactory.createAdmin(body).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
                     response.status(400).json(reason);

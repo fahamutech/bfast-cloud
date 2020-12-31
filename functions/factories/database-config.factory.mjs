@@ -1,24 +1,28 @@
-import {Collection, Db, MongoClient, ObjectID} from "mongodb";
-import {BfastConfig} from "../configs/bfast.config.mjs";
-import {DatabaseAdapter} from "../adapters/database.adapter";
+import mongodb from "mongodb";
+
+const {Db, Collection, MongoClient, ObjectID} = mongodb
 
 let mongoClient;
 
-export class DatabaseConfigFactory implements DatabaseAdapter {
+export class DatabaseConfigFactory {
 
     /**
      *
-     * @param options {BfastConfig}
+     * @param mongoDbUrl {string}
      */
-    constructor(options) {
-        this.options = options;
-        mongoClient = new MongoClient(this.options.mongoURL, {
+    constructor(mongoDbUrl) {
+        mongoClient = new MongoClient(mongoDbUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
     }
 
-    async collection(collectionName: string): Promise<Collection> {
+    /**
+     *
+     * @param collectionName {string}
+     * @return {Promise<Collection>}
+     */
+    async collection(collectionName) {
         try {
             if (mongoClient.isConnected()) {
                 return mongoClient.db().collection(collectionName);
@@ -32,11 +36,21 @@ export class DatabaseConfigFactory implements DatabaseAdapter {
         }
     }
 
+    /**
+     *
+     * @param id {string}
+     * @return {ObjectId}
+     */
     getObjectId(id) {
         return new ObjectID(id);
     }
 
-    async getDatabase(name): Promise<Db> {
+    /**
+     *
+     * @param name {string}
+     * @return {Promise<Db>}
+     */
+    async getDatabase(name) {
         if (mongoClient.isConnected()) {
             return mongoClient.db(name);
         } else {

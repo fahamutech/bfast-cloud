@@ -1,15 +1,21 @@
-import {bfast} from "bfastnode";
+import bfastnode from "bfastnode";
+import {Options} from "../index.mjs";
+import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
+import {EmailFactory} from "../factories/email.factory.mjs";
+import {SecurityFactory} from "../factories/security.factory.mjs";
+import {UserStoreFactory} from "../factories/user-store.factory.mjs";
+import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
+import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 
+const {bfast} = bfastnode;
 const prefix = '/projects';
-
-// constructor(private  options: BfastConfig) {
-//     _options = this.options;
-//     _routerGuard = this.options.routerGuard ?
-//         this.options.routerGuard : new RouterGuardFactory(this.options);
-//     _users = this.options.userStoreAdapter ?
-//         this.options.userStoreAdapter : new UserStoreFactory(this.options);
-//     _projects = new ProjectController(this.options);
-// }
+const options = new Options();
+const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const emailFactory = new EmailFactory();
+const securityFactory = new SecurityFactory(options.redisHOST);
+const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
+const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
 /**
  *  rest: /projects/:projectId -X GET
@@ -22,7 +28,7 @@ export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:project
         (request, response, next) => {
             const valid = !!(request.uid && request.params.projectId);
             if (valid) {
-                _projects.getUserProject(request.uid, request.params.projectId)
+                projectFactory.getUserProject(request.uid, request.params.projectId)
                     .then((project) => {
                         response.status(200).json(project);
                     })
@@ -47,14 +53,13 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
         _routerGuard.checkToken,
         // check is admin is a temporary middleware will be replaced
         // with a payment middleware
-        _options.devMode ? (req, res, next) => {
+        options.devMode ? (req, res, next) => {
             next();
         } : _routerGuard.checkIsAdmin,
         /*check for payments if there is enough fund to proceed*/
         async (request, response) => {
             const body = request.body;
             const valid = !!(
-                // @ts-ignore
                 request.uid
                 && request.params
                 && request.params.type
@@ -76,10 +81,9 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                 && body.description);
             if (valid) {
                 try {
-                    // @ts-ignore
-                    body.user = await _users.getUser(request.uid);
+                    body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
-                    const result = await _projects.createBFastProject(body);
+                    const result = await projectFactory.createBFastProject(body);
                     delete result.fileUrl;
                     delete result.parse.masterKey;
                     response.status(200).json(result);
@@ -102,8 +106,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
 export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
         _routerGuard.checkToken,
         (request, response, _) => {
-            // @ts-ignore
-            _projects.getUserProjects(request.uid, 10000, 0).then((value) => {
+            projectFactory.getUserProjects(request.uid, 10000, 0).then((value) => {
                 response.json(value);
             }).catch((reason) => {
                 response.status(404).json(reason);
@@ -123,12 +126,9 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
         _routerGuard.checkIsProjectOwner,
         (request, response, _) => {
             const projectId = request.params.projectId;
-
-            // @ts-ignore
             const valid = !!(projectId && request.uid);
             if (valid) {
-                // @ts-ignore
-                _projects.deleteUserProject(request.uid, projectId).then((value) => {
+                projectFactory.deleteUserProject(request.uid, projectId).then((value) => {
                     response.status(200).json(value);
                 }).catch((reason) => {
                     response.status(500).json(reason);
@@ -154,9 +154,8 @@ export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:proje
             // @ts-ignore
             const valid = !!(projectId && request.uid);
             if (valid) {
-                _projects
-                    // @ts-ignore
-                    .patchProjectDetails(request.uid, projectId, body).then((value: any) => {
+                projectFactory
+                    .patchProjectDetails(request.uid, projectId, body).then(value => {
                     response.status(200).json(value);
                 }).catch((reason) => {
                     response.status(500).json(reason);
@@ -174,7 +173,7 @@ export const addMemberToProject = bfast.functions().onPostHttpRequest(`${prefix}
         (request, response) => {
             const body = request.body;
             const projectId = request.params.projectId;
-            _projects.addMemberToProject(projectId, body).then(value => {
+            projectFactory.addMemberToProject(projectId, body).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
                 response.status(400).json({message: 'member not added', reason: reason.toString()});

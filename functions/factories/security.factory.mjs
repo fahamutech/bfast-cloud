@@ -1,7 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as redis from 'redis';
 import * as _jwt from 'jsonwebtoken';
-import {BfastConfig} from "../configs/bfast.config.mjs";
 
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
@@ -20,29 +19,16 @@ bzrJW7JZAgMBAAECggEABAX9r5CHUaePjfX8vnil129vDKa1ibKEi0cjI66CQGbB
 3ZW+HRzcQMmnFKpxdHnSiruupq+MwnYoSvDv21hfCfkQDXvppQkXe72S+oS2vrJr
 JLcWQ6hFDpecIaaCJiqAXvFACr`;
 
-let _redisClient;
-
 export class SecurityFactory {
 
     /**
      *
-     * @param options {BfastConfig}
+     * @param redisDbUrl {string}
      */
-    constructor(options) {
-        this.options = options;
-        if (this.options.devMode) {
-            try {
-                const redisMock = require('redis-mock'); // this must ne removed and to pass only a redis url
-                _redisClient = redisMock.createClient();
-                // console.log(_redisClient);
-            } catch (e) {
-                console.log('fail to set mock redis')
-            }
-        } else {
-            _redisClient = redis.createClient({
-                host: options.redisHOST,
-            });
-        }
+    constructor(redisDbUrl) {
+        this._redisClient = redis.createClient({
+            host: redisDbUrl,
+        });
     }
 
     /**
@@ -81,7 +67,7 @@ export class SecurityFactory {
      */
     async revokeToken(token) {
         return new Promise((resolve, reject) => {
-            _redisClient.del(token, (err, reply) => {
+            this._redisClient.del(token, (err, reply) => {
                 if (err) {
                     reject({
                         message: 'Fails to revoke a token',
@@ -111,7 +97,7 @@ export class SecurityFactory {
                     return;
                 }
                 // @ts-ignore
-                _redisClient.set(encoded, JSON.stringify(data), (err1, reply) => {
+                this._redisClient.set(encoded, JSON.stringify(data), (err1, reply) => {
                     if (err1) {
                         reject({message: 'Fails to cache your token', reason: err1.toString()});
                         return;
@@ -119,7 +105,7 @@ export class SecurityFactory {
                     resolve(encoded);
                 });
                 // @ts-ignore
-                _redisClient.expire(encoded, 360 * 86400);
+                this._redisClient.expire(encoded, 360 * 86400);
             });
         });
     }
@@ -138,7 +124,7 @@ export class SecurityFactory {
                     reject({message: 'Fails to verify token', reason: err.toString()});
                     return;
                 }
-                _redisClient.get(token, (err1, reply) => {
+                this._redisClient.get(token, (err1, reply) => {
                     if (err1) {
                         reject({message: 'Token revoked', reason: err1.toString()});
                         return;

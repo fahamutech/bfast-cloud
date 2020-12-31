@@ -6,8 +6,8 @@
   "private": false,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
-    "start": "node functions/index.mjs",
-    "start:dev": "gulp devStart",
+    "start": "bfast fs serve",
+    "start:dev": "bfast fs serve",
     "build": "gulp",
     "build:docker": "gulp buildDocker",
     "test": "echo \"no test\"",

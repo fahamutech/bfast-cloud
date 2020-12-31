@@ -112,7 +112,7 @@ export class OrchestrationAdapter {
      * @param force {boolean}
      * @return {Promise<*>}
      */
-    async databaseInstanceImage(projectId, image, force) {
+    async databaseInstanceUpdateImage(projectId, image, force) {
     }
 
     /**

@@ -1,4 +1,4 @@
-import {BfastConfig} from "../configs/bfast.config.mjs";
+import {OptionsConfig} from "../configs/options.config.mjs";
 
 let _options;
 
@@ -7,7 +7,7 @@ export class PaymentRouterFactory {
 
     /**
      *
-     * @param options {BfastConfig}
+     * @param options {OptionsConfig}
      */
     constructor(options) {
         _options = options;

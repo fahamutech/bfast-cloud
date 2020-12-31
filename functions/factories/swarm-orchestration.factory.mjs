@@ -1,5 +1,5 @@
 import {OrchestrationAdapter} from "../adapters/orchestration.adapter.mjs";
-import {BfastConfig} from "../configs/bfast.config.mjs";
+import {OptionsConfig} from "../configs/options.config.mjs";
 import {ShellAdapter} from "../adapters/shell.adapter.mjs";
 
 export class SwarmOrchestrationFactory extends OrchestrationAdapter {
@@ -7,7 +7,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     /**
      *
      * @param shell {ShellAdapter}
-     * @param options {BfastConfig}
+     * @param options {OptionsConfig}
      */
     constructor(shell, options) {
         super();
@@ -158,7 +158,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      * @param force {boolean}
      * @return {Promise<string>}
      */
-    async databaseInstanceImage(projectId, image, force) {
+    async databaseInstanceUpdateImage(projectId, image, force) {
         let forceString = ' ';
         if (force) {
             forceString = '--force ';
@@ -216,6 +216,11 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         return {message: response.toString()};
     }
 
+    /**
+     *
+     * @param project {ProjectModel}
+     * @return {Promise<*>}
+     */
     async functionsInstanceCreate(project) {
         return this.shell.exec([
             "docker service create",
