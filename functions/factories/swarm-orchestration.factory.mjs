@@ -26,7 +26,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceDeploy(projectId, force) {
         try {
             const response = await this.shell.exec(
-                `docker service update ${Boolean(force) ? '--force' : ''} ${projectId}_faas`);
+                `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${projectId}_faas`);
             return {message: response};
         } catch (e) {
             throw {message: 'Fails to deploy cloud functions', reason: e.toString()};
@@ -55,7 +55,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-add ', env);
         });
         const response = await this.shell.exec(
-            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
+            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
         return {message: response.toString()};
     }
 
@@ -81,7 +81,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-rm ', env);
         });
         const response = await this.shell.exec(
-            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
+            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_faas`);
         return {message: response.toString()};
     }
 
@@ -95,7 +95,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceAddDomain(projectId, domain, force) {
         try {
             const response = await this.shell.exec(
-                `docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
+                `/usr/local/bin/docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
             );
             return response.toString();
         } catch (e) {
@@ -112,7 +112,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceRemoveDomain(projectId, force) {
         try {
             const response = await this.shell.exec(
-                `docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
+                `/usr/local/bin/docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
             return response.toString();
         } catch (e) {
             throw {message: "Fails to remove all custom domain", reason: e.toString()};
@@ -128,7 +128,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceSwitchOff(projectId, force) {
         try {
             const response = await this.shell.exec(
-                `docker service update ${force ? '--force' : ''} --replicas=0 ${projectId}_faas`);
+                `/usr/local/bin/docker service update ${force ? '--force' : ''} --replicas=0 ${projectId}_faas`);
             return response.toString();
         } catch (e) {
             throw {message: "Fails to switch off dashboard", reason: e.toString()};
@@ -144,7 +144,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceSwitchOn(projectId, force) {
         try {
             const response = await this.shell.exec(
-                `docker service update ${force ? '--force' : ''} --replicas=1 ${projectId}_faas`);
+                `/usr/local/bin/docker service update ${force ? '--force' : ''} --replicas=1 ${projectId}_faas`);
             return response.toString();
         } catch (e) {
             throw {message: "Fails to switch off dashboard", reason: e.toString()};
@@ -163,7 +163,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         if (force) {
             forceString = '--force ';
         }
-        const cmdString = `docker service update ${forceString.toString()}  --image ${image}  ${projectId.toString()}_daas`;
+        const cmdString = `/usr/local/bin/docker service update ${forceString.toString()}  --image ${image}  ${projectId.toString()}_daas`;
         await this.shell.exec(
             cmdString.toString()
         );
@@ -189,7 +189,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-add ', env);
         });
         const response = await this.shell.exec(
-            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
+            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
         return {message: response.toString()};
     }
 
@@ -212,7 +212,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-rm ', env);
         });
         const response = await this.shell.exec(
-            `docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
+            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
         return {message: response.toString()};
     }
 
@@ -310,7 +310,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
 
 
     async functionsInstanceRemove(projectId) {
-        return this.shell.exec(`docker service rm ${projectId}_faas`, {
+        return this.shell.exec(`/usr/local/bin/docker service rm ${projectId}_faas`, {
             env: {
                 docker: this.options.dockerSocket
             }
@@ -318,7 +318,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     }
 
     async databaseInstanceRemove(projectId) {
-        return this.shell.exec(`docker service rm ${projectId}_daas`, {
+        return this.shell.exec(`/usr/local/bin/docker service rm ${projectId}_daas`, {
             env: {
                 docker: this.options.dockerSocket
             }
