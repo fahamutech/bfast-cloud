@@ -17,14 +17,10 @@ const userFactory = new UserStoreFactory(databaseFactory, emailFactory, security
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
 const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
-/**
- *  rest: /projects/:projectId -X GET
- *  input:  -H'Authorization': token,
- *  output: json
- * @private
- */
 export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:projectId`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        },
         (request, response, next) => {
             const valid = !!(request.uid && request.params.projectId);
             if (valid) {
@@ -42,20 +38,17 @@ export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:project
     ]
 );
 
-/**
- *  rest: /projects/:type -X POST
- *  type can be bfast || ssm
- *  input:  -H'Authorization': token, --data json
- *  output: json
- * @private
- */
 export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:type`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        },
         // check is admin is a temporary middleware will be replaced
         // with a payment middleware
         options.devMode ? (req, res, next) => {
             next();
-        } : _routerGuard.checkIsAdmin,
+        } : (request, response, next) => {
+            _routerGuard.checkIsAdmin(request, response, next);
+        },
         /*check for payments if there is enough fund to proceed*/
         async (request, response) => {
             const body = request.body;
@@ -83,12 +76,12 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                 try {
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
-                    const result = await projectFactory.createBFastProject(body);
-                    delete result.fileUrl;
+                    const result = await projectFactory.createProject(body);
+                    // delete body.fileUrl;
                     delete result.parse.masterKey;
-                    response.status(200).json(result);
+                    response.json(result);
                 } catch (reason) {
-                    response.status(500).json(reason);
+                    response.status(400).json(reason);
                 }
             } else {
                 response.status(400).json({message: 'Invalid project data'});
@@ -97,19 +90,17 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
     ]
 );
 
-/**
- *  rest: /projects/?skip=0&size=20 -X GET
- *  input:  -H'Authorization': token,
- *  output: json
- * @private
- */
 export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        },
         (request, response, _) => {
-            projectFactory.getUserProjects(request.uid, 10000, 0).then((value) => {
+            const size = request.query.size ? parseInt(request.query.size) : 1000;
+            const skip = request.query.skip ? parseInt(request.query.skip) : 0;
+            projectFactory.getUserProjects(request.uid, size, skip).then((value) => {
                 response.json(value);
             }).catch((reason) => {
-                response.status(404).json(reason);
+                response.status(400).json(reason);
             });
         }
     ]
@@ -122,8 +113,11 @@ export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
  * @private
  */
 export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:projectId`, [
-        _routerGuard.checkToken,
-        _routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        }, (request, response, next) => {
+            _routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response, _) => {
             const projectId = request.params.projectId;
             const valid = !!(projectId && request.uid);
@@ -147,7 +141,9 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
  * @private
  */
 export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:projectId`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
             const projectId = request.params.projectId;
@@ -168,8 +164,12 @@ export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:proje
 );
 
 export const addMemberToProject = bfast.functions().onPostHttpRequest(`${prefix}/:projectId/members`, [
-        _routerGuard.checkToken,
-        _routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            _routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            _routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
             const projectId = request.params.projectId;

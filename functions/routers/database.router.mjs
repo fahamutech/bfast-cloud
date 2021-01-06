@@ -21,9 +21,15 @@ const routerGuard = new RouterGuardFactory(userFactory, projectFactory, security
 
 
 export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
-        routerGuard.checkPayment,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkPayment(request, response, next);
+        },
         (request, response) => {
             databaseOrch.updateImage(
                 request.params.projectId, request.body.image,
@@ -31,7 +37,7 @@ export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`
             ).then(value => {
                 response.status(200).send(value);
             }).catch(reason => {
-                response.status(503).json(reason);
+                response.status(400).json(reason);
             });
         }
     ]
@@ -44,17 +50,21 @@ export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`
  * @private
  */
 export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
             const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
             if (valid) {
-                databaseOrch.databaseInstanceRemoveEnv(request.params.projectId, request.body.envs,
+                databaseOrch.envRemove(request.params.projectId, request.body.envs,
                     request.query.force === 'true').then(_ => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
-                    response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
+                    response.status(400).json({message: 'fails to remove envs', reason: reason.toString()});
                 });
             } else {
                 response.status(400).json({message: 'Nothing to update'})
@@ -70,14 +80,18 @@ export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix
  * @private
  */
 export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
-            databaseOrch.databaseInstanceAddEnv(request.params.projectId,
+            databaseOrch.envAdd(request.params.projectId,
                 request.body.envs, request.query.force === 'true').then(_ => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
-                response.status(503).json({message: 'fails to add envs', reason: reason.toString()});
+                response.status(400).json({message: 'fails to add envs', reason: reason.toString()});
             });
         }
     ]

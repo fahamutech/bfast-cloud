@@ -21,8 +21,12 @@ const routerGuard = new RouterGuardFactory(userFactory, projectFactory, security
 
 
 export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
             const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
@@ -41,22 +45,30 @@ export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(
 );
 
 export const addFunctionsEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             functionsOrch
                 .envAdd(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
-                response.status(503).json({message: 'fails to add envs', reason: reason.toString()});
+                response.status(400).json({message: reason && reason.message ? reason.message : reason.toString()});
             });
         }
     ]
 );
 
 export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             functionsOrch.deploy(request.params.projectId, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'functions deployed'});
@@ -69,8 +81,12 @@ export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, 
 
 
 export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefix}/domain`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             functionsOrch.addDomain(request.params.projectId, request.body.domain, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'domain added'});
@@ -82,8 +98,12 @@ export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefi
 );
 
 export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${prefix}/domain`, [
-    routerGuard.checkToken,
-    routerGuard.checkIsProjectOwner,
+    (request, response, next) => {
+        routerGuard.checkToken(request, response, next);
+    },
+    (request, response, next) => {
+        routerGuard.checkIsProjectOwner(request, response, next);
+    },
     (request, response) => {
         functionsOrch.removeDomain(request.params.projectId, request.query.force === 'true').then(value => {
             response.status(200).json({message: 'domain added'});
@@ -94,8 +114,12 @@ export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${
 ]);
 
 export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/switch/:mode`, [
-        routerGuard.checkToken,
-        routerGuard.checkIsProjectOwner,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwner(request, response, next);
+        },
         (request, response) => {
             const mode = request.params.mode;
             if (mode.toString() === '0') {

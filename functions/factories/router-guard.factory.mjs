@@ -4,6 +4,8 @@ import {OptionsConfig} from "../configs/options.config.mjs";
 
 export class RouterGuardFactory {
 
+    options;
+
     /**
      *
      * @param userStoreFactory {UserStoreFactory}
@@ -13,7 +15,7 @@ export class RouterGuardFactory {
      */
     constructor(userStoreFactory, projectStoreFactory,
                 securityFactory, options) {
-        this._options = options;
+        this.options = options;
         this._userDatabase = userStoreFactory;
         this._projectDatabase = projectStoreFactory;
         this._security = securityFactory;
@@ -42,7 +44,7 @@ export class RouterGuardFactory {
     checkIsProjectOwner(request, response, next) {
         // @ts-ignore
         if (request.uid && request.params.projectId) {
-            if (!this._options.devMode) {
+            if (!this.options.devMode) {
                 // @ts-ignore
                 this._projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                     next();
@@ -67,9 +69,7 @@ export class RouterGuardFactory {
             let token = bearer[1];
             this._security.verifyToken(token)
                 .then(value => {
-                    // @ts-ignore
                     request.uid = value.uid ? value.uid : null;
-                    // @ts-ignore
                     request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
@@ -77,14 +77,13 @@ export class RouterGuardFactory {
                 response.status(401).json(reason)
             });
         } else {
-            //If header is undefined return Forbidden (403)
             response.status(401).json({message: 'Identify yourself'})
         }
     }
 
     checkMasterKey(request, response, next) {
         const masterKey = request.headers.authorization;
-        if (masterKey && masterKey === this._options.masterKey) {
+        if (masterKey && masterKey === this.options.masterKey) {
             next();
         } else {
             response.status(401).json({message: 'Unauthorized action'});

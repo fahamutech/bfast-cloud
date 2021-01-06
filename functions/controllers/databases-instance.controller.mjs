@@ -36,6 +36,7 @@ export class DatabasesInstanceController {
      * @return {Promise<*>}
      */
     async envAdd(projectId, envs, force = false) {
+        envs = envs.filter(x => x.trim() !== '');
         return await this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 
@@ -47,6 +48,7 @@ export class DatabasesInstanceController {
      * @return {Promise<*>}
      */
     async envRemove(projectId, envs, force = false) {
+        envs = envs.filter(x => x.trim() !== '');
         return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force);
     }
 

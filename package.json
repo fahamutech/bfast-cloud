@@ -15,10 +15,11 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^8.5.1",
     "bfastnode": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

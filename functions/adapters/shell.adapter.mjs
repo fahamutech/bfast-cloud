@@ -6,7 +6,6 @@ export class ShellAdapter {
      * @return {Promise<*>}
      */
     async exec(cmd, options = {}) {
-
     }
 }
 

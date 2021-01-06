@@ -14,21 +14,15 @@ const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory(options.redisHOST);
 const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory)
-const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
+const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
-/**
- *  rest: /users/me/role -X GET
- *  input: -H'Authorization': token
- *  output: json
- * @private
- */
 export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
         (request, response) => {
-            // @ts-ignore
             if (request.uid) {
-                // @ts-ignore
                 userFactory.getRole(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
@@ -41,18 +35,13 @@ export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role
     ]
 );
 
-/**
- *  rest: /users/me -X DELETE
- *  input: -H'Authorization': token
- *  output: json
- * @private
- */
+
 export const deleteUser = bfast.functions().onDeleteHttpRequest(`${prefix}/me`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
         (request, response) => {
-            // @ts-ignore
             if (request.uid) {
-                // @ts-ignore
                 userFactory.deleteUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
@@ -65,18 +54,12 @@ export const deleteUser = bfast.functions().onDeleteHttpRequest(`${prefix}/me`, 
     ]
 );
 
-/**
- *  rest: /users/me -X GET
- *  input: -H'Authorization': token
- *  output: json
- * @private
- */
 export const getUserDetails = bfast.functions().onGetHttpRequest(`${prefix}/me`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
         (request, response) => {
-            // @ts-ignore
             if (request.uid) {
-                // @ts-ignore
                 userFactory.getUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
@@ -89,20 +72,14 @@ export const getUserDetails = bfast.functions().onGetHttpRequest(`${prefix}/me`,
     ]
 );
 
-/**
- *  rest: /users/me -X PATCH
- *  input: -H'Authorization': token, --data json
- *  output: json
- * @private
- */
 export const updateUserDetails = bfast.functions().onPutHttpRequest(`${prefix}/me`, [
-        _routerGuard.checkToken,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
-            // @ts-ignore
             const valid = !!(request.uid && body && Object.keys(body).length > 0);
             if (valid) {
-                // @ts-ignore
                 userFactory.updateUserDetails(request.uid, body).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
@@ -115,15 +92,12 @@ export const updateUserDetails = bfast.functions().onPutHttpRequest(`${prefix}/m
     ]
 );
 
-/**
- *  rest: /users/ -X GET
- *  input: -H'Authorization': token
- *  output: json
- * @private
- */
 export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
-        _routerGuard.checkToken,
-        _routerGuard.checkIsAdmin,
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        }, (request, response, next) => {
+            routerGuard.checkIsAdmin(request, response, next);
+        },
         (request, response, next) => {
             const size = request.query && request.query.size ? request.query.size : 20;
             const skip = request.query && request.query.skip ? request.query.skip : 0;
@@ -134,12 +108,6 @@ export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
     ]
 );
 
-/**
- *  rest: /users/ -X POST
- *  input: --data json
- *  output: json
- * @private
- */
 export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, [
         (request, response) => {
             const body = request.body;
@@ -159,12 +127,25 @@ export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, [
     ]
 );
 
-/**
- *  rest: /users/login -X POST
- *  input: --data json
- *  output: json
- * @private
- */
+export const createAccountV2 = bfast.functions().onPostHttpRequest(`${prefix}/register`, [
+        (request, response) => {
+            const body = request.body;
+            const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
+            if (valid) {
+                userFactory.createUser(body).then(value => {
+                    response.status(200).json(value);
+                }).catch(reason => {
+                    response.status(400).json(reason);
+                });
+            } else {
+                response.status(400).json({
+                    message: 'invalid data supplied, displayName, phoneNumber, email and password required'
+                });
+            }
+        }
+    ]
+);
+
 export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
         (request, response) => {
             const body = request.body;
@@ -189,7 +170,6 @@ export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
  * @private
  */
 export const logout = bfast.functions().onPostHttpRequest(`${prefix}/logout`, [
-        // routerGuard.checkToken,
         (request, response) => {
             const body = request.body;
             const valid = !!(body && body.token);
@@ -262,15 +242,17 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
  *  output: json
  */
 export const addSuperAdmin = bfast.functions().onPostHttpRequest(`${prefix}/admin`, [
-        _routerGuard.checkMasterKey,
+        (request, response, next) => {
+            routerGuard.checkMasterKey(request, response, next);
+        },
         (request, response) => {
             const body = request.body;
             const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
             if (valid) {
                 userFactory.createAdmin(body).then(value => {
-                    response.status(200).json(value);
+                    response.json(value);
                 }).catch(reason => {
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
                 response.status(400).json({

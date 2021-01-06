@@ -1,34 +1,30 @@
+import bfastnode from "bfastnode";
+const {bfast} = bfastnode;
+
 export class EmailFactory {
 
     /**
      *
-     * @param to {string}
-     * @param from {string}
-     * @param subject {string}
-     * @param message {string}
-     * @return {Promise<string>}
+     * @param data {
+     * {
+     *      from: string,
+     *      to: Array<string>,
+     *      subject: string,
+     *      text: string,
+     *      html: string,
+     *      attachment
+     * }
+     * }
+     * @return {Promise<*>}
      */
-    async sendEmail(to, from, subject, message) {
-        try {
-            // const transporter = nodemailer.createTransport({
-            //     host: "smtp.gmail.com",
-            //     port: 465,
-            //     secure: true, // true for 465, false for other ports
-            //     auth: {
-            //         user: "fahamutechdevelopers@gmail.com", // generated ethereal user
-            //         pass: "fahamutech::developers::email" // generated ethereal password
-            //     }
-            // });
-            // await transporter.sendMail({
-            //     from: `"BFast::Cloud" ☁️`, // sender address
-            //     to: `${to}`, // list of receivers
-            //     subject: subject, // Subject line
-            //     // text: "Hello", // plain text body
-            //     html: message // html body
-            // });
-            return 'Email sent';
-        } catch (e) {
-            throw e.toString();
-        }
+    async sendMail(data) {
+        return bfast.functions('fahamutaarifa')
+            .request('/mail')
+            .post(data, {
+                    headers: {
+                        'authorization': 'fzJogB87b8D3gTxU0u6utUx4CELiI24M7LSJMmfVZE7bjFmb2guNIcsiktQQPB8'
+                    }
+                }
+            );
     }
 }

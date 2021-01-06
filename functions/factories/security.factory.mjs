@@ -1,6 +1,9 @@
-import * as bcrypt from 'bcryptjs';
-import * as redis from 'redis';
-import * as _jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
+import {RedisClient} from 'redis';
+import _jwt from 'jsonwebtoken';
+
+const {compare, hash} = bcryptjs;
+// const {decode, sign} = jsonwebtoken;
 
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
@@ -26,7 +29,7 @@ export class SecurityFactory {
      * @param redisDbUrl {string}
      */
     constructor(redisDbUrl) {
-        this._redisClient = redis.createClient({
+        this._redisClient = new RedisClient({
             host: redisDbUrl,
         });
     }
@@ -38,12 +41,7 @@ export class SecurityFactory {
      * @return {Promise<boolean>}
      */
     async comparePassword(plainPassword, hashPassword) {
-        try {
-            return await bcrypt.compare(plainPassword, hashPassword);
-        } catch (e) {
-            console.error(e);
-            throw e.toString();
-        }
+        return await compare(plainPassword, hashPassword);
     }
 
     /**
@@ -52,12 +50,7 @@ export class SecurityFactory {
      * @return {Promise<string>}
      */
     async encryptPassword(plainText) {
-        try {
-            return await bcrypt.hash(plainText, 5);
-        } catch (e) {
-            console.error(e);
-            throw e.toString();
-        }
+        return await hash(plainText, 5);
     }
 
     /**
@@ -86,17 +79,16 @@ export class SecurityFactory {
      * @param expire {string}
      * @return {Promise<string>}
      */
-    async generateToken(data, expire) {
+    async generateToken(data, expire = '7d') {
         return new Promise((resolve, reject) => {
             _jwt.sign(data, _jwtPassword, {
-                expiresIn: expire ? expire : '360d',
+                expiresIn: expire ? expire : '7d',
                 issuer: 'bfast::cloud'
             }, (err, encoded) => {
                 if (err) {
                     reject({message: 'Fails to generate a token', reason: err.toString()});
                     return;
                 }
-                // @ts-ignore
                 this._redisClient.set(encoded, JSON.stringify(data), (err1, reply) => {
                     if (err1) {
                         reject({message: 'Fails to cache your token', reason: err1.toString()});
@@ -104,8 +96,8 @@ export class SecurityFactory {
                     }
                     resolve(encoded);
                 });
-                // @ts-ignore
-                this._redisClient.expire(encoded, 360 * 86400);
+                this._redisClient.expire(encoded, expire && expire !== '' ?
+                    parseInt(expire.replace('d', '')) * 86400 : 7 * 86400);
             });
         });
     }

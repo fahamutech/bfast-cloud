@@ -1,7 +1,8 @@
 import {SecurityFactory} from "./security.factory.mjs";
 import {EmailFactory} from "./email.factory.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
-import {UserModel, UserRoles} from "../models/user.model.mjs";
+import {UserRoles} from "../models/user.model.mjs";
+import {v4} from 'uuid';
 
 export class UserStoreFactory {
     collectionName = '_User';
@@ -41,7 +42,9 @@ export class UserStoreFactory {
             delete user.uid;
             const date = new Date().toISOString();
             user.createdAt = date;
+            user._id = v4();
             user.updatedAt = date;
+            user.username = user.email;
             user.password = await this._security.encryptPassword(user.password);
             user.role = UserRoles.USER_ROLE;
             const userCollection = await this._database.collection(this.collectionName);
@@ -60,6 +63,8 @@ export class UserStoreFactory {
                 message: 'user not created',
                 reason: e.code && e.code === 11000 ? 'Email is already in use' : e.toString()
             };
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -74,6 +79,7 @@ export class UserStoreFactory {
             const date = new Date().toISOString();
             user.createdAt = date;
             user.updatedAt = date;
+            user._id = v4();
             user.password = await this._security.encryptPassword(user.password);
             user.role = UserRoles.ADMIN_ROLE;
             const adminCollection = await this._database.collection(this.collectionName);
@@ -86,8 +92,8 @@ export class UserStoreFactory {
             delete user.password;
             user.token = await this._security.generateToken({uid: insertUser.insertedId.toString()});
             return user;
-        } catch (reason) {
-            throw {message: 'Admin not created', reason: reason.toString()};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -103,11 +109,10 @@ export class UserStoreFactory {
             if (response && response.deletedCount === 1 && response.result.ok === 1) {
                 return {message: "User deleted"};
             } else {
-                throw 'Operation was not successful';
+                throw {message: 'user not deleted'};
             }
-        } catch (e) {
-            console.error(e);
-            throw {message: 'user not deleted'};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -125,9 +130,8 @@ export class UserStoreFactory {
                 .limit(size ? size : 100)
                 .project({password: 0})
                 .toArray();
-        } catch (e) {
-            console.error(e);
-            throw {message: 'can not list all users'}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -139,7 +143,7 @@ export class UserStoreFactory {
     async getUser(userId) {
         try {
             const userCollection = await this._database.collection(this.collectionName);
-            const user = await userCollection.findOne < UserModel > ({_id: this._database.getObjectId(userId)});
+            const user = await userCollection.findOne({_id: this._database.getObjectId(userId)});
             if (user) {
                 user.uid = user._id;
                 delete user.password;
@@ -147,9 +151,8 @@ export class UserStoreFactory {
             } else {
                 throw 'No such user in records'
             }
-        } catch (e) {
-            console.error(e);
-            throw e;
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -174,9 +177,8 @@ export class UserStoreFactory {
             user.token = await this._security.generateToken({uid: user._id});
             user.uid = user._id;
             return user;
-        } catch (e) {
-            console.error(e);
-            throw {message: 'Fails to login', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -200,9 +202,8 @@ export class UserStoreFactory {
                 }
             });
             return await this.getUser(userId);
-        } catch (e) {
-            console.error(e);
-            throw {message: 'fail to update user details', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -212,6 +213,8 @@ export class UserStoreFactory {
     /**
      *
      * @param email {string}
+     * @param devMode
+     * @param port
      * @return {Promise<{message: string, token: *}|{message: string}>}
      */
     async requestResetPassword(email, devMode = false, port = 3000) {
@@ -230,17 +233,20 @@ export class UserStoreFactory {
                     updatedAt: true
                 }
             });
+            const emails = [];
+            emails.push(email);
             const host = devMode ? 'http://127.0.0.1:' + port
                 : 'http://api.bfast.fahamutech.com';
-            await this._emailAdapter.sendEmail(
-                email,
-                'BFast::Cloud',
-                'Password reset',
-                `
-                Use this link to reset your password : <br>
+            await this._emailAdapter.sendMail(
+                {
+                    from: `BFast::Cloud <bfast@fahamutech.com>`,
+                    subject: 'Password Reset',
+                    to: emails,
+                    html: `Use this link to reset your password :  <br>
                 <a href="${host}/ui/password/reset/?token=${code}">
                     Click to reset your password
                 </a>`
+                }
             );
             if (devMode) {
                 return {message: 'Follow Instruction sent to email : ' + user.email, token: code};
@@ -250,6 +256,8 @@ export class UserStoreFactory {
         } catch (e) {
             console.error(e);
             throw {message: 'Fail to send reset password email', reason: e.toString()};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -269,6 +277,8 @@ export class UserStoreFactory {
         } catch (e) {
             console.error(e);
             throw {message: 'user role can not be determined', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -280,7 +290,7 @@ export class UserStoreFactory {
      * @return {Promise<string>}
      */
     async resetPassword(code, password) {
-        // try {
+        try {
             const decodedEmail = await this._security.verifyToken(code);
             if (!password) {
                 throw {message: 'Please provide a new password'};
@@ -302,10 +312,9 @@ export class UserStoreFactory {
             } else {
                 throw {message: 'code is invalid'};
             }
-        // } catch (e) {
-        //     console.log(e);
-        //     throw {message: "Reset password fails", reason: e.toString()};
-        // }
+        } finally {
+            this._database.disconnect();
+        }
     }
 
 }

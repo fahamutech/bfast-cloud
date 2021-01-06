@@ -1,6 +1,7 @@
 import {UserModel} from "../models/user.model.mjs";
 import {ProjectModel} from "../models/project.model.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
+import {v4} from "uuid";
 
 
 export class ProjectStoreFactory {
@@ -24,70 +25,48 @@ export class ProjectStoreFactory {
      * @param project {ProjectModel}
      * @return {Promise<ProjectModel>}
      */
-    // TODO: must run inside transaction
     async createProject(project) {
-        try {
-            if (project &&
-                project.projectId &&
-                project.projectId !== '' &&
-                project.name &&
-                project.name !== '' &&
-                project.parse &&
-                project.parse.appId &&
-                project.parse.appId !== '' &&
-                project.parse.masterKey !== '') {
-                project.members = [];
-                if (!project.type || project.type === '') {
-                    project.type = 'bfast';
-                }
-                // const value = await this.database.createProject(project);
-                const projectColl = await this._database.collection(this.collectionName);
-                const result = await projectColl.insertOne({
-                    name: project.name,
-                    projectId: project.projectId,
-                    description: project.description,
-                    type: project.type,
-                    user: project.user,
-                    members: project.members ? project.members : [],
-                    isParse: project.isParse ? project.isParse : false,
-                    parse: (project.parse && project.parse.appId && project.parse.masterKey) ? project.parse : null,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                });
-                const pNameIndex = await projectColl.indexExists('projectId');
-                if (!pNameIndex) {
-                    await projectColl.createIndex({projectId: 1}, {unique: true});
-                }
-                const adminColl = await this._database.getDatabase('admin');
-                try {
-                    await adminColl.removeUser(project.parse.appId);
-                } catch (_) {
-                }
-                try {
-                    await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
-                        roles: [
-                            {role: "readWrite", db: project.projectId}
-                        ]
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this._addUserToDb(project);
+                await this._database.transaction(async (session, mongo) => {
+                    project.members = [];
+                    if (!project.type || project.type === '') {
+                        project.type = 'bfast';
+                    }
+                    const projectColl = await this._database.collection(this.collectionName);
+                    const result = await projectColl.insertOne({
+                        _id: v4(),
+                        name: project.name,
+                        projectId: project.projectId,
+                        description: project.description,
+                        type: project.type,
+                        user: project.user,
+                        members: project.members ? project.members : [],
+                        isParse: project.isParse ? project.isParse : false,
+                        parse: (project.parse && project.parse.appId && project.parse.masterKey) ? project.parse : null,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                    }, {
+                        session: session
                     });
-                } catch (e) {
-                    console.warn(e);
+                    project.id = result.insertedId.toString();
+                    await this._deployProjectInCluster(project);
+                    resolve(project);
+                });
+            } catch (reason) {
+                let message;
+                if (reason && reason.code && reason.code === 11000) {
+                    const date = Date.now().toString();
+                    const sp = project.name + date.substring(9, date.length);
+                    message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
+                } else {
+                    message = reason && reason.message ? reason.message : reason.toString();
                 }
-                project.id = result.insertedId.toString()
-                return this._deployProjectInCluster(project);
-            } else {
-                throw {message: 'project object is not well defined'}
+                reject({message: message});
             }
-        } catch (reason) {
-            let message;
-            if (reason.code && reason.code === 11000) {
-                const date = Date.now().toString();
-                const sp = project.name + date.substring(9, date.length);
-                message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
-            } else {
-                message = reason && reason.message ? reason.message : reason.toString();
-            }
-            throw {message: message};
-        }
+        });
+
     }
 
     /**
@@ -97,21 +76,15 @@ export class ProjectStoreFactory {
      * @private
      */
     async _deployProjectInCluster(project) {
-        try {
+        if (project.type === 'daas') {
+            await this.orchestration.databaseInstanceCreate(project);
+        } else if (project.type === 'faas') {
+            await this.orchestration.functionsInstanceCreate(project);
+        } else {
             await this.orchestration.databaseInstanceCreate(project);
             await this.orchestration.functionsInstanceCreate(project);
-            return project;
-        } catch (reason) {
-            try {
-                await this.deleteUserProject(project.id ? project.id : '', project.projectId);
-            } catch (e) {
-                console.warn(e && e.message ? e.message : e.toString(), 'remove project when deploy fails');
-            }
-            throw {
-                message: 'Project not created',
-                reason: reason && reason.message ? reason.message : reason.toString()
-            };
         }
+        return project;
     }
 
     /**
@@ -120,30 +93,35 @@ export class ProjectStoreFactory {
      * @param projectId {string}
      * @return {Promise<*>}
      */
-    //TODO: must run inside transaction
     async deleteUserProject(userId, projectId) {
-        if (!userId || userId === '') {
-            throw {message: 'Please provide uid'};
-        } else if (!projectId || projectId === '') {
-            throw {message: 'projectId required'};
-        } else {
-            const user = await this._users.getUser(userId);
-            const projectCollection = await this._database.collection(this.collectionName);
-            const response = await projectCollection.deleteMany({
-                projectId: projectId,
-                "user.email": user.email
-            });
-            if (response && response.result.ok) {
-                try {
-                    await this._removeProjectInCluster(projectId);
-                    return {message: 'Project deleted and removed'};
-                } catch (e) {
-                    console.warn(e);
-                    return {message: 'Project deleted'};
-                }
+        try {
+            if (!userId || userId === '') {
+                throw {message: 'Please provide uid'};
+            } else if (!projectId || projectId === '') {
+                throw {message: 'projectId required'};
             } else {
-                throw {message: 'Project not found'};
+                await this._database.transaction(async (session) => {
+                    // try {
+                    const user = await this._users.getUser(userId);
+                    const projectCollection = await this._database.collection(this.collectionName);
+                    const response = await projectCollection.deleteMany({
+                        projectId: projectId,
+                        "user.email": user.email
+                    });
+                    if (response && response.result.ok) {
+                        await this._removeProjectInCluster(projectId);
+                    } else {
+                        throw {message: 'Project not found'};
+                    }
+                    // } catch (e) {
+                    //     session.abortTransaction();
+                    //     throw e;
+                    // }
+                });
+                return {message: 'Project deleted and removed'};
             }
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -153,12 +131,13 @@ export class ProjectStoreFactory {
      * @return {Promise<string>}
      * @private
      */
-    // TODO : Must throw error when async fails
     async _removeProjectInCluster(projectId) {
         try {
             this.orchestration.functionsInstanceRemove(projectId).catch(_ => {
+                console.warn(_.toString(), 'remove faas');
             });
             this.orchestration.databaseInstanceRemove(projectId).catch(_ => {
+                console.warn(_.toString(), 'remove daas');
             });
             return 'Project removed in cluster';
         } catch (e) {
@@ -177,26 +156,30 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel[]>}
      */
     async getUserProjects(userId, size, skip) {
-        if (!userId || userId === '') {
-            throw {message: 'uid field required'};
-        } else {
-            if (userId) {
-                try {
-                    const user = await this._users.getUser(userId);
-                    const projectCollection = await this._database.collection(this.collectionName);
-                    return await projectCollection.find({
-                        $or: [
-                            {'user.email': user.email},
-                            {"members.email": user.email}
-                        ]
-                    }).toArray();
-                } catch (reason) {
-                    console.log(reason);
-                    throw {message: reason.toString()};
-                }
+        try {
+            if (!userId || userId === '') {
+                throw {message: 'userId required'};
             } else {
-                throw {message: 'Please provide a user id'};
+                if (userId) {
+                    try {
+                        const user = await this._users.getUser(userId);
+                        const projectCollection = await this._database.collection(this.collectionName);
+                        return await projectCollection.find({
+                            $or: [
+                                {'user.email': user.email},
+                                {"members.email": user.email}
+                            ]
+                        }).toArray();
+                    } catch (reason) {
+                        console.log(reason);
+                        throw {message: reason.toString()};
+                    }
+                } else {
+                    throw {message: 'Please provide a user id'};
+                }
             }
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -216,6 +199,8 @@ export class ProjectStoreFactory {
         } catch (e) {
             console.error(e);
             throw {message: 'Fails to get project', reason: e.toString()};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -234,6 +219,8 @@ export class ProjectStoreFactory {
                 .toArray();
         } catch (e) {
             throw {message: 'Fails to get all projects', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -260,6 +247,8 @@ export class ProjectStoreFactory {
             return project;
         } catch (e) {
             throw {message: 'Fail to get project details', reason: e.toString()};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -288,6 +277,8 @@ export class ProjectStoreFactory {
         } catch (e) {
             console.error(e);
             throw {message: 'Fails to update project description', reason: e.toString()};
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -312,6 +303,8 @@ export class ProjectStoreFactory {
         } catch (e) {
             console.error(e);
             throw {message: 'Fails to identify owner', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
         }
     }
 
@@ -322,17 +315,37 @@ export class ProjectStoreFactory {
      * @return {Promise<*>}
      */
     async addMemberToProject(projectId, user) {
-        if (user && user.email) {
-            const projectColl = await this._database.collection(this.collectionName);
-            const response = await projectColl.updateOne({projectId: projectId}, {
-                $push: {
-                    'members': user
-                }
-            });
-            return response.result;
+        try {
+            if (user && user.email) {
+                const projectColl = await this._database.collection(this.collectionName);
+                const response = await projectColl.updateOne({projectId: projectId}, {
+                    $push: {
+                        'members': user
+                    }
+                });
+                return response.result;
+            }
+            throw new Error('User model miss required data');
+        } finally {
+            this._database.disconnect();
         }
-        throw new Error('User model miss required data');
-
     }
 
+    async _addUserToDb(project) {
+        const adminColl = await this._database.getDatabase('admin');
+        try {
+            await adminColl.removeUser(project.parse.appId);
+        } catch (_) {
+            console.warn(_.toString(), '=> mongo user remove user');
+        }
+        try {
+            await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+                roles: [
+                    {role: "readWrite", db: project.projectId}
+                ]
+            });
+        } catch (e) {
+            console.warn(e);
+        }
+    }
 }

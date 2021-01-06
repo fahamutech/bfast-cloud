@@ -15,17 +15,13 @@ export class NodeShellFactory extends ShellAdapter {
      */
     async exec(cmd, options) {
         return new Promise((resolve, reject) => {
-            exec(
-                cmd,
-                options ? options : {},
-                (error, stdout, stderr) => {
-                    if (error) {
-                        console.log(error);
-                        reject(stderr.toString());
-                    } else {
-                        resolve(stdout.toString());
-                    }
-                });
+            exec(cmd, options ? options : {}, (error, stdout, stderr) => {
+                if (error) {
+                    reject(error.toString());
+                } else {
+                    resolve(stdout.toString());
+                }
+            });
         });
     }
 
