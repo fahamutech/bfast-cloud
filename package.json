@@ -29,7 +29,6 @@
     "@types/redis-mock": "^0.17.0",
     "axios": "^0.21.1",
     "chai": "^4.2.0",
-    "gulp": "^4.0.2",
     "mocha": "^8.2.1",
     "mongodb-memory-server-core": "^6.9.2",
     "redis-mock": "^0.56.3"
