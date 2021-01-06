@@ -4,6 +4,7 @@
     "**/node_modules/**",
     "**/specs/**",
     "**/lib/**",
+    "**/assets/**",
     "/**.specs.mjs",
     "/**.controller.mjs",
     "/**.component.mjs",
