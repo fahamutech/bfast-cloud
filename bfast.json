@@ -1,0 +1,15 @@
+{
+  "projectId": "cloud",
+  "ignore": [
+    "**/node_modules/**",
+    "**/specs/**",
+    "**/lib/**",
+    "/**.specs.mjs",
+    "/**.controller.mjs",
+    "/**.component.mjs",
+    "/**.config.mjs",
+    "/**.adapter.mjs",
+    "/**.model.mjs",
+    "/**.factory.js"
+  ]
+}
