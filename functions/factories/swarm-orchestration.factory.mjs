@@ -288,7 +288,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"MODE=npm\"",
             "--env \"NPM_TAR=bfast-database\"",
             "--env \"MOUNT_PATH=/\"",
-            "--env \"S3_BUCKET=${cluster}-${bucketName}\"",
+            "--env \"S3_BUCKET=bfast-${projectId}\"",
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
