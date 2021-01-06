@@ -1,8 +1,9 @@
 import bcryptjs from 'bcryptjs';
-import {RedisClient} from 'redis';
+import redis from 'redis';
 import _jwt from 'jsonwebtoken';
 
 const {compare, hash} = bcryptjs;
+const {RedisClient} = redis;
 // const {decode, sign} = jsonwebtoken;
 
 let _jwtPassword =
