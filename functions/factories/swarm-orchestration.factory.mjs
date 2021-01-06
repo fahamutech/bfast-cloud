@@ -223,7 +223,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      */
     async functionsInstanceCreate(project) {
         return this.shell.exec([
-            "docker service create",
+            "/usr/local/bin/docker service create",
             "--name ${projectId}_faas",
             "--hostname ${projectId}_faas",
             "--network bfastweb",
@@ -259,7 +259,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
 
     async databaseInstanceCreate(project) {
         return await this.shell.exec([
-            "docker service create",
+            "/usr/local/bin/docker service create",
             "--name ${projectId}_daas",
             "--hostname ${projectId}_daas",
             "--network bfastweb",
