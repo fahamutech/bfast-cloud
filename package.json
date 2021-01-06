@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "private": false,
   "main": "functions/bfast-cloud.mjs",
@@ -34,5 +34,13 @@
     "mocha": "^8.2.1",
     "mongodb-memory-server-core": "^6.9.2",
     "redis-mock": "^0.56.3"
-  }
+  },
+  "bundledDependencies": [
+    "bcryptjs",
+    "bfastnode",
+    "jsonwebtoken",
+    "mongodb",
+    "redis",
+    "uuid"
+  ]
 }
