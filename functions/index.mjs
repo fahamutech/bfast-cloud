@@ -39,7 +39,7 @@ export class Options extends OptionsConfig {
 bfast.init({
     applicationId: 'fahamutaarifa',
     projectId: 'fahamutaarifa'
-});
+}, 'fahamutaarifa');
 
 new DatabaseConfigFactory(new Options().mongoURL).collection('_Project').then(async collection => {
     try {
