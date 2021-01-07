@@ -242,10 +242,7 @@ export class UserStoreFactory {
                     from: `BFast::Cloud <bfast@fahamutech.com>`,
                     subject: 'Password Reset',
                     to: emails,
-                    html: `Use this link to reset your password :  <br>
-                <a href="${host}/ui/password/reset/?token=${code}">
-                    Click to reset your password
-                </a>`
+                    html: `Use this link to reset your password :  <a href="${host}/ui/password/reset/?token=${code}">Click to reset your password</a>`
                 }
             );
             if (devMode) {
