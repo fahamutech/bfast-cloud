@@ -120,9 +120,10 @@ export class OrchestrationAdapter {
      * @param projectId {string}
      * @param envs {Array<string>}
      * @param force {boolean}
+     * @param daemon {boolean}
      * @return {Promise<*>}
      */
-    async databaseInstanceAddEnv(projectId, envs, force) {
+    async databaseInstanceAddEnv(projectId, envs, force, daemon) {
     }
 
     /**
@@ -130,9 +131,10 @@ export class OrchestrationAdapter {
      * @param projectId {string}
      * @param envs {Array<string>}
      * @param force {boolean}
+     * @param daemon {boolean}
      * @return {Promise<*>}
      */
-    async databaseInstanceRemoveEnv(projectId, envs, force) {
+    async databaseInstanceRemoveEnv(projectId, envs, force, daemon) {
     }
 
 }

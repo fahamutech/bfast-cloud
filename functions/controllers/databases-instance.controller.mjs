@@ -33,11 +33,12 @@ export class DatabasesInstanceController {
      * @param projectId {string}
      * @param envs {Array<string>}
      * @param force {boolean}
+     * @param daemon
      * @return {Promise<*>}
      */
-    async envAdd(projectId, envs, force = false) {
+    async envAdd(projectId, envs, force = false, daemon=true) {
         envs = envs.filter(x => x.trim() !== '');
-        return await this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force);
+        return await this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
     }
 
     /**
@@ -45,11 +46,12 @@ export class DatabasesInstanceController {
      * @param projectId {string}
      * @param envs {Array<string>}
      * @param force {boolean}
+     * @param daemon
      * @return {Promise<*>}
      */
-    async envRemove(projectId, envs, force = false) {
+    async envRemove(projectId, envs, force = false, daemon=true) {
         envs = envs.filter(x => x.trim() !== '');
-        return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force);
+        return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
     }
 
 }

@@ -174,10 +174,11 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      *
      * @param projectId {string}
      * @param envs {Array<string>}
-     * @param force
+     * @param force {boolean}
+     * @param daemon {boolean}
      * @return {Promise<{message: string}>}
      */
-    async databaseInstanceAddEnv(projectId, envs, force) {
+    async databaseInstanceAddEnv(projectId, envs, force, daemon) {
         if (projectId.length < 1) {
             throw {message: 'projectId required'}
         }
@@ -189,7 +190,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-add ', env);
         });
         const response = await this.shell.exec(
-            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
+            `/usr/local/bin/docker service update ${Boolean(daemon) === true ? '-d' : ''} ${Boolean(force) === true ? '--force' : ''} ${envQuery} ${projectId}_daas`);
         return {message: response.toString()};
     }
 
@@ -198,9 +199,10 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      * @param projectId {string}
      * @param envs {Array<string>}
      * @param force {boolean}
+     * @param daemon {boolean}
      * @return {Promise<{message: string}>}
      */
-    async databaseInstanceRemoveEnv(projectId, envs, force) {
+    async databaseInstanceRemoveEnv(projectId, envs, force, daemon) {
         if (projectId.length < 1) {
             throw {message: "projectId required"};
         }
@@ -212,7 +214,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             envQuery = envQuery.concat(' --env-rm ', env);
         });
         const response = await this.shell.exec(
-            `/usr/local/bin/docker service update ${Boolean(force) ? '--force' : ''} ${envQuery} ${projectId}_daas`);
+            `/usr/local/bin/docker service update ${Boolean(daemon) === true ? '-d' : ''} ${Boolean(force) === true ? '--force' : ''} ${envQuery} ${projectId}_daas`);
         return {message: response.toString()};
     }
 
@@ -307,7 +309,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             }
         });
     }
-
 
     async functionsInstanceRemove(projectId) {
         return this.shell.exec(`/usr/local/bin/docker service rm ${projectId}_faas`, {

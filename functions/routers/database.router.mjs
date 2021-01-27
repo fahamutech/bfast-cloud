@@ -61,7 +61,7 @@ export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix
             const valid = (body && body.envs && Array.isArray(body.envs) && body.envs.length > 0);
             if (valid) {
                 databaseOrch.envRemove(request.params.projectId, request.body.envs,
-                    request.query.force === 'true').then(_ => {
+                    request.query.force === 'true', request.query.daemon === 'true').then(_ => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
                     response.status(400).json({message: 'fails to remove envs', reason: reason.toString()});
@@ -88,7 +88,7 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
         },
         (request, response) => {
             databaseOrch.envAdd(request.params.projectId,
-                request.body.envs, request.query.force === 'true').then(_ => {
+                request.body.envs, request.query.force === 'true', request.query.daemon === 'true').then(_ => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
                 response.status(400).json({message: 'fails to add envs', reason: reason.toString()});
