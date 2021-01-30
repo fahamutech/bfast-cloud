@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "private": false,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
@@ -12,9 +12,17 @@
     "test": "echo \"no test\"",
     "push:docker": "gulp pubishDockerImage"
   },
+  "bundledDependencies": [
+    "bcryptjs",
+    "bfastnode",
+    "jsonwebtoken",
+    "mongodb",
+    "redis",
+    "uuid"
+  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bfastnode": "^4.0.5",
+    "bfastnode": "^4.0.8",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
     "redis": "^3.0.2",
@@ -32,13 +40,5 @@
     "mocha": "^8.2.1",
     "mongodb-memory-server-core": "^6.9.2",
     "redis-mock": "^0.56.3"
-  },
-  "bundledDependencies": [
-    "bcryptjs",
-    "bfastnode",
-    "jsonwebtoken",
-    "mongodb",
-    "redis",
-    "uuid"
-  ]
+  }
 }

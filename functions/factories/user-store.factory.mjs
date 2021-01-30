@@ -261,7 +261,7 @@ export class UserStoreFactory {
     /**
      *
      * @param userId {string}
-     * @return {Promise<{role: *}>}
+     * @return {Promise<{role: string, email: string}>}
      */
     async getRole(userId) {
         try {
@@ -270,7 +270,7 @@ export class UserStoreFactory {
             if (!user) {
                 throw 'no such user in records';
             }
-            return {role: user.role};
+            return {role: user.role, email: user.email};
         } catch (e) {
             console.error(e);
             throw {message: 'user role can not be determined', reason: e.toString()}

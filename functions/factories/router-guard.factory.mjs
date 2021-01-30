@@ -26,7 +26,12 @@ export class RouterGuardFactory {
             this._userDatabase.getRole(request.uid).then(value => {
                 if (value.role === UserRoles.ADMIN_ROLE) {
                     next();
-                } else {
+                }
+                // temporary allow smartstock to pass
+                else if (value.email === 'smartstocktz@gmail.com') {
+                    next();
+                }
+                else {
                     response.status(403).json({
                         message: 'Forbidden request',
                         reason: 'you don\'t have enough role'

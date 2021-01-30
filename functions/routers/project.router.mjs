@@ -76,6 +76,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                 try {
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
+                    body.label = body.label ? body.label : 'bfast';
                     const result = await projectFactory.createProject(body);
                     // delete body.fileUrl;
                     delete result.parse.masterKey;
@@ -144,6 +145,9 @@ export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:proje
         (request, response, next) => {
             _routerGuard.checkToken(request, response, next);
         },
+        // (request, response, next) => {
+        //     _routerGuard.checkIsProjectOwner(request, response, next);
+        // },
         (request, response) => {
             const body = request.body;
             const projectId = request.params.projectId;
@@ -154,7 +158,7 @@ export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:proje
                     .patchProjectDetails(request.uid, projectId, body).then(value => {
                     response.status(200).json(value);
                 }).catch((reason) => {
-                    response.status(500).json(reason);
+                    response.status(400).json(reason);
                 });
             } else {
                 response.status(400).json({message: 'Input not valid'});
