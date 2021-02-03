@@ -4,16 +4,20 @@ export class OptionsConfig {
     devMode = false;
     dockerSocket;
     port = '3000';
+    projectId;
+    applicationId;
     masterKey;
 
     /**
      *
      * @return {ShellAdapter}
      */
-    shellAdapter(){};
+    shellAdapter() {
+    };
 
     /**
      * @return {OrchestrationAdapter}
      */
-    containerOrchAdapter(){};
+    containerOrchAdapter() {
+    };
 }

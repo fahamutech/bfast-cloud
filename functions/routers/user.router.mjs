@@ -1,5 +1,5 @@
 import bfastnode from "bfastnode";
-import {Options} from "../index.mjs";
+import {Options} from "../options.mjs";
 import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
 import {EmailFactory} from "../factories/email.factory.mjs";
 import {SecurityFactory} from "../factories/security.factory.mjs";

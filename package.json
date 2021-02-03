@@ -1,8 +1,8 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "1.1.5",
-  "private": false,
+  "version": "1.1.6",
+  "private": true,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
     "start": "bfast fs serve",
@@ -13,6 +13,7 @@
     "push:docker": "gulp pubishDockerImage"
   },
   "bundledDependencies": [
+    "bfast-database-core",
     "bcryptjs",
     "bfastnode",
     "jsonwebtoken",
@@ -25,6 +26,7 @@
     "bfastnode": "^4.0.8",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
+    "bfast-database-core": "^0.0.10-alpha.13",
     "redis": "^3.0.2",
     "uuid": "^8.3.2"
   },
