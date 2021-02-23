@@ -75,9 +75,9 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel>}
      */
     async deployProjectInCluster(project) {
-        if (project.type === 'daas') {
+        if (project.type.toString() === 'daas') {
             await this.orchestration.databaseInstanceCreate(project);
-        } else if (project.type === 'faas') {
+        } else if (project.type.toString() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project);
         } else {
             await this.orchestration.databaseInstanceCreate(project);

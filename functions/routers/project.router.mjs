@@ -25,6 +25,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
             projectFactory.getAllProjects(null, 0).then(async value => {
                 bfast.init({});
                 for (const project of value) {
+                    console.log(project.projectId);
                     const type = project.type.toString();
                     if (type === 'faas') {
                         let faasHealth;
@@ -32,11 +33,13 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             faasHealth = await bfast.functions()
                                 .request(`https://${project.projectId}-faas.bfast.fahamutech.com/functions-health`)
                                 .get();
-                            if (!(faasHealth && typeof faasHealth.message === "string")) {
-                                await projectFactory.deployProjectInCluster(project)
-                            }
                         } catch (e) {
                             console.log(e && e.response ? e.response.data : e.toString());
+                        }
+                        if (!(faasHealth && typeof faasHealth.message === "string")) {
+                            projectFactory.deployProjectInCluster(project)
+                                .then(console.log)
+                                .catch(console.log);
                         }
                     } else {
                         let daasHealth;
@@ -44,14 +47,17 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             daasHealth = await bfast.functions()
                                 .request(`https://${project.projectId}-daas.bfast.fahamutech.com/functions-health`)
                                 .get();
-                            if (!(daasHealth && typeof daasHealth.message === "string")) {
-                                await projectFactory.deployProjectInCluster(project)
-                            }
                         } catch (e) {
                             console.log(e && e.response ? e.response.data : e.toString());
                         }
+                        if (!(daasHealth && typeof daasHealth.message === "string")) {
+                            projectFactory.deployProjectInCluster(project)
+                                .then(console.log)
+                                .catch(console.log);
+                        }
                     }
                 }
+                response.status(200).json({message: 'done sync projects'});
             }).catch(reason => {
                 console.log(reason);
                 response.status(400).json({message: 'Fails to re-sync projects'});
