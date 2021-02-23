@@ -6,7 +6,7 @@ export class ProjectModel {
     name;
     projectId;
     description;
-    type = 'bfast';
+    type = 'bfast' | 'daas' | 'faas';
     isParse;
     parse = {appId: null, masterKey: null};
     members = [];

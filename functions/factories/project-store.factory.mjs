@@ -51,7 +51,7 @@ export class ProjectStoreFactory {
                         session: session
                     });
                     project.id = result.insertedId.toString();
-                    await this._deployProjectInCluster(project);
+                    await this.deployProjectInCluster(project);
                     resolve(project);
                 });
             } catch (reason) {
@@ -73,9 +73,8 @@ export class ProjectStoreFactory {
      *
      * @param project {ProjectModel}
      * @return {Promise<ProjectModel>}
-     * @private
      */
-    async _deployProjectInCluster(project) {
+    async deployProjectInCluster(project) {
         if (project.type === 'daas') {
             await this.orchestration.databaseInstanceCreate(project);
         } else if (project.type === 'faas') {
@@ -213,8 +212,9 @@ export class ProjectStoreFactory {
     async getAllProjects(size, skip) {
         try {
             const projectCollection = await this._database.collection(this.collectionName);
+            const totalProjects = await projectCollection.find().count();
             return await projectCollection.find()
-                .limit(size ? size : 100)
+                .limit(size ? size : totalProjects)
                 .skip(skip ? skip : 0)
                 .toArray();
         } catch (e) {

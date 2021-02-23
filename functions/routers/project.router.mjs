@@ -17,6 +17,49 @@ const userFactory = new UserStoreFactory(databaseFactory, emailFactory, security
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
 const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
+export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequest(`/sync`, [
+        // (request, response, next) => {
+        //     _routerGuard.checkToken(request, response, next);
+        // },
+        (request, response, next) => {
+            projectFactory.getAllProjects(null, 0).then(async value => {
+                bfast.init({});
+                for (const project of value) {
+                    const type = project.type.toString();
+                    if (type === 'faas') {
+                        let faasHealth;
+                        try {
+                            faasHealth = await bfast.functions()
+                                .request(`https://${project.projectId}-faas.bfast.fahamutech.com/functions-health`)
+                                .get();
+                            if (!(faasHealth && typeof faasHealth.message === "string")) {
+                                await projectFactory.deployProjectInCluster(project)
+                            }
+                        } catch (e) {
+                            console.log(e && e.response ? e.response.data : e.toString());
+                        }
+                    } else {
+                        let daasHealth;
+                        try {
+                            daasHealth = await bfast.functions()
+                                .request(`https://${project.projectId}-daas.bfast.fahamutech.com/functions-health`)
+                                .get();
+                            if (!(daasHealth && typeof daasHealth.message === "string")) {
+                                await projectFactory.deployProjectInCluster(project)
+                            }
+                        } catch (e) {
+                            console.log(e && e.response ? e.response.data : e.toString());
+                        }
+                    }
+                }
+            }).catch(reason => {
+                console.log(reason);
+                response.status(400).json({message: 'Fails to re-sync projects'});
+            });
+        }
+    ]
+);
+
 export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:projectId`, [
         (request, response, next) => {
             _routerGuard.checkToken(request, response, next);
