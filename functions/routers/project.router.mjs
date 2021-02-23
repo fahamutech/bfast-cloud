@@ -25,7 +25,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
             projectFactory.getAllProjects(null, 0).then(async value => {
                 bfast.init({});
                 for (const project of value) {
-                    console.log(project.projectId);
+                    // console.log(project.projectId);
                     const type = project.type.toString();
                     if (type === 'faas') {
                         let faasHealth;
@@ -38,7 +38,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         }
                         if (!(faasHealth && typeof faasHealth.message === "string")) {
                             projectFactory.deployProjectInCluster(project)
-                                .then(console.log)
+                                .then(v=>console.log('re-sync '+ project.projectId))
                                 .catch(console.log);
                         }
                     } else {
@@ -52,7 +52,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         }
                         if (!(daasHealth && typeof daasHealth.message === "string")) {
                             projectFactory.deployProjectInCluster(project)
-                                .then(console.log)
+                                .then(v=>console.log('re-sync '+ project.projectId))
                                 .catch(console.log);
                         }
                     }
