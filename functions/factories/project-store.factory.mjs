@@ -76,6 +76,7 @@ export class ProjectStoreFactory {
      */
     async deployProjectInCluster(project) {
         if (project.type.toString() === 'daas') {
+
             await this.orchestration.databaseInstanceCreate(project);
         } else if (project.type.toString() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project);
