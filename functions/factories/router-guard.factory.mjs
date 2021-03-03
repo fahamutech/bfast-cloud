@@ -64,6 +64,24 @@ export class RouterGuardFactory {
         }
     }
 
+    checkIsProjectOwnerOrMember(request, response, next) {
+        // @ts-ignore
+        if (request.uid && request.params.projectId) {
+            if (!this.options.devMode) {
+                // @ts-ignore
+                this._projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+                    next();
+                }).catch(reason => {
+                    response.status(403).json(reason);
+                })
+            } else {
+                next();
+            }
+        } else {
+            response.status(403).json({message: 'Fails to identify you and your project'});
+        }
+    }
+
     checkToken(request, response, next) {
         let header = request.headers['authorization'];
         if (!header && request.query.token) {

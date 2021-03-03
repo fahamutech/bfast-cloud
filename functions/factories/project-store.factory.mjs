@@ -311,6 +311,40 @@ export class ProjectStoreFactory {
 
     /**
      *
+     * @param userId {string}
+     * @param projectId {string}
+     * @return {Promise<*>}
+     */
+    async getOwnerOrMemberProject(userId, projectId) {
+        try {
+            const user = await this._users.getUser(userId);
+            const projectCollection = await this._database.collection(this.collectionName);
+            const project = await projectCollection.findOne({
+                $or: [
+                    {
+                        "user.email": user.email,
+                        projectId: projectId
+                    },
+                    {
+                        "user.members.email": user.email,
+                        projectId: projectId
+                    }
+                ]
+            });
+            if (!project) {
+                throw 'User does not own or invited to that project';
+            }
+            return project;
+        } catch (e) {
+            console.error(e);
+            throw {message: 'Fails to identify owner', reason: e.toString()}
+        } finally {
+            this._database.disconnect();
+        }
+    }
+
+    /**
+     *
      * @param projectId {string}
      * @param user {UserModel}
      * @return {Promise<*>}

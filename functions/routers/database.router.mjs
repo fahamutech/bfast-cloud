@@ -54,7 +54,7 @@ export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             const body = request.body;
@@ -84,7 +84,7 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             databaseOrch.envAdd(request.params.projectId,
