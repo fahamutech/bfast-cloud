@@ -30,8 +30,7 @@ export class RouterGuardFactory {
                 // temporary allow smartstock to pass
                 else if (value.email === 'smartstocktz@gmail.com') {
                     next();
-                }
-                else {
+                } else {
                     response.status(403).json({
                         message: 'Forbidden request',
                         reason: 'you don\'t have enough role'
@@ -69,7 +68,7 @@ export class RouterGuardFactory {
         if (request.uid && request.params.projectId) {
             if (!this.options.devMode) {
                 // @ts-ignore
-                this._projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
+                this._projectDatabase.getOwnerOrMemberProject(request.uid, request.params.projectId).then(_ => {
                     next();
                 }).catch(reason => {
                     response.status(403).json(reason);
