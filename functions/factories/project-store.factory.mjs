@@ -326,7 +326,7 @@ export class ProjectStoreFactory {
                         projectId: projectId
                     },
                     {
-                        "user.members.email": user.email,
+                        "members.email": user.email,
                         projectId: projectId
                     }
                 ]
