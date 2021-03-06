@@ -167,13 +167,14 @@ export class UserStoreFactory {
             const userCollection = await this._database.collection(this.collectionName);
             const user = await userCollection.findOne({email: email});
             if (!user) {
-                throw 'User with that email not exist';
+                throw {message: 'User with that email not exist'};
             }
             const passwordOk = await this._security.comparePassword(password, user.password);
             if (!passwordOk) {
-                throw 'Password/Username is incorrect'
+                throw {message: 'Password/Username is incorrect'}
             }
             delete user.password;
+            delete user.resetCode;
             user.token = await this._security.generateToken({uid: user._id});
             user.uid = user._id;
             return user;
