@@ -1,57 +1,91 @@
 import bfastnode from "bfastnode";
 import {spawn} from 'node-pty-prebuilt-multiarch';
+import moment from "moment";
 // import {platform} from 'os';
 
 // const shell = platform() === 'win32' ? 'cmd.exe' : 'bash';
 const {bfast} = bfastnode;
 const terminals = {};
 
-function createTerminal(shell, projectId){
-    terminals[projectId] = {
-        terminal: spawn(shell, [], {
+/**
+ *
+ * @param shell {string}
+ * @param args {Array<string>}
+ * @param project {string}
+ * @param response {*}
+ */
+function createTerminal(shell, args, project, response) {
+    // console.log(shell);
+    terminals[project] = {
+        terminal: spawn(shell, args, {
             cols: 1000,
             rows: 700,
-            cwd: '~',
+            cwd: process.cwd(),
             env: process.env,
-            name: projectId,
+            name: project,
         }),
         last: new Date()
     };
-}
-
-function handleTerminalData(projectId, response) {
-    try{
-        terminals[projectId].terminal.onData = data => {
+    try {
+        terminals[project].onData = terminals[project].terminal.onData(data => {
             response.broadcast(data);
-            terminals[projectId].last = new Date();
-        };
-        terminals[projectId].terminal.onExit = _ => {
-            terminals[projectId].terminal.kill();
-            terminals[projectId] = undefined;
-        }
-    }catch (e){
-        terminals[projectId] = {};
+            terminals[project].last = new Date();
+        });
+        terminals[project].onExit = terminals[project].terminal.onExit(_ => {
+            terminals[project].onData.dispose();
+            terminals[project].onExit.dispose();
+            terminals[project].terminal.kill();
+            delete terminals[project];
+            console.log(_, '**********exit********');
+        });
+    } catch (e) {
+        console.log(e);
+        terminals[project] = {};
     }
 }
 
-
-// initial draft
+// 2nd draft
 
 export const instanceLogsEvent = bfast.functions().onEvent(
     '/logs',
     (request, response) => {
-        console.log(request,"********");
         if (request.auth && request.auth.projectId && request.auth.type) {
             const projectId = request.auth.projectId;
             const projectType = request.auth.type;
-            if (terminals[projectId] && terminals[projectId].terminal) {
-                handleTerminalData(projectId, response);
+            const project = `${projectId}_${projectType}`.trim();
+            const since =
+                request.body
+                && request.body.time
+                && request.body.time
+                && request.body.time.toString().replace(new RegExp('[^0-9]', 'ig'), '') !== ''
+                    ? request.body.time.toString().replace(new RegExp('[^0-9]', 'ig'), '')
+                    : '0';
+            const token = request.body && request.body.token ? request.body.token : null;
+            if (terminals[projectId] && terminals[projectId].terminal && terminals[projectId].terminal._readable === true) {
+                terminals[projectId].last = new Date();
             } else {
-                createTerminal(`docker service logs -f --since 1m ${projectId}_${projectType}`);
-                handleTerminalData(projectId, response);
+                createTerminal(`docker`, ['service', 'logs', '-f', '--since', `${since}m`, project], projectId, response);
             }
         } else {
-            response.broadcast({message: 'please provide projectId and project type'});
+            response.broadcast({message: 'please provide projectId and project type in auth and valid token in body'});
         }
+    }
+);
+
+export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
+    {second: '*/30'},
+    _ => {
+        const projects = Object.keys(terminals).map(x => {
+            const past = moment(moment.now()).diff(terminals[x].last, 'minutes');
+            return {name: x, lastUpdatedMin: past, remove: (past !== null && past !== undefined && past > 6)}
+        });
+        projects.forEach(el => {
+            if (el.remove === true) {
+                // console.log(terminals);
+                terminals[el.name].terminal.kill();
+                // console.log(terminals);
+            }
+        });
+        // console.log(projects);
     }
 );
