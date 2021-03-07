@@ -35,7 +35,6 @@ export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role
     ]
 );
 
-
 export const deleteUser = bfast.functions().onDeleteHttpRequest(`${prefix}/me`, [
         (request, response, next) => {
             routerGuard.checkToken(request, response, next);
