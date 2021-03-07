@@ -77,7 +77,7 @@ export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
     _ => {
         const projects = Object.keys(terminals).map(x => {
             const past = moment(moment.now()).diff(terminals[x].last, 'minutes');
-            return {name: x, lastUpdatedMin: past, remove: (past !== null && past !== undefined && past > 6)}
+            return {name: x, lastUpdatedMin: past, remove: (past !== null && past !== undefined && past > 3)}
         });
         projects.forEach(el => {
             if (el.remove === true) {

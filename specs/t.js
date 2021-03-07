@@ -16,7 +16,7 @@ const e = bfast.functions().event(
                     type: 'daas'
                 },
                 body: {
-                    time: '1'
+                    time: '0'
                 }
             });
         }, 3000);
@@ -26,7 +26,7 @@ const e = bfast.functions().event(
     }
 );
 e.listener(response => {
-    console.log(response.body);
+    console.log(response.body.replace('\n', ''));
 });
 console.log('done');
 // console.log(e);
