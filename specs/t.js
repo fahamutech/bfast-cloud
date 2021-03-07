@@ -1,8 +1,8 @@
 const {bfast} = require('bfastnode');
 
 bfast.init({
-    functionsURL: 'http://localhost:3000',// `https://api.bfast.fahamutech.com`,
-    databaseURL: 'http://localhost:3000'//`https://api.bfast.fahamutech.com/v2`
+    functionsURL:  `https://api.bfast.fahamutech.com`,
+    databaseURL: `https://api.bfast.fahamutech.com/v2`
 });
 
 const e = bfast.functions().event(
@@ -16,7 +16,7 @@ const e = bfast.functions().event(
                     type: 'daas'
                 },
                 body: {
-                    time: '0'
+                    time: '1'
                 }
             });
         }, 3000);
@@ -26,7 +26,7 @@ const e = bfast.functions().event(
     }
 );
 e.listener(response => {
-    console.log(response);
+    console.log(response.body);
 });
 console.log('done');
 // console.log(e);

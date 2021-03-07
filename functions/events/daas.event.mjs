@@ -64,7 +64,7 @@ export const instanceLogsEvent = bfast.functions().onEvent(
             if (terminals[projectId] && terminals[projectId].terminal && terminals[projectId].terminal._readable === true) {
                 terminals[projectId].last = new Date();
             } else {
-                createTerminal(`docker`, ['service', 'logs', '-f', '--since', `${since}m`, project], projectId, response);
+                createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], projectId, response);
             }
         } else {
             response.broadcast({message: 'please provide projectId and project type in auth and valid token in body'});
