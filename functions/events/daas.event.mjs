@@ -63,9 +63,9 @@ export const instanceLogsEvent = bfast.functions().onEvent(
             if (terminals[project] && terminals[project].terminal && terminals[project].terminal._readable === true) {
                 terminals[project].last = new Date();
             } else {
-                // createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], project, response);
                 response.topic(project).announce('*** streaming now ******');
-                createTerminal(`bash`, ['/home/josh/WebstormProjects/bfast-cloud/functions/events/d.sh'], project, response);
+                createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], project, response);
+                // createTerminal(`bash`, ['/home/josh/WebstormProjects/bfast-cloud/functions/events/d.sh'], project, response);
             }
         } else {
             response.emit({message: 'please provide projectId and project type in auth and valid token in body'});
