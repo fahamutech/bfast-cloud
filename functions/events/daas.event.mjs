@@ -74,7 +74,7 @@ export const instanceLogsEvent = bfast.functions().onEvent(
 );
 
 export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
-    {second: '*/15'},
+    {second: '*/30'},
     _ => {
         const projects = Object.keys(terminals).map(x => {
             const past = moment(moment.now()).diff(terminals[x].last, 'minutes');
@@ -87,6 +87,6 @@ export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
                 // console.log(terminals);
             }
         });
-        console.log(projects);
+        // console.log(projects);
     }
 );
