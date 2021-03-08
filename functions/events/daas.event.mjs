@@ -15,7 +15,6 @@ const terminals = {};
  * @param response {*}
  */
 function createTerminal(shell, args, project, response) {
-    // console.log(shell);
     terminals[project] = {
         terminal: spawn(shell, args, {
             cols: 1000,
@@ -28,9 +27,7 @@ function createTerminal(shell, args, project, response) {
     };
     try {
         terminals[project].onData = terminals[project].terminal.onData(data => {
-            // response.broadcast(data);
-            response.engine.of('/logs').to(project).emit('/logs', data)
-            terminals[project].last = new Date();
+            response.topic(project).announce(data);
         });
         terminals[project].onExit = terminals[project].terminal.onExit(_ => {
             terminals[project].onData.dispose();
@@ -51,9 +48,9 @@ export const instanceLogsEvent = bfast.functions().onEvent(
     '/logs',
     (request, response) => {
         if (request.auth && request.auth.projectId && request.auth.type) {
-            const projectId = request.auth.projectId;
-            const projectType = request.auth.type;
-            const project = `${projectId}_${projectType}`.trim();
+            const _projectId = request.auth.projectId;
+            const _projectType = request.auth.type;
+            const project = `${_projectId}_${_projectType}`.trim();
             const since =
                 request.body
                 && request.body.time
@@ -62,11 +59,13 @@ export const instanceLogsEvent = bfast.functions().onEvent(
                     ? request.body.time.toString().replace(new RegExp('[^0-9]', 'ig'), '')
                     : '0';
             const token = request.body && request.body.token ? request.body.token : null;
-            response.socket.join(project);
-            if (terminals[projectId] && terminals[projectId].terminal && terminals[projectId].terminal._readable === true) {
-                terminals[projectId].last = new Date();
+            response.topic(project).join();
+            if (terminals[project] && terminals[project].terminal && terminals[project].terminal._readable === true) {
+                terminals[project].last = new Date();
             } else {
-                createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], projectId, response);
+                // createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], project, response);
+                response.topic(project).announce('*** streaming now ******');
+                createTerminal(`bash`, ['/home/josh/WebstormProjects/bfast-cloud/functions/events/d.sh'], project, response);
             }
         } else {
             response.emit({message: 'please provide projectId and project type in auth and valid token in body'});
@@ -75,11 +74,11 @@ export const instanceLogsEvent = bfast.functions().onEvent(
 );
 
 export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
-    {second: '*/30'},
+    {second: '*/15'},
     _ => {
         const projects = Object.keys(terminals).map(x => {
             const past = moment(moment.now()).diff(terminals[x].last, 'minutes');
-            return {name: x, lastUpdatedMin: past, remove: (past !== null && past !== undefined && past > 3)}
+            return {name: x, lastUpdatedMin: past, remove: (past !== null && past !== undefined && past > 1)}
         });
         projects.forEach(el => {
             if (el.remove === true) {
@@ -88,6 +87,6 @@ export const instanceLogsCleaningUpJobs = bfast.functions().onJob(
                 // console.log(terminals);
             }
         });
-        // console.log(projects);
+        console.log(projects);
     }
 );

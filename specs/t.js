@@ -1,15 +1,18 @@
 const {bfast} = require('bfastnode');
 
+const localTestURL = 'http://localhost:3000';
+const remoteTestURL = `https://api.bfast.fahamutech.com`;
+
 bfast.init({
-    functionsURL:  `http://localhost:3000`,
-    databaseURL: `http://localhost:3000`
+    functionsURL: remoteTestURL,
+    databaseURL: remoteTestURL
 });
 
 const e = bfast.functions().event(
     '/logs',
     () => {
         console.log('connected');
-        setInterval(args => {
+        setInterval(_ => {
             e.emit({
                 auth: {
                     projectId: 'smartstock',
@@ -19,7 +22,7 @@ const e = bfast.functions().event(
                     time: '0'
                 }
             });
-        }, 3000);
+        }, 5000);
     },
     () => {
         console.log('disconnected');
