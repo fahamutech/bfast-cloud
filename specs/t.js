@@ -1,8 +1,8 @@
 const {bfast} = require('bfastnode');
 
 bfast.init({
-    functionsURL:  `https://api.bfast.fahamutech.com`,
-    databaseURL: `https://api.bfast.fahamutech.com/v2`
+    functionsURL:  `http://localhost:3000`,
+    databaseURL: `http://localhost:3000`
 });
 
 const e = bfast.functions().event(

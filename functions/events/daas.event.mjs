@@ -28,7 +28,8 @@ function createTerminal(shell, args, project, response) {
     };
     try {
         terminals[project].onData = terminals[project].terminal.onData(data => {
-            response.broadcast(data);
+            // response.broadcast(data);
+            response.engine.of('/logs').to(project).emit('/logs', data)
             terminals[project].last = new Date();
         });
         terminals[project].onExit = terminals[project].terminal.onExit(_ => {
@@ -61,13 +62,14 @@ export const instanceLogsEvent = bfast.functions().onEvent(
                     ? request.body.time.toString().replace(new RegExp('[^0-9]', 'ig'), '')
                     : '0';
             const token = request.body && request.body.token ? request.body.token : null;
+            response.socket.join(project);
             if (terminals[projectId] && terminals[projectId].terminal && terminals[projectId].terminal._readable === true) {
                 terminals[projectId].last = new Date();
             } else {
                 createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], projectId, response);
             }
         } else {
-            response.broadcast({message: 'please provide projectId and project type in auth and valid token in body'});
+            response.emit({message: 'please provide projectId and project type in auth and valid token in body'});
         }
     }
 );
