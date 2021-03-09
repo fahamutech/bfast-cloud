@@ -9,7 +9,6 @@ import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 import {DatabasesInstanceController} from "../controllers/databases-instance.controller.mjs";
 
 const {bfast} = bfastnode;
-const prefix = '/projects/:projectId/database';
 const options = new Options();
 const databaseOrch = new DatabasesInstanceController(options.containerOrchAdapter());
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
@@ -19,6 +18,8 @@ const userFactory = new UserStoreFactory(databaseFactory, emailFactory, security
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
+
+const prefix = '/projects/:projectId/database';
 
 export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`, [
         (request, response, next) => {
@@ -93,6 +94,25 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
             }).catch(reason => {
                 response.status(400).json({message: 'fails to add envs', reason: reason.toString()});
             });
+        }
+    ]
+);
+
+
+export const getDaasInfo = bfast.functions().onGetHttpRequest(`${prefix}`,
+    (request, response) => [
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
+        },
+        (request, response) => {
+            databaseOrch.info(`${request.params.projectId}_daas`).then(value => {
+                response.status(200).json(value);
+            }).catch(reason => {
+                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+            })
         }
     ]
 );

@@ -137,4 +137,12 @@ export class OrchestrationAdapter {
     async databaseInstanceRemoveEnv(projectId, envs, force, daemon) {
     }
 
+    /**
+     * inspect instance
+     * @param instanceId {string}
+     * @return {Promise<*>}
+     */
+    async instanceInfo(instanceId) {
+    }
+
 }

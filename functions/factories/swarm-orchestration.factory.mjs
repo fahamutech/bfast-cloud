@@ -182,7 +182,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         if (projectId.length < 1) {
             throw {message: 'projectId required'}
         }
-        if (envs.length < 1) {
+        if (Array.isArray(envs) && envs.length < 1) {
             throw {message: 'at least one environment required'};
         }
         let envQuery = '';
@@ -324,5 +324,15 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
                 docker: this.options.dockerSocket
             }
         });
+    }
+
+
+    async instanceInfo(instanceId) {
+        const answer = await this.shell.exec(`/usr/local/bin/docker service inspect ${instanceId}`, {
+            env: {
+                docker: this.options.dockerSocket
+            }
+        });
+        return JSON.parse(JSON.stringify(answer.toString().trim()));
     }
 }

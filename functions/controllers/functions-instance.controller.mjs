@@ -94,4 +94,13 @@ export class FunctionsInstanceController {
         return await this.containerOrch.functionsInstanceSwitchOff(UtilsController.checkProjectId(projectId), force);
     }
 
+    /**
+     *
+     * @param projectId {string}
+     * @return {Promise<*>}
+     */
+    async info(projectId) {
+        return this.containerOrch.instanceInfo(UtilsController.checkProjectId(projectId));
+    }
+
 }

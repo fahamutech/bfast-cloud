@@ -18,7 +18,7 @@ export class DatabasesInstanceController {
      */
     async updateImage(projectId, image, force = false) {
         if (image && typeof image === "string") {
-            return await this.containerOrch.databaseInstanceUpdateImage(
+            return this.containerOrch.databaseInstanceUpdateImage(
                 UtilsController.checkProjectId(projectId),
                 image,
                 force
@@ -36,9 +36,9 @@ export class DatabasesInstanceController {
      * @param daemon
      * @return {Promise<*>}
      */
-    async envAdd(projectId, envs, force = false, daemon=true) {
+    async envAdd(projectId, envs, force = false, daemon = true) {
         envs = envs.filter(x => x.trim() !== '');
-        return await this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
+        return this.containerOrch.databaseInstanceAddEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
     }
 
     /**
@@ -49,9 +49,18 @@ export class DatabasesInstanceController {
      * @param daemon
      * @return {Promise<*>}
      */
-    async envRemove(projectId, envs, force = false, daemon=true) {
+    async envRemove(projectId, envs, force = false, daemon = true) {
         envs = envs.filter(x => x.trim() !== '');
-        return await this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
+        return this.containerOrch.databaseInstanceRemoveEnv(UtilsController.checkProjectId(projectId), envs, force, daemon);
+    }
+
+    /**
+     *
+     * @param projectId {string}
+     * @return {Promise<*>}
+     */
+    async info(projectId) {
+        return this.containerOrch.instanceInfo(UtilsController.checkProjectId(projectId));
     }
 
 }

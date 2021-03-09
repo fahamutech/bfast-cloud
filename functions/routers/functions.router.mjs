@@ -9,7 +9,6 @@ import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 import {FunctionsInstanceController} from "../controllers/functions-instance.controller.mjs";
 
 const {bfast} = bfastnode;
-const prefix = '/projects/:projectId/functions';
 const options = new Options();
 const functionsOrch = new FunctionsInstanceController(options.containerOrchAdapter());
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
@@ -19,13 +18,13 @@ const userFactory = new UserStoreFactory(databaseFactory, emailFactory, security
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
-
+const prefix = '/projects/:projectId/functions';
 export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
         (request, response, next) => {
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             const body = request.body;
@@ -49,7 +48,7 @@ export const addFunctionsEnvironment = bfast.functions().onPostHttpRequest(`${pr
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             functionsOrch
@@ -67,7 +66,7 @@ export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, 
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             functionsOrch.deploy(request.params.projectId, request.query.force === 'true').then(value => {
@@ -85,7 +84,7 @@ export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefi
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             functionsOrch.addDomain(request.params.projectId, request.body.domain, request.query.force === 'true').then(value => {
@@ -102,7 +101,7 @@ export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${
         routerGuard.checkToken(request, response, next);
     },
     (request, response, next) => {
-        routerGuard.checkIsProjectOwner(request, response, next);
+        routerGuard.checkIsProjectOwnerOrMember(request, response, next);
     },
     (request, response) => {
         functionsOrch.removeDomain(request.params.projectId, request.query.force === 'true').then(value => {
@@ -118,7 +117,7 @@ export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/sw
             routerGuard.checkToken(request, response, next);
         },
         (request, response, next) => {
-            routerGuard.checkIsProjectOwner(request, response, next);
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
         },
         (request, response) => {
             const mode = request.params.mode;
@@ -141,3 +140,20 @@ export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/sw
     ]
 );
 
+export const getFaasInfo = bfast.functions().onGetHttpRequest(`${prefix}`,
+    (request, response) => [
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
+        },
+        (request, response) => {
+            functionsOrch.info(`${request.params.projectId}_faas`).then(value => {
+                response.status(200).json(value);
+            }).catch(reason => {
+                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+            })
+        }
+    ]
+);
