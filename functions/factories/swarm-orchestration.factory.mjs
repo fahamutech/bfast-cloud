@@ -333,6 +333,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
                 docker: this.options.dockerSocket
             }
         });
-        return JSON.parse(JSON.stringify(answer.toString().trim()));
+        return JSON.parse(answer.toString().trim());
     }
 }

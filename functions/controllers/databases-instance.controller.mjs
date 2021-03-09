@@ -56,11 +56,21 @@ export class DatabasesInstanceController {
 
     /**
      *
-     * @param projectId {string}
+     * @param id {string}
      * @return {Promise<*>}
      */
-    async info(projectId) {
-        return this.containerOrch.instanceInfo(UtilsController.checkProjectId(projectId));
+    async info(id) {
+        return this.containerOrch.instanceInfo(UtilsController.checkProjectId(id));
+    }
+
+    /**
+     *
+     * @param id {string}
+     * @return {Promise<*>}
+     */
+    async envs(id) {
+        const info = await this.containerOrch.instanceInfo(UtilsController.checkProjectId(id));
+        return info[0].Spec.TaskTemplate.ContainerSpec.Env;
     }
 
 }

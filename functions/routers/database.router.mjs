@@ -99,7 +99,7 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
 );
 
 
-export const getDaasInfo222 = bfast.functions().onGetHttpRequest(
+export const getDaasInfo = bfast.functions().onGetHttpRequest(
     `${prefix}`,
     [
         (request, response, next) => {
@@ -111,6 +111,27 @@ export const getDaasInfo222 = bfast.functions().onGetHttpRequest(
         (request, response) => {
             const service = `${request.params.projectId}_daas`;
             databaseOrch.info(service).then(value => {
+                response.status(200).json(value);
+            }).catch(reason => {
+                console.log(reason);
+                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+            })
+        }
+    ]
+);
+
+export const getDaasEnvs = bfast.functions().onGetHttpRequest(
+    `${prefix}/env`,
+    [
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
+        },
+        (request, response) => {
+            const service = `${request.params.projectId}_daas`;
+            databaseOrch.envs(service).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
                 console.log(reason);

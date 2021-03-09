@@ -158,3 +158,25 @@ export const getFaasInfo = bfast.functions().onGetHttpRequest(
         }
     ]
 );
+
+
+export const getFaasEnvs = bfast.functions().onGetHttpRequest(
+    `${prefix}/env`,
+    [
+        (request, response, next) => {
+            routerGuard.checkToken(request, response, next);
+        },
+        (request, response, next) => {
+            routerGuard.checkIsProjectOwnerOrMember(request, response, next);
+        },
+        (request, response) => {
+            const service = `${request.params.projectId}_faas`;
+            functionsOrch.envs(service).then(value => {
+                response.status(200).json(value);
+            }).catch(reason => {
+                console.log(reason);
+                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+            });
+        }
+    ]
+);
