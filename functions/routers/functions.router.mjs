@@ -140,8 +140,9 @@ export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/sw
     ]
 );
 
-export const getFaasInfo = bfast.functions().onGetHttpRequest(`${prefix}`,
-    (request, response) => [
+export const getFaasInfo = bfast.functions().onGetHttpRequest(
+    `${prefix}`,
+    [
         (request, response, next) => {
             routerGuard.checkToken(request, response, next);
         },
