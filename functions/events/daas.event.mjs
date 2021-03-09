@@ -63,7 +63,7 @@ export const instanceLogsEvent = bfast.functions().onEvent(
             if (terminals[project] && terminals[project].terminal && terminals[project].terminal._readable === true) {
                 terminals[project].last = new Date();
             } else {
-                response.topic(project).announce('*** streaming now ******');
+                response.topic(project).announce('*** streaming now ******\r\n');
                 createTerminal(`docker`, ['service', 'logs', '-t', '--raw', '-f', '--since', `${since}m`, project], project, response);
                 // createTerminal(`bash`, ['/home/josh/WebstormProjects/bfast-cloud/functions/events/d.sh'], project, response);
             }
