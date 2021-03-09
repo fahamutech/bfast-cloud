@@ -267,7 +267,7 @@ export class ProjectStoreFactory {
             const result = await projectCollection.findOneAndUpdate({
                 $or: [
                     {"user.email": user.email},
-                    {"members.user.email": user.email}
+                    {"members.email": user.email}
                 ],
                 projectId: projectId
             }, data);
