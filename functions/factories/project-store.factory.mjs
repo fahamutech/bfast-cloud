@@ -371,10 +371,11 @@ export class ProjectStoreFactory {
         try {
             await adminColl.removeUser(project.parse.appId);
         } catch (_) {
-            console.warn(_.toString(), '=> mongo user remove user');
+            console.warn(_.toString(), '=> mongo remove user');
         }
         try {
             await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+                w: "majority",
                 roles: [
                     {role: "readWrite", db: project.projectId}
                 ]

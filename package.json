@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "1.1.9-alpha.2",
+  "version": "1.1.10",
   "private": true,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
@@ -28,23 +28,23 @@
     "bfastnode": "^4.2.2",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
-    "mongodb": "^3.6.4",
+    "mongodb": "^3.6.5",
     "node-pty-prebuilt-multiarch": "^0.10.0",
     "redis": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/express": "^4.17.9",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/mongodb": "^3.6.3",
+    "@types/express": "^4.17.11",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/mongodb": "^3.6.10",
     "@types/redis": "^2.8.28",
     "@types/redis-mock": "^0.17.0",
     "@types/socket.io": "^2.1.13",
     "axios": "^0.21.1",
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
-    "mongodb-memory-server-core": "^6.9.2",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "mongodb-memory-server-core": "^6.9.6",
     "redis-mock": "^0.56.3"
   }
 }
