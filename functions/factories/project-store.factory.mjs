@@ -27,6 +27,9 @@ export class ProjectStoreFactory {
      */
     async createProject(project) {
         return new Promise(async (resolve, reject) => {
+            project.parse.appId = project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim();
+            project.parse.masterKey = project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim();
+            project.projectId = project.projectId.toString().replace(new RegExp('[-]', 'ig'), '').trim();
             try {
                 await this._addUserToDb(project, null);
                 await this._database.transaction(async (session, mongo) => {
