@@ -381,7 +381,9 @@ export class ProjectStoreFactory {
             console.log(_.toString(), '=> mongo remove user');
         }
         // try {
-        await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+        await adminColl.addUser(
+            project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim(),
+            project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim(), {
             // session: session,
             roles: [
                 {role: "readWrite", db: project.projectId}
