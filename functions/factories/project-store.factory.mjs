@@ -378,9 +378,9 @@ export class ProjectStoreFactory {
             const r = await adminColl.removeUser(project.parse.appId, {session: session});
             console.log(r, '=> mongo remove user');
         } catch (_) {
-            console.warn(_.toString(), '=> mongo remove user');
+            console.log(_.toString(), '=> mongo remove user');
         }
-        // try {
+        try {
         const r = await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
             session: session,
             roles: [
@@ -389,8 +389,8 @@ export class ProjectStoreFactory {
         });
         console.log(r, '=> mongo create user');
         return 'done reset user auth';
-        // } catch (e) {
-        //     console.warn(e);
-        // }
+        } catch (e) {
+            console.warn(e.toString(), '=> mongo create user');
+        }
     }
 }
