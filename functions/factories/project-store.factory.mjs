@@ -375,7 +375,7 @@ export class ProjectStoreFactory {
     async _addUserToDb(project, session) {
         const adminColl = await this._database.getDatabase('admin');
         try {
-            const r = await adminColl.removeUser(project.parse.appId);
+            const r = await adminColl.removeUser(project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim());
             console.log(r, '=> mongo remove user');
         } catch (_) {
             console.log(_.toString(), '=> mongo remove user');
