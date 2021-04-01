@@ -380,17 +380,17 @@ export class ProjectStoreFactory {
         } catch (_) {
             console.log(_.toString(), '=> mongo remove user');
         }
-        try {
-        const r = await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+        // try {
+        await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
             // session: session,
             roles: [
                 {role: "readWrite", db: project.projectId}
             ]
         });
-        console.log(r, '=> mongo create user');
-        } catch (e) {
-            console.warn(e.toString(), '=> mongo create user');
-        }
+        console.log('=> mongo create user');
+        // } catch (e) {
+        //     console.warn(e.toString(), '=> mongo create user');
+        // }
         return 'done reset user auth';
     }
 }
