@@ -28,12 +28,12 @@ export class ProjectStoreFactory {
     async createProject(project) {
         return new Promise(async (resolve, reject) => {
             try {
-                await this._addUserToDb(project);
                 await this._database.transaction(async (session, mongo) => {
                     project.members = [];
-                    if (!project.type || project.type === '') {
+                    if (!project.type || project.type.toString() === '') {
                         project.type = 'bfast';
                     }
+                    await this._addUserToDb(project, session);
                     const projectColl = await this._database.collection(this.collectionName);
                     const result = await projectColl.insertOne({
                         _id: v4(),
@@ -76,7 +76,6 @@ export class ProjectStoreFactory {
      */
     async deployProjectInCluster(project) {
         if (project.type.toString() === 'daas') {
-
             await this.orchestration.databaseInstanceCreate(project);
         } else if (project.type.toString() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project);
@@ -366,22 +365,32 @@ export class ProjectStoreFactory {
         }
     }
 
-    async _addUserToDb(project) {
+    /**
+     *
+     * @param project
+     * @param session
+     * @return {Promise<string>}
+     * @private
+     */
+    async _addUserToDb(project, session) {
         const adminColl = await this._database.getDatabase('admin');
         try {
-            await adminColl.removeUser(project.parse.appId);
+            const r = await adminColl.removeUser(project.parse.appId, {session: session});
+            console.log(r, '=> mongo remove user');
         } catch (_) {
             console.warn(_.toString(), '=> mongo remove user');
         }
-        try {
-            await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
-                w: "majority",
-                roles: [
-                    {role: "readWrite", db: project.projectId}
-                ]
-            });
-        } catch (e) {
-            console.warn(e);
-        }
+        // try {
+        const r = await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
+            session: session,
+            roles: [
+                {role: "readWrite", db: project.projectId}
+            ]
+        });
+        console.log(r, '=> mongo create user');
+        return 'done reset user auth';
+        // } catch (e) {
+        //     console.warn(e);
+        // }
     }
 }
