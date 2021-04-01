@@ -90,9 +90,10 @@ export class OrchestrationAdapter {
     /**
      *
      * @param project {ProjectModel}
+     * @param envs {Array<string>}
      * @return {Promise<void>}
      */
-    async databaseInstanceCreate(project) {
+    async databaseInstanceCreate(project, envs ) {
 
     }
 

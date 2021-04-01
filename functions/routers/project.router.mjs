@@ -37,7 +37,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             console.log(e && e.response ? e.response.data : e.toString());
                         }
                         if (!(faasHealth && typeof faasHealth.message === "string")) {
-                            projectFactory.deployProjectInCluster(project)
+                            projectFactory.deployProjectInCluster(project, [])
                                 .then(v=>console.log('re-sync '+ project.projectId))
                                 .catch(console.log);
                         }
@@ -51,7 +51,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             console.log(e && e.response ? e.response.data : e.toString());
                         }
                         if (!(daasHealth && typeof daasHealth.message === "string")) {
-                            projectFactory.deployProjectInCluster(project)
+                            projectFactory.deployProjectInCluster(project, [])
                                 .then(v=>console.log('re-sync '+ project.projectId))
                                 .catch(console.log);
                         }
@@ -126,7 +126,8 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
                     body.label = body.label ? body.label : 'bfast';
-                    const result = await projectFactory.createProject(body);
+                    const envs = request.query.envs && request.query.envs.toString().startsWith('[')?JSON.parse(request.query.envs): [];
+                    const result = await projectFactory.createProject(body, envs);
                     // delete body.fileUrl;
                     delete result.parse.masterKey;
                     response.json(result);

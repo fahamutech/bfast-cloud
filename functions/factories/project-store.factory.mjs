@@ -23,13 +23,11 @@ export class ProjectStoreFactory {
     /**
      *
      * @param project {ProjectModel}
+     * @param envs
      * @return {Promise<ProjectModel>}
      */
-    async createProject(project) {
+    async createProject(project, envs) {
         return new Promise(async (resolve, reject) => {
-            project.parse.appId = project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim();
-            project.parse.masterKey = project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim();
-            project.projectId = project.projectId.toString().replace(new RegExp('[-]', 'ig'), '').trim();
             try {
                 await this._addUserToDb(project, null);
                 await this._database.transaction(async (session, mongo) => {
@@ -54,7 +52,7 @@ export class ProjectStoreFactory {
                         session: session
                     });
                     project.id = result.insertedId.toString();
-                    await this.deployProjectInCluster(project);
+                    await this.deployProjectInCluster(project, envs);
                     resolve(project);
                 });
             } catch (reason) {
@@ -75,15 +73,16 @@ export class ProjectStoreFactory {
     /**
      *
      * @param project {ProjectModel}
+     * @param envs {Array<string>}
      * @return {Promise<ProjectModel>}
      */
-    async deployProjectInCluster(project) {
+    async deployProjectInCluster(project, envs) {
         if (project.type.toString() === 'daas') {
-            await this.orchestration.databaseInstanceCreate(project);
+            await this.orchestration.databaseInstanceCreate(project,envs);
         } else if (project.type.toString() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project);
         } else {
-            await this.orchestration.databaseInstanceCreate(project);
+            await this.orchestration.databaseInstanceCreate(project, envs);
             await this.orchestration.functionsInstanceCreate(project);
         }
         return project;
