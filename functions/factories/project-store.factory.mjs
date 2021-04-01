@@ -28,12 +28,12 @@ export class ProjectStoreFactory {
     async createProject(project) {
         return new Promise(async (resolve, reject) => {
             try {
+                await this._addUserToDb(project, null);
                 await this._database.transaction(async (session, mongo) => {
                     project.members = [];
                     if (!project.type || project.type.toString() === '') {
                         project.type = 'bfast';
                     }
-                    await this._addUserToDb(project, session);
                     const projectColl = await this._database.collection(this.collectionName);
                     const result = await projectColl.insertOne({
                         _id: v4(),
@@ -375,22 +375,22 @@ export class ProjectStoreFactory {
     async _addUserToDb(project, session) {
         const adminColl = await this._database.getDatabase('admin');
         try {
-            const r = await adminColl.removeUser(project.parse.appId, {session: session});
+            const r = await adminColl.removeUser(project.parse.appId);
             console.log(r, '=> mongo remove user');
         } catch (_) {
             console.log(_.toString(), '=> mongo remove user');
         }
         try {
         const r = await adminColl.addUser(project.parse.appId, project.parse.masterKey, {
-            session: session,
+            // session: session,
             roles: [
                 {role: "readWrite", db: project.projectId}
             ]
         });
         console.log(r, '=> mongo create user');
-        return 'done reset user auth';
         } catch (e) {
             console.warn(e.toString(), '=> mongo create user');
         }
+        return 'done reset user auth';
     }
 }
