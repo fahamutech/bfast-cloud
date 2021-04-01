@@ -240,7 +240,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--label \"traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}\"",
             "--env \"APPLICATION_ID=${appId}\"",
             "--env \"PROJECT_ID=${projectId}\"",
-            `--env \"MONGO_URL=mongodb://${appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl\"`,
+            `--env \"MONGO_URL=mongodb://${project.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
             "joshuamshana/bfastfunction:latest",
@@ -259,7 +259,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
     }
 
-    async databaseInstanceCreate(project, envs = []) {
+    async databaseInstanceCreate(project, envs) {
         return await this.shell.exec([
             "/usr/local/bin/docker service create",
             "--name ${projectId}_daas",
@@ -281,7 +281,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"APPLICATION_ID=${appId}\"",
             "--env \"PROJECT_ID=${projectId}\"",
             "--env \"MASTER_KEY=${masterKey}\"",
-            `--env \"MONGO_URL=mongodb://${appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${projectId}?authSource=admin&replicaSet=mdbRepl\"`,
+            `--env \"MONGO_URL=mongodb://${project.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@1.mongo.fahamutech.com:27017,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
             "--env \"GIT_USERNAME=joshuamshana\"",
@@ -294,7 +294,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
-            envs.map(e=>'--env \"'+e+"\"").join(' '),
+            envs.map(e => '--env \"' + e + "\"").join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {
