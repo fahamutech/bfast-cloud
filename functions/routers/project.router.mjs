@@ -126,7 +126,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
                     body.label = body.label ? body.label : 'bfast';
-                    const envs = request.query.envs && Array.isArray(decodeURIComponent(request.query.envs))?decodeURIComponent(request.query.envs): [];
+                    const envs = request.query.envs && request.query.envs.toString().startsWith('[')?JSON.parse(request.query.envs): [];
                     console.log(envs);
                     const result = await projectFactory.createProject(body, envs);
                     // delete body.fileUrl;
