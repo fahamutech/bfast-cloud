@@ -1,4 +1,4 @@
-import {UserModel} from "../models/user.model.mjs";
+import {UserModel, UserRoles} from "../models/user.model.mjs";
 import {ProjectModel} from "../models/project.model.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
 import {v4} from "uuid";
@@ -166,11 +166,11 @@ export class ProjectStoreFactory {
                         const user = await this._users.getUser(userId);
                         const projectCollection = await this._database.collection(this.collectionName);
                         return await projectCollection.find({
-                            $or: [
+                            $or: user.role === UserRoles.ADMIN_ROLE?[]:[
                                 {'user.email': user.email},
                                 {"members.email": user.email}
                             ]
-                        }).toArray();
+                        },{limit: size, skip: skip}).toArray();
                     } catch (reason) {
                         console.log(reason);
                         throw {message: reason.toString()};

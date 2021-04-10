@@ -47,5 +47,7 @@ export const {
     fileUploadV2Api,
     fileV1Api,
     fileV2Api,
+    fileThumbnailV2Api,
+    fileThumbnailApi,
     getUploadFileV2
 } = bfastDatabaseWebService.storage()
