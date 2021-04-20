@@ -233,6 +233,8 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--replicas 0",
             "--restart-condition any",
             "--restart-delay 2s",
+            "--secret rsapub",
+            "--secret rsapriv",
             "--label \"traefik.docker.network=bfastweb\"",
             "--label \"traefik.enable=true\"",
             "--label \"traefik.port=3000\"",
@@ -243,6 +245,8 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             `--env \"MONGO_URL=mongodb://${project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@2.mongo.fahamutech.com:27018,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
+            "--env \"RSA_PUBLIC_KEY=/run/secrets/rsapub\"",
+            "--env \"RSA_KEY=/run/secrets/rsapriv\"",
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {
@@ -278,6 +282,8 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--secret s3endpointUsEast1",
             "--secret s3accessKey",
             "--secret s3secretKey",
+            "--secret rsapub",
+            "--secret rsapriv",
             "--env \"APPLICATION_ID=${appId}\"",
             "--env \"PROJECT_ID=${projectId}\"",
             "--env \"MASTER_KEY=${masterKey}\"",
@@ -294,6 +300,8 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
+            "--env \"RSA_PUBLIC_KEY=/run/secrets/rsapub\"",
+            "--env \"RSA_KEY=/run/secrets/rsapriv\"",
             envs.map(e => '--env \"' + e + "\"").join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
