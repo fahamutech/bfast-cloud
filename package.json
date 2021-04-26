@@ -27,6 +27,7 @@
     "bfast-database-core": "^0.0.10-alpha.17",
     "bfastnode": "^4.2.2",
     "jsonwebtoken": "^8.5.1",
+    "keypairs": "^1.2.14",
     "moment": "^2.29.1",
     "mongodb": "~3.6.5",
     "node-pty-prebuilt-multiarch": "^0.10.0",

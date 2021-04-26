@@ -38,7 +38,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         }
                         if (!(faasHealth && typeof faasHealth.message === "string")) {
                             projectFactory.deployProjectInCluster(project, [])
-                                .then(v=>console.log('re-sync '+ project.projectId))
+                                .then(v => console.log('re-sync ' + project.projectId))
                                 .catch(console.log);
                         }
                     } else {
@@ -52,7 +52,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         }
                         if (!(daasHealth && typeof daasHealth.message === "string")) {
                             projectFactory.deployProjectInCluster(project, [])
-                                .then(v=>console.log('re-sync '+ project.projectId))
+                                .then(v => console.log('re-sync ' + project.projectId))
                                 .catch(console.log);
                         }
                     }
@@ -126,11 +126,13 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
                     body.label = body.label ? body.label : 'bfast';
-                    const envs = request.query.envs && request.query.envs.toString().startsWith('[')?JSON.parse(request.query.envs): [];
+                    body.rsa = body && body.rsa && body.rsa.private && body.rsa.public ? body.rsa : await securityFactory.generateRsaPair();
+                    const envs = request.query.envs && request.query.envs.toString().startsWith('[') ? JSON.parse(request.query.envs) : [];
                     // console.log(envs);
+                    envs.push(`"RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
+                    envs.push(`"RSA_KEY=${JSON.stringify(body.rsa.private)}`);
                     const result = await projectFactory.createProject(body, envs);
-                    // delete body.fileUrl;
-                    delete result.parse.masterKey;
+                    // delete result.parse.masterKey;
                     response.json(result);
                 } catch (reason) {
                     response.status(400).json(reason);

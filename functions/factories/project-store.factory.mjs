@@ -31,24 +31,16 @@ export class ProjectStoreFactory {
             try {
                 await this._addUserToDb(project, null);
                 await this._database.transaction(async (session, mongo) => {
-                    project.members = [];
+                    project.members = project.members?project.members: [];
                     if (!project.type || project.type.toString() === '') {
                         project.type = 'bfast';
                     }
                     const projectColl = await this._database.collection(this.collectionName);
-                    const result = await projectColl.insertOne({
-                        _id: v4(),
-                        name: project.name,
-                        projectId: project.projectId,
-                        description: project.description,
-                        type: project.type,
-                        user: project.user,
-                        members: project.members ? project.members : [],
-                        isParse: project.isParse ? project.isParse : false,
-                        parse: (project.parse && project.parse.appId && project.parse.masterKey) ? project.parse : null,
-                        createdAt: new Date(),
-                        updatedAt: new Date(),
-                    }, {
+                    project.isParse = true;
+                    project.createdAt = new Date();
+                    project.updatedAt = new Date();
+                    project._id = v4();
+                    const result = await projectColl.insertOne(project, {
                         session: session
                     });
                     project.id = result.insertedId.toString();

@@ -1,10 +1,10 @@
 import bcryptjs from 'bcryptjs';
 import redis from 'redis';
 import _jwt from 'jsonwebtoken';
+import keypairs from "keypairs";
 
 const {compare, hash} = bcryptjs;
 const {RedisClient} = redis;
-// const {decode, sign} = jsonwebtoken;
 
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
@@ -157,6 +157,14 @@ export class SecurityFactory {
             complete: true,
             json: true
         });
+    }
+
+    /**
+     *
+     * @return {{private: object, public: object}}
+     */
+    generateRsaPair() {
+        return keypairs.generate({kty: 'RSA', modulusLength: 2048});
     }
 
 }
