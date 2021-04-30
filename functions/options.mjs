@@ -65,7 +65,9 @@ export function getBFastDatabaseConfigs() {
         masterKey: options.masterKey,
         logs: envUtil.getEnv(process.env.LOGS) === '1',
         port: port ? port : '3000',
-        //   taarifaToken: envUtil.getEnv(process.env.TAARIFA_TOKEN),
+        taarifaToken: envUtil.getEnv(process.env.TAARIFA_TOKEN),
+        rsaKeyPairInJson: envUtil.getEnv(process.env.RSA_PRIV),
+        rsaPublicKeyInJson: envUtil.getEnv(process.env.RSA_PUB),
         mongoDbUri: options.mongoURL,
         adapters: {
             s3Storage: isS3Configured ? {
