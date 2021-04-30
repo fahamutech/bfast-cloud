@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "1.2.0-alpha.1",
+  "version": "1.2.0-alpha.2",
   "private": false,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
@@ -35,7 +35,7 @@
     "moment": "^2.29.1",
     "mongodb": "~3.6.5",
     "node-pty-prebuilt-multiarch": "^0.10.0",
-    "redis": "^3.1.1",
+    "redis": "~3.1.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
