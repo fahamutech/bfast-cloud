@@ -35,6 +35,7 @@ new DatabaseConfigFactory(getBFastDatabaseConfigs().mongoDbUri)
  */
 const bfastDatabaseWebService = new BfastDatabaseCore().init(getBFastDatabaseConfigs());
 export const {rules} = bfastDatabaseWebService.rest();
+export const {jwk} = bfastDatabaseWebService.rest();
 export const {changes} = bfastDatabaseWebService.realtime({
     applicationId: getBFastDatabaseConfigs().applicationId,
     masterKey: getBFastDatabaseConfigs().masterKey
