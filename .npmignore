@@ -13,3 +13,4 @@ Dockerfile
 tsconfig.json
 .github
 /.github
+assets

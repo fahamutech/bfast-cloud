@@ -1,27 +1,30 @@
-name: Publish To Npm
+name: Node CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     strategy:
       matrix:
         node-version: [ 14.x ]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-#      - run: npm ci
-#      - run: npm run build --if-present
-#      - run: npm test
-#      - run: npm publish
-    env:
-      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: install, build, and test
+        run: |
+          # npm install --production
+          # npm publish --registry https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
+          bash build-cloud.sh
+        env:
+          CI: true
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
