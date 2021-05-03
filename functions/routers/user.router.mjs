@@ -100,7 +100,7 @@ export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
         (request, response, next) => {
             const size = request.query && request.query.size ? request.query.size : 20;
             const skip = request.query && request.query.skip ? request.query.skip : 0;
-            userFactory.getAllUsers(parseInt(size), parseInt(skip)).then(users => {
+            userFactory.getAllUsers().then(users => {
                 response.status(200).json({users: users});
             });
         }

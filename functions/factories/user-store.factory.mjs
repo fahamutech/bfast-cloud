@@ -118,16 +118,15 @@ export class UserStoreFactory {
 
     /**
      *
-     * @param size {number}
-     * @param skip {number}
      * @return {Promise<*>}
      */
-    async getAllUsers(size, skip) {
+    async getAllUsers() {
         try {
             const userCollection = await this._database.collection(this.collectionName);
+            const total = await userCollection.find({}).count();
             return await userCollection.find({})
-                .skip(skip ? skip : 0)
-                .limit(size ? size : 100)
+                .skip(0)
+                .limit(total)
                 .project({password: 0})
                 .toArray();
         } finally {

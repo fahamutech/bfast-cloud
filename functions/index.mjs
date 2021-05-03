@@ -6,6 +6,13 @@ import {getBFastDatabaseConfigs} from "./options.mjs";
 const {bfast} = bfastnode;
 
 bfast.init({
+    applicationId: 'bfast',
+    projectId: 'bfast',
+    functionsURL: 'https://api.bfast.fahamutech.com',
+    databaseURL: 'https://api.bfast.fahamutech.com',
+});
+
+bfast.init({
     applicationId: 'fahamutaarifa',
     projectId: 'fahamutaarifa'
 }, 'fahamutaarifa');

@@ -31,7 +31,7 @@ export class ProjectStoreFactory {
             try {
                 await this._addUserToDb(project, null);
                 await this._database.transaction(async (session, mongo) => {
-                    project.members = project.members?project.members: [];
+                    project.members = project.members ? project.members : [];
                     if (!project.type || project.type.toString() === '') {
                         project.type = 'bfast';
                     }
@@ -70,7 +70,7 @@ export class ProjectStoreFactory {
      */
     async deployProjectInCluster(project, envs) {
         if (project.type.toString() === 'daas') {
-            await this.orchestration.databaseInstanceCreate(project,envs);
+            await this.orchestration.databaseInstanceCreate(project, envs);
         } else if (project.type.toString() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project);
         } else {
@@ -158,11 +158,11 @@ export class ProjectStoreFactory {
                         const user = await this._users.getUser(userId);
                         const projectCollection = await this._database.collection(this.collectionName);
                         return await projectCollection.find({
-                            $or: user.role === UserRoles.ADMIN_ROLE?[{'user': {$exists: true}}]:[
+                            $or: user.role === UserRoles.ADMIN_ROLE ? [{'user': {$exists: true}}] : [
                                 {'user.email': user.email},
                                 {"members.email": user.email}
                             ]
-                        },{limit: size, skip: skip}).toArray();
+                        }, {limit: size, skip: skip}).toArray();
                     } catch (reason) {
                         console.log(reason);
                         throw {message: reason.toString()};
@@ -206,8 +206,8 @@ export class ProjectStoreFactory {
     async getAllProjects(size, skip) {
         try {
             const projectCollection = await this._database.collection(this.collectionName);
-            const totalProjects = await projectCollection.find().count();
-            return await projectCollection.find()
+            const totalProjects = await projectCollection.find({}).count();
+            return await projectCollection.find({})
                 .limit(size ? size : totalProjects)
                 .skip(skip ? skip : 0)
                 .toArray();
@@ -378,11 +378,11 @@ export class ProjectStoreFactory {
         await adminColl.addUser(
             project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim(),
             project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim(), {
-            // session: session,
-            roles: [
-                {role: "readWrite", db: project.projectId}
-            ]
-        });
+                // session: session,
+                roles: [
+                    {role: "readWrite", db: project.projectId}
+                ]
+            });
         console.log('=> mongo create user');
         // } catch (e) {
         //     console.warn(e.toString(), '=> mongo create user');
