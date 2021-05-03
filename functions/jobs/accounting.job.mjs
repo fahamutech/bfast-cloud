@@ -22,8 +22,8 @@ const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, swa
 
 export const accountingJob776 = bfast.functions().onJob(
     {
-        second: '*/30',
-        minute: '*',
+        second: '*',
+        minute: '*/15',
         day: '*',
         hour: '*',
         dayOfWeek: '*',
@@ -58,7 +58,7 @@ export const accountingJob776 = bfast.functions().onJob(
                             .set('project_id', project.projectId)
                             .set('details', 'host cost for a day for all instances')
                             .upsert(true)
-                            .update({returnFields: ['id']});
+                            .update({returnFields: []});
                         console.log(r);
                     }
                 }
