@@ -38,7 +38,7 @@ export class RouterGuardFactory {
                 }
             }).catch(reason => {
                 response.status(403).json(reason);
-            })
+            });
         } else {
             response.status(401).json({message: 'Identify yourself'});
         }

@@ -158,10 +158,12 @@ export class ProjectStoreFactory {
                         const user = await this._users.getUser(userId);
                         const projectCollection = await this._database.collection(this.collectionName);
                         return await projectCollection.find({
-                            $or: user.role === UserRoles.ADMIN_ROLE ? [{'user': {$exists: true}}] : [
-                                {'user.email': user.email},
-                                {"members.email": user.email}
-                            ]
+                            $or: user.role === UserRoles.ADMIN_ROLE
+                                ? [{'projectId': {$exists: true}}]
+                                : [
+                                    {'user.email': user.email},
+                                    {"members.email": user.email}
+                                ]
                         }, {limit: size, skip: skip}).toArray();
                     } catch (reason) {
                         console.log(reason);
