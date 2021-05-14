@@ -344,4 +344,27 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
         return JSON.parse(answer.toString().trim());
     }
+
+
+    async instances() {
+        const answer = await this.shell.exec("/usr/local/bin/docker service ls | awk '{print $2}'", {
+            env: {
+                docker: this.options.dockerSocket
+            }
+        });
+        return answer.toString()
+            .split('\n')
+            .filter(t => t.toString().includes('_daas') || t.toString().includes('_faas'))
+            .map(x => x.trim());
+
+    }
+
+
+    async removeInstance(instanceId) {
+        return this.shell.exec(`/usr/local/bin/docker service rm ${instanceId}`, {
+            env: {
+                docker: this.options.dockerSocket
+            }
+        });
+    }
 }

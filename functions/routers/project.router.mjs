@@ -21,47 +21,79 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
         // (request, response, next) => {
         //     _routerGuard.checkToken(request, response, next);
         // },
-        (request, response, next) => {
-            projectFactory.getAllProjects(null, 0).then(async value => {
-                bfast.init({});
-                for (const project of value) {
-                    // console.log(project.projectId);
+        async (request, response, next) => {
+            try {
+                const instances = await options.containerOrchAdapter().instances();
+                const projects = await projectFactory.getAllProjects(null, 0);
+                bfast.init({
+                    applicationId: 'bfast',
+                    projectId: 'bfast'
+                });
+
+                const mapOfInstances = instances.reduce((a, b, i) => {
+                    a[b] = i;
+                    return a;
+                }, {});
+                projects.forEach(p => {
+                    delete mapOfInstances[p.projectId.toString().trim().concat('_daas')];
+                    delete mapOfInstances[p.projectId.toString().trim().concat('_faas')];
+                });
+
+                for (const k of Object.keys(mapOfInstances)) {
+                    try {
+                        await options.containerOrchAdapter().removeInstance(k);
+                    } catch (e) {
+                        console.log(e, 'INFO : try to remove instance');
+                    }
+                }
+
+                async function faasCheck(project) {
+                    let faasHealth;
+                    try {
+                        faasHealth = await bfast.functions()
+                            .request(`https://${project.projectId}-faas.bfast.fahamutech.com/functions-health`)
+                            .get();
+                    } catch (e) {
+                        console.log(e && e.response ? e.response.data : e.toString());
+                    }
+                    if (!(faasHealth && typeof faasHealth.message === "string")) {
+                        projectFactory.deployProjectInCluster(project, [])
+                            .then(v => console.log('re-sync ' + project.projectId))
+                            .catch(console.log);
+                    }
+                }
+
+                async function daasCheck(project) {
+                    let daasHealth;
+                    try {
+                        daasHealth = await bfast.functions()
+                            .request(`https://${project.projectId}-daas.bfast.fahamutech.com/functions-health`)
+                            .get();
+                    } catch (e) {
+                        console.log(e && e.response ? e.response.data : e.toString());
+                    }
+                    if (!(daasHealth && typeof daasHealth.message === "string")) {
+                        projectFactory.deployProjectInCluster(project, [])
+                            .then(v => console.log('re-sync ' + project.projectId))
+                            .catch(console.log);
+                    }
+                }
+
+                for (const project of projects) {
                     const type = project.type.toString();
                     if (type === 'faas') {
-                        let faasHealth;
-                        try {
-                            faasHealth = await bfast.functions()
-                                .request(`https://${project.projectId}-faas.bfast.fahamutech.com/functions-health`)
-                                .get();
-                        } catch (e) {
-                            console.log(e && e.response ? e.response.data : e.toString());
-                        }
-                        if (!(faasHealth && typeof faasHealth.message === "string")) {
-                            projectFactory.deployProjectInCluster(project, [])
-                                .then(v => console.log('re-sync ' + project.projectId))
-                                .catch(console.log);
-                        }
+                        faasCheck(project).catch(_23 => {
+                        });
                     } else {
-                        let daasHealth;
-                        try {
-                            daasHealth = await bfast.functions()
-                                .request(`https://${project.projectId}-daas.bfast.fahamutech.com/functions-health`)
-                                .get();
-                        } catch (e) {
-                            console.log(e && e.response ? e.response.data : e.toString());
-                        }
-                        if (!(daasHealth && typeof daasHealth.message === "string")) {
-                            projectFactory.deployProjectInCluster(project, [])
-                                .then(v => console.log('re-sync ' + project.projectId))
-                                .catch(console.log);
-                        }
+                        daasCheck(project).catch(_7665 => {
+                        });
                     }
                 }
                 response.status(200).json({message: 'done sync projects'});
-            }).catch(reason => {
+            } catch (reason) {
                 console.log(reason);
                 response.status(400).json({message: 'Fails to re-sync projects'});
-            });
+            }
         }
     ]
 );

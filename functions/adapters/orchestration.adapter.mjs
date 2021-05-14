@@ -146,4 +146,20 @@ export class OrchestrationAdapter {
     async instanceInfo(instanceId) {
     }
 
+    /**
+     * get all physical instance running in cluster
+     * @return {Promise<Array<string>>}
+     */
+    async instances(){
+    }
+
+    /**
+     * remove running service in cluster
+     * @param instanceId {string}
+     * @return {Promise<any>}
+     */
+    async removeInstance(instanceId){
+
+    }
+
 }

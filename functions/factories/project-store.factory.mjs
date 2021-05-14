@@ -46,6 +46,7 @@ export class ProjectStoreFactory {
                     project.id = result.insertedId.toString();
                     await this.deployProjectInCluster(project, envs);
                     resolve(project);
+                    return 'done';
                 });
             } catch (reason) {
                 let message;
