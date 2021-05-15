@@ -1,6 +1,5 @@
 export class OptionsConfig {
     mongoURL;
-    redisHOST;
     devMode = false;
     dockerSocket;
     port = '3000';

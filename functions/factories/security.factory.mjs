@@ -1,10 +1,8 @@
 import bcryptjs from 'bcryptjs';
-import redis from 'redis';
 import _jwt from 'jsonwebtoken';
 import keypairs from "keypairs";
 
 const {compare, hash} = bcryptjs;
-const {RedisClient} = redis;
 
 let _jwtPassword =
     `MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFg6797ocIzEPK
@@ -27,12 +25,8 @@ export class SecurityFactory {
 
     /**
      *
-     * @param redisDbUrl {string}
      */
-    constructor(redisDbUrl) {
-        this._redisClient = new RedisClient({
-            host: redisDbUrl,
-        });
+    constructor() {
     }
 
     /**
@@ -60,23 +54,24 @@ export class SecurityFactory {
      * @return {Promise<*>}
      */
     async revokeToken(token) {
-        return new Promise((resolve, reject) => {
-            this._redisClient.del(token, (err, reply) => {
-                if (err) {
-                    reject({
-                        message: 'Fails to revoke a token',
-                        reason: err.toString()
-                    });
-                    return;
-                }
-                resolve({message: 'Token revoked', value: reply});
-            });
-        });
+        // return new Promise((resolve, reject) => {
+        //     this._redisClient.del(token, (err, reply) => {
+        //         if (err) {
+        //             reject({
+        //                 message: 'Fails to revoke a token',
+        //                 reason: err.toString()
+        //             });
+        //             return;
+        //         }
+        //         resolve({message: 'Token revoked', value: reply});
+        //     });
+        // });
+        return {message: 'Token revoked'};
     }
 
     /**
      *
-     * @param data {{[p: string]: any}}
+     * @param data {object}
      * @param expire {string}
      * @return {Promise<string>}
      */
@@ -90,15 +85,7 @@ export class SecurityFactory {
                     reject({message: 'Fails to generate a token', reason: err.toString()});
                     return;
                 }
-                this._redisClient.set(encoded, JSON.stringify(data), (err1, reply) => {
-                    if (err1) {
-                        reject({message: 'Fails to cache your token', reason: err1.toString()});
-                        return;
-                    }
-                    resolve(encoded);
-                });
-                this._redisClient.expire(encoded, expire && expire !== '' ?
-                    parseInt(expire.replace('d', '')) * 86400 : 7 * 86400);
+                resolve(encoded);
             });
         });
     }
@@ -117,32 +104,7 @@ export class SecurityFactory {
                     reject({message: 'Fails to verify token', reason: err.toString()});
                     return;
                 }
-                this._redisClient.get(token, (err1, reply) => {
-                    if (err1) {
-                        reject({message: 'Token revoked', reason: err1.toString()});
-                        return;
-                    }
-
-                    if (!reply) {
-                        reject({message: 'Token revoked', reason: 'token not cached'});
-                        return;
-                    }
-
-                    const data = JSON.parse(reply);
-                    let validEmail = false;
-                    let validUid = false;
-                    if (data && data.email && decoded && data.email === decoded.email) {
-                        validEmail = true;
-                    }
-                    if (data && data.uid && decoded && data.uid === decoded.uid) {
-                        validUid = true;
-                    }
-                    if (validEmail || validUid) {
-                        resolve(decoded);
-                    } else {
-                        reject({message: 'Token revoked', reason: 'token tempered'});
-                    }
-                });
+                resolve(decoded);
             });
         });
     }
@@ -150,7 +112,7 @@ export class SecurityFactory {
     /**
      *
      * @param token {string}
-     * @return {{[p: string]: *}}
+     * @return {object}
      */
     decodeToken(token) {
         return _jwt.decode(token, {

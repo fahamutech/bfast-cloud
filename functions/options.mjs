@@ -9,7 +9,6 @@ export class Options extends OptionsConfig {
     projectId = process.env.PROJECT_ID ? process.env.PROJECT_ID : 'bfast';
     applicationId = process.env.APPLICATION_ID ? process.env.APPLICATION_ID : 'bfast';
     masterKey = process.env.MASTER_KEY ? process.env.MASTER_KEY : 'bfast-cloud';
-    redisHOST = process.env.REDIS_HOST ? process.env.REDIS_HOST : 'localhost';
     mongoURL = process.env.MONGO_URL ? process.env.MONGO_URL : 'mongodb://localhost/_BFAST_ADMIN';
     dockerSocket = process.env.DOCKER_SOCKET ? process.env.DOCKER_SOCKET : '/usr/local/bin/docker';
 
