@@ -5,9 +5,10 @@ export class OrchestrationAdapter {
     /**
      *
      * @param project {ProjectModel}
+     * @param envs {Array<string>}
      * @return {Promise<void>}
      */
-    async functionsInstanceCreate(project) {
+    async functionsInstanceCreate(project, envs) {
 
     }
 

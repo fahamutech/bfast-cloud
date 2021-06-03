@@ -2,6 +2,7 @@ import {UserModel, UserRoles} from "../models/user.model.mjs";
 import {ProjectModel} from "../models/project.model.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
 import {v4} from "uuid";
+import bfast from "bfastnode";
 
 
 export class ProjectStoreFactory {
@@ -73,7 +74,7 @@ export class ProjectStoreFactory {
         if (project.type.toString() === 'daas') {
             await this.orchestration.databaseInstanceCreate(project, envs);
         } else if (project.type.toString() === 'faas') {
-            await this.orchestration.functionsInstanceCreate(project);
+            await this.orchestration.functionsInstanceCreate(project, envs);
         } else {
             await this.orchestration.databaseInstanceCreate(project, envs);
             await this.orchestration.functionsInstanceCreate(project);
@@ -202,11 +203,12 @@ export class ProjectStoreFactory {
 
     /**
      *
-     * @param size {number}
-     * @param skip {number}
+     * @param size {number | null}
+     * @param skip {number | null}
      * @return {Promise<ProjectModel[]>}
      */
-    async getAllProjects(size, skip) {
+    async getAllProjects(size = null, skip = null) {
+        // return bfast.database().collection(this.collectionName).getAll();
         try {
             const projectCollection = await this._database.collection(this.collectionName);
             const totalProjects = await projectCollection.find({}).count();

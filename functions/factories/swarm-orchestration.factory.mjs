@@ -221,9 +221,10 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     /**
      *
      * @param project {ProjectModel}
+     * @param envs {Array<string>}
      * @return {Promise<*>}
      */
-    async functionsInstanceCreate(project) {
+    async functionsInstanceCreate(project, envs) {
         return this.shell.exec([
             "/usr/local/bin/docker service create",
             "--name ${projectId}_faas",
@@ -232,7 +233,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--mode replicated",
             "--replicas 0",
             "--restart-condition any",
-            "--restart-delay 2s",
+            "--restart-delay 5s",
             "--secret rsapub",
             "--secret rsapriv",
             "--label \"traefik.docker.network=bfastweb\"",
@@ -245,13 +246,12 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             `--env \"MONGO_URL=mongodb://${project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@2.mongo.fahamutech.com:27018,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
-            "--env \"RSA_PUBLIC_KEY=/run/secrets/rsapub\"",
-            "--env \"RSA_KEY=/run/secrets/rsapriv\"",
+            envs.map(e => '--env \"' + e + "\"").join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {
                 projectId: project.projectId,
-                bucketName: project.projectId.toLowerCase(),
+                bucketName: project.projectId.toString().replace(new RegExp('[^\\w]', 'ig'), '').toLowerCase(),
                 projectName: project.name,
                 userEmail: project.user.email,
                 appId: project.parse.appId,
@@ -272,7 +272,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--mode replicated",
             "--replicas 1",
             "--restart-condition any",
-            "--restart-delay 2s",
+            "--restart-delay 5s",
             "--label \"traefik.docker.network=bfastweb\"",
             "--label \"traefik.enable=true\"",
             "--label \"traefik.port=3000\"",
@@ -300,14 +300,12 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
-            "--env \"RSA_PUBLIC_KEY=/run/secrets/rsapub\"",
-            "--env \"RSA_KEY=/run/secrets/rsapriv\"",
             envs.map(e => '--env \"' + e + "\"").join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {
                 projectId: project.projectId,
-                bucketName: project.projectId.toString().toLowerCase(),
+                bucketName: project.projectId.toString().replace(new RegExp('[^\\w]', 'ig'), '').toLowerCase(),
                 projectName: project.name,
                 userEmail: project.user.email,
                 appId: project.parse.appId,
