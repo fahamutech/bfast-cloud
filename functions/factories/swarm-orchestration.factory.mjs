@@ -224,7 +224,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      * @param envs {Array<string>}
      * @return {Promise<*>}
      */
-    async functionsInstanceCreate(project, envs) {
+    async functionsInstanceCreate(project, envs=[]) {
         return this.shell.exec([
             "/usr/local/bin/docker service create",
             "--name ${projectId}_faas",
@@ -263,7 +263,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
     }
 
-    async databaseInstanceCreate(project, envs) {
+    async databaseInstanceCreate(project, envs = []) {
         return await this.shell.exec([
             "/usr/local/bin/docker service create",
             "--name ${projectId}_daas",

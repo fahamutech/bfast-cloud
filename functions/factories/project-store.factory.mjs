@@ -77,7 +77,7 @@ export class ProjectStoreFactory {
             await this.orchestration.functionsInstanceCreate(project, envs);
         } else {
             await this.orchestration.databaseInstanceCreate(project, envs);
-            await this.orchestration.functionsInstanceCreate(project);
+            await this.orchestration.functionsInstanceCreate(project, envs);
         }
         return project;
     }
