@@ -1,24 +1,8 @@
 import bfastnode from 'bfastnode';
-import {UserStoreFactory} from "../factories/user-store.factory.mjs";
-import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
-import {getBFastDatabaseConfigs, Options} from "../options.mjs";
-import {EmailFactory} from "../factories/email.factory.mjs";
-import {SecurityFactory} from "../factories/security.factory.mjs";
-import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
-import {SwarmOrchestrationFactory} from "../factories/swarm-orchestration.factory.mjs";
 import moment from "moment";
 
 const {bfast} = bfastnode;
-const {mongoDbUri} = getBFastDatabaseConfigs();
-const options = new Options();
-const {shellAdapter} = options;
-const databaseFactory = new DatabaseConfigFactory(mongoDbUri);
-const emailFactory = new EmailFactory();
-const swarmOrch = new SwarmOrchestrationFactory(shellAdapter(), options);
-const securityFactory = new SecurityFactory();
 let accountingRunning = false;
-const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, swarmOrch)
 
 export const accountingJob776 = bfast.functions().onJob(
     {

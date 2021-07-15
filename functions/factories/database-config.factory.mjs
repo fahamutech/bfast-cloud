@@ -18,18 +18,11 @@ export class DatabaseConfigFactory {
      * @return {Promise<MongoClient>}
      */
     async connect() {
-        const mongoClient = new MongoClient(this.mongoDbUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        const mongoClient = new MongoClient(this.mongoDbUrl);
         return mongoClient.connect();
     }
 
     disconnect() {
-        // if (mongoClient && mongoClient.isConnected()) {
-        //     mongoClient.close().catch(_ => {
-        //     });
-        // }
     }
 
 
@@ -42,16 +35,6 @@ export class DatabaseConfigFactory {
     async collection(collectionName) {
         const connection = await this.connect();
         return connection.db().collection(collectionName);
-        // try {
-        //     if (mongoClient.isConnected()) {
-        //         return mongoClient.db().collection(collectionName);
-        //     } else {
-        //         const conn = await this.connect();
-        //         return conn.db().collection(collectionName);
-        //     }
-        // } catch (e) {
-        //     throw {message: 'Fails to get collection', reason: e.toString()};
-        // }
     }
 
     /**
@@ -64,8 +47,8 @@ export class DatabaseConfigFactory {
         let session;
         try {
             const transactionOptions = {
-                readPreference: 'primary',
-                readConcern: {level: 'local'},
+                // readPreference: 'primary',
+                // readConcern: {level: 'local'},
                 writeConcern: {w: 'majority'}
             };
             session = _mongoClient.startSession();
@@ -88,7 +71,6 @@ export class DatabaseConfigFactory {
      * @return {string}
      */
     getObjectId(id) {
-        // return new ObjectID(id);
         return id;
     }
 
@@ -98,12 +80,8 @@ export class DatabaseConfigFactory {
      * @return {Promise<Db>}
      */
     async getDatabase(name) {
-        // if (mongoClient.isConnected()) {
-        //     return mongoClient.db(name);
-        // } else {
         const conn = await this.connect();
         return conn.db(name);
-        // }
     }
 
 }

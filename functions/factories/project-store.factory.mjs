@@ -2,7 +2,6 @@ import {UserModel, UserRoles} from "../models/user.model.mjs";
 import {ProjectModel} from "../models/project.model.mjs";
 import {DatabaseConfigFactory} from "./database-config.factory.mjs";
 import {v4} from "uuid";
-import bfast from "bfastnode";
 
 
 export class ProjectStoreFactory {
