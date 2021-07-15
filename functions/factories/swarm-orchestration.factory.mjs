@@ -246,7 +246,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             `--env \"MONGO_URL=mongodb://${project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@2.mongo.fahamutech.com:27018,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
-            envs.map(e => '--env \"' + e + "\"").join(' '),
+            envs.map(e => '--env \'' + e + '\'').join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {
@@ -300,7 +300,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
-            envs.map(e => '--env \"' + e + "\"").join(' '),
+            envs.map(e => '--env \'' + e + '\'').join(' '),
             "joshuamshana/bfastfunction:latest",
         ].join(' '), {
             env: {

@@ -162,7 +162,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     const envs = request.query.envs && request.query.envs.toString().startsWith('[') ? JSON.parse(request.query.envs) : [];
                     // console.log(envs);
                     // if(!envs.includes('RSA_PUBLIC_KEY')){
-                        console.log(JSON.stringify(body.rsa.public));
+                        // console.log(JSON.stringify(body.rsa.public));
                     envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
                     // }
                     // if(!envs.includes('RSA_KEY')){

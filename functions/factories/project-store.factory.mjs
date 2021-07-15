@@ -24,7 +24,7 @@ export class ProjectStoreFactory {
     /**
      *
      * @param project {ProjectModel}
-     * @param envs
+     * @param envs {Array<string>}
      * @return {Promise<ProjectModel>}
      */
     async createProject(project, envs) {
