@@ -27,8 +27,8 @@
   ],
   "dependencies": {
     "bcryptjs": "~2.4.3",
-    "bfast-database-core": "~0.1.1-alpha.9",
-    "bfastnode": "~4.5.1-alpha.2",
+    "bfast-database-core": "~0.1.1-alpha.10",
+    "bfastnode": "~4.5.1-alpha.3",
     "jsonwebtoken": "~8.5.1",
     "keypairs": "~1.2.14",
     "moment": "~2.29.1",
