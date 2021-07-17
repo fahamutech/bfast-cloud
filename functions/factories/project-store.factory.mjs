@@ -1,7 +1,7 @@
-import {UserModel, UserRoles} from "../models/user.model.mjs";
-import {ProjectModel} from "../models/project.model.mjs";
-import {DatabaseConfigFactory} from "./database-config.factory.mjs";
-import {v4} from "uuid";
+import { UserModel, UserRoles } from "../models/user.model.mjs";
+import { ProjectModel } from "../models/project.model.mjs";
+import { DatabaseConfigFactory } from "./database-config.factory.mjs";
+import { v4 } from "uuid";
 
 
 export class ProjectStoreFactory {
@@ -13,11 +13,17 @@ export class ProjectStoreFactory {
      * @param database {DatabaseConfigFactory}
      * @param userFactory {UserStoreFactory}
      * @param orchestration {OrchestrationAdapter}
+     * @param sFactory {SecurityFactory}
      */
-    constructor(database, userFactory, orchestration) {
+    constructor(
+        database,
+        userFactory,
+        orchestration,
+        sFactory) {
         this.orchestration = orchestration;
         this._users = userFactory;
         this._database = database;
+        this.securityFactory = sFactory
     }
 
     /**
@@ -57,7 +63,7 @@ export class ProjectStoreFactory {
                 } else {
                     message = reason && reason.message ? reason.message : reason.toString();
                 }
-                reject({message: message});
+                reject({ message: message });
             }
         });
 
@@ -70,9 +76,12 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel>}
      */
     async deployProjectInCluster(project, envs) {
-        if (project.type.toString() === 'daas') {
+        project.rsa = project.rsa && project.rsa.private && project.rsa.public ? project.rsa : await this.securityFactory.generateRsaPair();
+        envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
+        envs.push(`RSA_KEY=${JSON.stringify(body.rsa.private)}`);
+        if (project.type.toString().trim() === 'daas') {
             await this.orchestration.databaseInstanceCreate(project, envs);
-        } else if (project.type.toString() === 'faas') {
+        } else if (project.type.toString().trim() === 'faas') {
             await this.orchestration.functionsInstanceCreate(project, envs);
         } else {
             await this.orchestration.databaseInstanceCreate(project, envs);
@@ -90,9 +99,9 @@ export class ProjectStoreFactory {
     async deleteUserProject(userId, projectId) {
         try {
             if (!userId || userId === '') {
-                throw {message: 'Please provide uid'};
+                throw { message: 'Please provide uid' };
             } else if (!projectId || projectId === '') {
-                throw {message: 'projectId required'};
+                throw { message: 'projectId required' };
             } else {
                 await this._database.transaction(async (session) => {
                     // try {
@@ -105,14 +114,14 @@ export class ProjectStoreFactory {
                     if (response && response.result.ok) {
                         await this._removeProjectInCluster(projectId);
                     } else {
-                        throw {message: 'Project not found'};
+                        throw { message: 'Project not found' };
                     }
                     // } catch (e) {
                     //     session.abortTransaction();
                     //     throw e;
                     // }
                 });
-                return {message: 'Project deleted and removed'};
+                return { message: 'Project deleted and removed' };
             }
         } finally {
             this._database.disconnect();
@@ -152,7 +161,7 @@ export class ProjectStoreFactory {
     async getUserProjects(userId, size, skip) {
         try {
             if (!userId || userId === '') {
-                throw {message: 'userId required'};
+                throw { message: 'userId required' };
             } else {
                 if (userId) {
                     try {
@@ -160,18 +169,18 @@ export class ProjectStoreFactory {
                         const projectCollection = await this._database.collection(this.collectionName);
                         return await projectCollection.find({
                             $or: user.role === UserRoles.ADMIN_ROLE
-                                ? [{'projectId': {$exists: true}}]
+                                ? [{ 'projectId': { $exists: true } }]
                                 : [
-                                    {'user.email': user.email},
-                                    {"members.email": user.email}
+                                    { 'user.email': user.email },
+                                    { "members.email": user.email }
                                 ]
-                        }, {limit: size, skip: skip}).toArray();
+                        }, { limit: size, skip: skip }).toArray();
                     } catch (reason) {
                         console.log(reason);
-                        throw {message: reason.toString()};
+                        throw { message: reason.toString() };
                     }
                 } else {
-                    throw {message: 'Please provide a user id'};
+                    throw { message: 'Please provide a user id' };
                 }
             }
         } finally {
@@ -187,14 +196,14 @@ export class ProjectStoreFactory {
     async getProject(objectId) {
         try {
             const projectCollection = await this._database.collection(this.collectionName);
-            const project = await projectCollection.findOne({_id: this._database.getObjectId(objectId)});
+            const project = await projectCollection.findOne({ _id: this._database.getObjectId(objectId) });
             if (!project) {
                 throw 'Project not found';
             }
             return project;
         } catch (e) {
             console.error(e);
-            throw {message: 'Fails to get project', reason: e.toString()};
+            throw { message: 'Fails to get project', reason: e.toString() };
         } finally {
             this._database.disconnect();
         }
@@ -216,7 +225,7 @@ export class ProjectStoreFactory {
                 .skip(skip ? skip : 0)
                 .toArray();
         } catch (e) {
-            throw {message: 'Fails to get all projects', reason: e.toString()}
+            throw { message: 'Fails to get all projects', reason: e.toString() }
         } finally {
             this._database.disconnect();
         }
@@ -234,8 +243,8 @@ export class ProjectStoreFactory {
             const projectCollection = await this._database.collection(this.collectionName);
             const project = await projectCollection.findOne({
                 $or: [
-                    {"user.email": user.email},
-                    {"members.email": user.email}
+                    { "user.email": user.email },
+                    { "members.email": user.email }
                 ],
                 projectId: projectId
             });
@@ -244,7 +253,7 @@ export class ProjectStoreFactory {
             }
             return project;
         } catch (e) {
-            throw {message: 'Fail to get project details', reason: e.toString()};
+            throw { message: 'Fail to get project details', reason: e.toString() };
         } finally {
             this._database.disconnect();
         }
@@ -263,18 +272,18 @@ export class ProjectStoreFactory {
             const projectCollection = await this._database.collection(this.collectionName);
             const result = await projectCollection.findOneAndUpdate({
                 $or: [
-                    {"user.email": user.email},
-                    {"members.email": user.email}
+                    { "user.email": user.email },
+                    { "members.email": user.email }
                 ],
                 projectId: projectId
             }, data);
             if (!result.ok) {
                 throw 'Project not updated';
             }
-            return {message: 'Project updated'}
+            return { message: 'Project updated' }
         } catch (e) {
             console.error(e);
-            throw {message: 'Fails to update project description', reason: e.toString()};
+            throw { message: 'Fails to update project description', reason: e.toString() };
         } finally {
             this._database.disconnect();
         }
@@ -300,7 +309,7 @@ export class ProjectStoreFactory {
             return project;
         } catch (e) {
             console.error(e);
-            throw {message: 'Fails to identify owner', reason: e.toString()}
+            throw { message: 'Fails to identify owner', reason: e.toString() }
         } finally {
             this._database.disconnect();
         }
@@ -334,7 +343,7 @@ export class ProjectStoreFactory {
             return project;
         } catch (e) {
             console.error(e);
-            throw {message: 'Fails to identify owner', reason: e.toString()}
+            throw { message: 'Fails to identify owner', reason: e.toString() }
         } finally {
             this._database.disconnect();
         }
@@ -350,7 +359,7 @@ export class ProjectStoreFactory {
         try {
             if (user && user.email) {
                 const projectColl = await this._database.collection(this.collectionName);
-                const response = await projectColl.updateOne({projectId: projectId}, {
+                const response = await projectColl.updateOne({ projectId: projectId }, {
                     $push: {
                         'members': user
                     }
@@ -382,11 +391,11 @@ export class ProjectStoreFactory {
         await adminColl.addUser(
             project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim(),
             project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim(), {
-                // session: session,
-                roles: [
-                    {role: "readWrite", db: project.projectId}
-                ]
-            });
+            // session: session,
+            roles: [
+                { role: "readWrite", db: project.projectId }
+            ]
+        });
         console.log('=> mongo create user');
         // } catch (e) {
         //     console.warn(e.toString(), '=> mongo create user');

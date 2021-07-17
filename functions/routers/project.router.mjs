@@ -14,7 +14,7 @@ const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter());
+const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
 const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
 export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequest(`/sync`, [
