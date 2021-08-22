@@ -1,5 +1,5 @@
-import bfastnode from "bfastnode";
-const {bfast} = bfastnode;
+import bfast from "bfast";
+
 
 export class EmailFactory {
 
@@ -15,9 +15,13 @@ export class EmailFactory {
      *      attachment
      * }
      * }
+     * @param devMode
      * @return {Promise<*>}
      */
-    async sendMail(data) {
+    async sendMail(data, devMode = false) {
+        if (devMode === true){
+            return 'ok in dev';
+        }
         return bfast.functions('fahamutaarifa')
             .request('/mail')
             .post(data, {

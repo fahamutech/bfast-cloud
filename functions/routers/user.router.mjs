@@ -1,4 +1,4 @@
-import bfastnode from "bfastnode";
+import bfast from "bfast";
 import {Options} from "../options.mjs";
 import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
 import {EmailFactory} from "../factories/email.factory.mjs";
@@ -7,7 +7,6 @@ import {UserStoreFactory} from "../factories/user-store.factory.mjs";
 import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
 import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 
-const {bfast} = bfastnode;
 const prefix = '/users';
 const options = new Options();
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
@@ -26,6 +25,7 @@ export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role
                 userFactory.getRole(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
+                    // console.log(reason);
                     response.status(400).json(reason)
                 })
             } else {
@@ -107,43 +107,27 @@ export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
     ]
 );
 
-export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, [
-        (request, response) => {
-            const body = request.body;
-            const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
-            if (valid) {
-                userFactory.createUser(body).then(value => {
-                    response.status(200).json(value);
-                }).catch(reason => {
-                    response.status(400).json(reason);
-                });
-            } else {
-                response.status(400).json({
-                    message: 'invalid data supplied, displayName, phoneNumber, email and password required'
-                });
-            }
+const handleCreateUser = [
+    (request, response) => {
+        const body = request.body;
+        const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
+        if (valid) {
+            userFactory.createUser(body).then(value => {
+                response.status(200).json(value);
+            }).catch(reason => {
+                response.status(400).json(reason);
+            });
+        } else {
+            response.status(400).json({
+                message: 'invalid data supplied, displayName, phoneNumber, email and password required'
+            });
         }
-    ]
-);
+    }
+]
 
-export const createAccountV2 = bfast.functions().onPostHttpRequest(`${prefix}/register`, [
-        (request, response) => {
-            const body = request.body;
-            const valid = !!(body && body.displayName && body.phoneNumber && body.email && body.password);
-            if (valid) {
-                userFactory.createUser(body).then(value => {
-                    response.status(200).json(value);
-                }).catch(reason => {
-                    response.status(400).json(reason);
-                });
-            } else {
-                response.status(400).json({
-                    message: 'invalid data supplied, displayName, phoneNumber, email and password required'
-                });
-            }
-        }
-    ]
-);
+export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, handleCreateUser);
+
+export const createAccountV2 = bfast.functions().onPostHttpRequest(`${prefix}/register`, handleCreateUser);
 
 export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
         (request, response) => {
@@ -192,24 +176,22 @@ export const logout = bfast.functions().onPostHttpRequest(`${prefix}/logout`, [
  * @private
  */
 
-    // should be test by using e2e or by human for now
 export const resetPassword = bfast.functions().onPostHttpRequest(`${prefix}/password/reset`, [
-        (request, response) => {
-            const body = request.body;
-            const valid = !!(body && body.code && body.password);
-            if (valid) {
-                userFactory.resetPassword(body.code, body.password).then(value => {
-                    response.status(200).json(value);
-                }).catch(reason => {
-                    console.log(reason);
-                    response.status(400).json(reason);
-                })
-            } else {
-                response.status(400).json({message: 'invalid data supplied'});
+            (request, response) => {
+                const body = request.body;
+                const valid = !!(body && body.code && body.password);
+                if (valid) {
+                    userFactory.resetPassword(body.code, body.password).then(value => {
+                        response.status(200).json(value);
+                    }).catch(reason => {
+                        console.log(reason);
+                        response.status(400).json(reason);
+                    })
+                } else {
+                    response.status(400).json({message: 'invalid data supplied'});
+                }
             }
-        }
-    ]
-    );
+        ]);
 
 /**
  *  rest: /users/password/request -X POST
@@ -222,9 +204,10 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
             const body = request.body;
             const valid = !!(body && body.email);
             if (valid) {
-                userFactory.requestResetPassword(body.email).then(value => {
+                userFactory.requestResetPassword(body.email, body.local === true).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
+                    console.log(reason);
                     response.status(400).json(reason);
                 });
             } else {

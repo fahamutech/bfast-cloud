@@ -1,7 +1,7 @@
-import bfastnode from "bfastnode";
+import bfast from "bfast";
 import {passwordRestComponent} from "../components/password-reset.component.mjs";
 
-const {bfast} = bfastnode;
+
 const prefix = '/';
 
 

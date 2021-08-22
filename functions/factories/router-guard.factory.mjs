@@ -95,7 +95,6 @@ export class RouterGuardFactory {
                     request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
-                console.log(reason);
                 response.status(401).json(reason)
             });
         } else {
