@@ -14,7 +14,7 @@ const databaseOrch = new DatabasesInstanceController(options.containerOrchAdapte
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
-const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const userFactory = new UserStoreFactory(emailFactory, securityFactory);
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 

@@ -1,21 +1,16 @@
 import {SecurityFactory} from "./security.factory.mjs";
 import {EmailFactory} from "./email.factory.mjs";
-import {DatabaseConfigFactory} from "./database-config.factory.mjs";
 import {UserRoles} from "../models/user.model.mjs";
-import {v4} from 'uuid';
 import bfast from "bfast";
 
 export class UserStoreFactory {
     collectionName = '_User';
 
     /**
-     *
-     * @param databaseFactory {DatabaseConfigFactory}
      * @param emailFactory {EmailFactory}
      * @param securityFactory {SecurityFactory}
      */
-    constructor(databaseFactory, emailFactory, securityFactory) {
-        this._database = databaseFactory;
+    constructor(emailFactory, securityFactory) {
         this._emailAdapter = emailFactory;
         this._security = securityFactory;
     }
@@ -40,7 +35,7 @@ export class UserStoreFactory {
      */
     async createUser(user) {
         delete user.uid;
-        user.role = 'USER';
+        user.role = UserRoles.USER_ROLE;
         const _user = await bfast.auth().signUp(user.email, user.password, user);
         _user.token = await this._security.generateToken({uid: user.id, email: user.email});
         return _user;
@@ -53,22 +48,10 @@ export class UserStoreFactory {
      */
     async createAdmin(user) {
         delete user.uid;
-        const date = new Date().toISOString();
-        user.createdAt = date;
-        user.updatedAt = date;
-        user._id = v4();
-        user.password = await this._security.encryptPassword(user.password);
         user.role = UserRoles.ADMIN_ROLE;
-        const adminCollection = await this._database.collection(this.collectionName);
-        const insertUser = await adminCollection.insertOne(user);
-        const indexExist = await adminCollection.indexExists('email');
-        if (!indexExist) {
-            await adminCollection.createIndex({email: 1}, {unique: true});
-        }
-        user.uid = insertUser.insertedId.toString();
-        delete user.password;
-        user.token = await this._security.generateToken({uid: insertUser.insertedId.toString()});
-        return user;
+        const _user = await bfast.auth().signUp(user.email, user.password, user);
+        _user.token = await this._security.generateToken({uid: user.id, email: user.email});
+        return _user;
     }
 
     /**
@@ -77,17 +60,10 @@ export class UserStoreFactory {
      * @return {Promise<{message: string}>}
      */
     async deleteUser(userId) {
-        try {
-            const userCollection = await this._database.collection(this.collectionName);
-            const response = await userCollection.deleteOne({_id: this._database.getObjectId(userId)});
-            if (response && response.deletedCount === 1 && response.result.ok === 1) {
-                return {message: "User deleted"};
-            } else {
-                throw {message: 'user not deleted'};
-            }
-        } finally {
-            this._database.disconnect();
-        }
+        return bfast.database().table('_User')
+            .query()
+            .byId(userId)
+            .delete({useMasterKey: true});
     }
 
     /**
@@ -95,17 +71,11 @@ export class UserStoreFactory {
      * @return {Promise<*>}
      */
     async getAllUsers() {
-        try {
-            const userCollection = await this._database.collection(this.collectionName);
-            const total = await userCollection.find({}).count();
-            return await userCollection.find({})
-                .skip(0)
-                .limit(total)
-                .project({password: 0})
-                .toArray();
-        } finally {
-            this._database.disconnect();
-        }
+        const users = await bfast.database().table('_User').getAll(null, {useMasterKey: true});
+        return users.map(x => {
+            delete x.password;
+            return x;
+        });
     }
 
     /**
@@ -228,33 +198,27 @@ export class UserStoreFactory {
      *
      * @param code {string}
      * @param password {string}
-     * @return {Promise<string>}
+     * @return {Promise<*>}
      */
     async resetPassword(code, password) {
-        try {
-            const decodedEmail = await this._security.verifyToken(code);
-            if (!password) {
-                throw {message: 'Please provide a new password'};
-            }
-            if (decodedEmail && decodedEmail.email) {
-                const hashedPassword = await this._security.encryptPassword(password);
-                const userCollection = await this._database.collection(this.collectionName);
-                await userCollection.findOneAndUpdate({email: decodedEmail.email, resetCode: code}, {
-                    $set: {
-                        password: hashedPassword,
-                        resetCode: null
-                    },
-                    $currentDate: {
-                        updatedAt: true
-                    }
-                });
-                await this._security.revokeToken(code);
-                return 'Password updated';
-            } else {
-                throw {message: 'code is invalid'};
-            }
-        } finally {
-            this._database.disconnect();
+        const decodedEmail = await this._security.verifyToken(code);
+        if (!password) {
+            throw {message: 'Please provide a new password'};
+        }
+        if (decodedEmail && decodedEmail.email) {
+            const hashedPassword = await this._security.encryptPassword(password);
+            await bfast.database().table('_User')
+                .query()
+                .equalTo('email', decodedEmail.email)
+                .equalTo('resetCode', code)
+                .updateBuilder()
+                .set('password', hashedPassword)
+                .set('resetCode', null)
+                .update({useMasterKey: true});
+            await this._security.revokeToken(code);
+            return {message: 'Password updated'};
+        } else {
+            throw {message: 'code is invalid'};
         }
     }
 

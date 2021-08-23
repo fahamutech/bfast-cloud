@@ -12,7 +12,7 @@ const options = new Options();
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
-const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
+const userFactory = new UserStoreFactory(emailFactory, securityFactory);
 const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
@@ -101,7 +101,7 @@ export const getAllUsers = bfast.functions().onGetHttpRequest(`${prefix}`, [
             const size = request.query && request.query.size ? request.query.size : 20;
             const skip = request.query && request.query.skip ? request.query.skip : 0;
             userFactory.getAllUsers().then(users => {
-                response.status(200).json({users: users});
+                response.status(200).json(users);
             });
         }
     ]
@@ -191,7 +191,8 @@ export const resetPassword = bfast.functions().onPostHttpRequest(`${prefix}/pass
                     response.status(400).json({message: 'invalid data supplied'});
                 }
             }
-        ]);
+        ]
+);
 
 /**
  *  rest: /users/password/request -X POST
@@ -207,7 +208,7 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
                 userFactory.requestResetPassword(body.email, body.local === true).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
-                    console.log(reason);
+                    // console.log(reason);
                     response.status(400).json(reason);
                 });
             } else {
