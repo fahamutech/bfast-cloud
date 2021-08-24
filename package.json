@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "bcryptjs": "~2.4.3",
-    "bfast-database-core": "~1.0.0-beta.5",
+    "bfast-database-core": "~1.0.0-beta.7",
     "bfast": "~5.0.0-beta.0",
     "jsonwebtoken": "~8.5.1",
     "keypairs": "~1.2.14",
