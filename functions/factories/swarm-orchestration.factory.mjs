@@ -222,10 +222,11 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      *
      * @param project {ProjectModel}
      * @param envs {Array<string>}
+     * @param dryRun {boolean}
      * @return {Promise<*>}
      */
-    async functionsInstanceCreate(project, envs=[]) {
-        return this.shell.exec([
+    async functionsInstanceCreate(project, envs, dryRun) {
+        const commands = [
             "/usr/local/bin/docker service create",
             "--name ${projectId}_faas",
             "--hostname ${projectId}_faas",
@@ -246,9 +247,15 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             `--env \"MONGO_URL=mongodb://${project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@2.mongo.fahamutech.com:27018,2.mongo.fahamutech.com:27017,3.mongo.fahamutech.com:27017/${project.projectId}?authSource=admin&replicaSet=mdbRepl\"`,
             "--env \"PORT=3000\"",
             "--env \"PRODUCTION=1\"",
-            envs.map(e => '--env \'' + e + '\'').join(' '),
+            envs ? envs.map(e => '--env \'' + e + '\'').join(' ') : ' ',
             "joshuamshana/bfastfunction:latest",
-        ].join(' '), {
+        ];
+        if (dryRun === true) {
+            // console.log(commands.join('\n'));
+            console.log('-------dry run faas-----------');
+            return;
+        }
+        return this.shell.exec(commands.join(' '), {
             env: {
                 projectId: project.projectId,
                 bucketName: project.projectId.toString().replace(new RegExp('[^\\w]', 'ig'), '').toLowerCase(),
@@ -263,8 +270,8 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
     }
 
-    async databaseInstanceCreate(project, envs = []) {
-        return await this.shell.exec([
+    async databaseInstanceCreate(project, envs , dryRun) {
+        const commands = [
             "/usr/local/bin/docker service create",
             "--name ${projectId}_daas",
             "--hostname ${projectId}_daas",
@@ -300,9 +307,15 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--env \"S3_ACCESS_KEY=/run/secrets/s3accessKey\"",
             "--env \"S3_SECRET_KEY=/run/secrets/s3secretKey\"",
             "--env \"S3_ENDPOINT=/run/secrets/s3endpointUsEast1\"",
-            envs.map(e => '--env \'' + e + '\'').join(' '),
+            envs ? envs.map(e => '--env \'' + e + '\'').join(' ') : ' ',
             "joshuamshana/bfastfunction:latest",
-        ].join(' '), {
+        ]
+        if (dryRun === true) {
+            // console.log(commands.join('\n'));
+            console.log('-----------dry run daas----------');
+            return;
+        }
+        return await this.shell.exec(commands.join(' '), {
             env: {
                 projectId: project.projectId,
                 bucketName: project.projectId.toString().replace(new RegExp('[^\\w]', 'ig'), '').toLowerCase(),
@@ -344,7 +357,13 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     }
 
 
-    async instances() {
+    /**
+     *
+     * @param dryRun {boolean}
+     * @return {Promise<string[]>}
+     */
+    async instances(dryRun) {
+        // if (dryRun === true)
         const answer = await this.shell.exec("/usr/local/bin/docker service ls | awk '{print $2}'", {
             env: {
                 docker: this.options.dockerSocket

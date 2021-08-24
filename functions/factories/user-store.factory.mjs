@@ -37,7 +37,7 @@ export class UserStoreFactory {
         delete user.uid;
         user.role = UserRoles.USER_ROLE;
         const _user = await bfast.auth().signUp(user.email, user.password, user);
-        _user.token = await this._security.generateToken({uid: user.id, email: user.email});
+        _user.token = await this._security.generateToken({uid: _user.id, email: _user.email});
         return _user;
     }
 
@@ -50,7 +50,7 @@ export class UserStoreFactory {
         delete user.uid;
         user.role = UserRoles.ADMIN_ROLE;
         const _user = await bfast.auth().signUp(user.email, user.password, user);
-        _user.token = await this._security.generateToken({uid: user.id, email: user.email});
+        _user.token = await this._security.generateToken({uid: _user.id, email: _user.email});
         return _user;
     }
 

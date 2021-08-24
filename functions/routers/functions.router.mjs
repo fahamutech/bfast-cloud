@@ -15,10 +15,10 @@ const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, options.containerOrchAdapter(), securityFactory);
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
-
 const prefix = '/projects/:projectId/functions';
+
 export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
         (request, response, next) => {
             routerGuard.checkToken(request, response, next);

@@ -110,7 +110,7 @@ export class FunctionsInstanceController {
      */
     async envs(id) {
         const info = await this.containerOrch.instanceInfo(UtilsController.checkProjectId(id));
-        return info[0].Spec.TaskTemplate.ContainerSpec.Env;
+        return info[0]?.Spec?.TaskTemplate?.ContainerSpec?.Env;
     }
 
 }

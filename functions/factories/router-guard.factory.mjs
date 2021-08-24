@@ -95,7 +95,7 @@ export class RouterGuardFactory {
                     request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
-                response.status(401).json(reason)
+                response.status(401).json(reason);
             });
         } else {
             response.status(401).json({message: 'Identify yourself'})

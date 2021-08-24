@@ -14,7 +14,7 @@ const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, options.containerOrchAdapter(), securityFactory);
 const _routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
 export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequest(`/sync`, [
@@ -25,11 +25,6 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
             try {
                 const instances = await options.containerOrchAdapter().instances();
                 const projects = await projectFactory.getAllProjects(null, 0);
-                bfast.init({
-                    applicationId: 'bfast',
-                    projectId: 'bfast'
-                });
-
                 const mapOfInstances = instances.reduce((a, b, i) => {
                     a[b] = i;
                     return a;
@@ -38,7 +33,6 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                     delete mapOfInstances[p.projectId.toString().trim().concat('_daas')];
                     delete mapOfInstances[p.projectId.toString().trim().concat('_faas')];
                 });
-
                 for (const k of Object.keys(mapOfInstances)) {
                     try {
                         await options.containerOrchAdapter().removeInstance(k);
@@ -46,8 +40,10 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e, 'INFO : try to remove instance');
                     }
                 }
-
                 async function faasCheck(project) {
+                    if (project.dry_run === true) {
+                        return;
+                    }
                     let faasHealth;
                     try {
                         faasHealth = await bfast.functions()
@@ -62,8 +58,10 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             .catch(console.log);
                     }
                 }
-
                 async function daasCheck(project) {
+                    if (project.dry_run === true) {
+                        return;
+                    }
                     let daasHealth;
                     try {
                         daasHealth = await bfast.functions()
@@ -78,7 +76,6 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                             .catch(console.log);
                     }
                 }
-
                 for (const project of projects) {
                     const type = project.type.toString();
                     if (type === 'faas') {
@@ -110,6 +107,7 @@ export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:project
                         response.status(200).json(project);
                     })
                     .catch((reason) => {
+                        console.log(reason);
                         response.status(404).json(reason);
                     });
             } else {
@@ -162,7 +160,9 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     const envs = request.query.envs && request.query.envs.toString().startsWith('[') ? JSON.parse(request.query.envs) : [];
                     envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
                     envs.push(`RSA_KEY=${JSON.stringify(body.rsa.private)}`);
-                    const result = await projectFactory.createProject(body, envs);
+                    const dryRun = request.query.hasOwnProperty('dry');
+                    body.dry_run = dryRun;
+                    const result = await projectFactory.createProject(body, envs, dryRun);
                     response.json(result);
                 } catch (reason) {
                     response.status(400).json(reason);
@@ -190,12 +190,6 @@ export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
     ]
 );
 
-/**
- *  rest: /projects/:projectId -X DELETE
- *  input:  -H'Authorization': token
- *  output: json
- * @private
- */
 export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:projectId`, [
         (request, response, next) => {
             _routerGuard.checkToken(request, response, next);
@@ -209,7 +203,8 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
                 projectFactory.deleteUserProject(request.uid, projectId).then((value) => {
                     response.status(200).json(value);
                 }).catch((reason) => {
-                    response.status(500).json(reason);
+                    console.log(reason);
+                    response.status(400).json(reason);
                 });
             } else {
                 response.status(400).json({message: 'Input not valid'});
@@ -218,13 +213,9 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
     ]
 );
 
-/**
- *  rest: /projects/:projectId -X PATCH
- *  input:  -H'Authorization': token, --data json
- *  output: json
- * @private
- */
-export const patchProject = bfast.functions().onPutHttpRequest(`${prefix}/:projectId`, [
+export const patchProject = bfast.functions().onPutHttpRequest(
+    `${prefix}/:projectId`,
+    [
         (request, response, next) => {
             _routerGuard.checkToken(request, response, next);
         },
@@ -263,7 +254,7 @@ export const addMemberToProject = bfast.functions().onPostHttpRequest(`${prefix}
             projectFactory.addMemberToProject(projectId, body).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
-                response.status(400).json({message: 'member not added', reason: reason.toString()});
+                response.status(400).json(reason);
             });
         }
     ]
