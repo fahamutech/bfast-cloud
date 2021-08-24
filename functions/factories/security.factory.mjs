@@ -54,18 +54,15 @@ export class SecurityFactory {
      * @return {Promise<*>}
      */
     async revokeToken(token) {
-        // return new Promise((resolve, reject) => {
-        //     this._redisClient.del(token, (err, reply) => {
-        //         if (err) {
-        //             reject({
-        //                 message: 'Fails to revoke a token',
-        //                 reason: err.toString()
-        //             });
-        //             return;
-        //         }
-        //         resolve({message: 'Token revoked', value: reply});
-        //     });
-        // });
+        // const d = await this.verifyToken(token);
+        // await bfast.database()
+        //     .table('_Token')
+        //     .query()
+        //     .byId(d.uid)
+        //     .updateBuilder()
+        //     .upsert(true)
+        //     .set('valid', 'not')
+        //     .update({useMasterKey: true});
         return {message: 'Token revoked'};
     }
 
@@ -85,7 +82,17 @@ export class SecurityFactory {
                     reject({message: 'Fails to generate a token', reason: err.toString()});
                     return;
                 }
+                // bfast.database()
+                //     .table('_Token')
+                //     .query()
+                //     .byId(data?.uid)
+                //     .updateBuilder()
+                //     .upsert(true)
+                //     .set('valid', 'ok')
+                //     .update({useMasterKey: true})
+                //     .finally(_ => {
                 resolve(encoded);
+                // });
             });
         });
     }
@@ -104,20 +111,19 @@ export class SecurityFactory {
                     reject({message: 'Fails to verify token', reason: err.toString()});
                     return;
                 }
+                // bfast.database()
+                //     .table('_Token')
+                //     .get(decoded.uid, null, {useMasterKey: true})
+                //     .then(value => {
+                //         if (value.valid === 'ok') {
                 resolve(decoded);
+                //         } else {
+                //             reject({message: 'Token revoked'});
+                //         }
+                //     }).catch(err => {
+                //     reject(err);
+                // });
             });
-        });
-    }
-
-    /**
-     *
-     * @param token {string}
-     * @return {object}
-     */
-    decodeToken(token) {
-        return _jwt.decode(token, {
-            complete: true,
-            json: true
         });
     }
 

@@ -1,10 +1,10 @@
-import bfastnode from "bfastnode";
+import bfast from "bfast";
 import {spawn} from 'node-pty-prebuilt-multiarch';
 import moment from "moment";
 // import {platform} from 'os';
 
 // const shell = platform() === 'win32' ? 'cmd.exe' : 'bash';
-const {bfast} = bfastnode;
+
 const terminals = {};
 
 /**

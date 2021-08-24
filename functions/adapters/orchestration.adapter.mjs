@@ -6,9 +6,10 @@ export class OrchestrationAdapter {
      *
      * @param project {ProjectModel}
      * @param envs {Array<string>}
+     * @param dryRun {boolean}
      * @return {Promise<void>}
      */
-    async functionsInstanceCreate(project, envs) {
+    async functionsInstanceCreate(project, envs, dryRun) {
 
     }
 
@@ -92,9 +93,10 @@ export class OrchestrationAdapter {
      *
      * @param project {ProjectModel}
      * @param envs {Array<string>}
+     * @param dryRun {boolean}
      * @return {Promise<void>}
      */
-    async databaseInstanceCreate(project, envs ) {
+    async databaseInstanceCreate(project, envs , dryRun) {
 
     }
 
@@ -148,10 +150,11 @@ export class OrchestrationAdapter {
     }
 
     /**
+     * @param dryRun {boolean}
      * get all physical instance running in cluster
      * @return {Promise<Array<string>>}
      */
-    async instances(){
+    async instances(dryRun){
     }
 
     /**

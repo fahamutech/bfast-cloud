@@ -1,4 +1,4 @@
-import bfastnode from "bfastnode";
+import bfast from "bfast";
 import {Options} from "../options.mjs";
 import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
 import {EmailFactory} from "../factories/email.factory.mjs";
@@ -8,17 +8,17 @@ import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
 import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 import {FunctionsInstanceController} from "../controllers/functions-instance.controller.mjs";
 
-const {bfast} = bfastnode;
+
 const options = new Options();
 const functionsOrch = new FunctionsInstanceController(options.containerOrchAdapter());
 const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
-const userFactory = new UserStoreFactory(databaseFactory, emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, userFactory, options.containerOrchAdapter(), securityFactory);
+const userFactory = new UserStoreFactory(emailFactory, securityFactory);
+const projectFactory = new ProjectStoreFactory(databaseFactory, options.containerOrchAdapter(), securityFactory);
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
-
 const prefix = '/projects/:projectId/functions';
+
 export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix}/env`, [
         (request, response, next) => {
             routerGuard.checkToken(request, response, next);
