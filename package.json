@@ -9,7 +9,7 @@
     "start:dev": "bfast fs serve",
     "build": "gulp",
     "build:docker": "gulp buildDocker",
-    "test": "mocha specs/src/**",
+    "test": "npx mocha specs/src/**",
     "push:docker": "gulp pubishDockerImage"
   },
   "bundledDependencies": [

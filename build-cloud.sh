@@ -1,6 +1,5 @@
 docker build --tag build-cloud .
-docker run --rm -v "${PWD}":/bfast build-cloud npm install --only=production
+docker run --rm -v "${PWD}":/bfast build-cloud npm install
 npm config set //registry.npmjs.org/:_authToken="${NPM_TOKEN}"
-sudo npm i -g mocha
 npm run test
 npm publish
