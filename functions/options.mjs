@@ -6,7 +6,7 @@ import {EnvUtil} from "bfast-database-core";
 const envUtil = new EnvUtil();
 // console.log(envUtil.getEnv(process.env.USE_LOCAL_IPFS).toLowerCase() === 'true', '----------->>>>>>');
 const _config = {
-    useLocalIpfs: envUtil.getEnv(process.env.USE_LOCAL_IPFS)?.toLowerCase().trim() === 'true',
+    useLocalIpfs: envUtil.getEnv(process.env.USE_LOCAL_IPFS)?.toLowerCase()?.trim() === 'true',
     rsaKeyPairInJson: {
         "p": "zULI9aVyYabSWFLeGiYQXEu7Sql732aFEurqFeP14P2yN-4x9KIPVbHed8gAyPJOwgC3_IvZkF_zOPgwz1M-kbWBdcaJv2uG9LP8QlWvqAW9V6PpaiaDZvYWgsWCu2rEJTzLZev47drvimtw7iHHPRcPrBoRZsQ4VpnSml-Xb_E",
         "kty": "RSA",

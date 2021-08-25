@@ -25,7 +25,10 @@ jobs:
           port: 27017
       - name: install, build, test and publish
         run: |
+          npm install
+          npm run test
           bash build-cloud.sh
+          npm publish
         env:
           CI: true
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
