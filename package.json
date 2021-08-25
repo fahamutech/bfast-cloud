@@ -3,6 +3,7 @@
   "description": "bfast cloud orchestration for project management",
   "version": "2.0.0-alpha.22",
   "private": false,
+  "type": "module",
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
     "start": "bfast fs serve",
