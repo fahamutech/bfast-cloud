@@ -939,10 +939,10 @@ bcryptjs@~2.4.3:
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
   integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
-bfast-database-core@~1.0.0-beta.7:
-  version "1.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.7.tgz#24b8aaf4ea17d7a89177ccd61b938813f7dd8a0e"
-  integrity sha512-+W+TpR8B/mXNQw0OfAIh7r3QSbiINTvZBHkd374dcCmi102LCV0VKtUBYHQ2GUk3P9Zv2OQP+0g7AMjibvUwEA==
+bfast-database-core@~1.0.0-beta.9:
+  version "1.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.9.tgz#9d37b200dd7073dae6f7a686192f956a59cd97a1"
+  integrity sha512-PvNgs7P4KuAnG/eeOzqftX/sheSlalwxMYgK9zTg1FOIJixW+q7wj1tSfPKWez3CkRqBoIVre8hIgvMlqLDxrA==
   dependencies:
     base64url "~3.0.1"
     bcryptjs "~2.4.3"
@@ -4407,14 +4407,6 @@ node-jwk@~0.1.0:
     base64url "^2.0.0"
     lodash "^4.17.4"
 
-node-pty-prebuilt-multiarch@~0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/node-pty-prebuilt-multiarch/-/node-pty-prebuilt-multiarch-0.10.0.tgz#0126dcfd38c9d312d06ed8beff3b1ff51ba11c53"
-  integrity sha512-l1Oq8EjrAYXhA/XRb2V2+LZa2cRM5sjvzK8kXehPVszgEmpfgNHjNUddaWP9qOAVTvDiLCqrJC2tC2Zz0hUv/w==
-  dependencies:
-    nan "^2.14.2"
-    prebuild-install "^6.0.0"
-
 node-schedule@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/node-schedule/-/node-schedule-2.0.0.tgz#73ab4957d056c63708409cc1fab676e0e149c191"
@@ -4772,7 +4764,7 @@ pkg-dir@^5.0.0:
   dependencies:
     find-up "^5.0.0"
 
-prebuild-install@^6.0.0, prebuild-install@^6.1.4:
+prebuild-install@^6.1.4:
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-6.1.4.tgz#ae3c0142ad611d58570b89af4986088a4937e00f"
   integrity sha512-Z4vpywnK1lBg+zdPCVCsKq0xO66eEV9rWo2zrROGGiRS4JtueBOdlB1FnY8lcy7JsUud/Q3ijUxyWN26Ika0vQ==
