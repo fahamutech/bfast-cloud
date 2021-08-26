@@ -939,10 +939,10 @@ bcryptjs@~2.4.3:
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
   integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
-bfast-database-core@~1.0.0-beta.10:
-  version "1.0.0-beta.10"
-  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.10.tgz#0a3b55f1c61e10038e19a702f174d8f6fc8830d7"
-  integrity sha512-cRhVGipxvAD48QW1kEz1i77o/7/Dubf3uJJRnnPkjmAxdzk7RwRm+n47Tkwykss92iJdaGJ+rXNUvwXu6UVp2Q==
+bfast-database-core@~1.0.0-beta.11:
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.11.tgz#f4b552f561f8d25e386c8f71a3f798b12de820d9"
+  integrity sha512-JOKr2Xh5Sqw1bKMvp+cp35u/cKfKx+XPn3jc3PH578f4up0SDhc/LZwIrg764JTm/NYHqOQ6oIWYMLJBNZETIw==
   dependencies:
     base64url "~3.0.1"
     bcryptjs "~2.4.3"
@@ -955,6 +955,7 @@ bfast-database-core@~1.0.0-beta.10:
     jsonwebtoken "~8.5.1"
     mime "~2.5.2"
     minio "~7.0.18"
+    mongo-url-parser "^1.0.1"
     mongodb "~4.0.1"
     njwt "~1.1.0"
     node-jwk "~0.1.0"
@@ -4170,6 +4171,11 @@ moment@~2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
+mongo-url-parser@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/mongo-url-parser/-/mongo-url-parser-1.0.1.tgz#e0c23ea562fbbbe3630568f6e6b912c851966863"
+  integrity sha512-jKygfGx7xf97yqp7Kwx0/fEOmMAbuhNGAhedD490BtN+UKSutkv7RBKk5p8o8W+hkA1AeOYdtLr+OjkXSLkh7g==
 
 mongodb-connection-string-url@^1.0.1:
   version "1.1.2"
