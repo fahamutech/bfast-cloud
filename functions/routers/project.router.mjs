@@ -182,8 +182,10 @@ export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
             const size = request.query.size ? parseInt(request.query.size) : 1000;
             const skip = request.query.skip ? parseInt(request.query.skip) : 0;
             projectFactory.getUserProjects(request.uid, size, skip).then((value) => {
+                // console.log(value);
                 response.json(value);
             }).catch((reason) => {
+                // console.log(reason);
                 response.status(400).json(reason);
             });
         }

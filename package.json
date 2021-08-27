@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "2.0.0-alpha.31",
+  "version": "2.0.0-alpha.32",
   "private": false,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {

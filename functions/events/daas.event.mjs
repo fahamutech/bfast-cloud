@@ -15,17 +15,17 @@ const terminals = {};
  * @param response {*}
  */
 function createTerminal(shell, args, project, response) {
-    const exec = exec(shell.concat(' ').concat(args.join(' ')));
-    exec.on('message', message => {
+    const _exec = exec(shell.concat(' ').concat(args.join(' ')));
+    _exec.on('message', message => {
         response.topic(project).announce(message);
     });
-    exec.on("error", err => {
+    _exec.on("error", err => {
         response.topic(project).announce(err);
     });
     terminals[project] = {
         terminal: {
             kill: function (){
-                exec.kill();
+                _exec.kill();
                 delete terminals[project];
             }
         },
