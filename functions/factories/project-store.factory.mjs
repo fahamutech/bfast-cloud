@@ -195,7 +195,7 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel[]>}
      */
     async getUserProject(userId, projectId) {
-        const user = bfast.database().table('_User').get(userId, null, {useMasterKey: true});
+        const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
         const project = await bfast.database().table(this.collectionName).query().raw([
             {
                 projectId: projectId,
@@ -265,7 +265,7 @@ export class ProjectStoreFactory {
      * @return {Promise<*>}
      */
     async getOwnerProject(userId, projectId) {
-        const user = bfast.database().table('_User').get(userId, null, {useMasterKey: true});
+        const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
         const project = await bfast.database().table(this.collectionName).query().raw({
                 projectId: projectId,
                 user: {
