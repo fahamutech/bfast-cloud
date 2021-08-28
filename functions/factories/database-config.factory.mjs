@@ -1,4 +1,5 @@
 import mongodb from "mongodb";
+import mongoUrlParse from 'mongo-url-parser';
 
 const {Db, Collection, MongoClient} = mongodb
 
@@ -18,8 +19,16 @@ export class DatabaseConfigFactory {
      * @return {Promise<MongoClient>}
      */
     async connect() {
-        const mongoClient = new MongoClient(this.mongoDbUrl);
-        return mongoClient.connect();
+
+        let mongoUri;
+        const parsed = mongoUrlParse(this.mongoDbUrl);
+        if (parsed.auth) {
+            mongoUri = `mongodb://${parsed.auth.user}:${parsed.auth.password}@2.mongo.fahamutech.com:27017/${parsed.dbName}?authSource=admin`
+        } else {
+            mongoUri = `mongodb://localhost:27017/${parsed.dbName}`
+        }
+        // console.log(mongoUri,'--------------->>>>>>>');
+        return new MongoClient(mongoUri).connect();
     }
 
     /**
