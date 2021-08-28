@@ -952,10 +952,10 @@ bcryptjs@~2.4.3:
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
   integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
-bfast-database-core@^1.0.0-beta.14:
-  version "1.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.14.tgz#1613f5692008f8032e46d4823d4ee05331ee9718"
-  integrity sha512-zlBkCjOMySiV1gAL4mT5TbBOy1lyRIweJbFInXSNSelCCfidPXiylZJTZJM6oCwhbllQy5+z+x9tB7E2AecexA==
+bfast-database-core@^1.0.0-beta.15:
+  version "1.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/bfast-database-core/-/bfast-database-core-1.0.0-beta.15.tgz#17a9f7c2a52a518ae2567967acfa8372217fddcc"
+  integrity sha512-91nAP/Sj4ECK95Oh7gKLrE3/mtJxt8xaFdJ3rEGOx+ck1NtPgtnKfLQZJWVOenUk66dmnjz9q/SxVEVfCaNTow==
   dependencies:
     base64url "~3.0.1"
     bcryptjs "~2.4.3"
