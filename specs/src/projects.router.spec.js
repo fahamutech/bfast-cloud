@@ -345,6 +345,13 @@ describe('Projects route', function () {
             );
             should().exist(p);
             expect(p.message).equal('Project deleted and removed');
+            const all = await bfast.functions().request('/projects').get({
+                headers: {
+                    Authorization: `Bearer ${adminToken}`
+                }
+            });
+            should().exist(all);
+            expect(all).length(1);
         });
         it('should not delete a non exist project', async function () {
             try {
