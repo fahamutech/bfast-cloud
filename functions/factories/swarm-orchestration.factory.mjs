@@ -13,8 +13,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         super();
         this.options = options;
         this.shell = shell;
-        // shell = this.options.shellAdapter ?
-        //     this.options.shellAdapter : new NodeShellFactory();
     }
 
     /**
