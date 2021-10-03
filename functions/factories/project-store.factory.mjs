@@ -64,9 +64,9 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel>}
      */
     async deployProjectInCluster(project, envs, dryRun) {
-        project.rsa = project.rsa && project.rsa.private && project.rsa.public ? project.rsa : await this.securityFactory.generateRsaPair();
-        envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(project.rsa.public)}`);
-        envs.push(`RSA_KEY=${JSON.stringify(project.rsa.private)}`);
+        // project.rsa = project.rsa && project.rsa.private && project.rsa.public ? project.rsa : await this.securityFactory.generateRsaPair();
+        // envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(project.rsa.public)}`);
+        // envs.push(`RSA_KEY=${JSON.stringify(project.rsa.private)}`);
         if (project.type.toString().trim() === 'daas') {
             await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
         } else if (project.type.toString().trim() === 'faas') {

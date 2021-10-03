@@ -53,7 +53,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e && e.response ? e.response.data : e.toString());
                     }
                     if (!(faasHealth && typeof faasHealth.message === "string")) {
-                        projectFactory.deployProjectInCluster(project, [])
+                        projectFactory.deployProjectInCluster(project, [],!!project.dry_run)
                             .then(v => console.log('re-sync ' + project.projectId))
                             .catch(console.log);
                     }
@@ -71,7 +71,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e && e.response ? e.response.data : e.toString());
                     }
                     if (!(daasHealth && typeof daasHealth.message === "string")) {
-                        projectFactory.deployProjectInCluster(project, [])
+                        projectFactory.deployProjectInCluster(project, [],!!project.dry_run)
                             .then(v => console.log('re-sync ' + project.projectId))
                             .catch(console.log);
                     }
@@ -156,10 +156,10 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     body.user = await userFactory.getUser(request.uid);
                     body.type = request.params.type;
                     body.label = body.label ? body.label : 'bfast';
-                    body.rsa = body && body.rsa && body.rsa.private && body.rsa.public ? body.rsa : await securityFactory.generateRsaPair();
+                    // body.rsa = body && body.rsa && body.rsa.private && body.rsa.public ? body.rsa : await securityFactory.generateRsaPair();
                     const envs = request.query.envs && request.query.envs.toString().startsWith('[') ? JSON.parse(request.query.envs) : [];
-                    envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
-                    envs.push(`RSA_KEY=${JSON.stringify(body.rsa.private)}`);
+                    // envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(body.rsa.public)}`);
+                    // envs.push(`RSA_KEY=${JSON.stringify(body.rsa.private)}`);
                     const dryRun = request.query.hasOwnProperty('dry');
                     body.dry_run = dryRun;
                     const result = await projectFactory.createProject(body, envs, dryRun);
