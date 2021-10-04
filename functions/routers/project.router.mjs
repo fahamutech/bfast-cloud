@@ -108,7 +108,7 @@ export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:project
                     })
                     .catch((reason) => {
                         console.log(reason);
-                        response.status(404).json(reason);
+                        response.status(404).send(reason);
                     });
             } else {
                 response.status(400).json({message: 'Invalid data'})
@@ -165,7 +165,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     const result = await projectFactory.createProject(body, envs, dryRun);
                     response.json(result);
                 } catch (reason) {
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 }
             } else {
                 response.status(400).json({message: 'Invalid project data'});
@@ -186,7 +186,7 @@ export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
                 response.json(value);
             }).catch((reason) => {
                 // console.log(reason);
-                response.status(400).json(reason);
+                response.status(400).send(reason);
             });
         }
     ]
@@ -206,7 +206,7 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
                     response.status(200).json(value);
                 }).catch((reason) => {
                     console.log(reason);
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
                 response.status(400).json({message: 'Input not valid'});
@@ -234,7 +234,7 @@ export const patchProject = bfast.functions().onPutHttpRequest(
                     .patchProjectDetails(request.uid, projectId, body).then(value => {
                     response.status(200).json(value);
                 }).catch((reason) => {
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
                 response.status(400).json({message: 'Input not valid'});
@@ -256,7 +256,7 @@ export const addMemberToProject = bfast.functions().onPostHttpRequest(`${prefix}
             projectFactory.addMemberToProject(projectId, body).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
-                response.status(400).json(reason);
+                response.status(400).send(reason);
             });
         }
     ]
