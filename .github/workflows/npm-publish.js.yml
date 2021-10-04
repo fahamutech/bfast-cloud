@@ -26,8 +26,8 @@ jobs:
       - name: install, build, test and publish
         run: |
 #          npm install -g ipfs
-#          npm install -g yarn
-#          yarn install
+          npm install -g yarn
+          yarn install
 #          jsipfs init
 #          jsipfs config --json Addresses.API '["/ip4/127.0.0.1/tcp/5001"]'
 #          jsipfs daemon &
