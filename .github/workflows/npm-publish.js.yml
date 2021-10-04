@@ -25,15 +25,15 @@ jobs:
           port: 27017
       - name: install, build, test and publish
         run: |
-#          npm install -g ipfs
           npm install -g yarn
           yarn install
+          npm publish
+#          npm install -g ipfs
 #          jsipfs init
 #          jsipfs config --json Addresses.API '["/ip4/127.0.0.1/tcp/5001"]'
 #          jsipfs daemon &
 #          sleep 15s
 #          yarn test
-          npm publish
         env:
           CI: true
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
