@@ -122,7 +122,6 @@ describe('Users route', function () {
             }
         });
     });
-
     describe('login', function () {
         it('should login to exist account', async function () {
             const user = await bfast.functions()
@@ -211,7 +210,6 @@ describe('Users route', function () {
             }
         });
     });
-
     describe('role', function () {
         it('should return user role', async function () {
             const user = await bfast.functions()
@@ -294,7 +292,6 @@ describe('Users route', function () {
             }
         });
     });
-
     describe('update details', function () {
         it('should update changeable field for valid token', async function () {
             const user = await bfast.functions()
@@ -326,25 +323,30 @@ describe('Users route', function () {
             expect(detail.role).equal('USER');
         });
         it('should not update un-changeable field for valid token', async function () {
-            const user = await bfast.functions()
-                .request('/users/login')
-                .post({
-                    email: 'mama@mama.mama',
-                    password: '12345'
-                });
-            const detail = await bfast.functions()
-                .request('/users/me')
-                .put({
-                    role: 'ADMIN'
-                }, {
-                    headers: {
-                        Authorization: 'Bearer ' + user.token
-                    }
-                });
-            should().exist(user);
-            should().exist(detail);
-            should().exist(detail.id);
-            expect(detail.role).equal('USER');
+            try {
+                const user = await bfast.functions()
+                    .request('/users/login')
+                    .post({
+                        email: 'ethan@ethan.com',
+                        password: '12345'
+                    });
+                const detail = await bfast.functions()
+                    .request('/users/me')
+                    .put({
+                        role: 'ADMIN'
+                    }, {
+                        headers: {
+                            Authorization: 'Bearer ' + user.token
+                        }
+                    });
+                should().exist(user);
+                should().exist(detail);
+                should().exist(detail.id);
+                expect(detail.role).equal('USER');
+            }catch (e){
+                console.log(e?.response?.data);
+                throw e;
+            }
         });
         it('should fail if use non exist token', async function () {
             try {
