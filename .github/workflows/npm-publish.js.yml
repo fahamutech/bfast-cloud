@@ -26,17 +26,14 @@ jobs:
       - name: install, build, test and publish
         run: |
           npm install -g yarn
+          npm install -g ipfs
           yarn install
+          jsipfs init
+          jsipfs config --json Addresses.API '["/ip4/127.0.0.1/tcp/5001"]'
+          jsipfs daemon &
+          sleep 5s
+          yarn test
           npm publish
-#          npm install -g ipfs
-#          jsipfs init
-#          jsipfs config --json Addresses.API '["/ip4/127.0.0.1/tcp/5001"]'
-#          jsipfs daemon &
-#          sleep 15s
-#          yarn test
         env:
           CI: true
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-# npm install --production
-# npm publish --registry https://registry.npmjs.org/:_authToken=${NPM_TOKEN}

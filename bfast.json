@@ -6,6 +6,8 @@
     "**/lib/**",
     "**/assets/**",
     "/**.specs.mjs",
+    "/**.specs.js",
+    "/**.spec.js",
     "/**.controller.mjs",
     "/**.component.mjs",
     "/**.config.mjs",
