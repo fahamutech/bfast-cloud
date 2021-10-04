@@ -89,7 +89,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                 response.status(200).json({message: 'done sync projects'});
             } catch (reason) {
                 console.log(reason);
-                response.status(400).json({message: 'Fails to re-sync projects'});
+                response.status(400).send({message: 'Fails to re-sync projects'});
             }
         }
     ]
@@ -111,7 +111,7 @@ export const getProject = bfast.functions().onGetHttpRequest(`${prefix}/:project
                         response.status(404).send(reason);
                     });
             } else {
-                response.status(400).json({message: 'Invalid data'})
+                response.status(400).send({message: 'Invalid data'})
             }
         }
     ]
@@ -168,7 +168,7 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     response.status(400).send(reason);
                 }
             } else {
-                response.status(400).json({message: 'Invalid project data'});
+                response.status(400).send({message: 'Invalid project data'});
             }
         }
     ]
@@ -209,7 +209,7 @@ export const deleteProject = bfast.functions().onDeleteHttpRequest(`${prefix}/:p
                     response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'Input not valid'});
+                response.status(400).send({message: 'Input not valid'});
             }
         }
     ]
@@ -237,7 +237,7 @@ export const patchProject = bfast.functions().onPutHttpRequest(
                     response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'Input not valid'});
+                response.status(400).send({message: 'Input not valid'});
             }
         }
     ]

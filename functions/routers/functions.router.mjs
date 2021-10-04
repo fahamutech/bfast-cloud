@@ -34,10 +34,10 @@ export const removeFunctionsEnvironment = bfast.functions().onDeleteHttpRequest(
                     .envRemove(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
-                    response.status(503).json({message: 'fails to remove envs', reason: reason.toString()});
+                    response.status(503).send({message: 'fails to remove envs', reason: reason.toString()});
                 });
             } else {
-                response.status(400).json({message: 'Nothing to update'})
+                response.status(400).send({message: 'Nothing to update'})
             }
         }
     ]
@@ -55,7 +55,7 @@ export const addFunctionsEnvironment = bfast.functions().onPostHttpRequest(`${pr
                 .envAdd(request.params.projectId, request.body.envs, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
-                response.status(400).json({message: reason && reason.message ? reason.message : reason.toString()});
+                response.status(400).send({message: reason && reason.message ? reason.message : reason.toString()});
             });
         }
     ]
@@ -72,7 +72,7 @@ export const deployFunctions = bfast.functions().onPostHttpRequest(`${prefix}`, 
             functionsOrch.deploy(request.params.projectId, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'functions deployed'});
             }).catch(reason => {
-                response.status(503).json(reason);
+                response.status(503).send(reason);
             });
         }
     ]
@@ -90,7 +90,7 @@ export const addDomainToFunctions = bfast.functions().onPostHttpRequest(`${prefi
             functionsOrch.addDomain(request.params.projectId, request.body.domain, request.query.force === 'true').then(value => {
                 response.status(200).json({message: 'domain added'});
             }).catch(reason => {
-                response.status(503).json(reason);
+                response.status(503).send(reason);
             });
         }
     ]
@@ -107,7 +107,7 @@ export const removeDomainToFunctions = bfast.functions().onDeleteHttpRequest(`${
         functionsOrch.removeDomain(request.params.projectId, request.query.force === 'true').then(value => {
             response.status(200).json({message: 'domain added'});
         }).catch(reason => {
-            response.status(503).json(reason);
+            response.status(503).send(reason);
         });
     }
 ]);
@@ -125,16 +125,16 @@ export const functionsSwitch = bfast.functions().onPostHttpRequest(`${prefix}/sw
                 functionsOrch.faasOff(request.params.projectId, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'faas engine switched off'});
                 }).catch(reason => {
-                    response.status(503).json(reason);
+                    response.status(503).send(reason);
                 });
             } else if (mode.toString() === '1') {
                 functionsOrch.faasOn(request.params.projectId, request.query.force === 'true').then(value => {
                     response.status(200).json({message: 'faas engine switch on'});
                 }).catch(reason => {
-                    response.status(503).json(reason);
+                    response.status(503).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'Action not known'});
+                response.status(400).send({message: 'Action not known'});
             }
         }
     ]
@@ -153,7 +153,7 @@ export const getFaasInfo = bfast.functions().onGetHttpRequest(
             functionsOrch.info(`${request.params.projectId}_faas`).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
-                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+                response.status(400).send({message: 'fails to get info', reason: reason.toString()});
             })
         }
     ]
@@ -175,7 +175,7 @@ export const getFaasEnvs = bfast.functions().onGetHttpRequest(
                 response.status(200).json(value);
             }).catch(reason => {
                 console.log(reason);
-                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+                response.status(400).send({message: 'fails to get info', reason: reason.toString()});
             });
         }
     ]

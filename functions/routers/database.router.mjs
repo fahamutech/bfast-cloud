@@ -38,7 +38,7 @@ export const updateImage = bfast.functions().onPostHttpRequest(`${prefix}/image`
             ).then(value => {
                 response.status(200).send(value);
             }).catch(reason => {
-                response.status(400).json(reason);
+                response.status(400).send(reason);
             });
         }
     ]
@@ -65,10 +65,10 @@ export const removeEnvironment = bfast.functions().onDeleteHttpRequest(`${prefix
                     request.query.force === 'true', request.query.daemon === 'true').then(_ => {
                     response.status(200).json({message: 'envs updated'});
                 }).catch(reason => {
-                    response.status(400).json({message: 'fails to remove envs', reason: reason.toString()});
+                    response.status(400).send({message: 'fails to remove envs', reason: reason.toString()});
                 });
             } else {
-                response.status(400).json({message: 'Nothing to update'})
+                response.status(400).send({message: 'Nothing to update'})
             }
         }
     ]
@@ -92,7 +92,7 @@ export const addEnvironment = bfast.functions().onPostHttpRequest(`${prefix}/env
                 request.body.envs, request.query.force === 'true', request.query.daemon === 'true').then(_ => {
                 response.status(200).json({message: 'envs updated'});
             }).catch(reason => {
-                response.status(400).json({message: 'fails to add envs', reason: reason.toString()});
+                response.status(400).send({message: 'fails to add envs', reason: reason.toString()});
             });
         }
     ]
@@ -114,7 +114,7 @@ export const getDaasInfo = bfast.functions().onGetHttpRequest(
                 response.status(200).json(value);
             }).catch(reason => {
                 console.log(reason);
-                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+                response.status(400).send({message: 'fails to get info', reason: reason.toString()});
             })
         }
     ]
@@ -135,7 +135,7 @@ export const getDaasEnvs = bfast.functions().onGetHttpRequest(
                 response.status(200).json(value);
             }).catch(reason => {
                 console.log(reason);
-                response.status(400).json({message: 'fails to get info', reason: reason.toString()});
+                response.status(400).send({message: 'fails to get info', reason: reason.toString()});
             })
         }
     ]

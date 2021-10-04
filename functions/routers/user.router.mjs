@@ -26,10 +26,10 @@ export const getUserRole = bfast.functions().onGetHttpRequest(`${prefix}/me/role
                     response.status(200).json(user);
                 }).catch(reason => {
                     // console.log(reason);
-                    response.status(400).json(reason)
+                    response.status(400).send(reason)
                 })
             } else {
-                response.status(403).json({message: 'identify yourself'})
+                response.status(403).send({message: 'identify yourself'})
             }
         }
     ]
@@ -44,10 +44,10 @@ export const deleteUser = bfast.functions().onDeleteHttpRequest(`${prefix}/me`, 
                 userFactory.deleteUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
-                    response.status(400).json(reason)
+                    response.status(400).send(reason)
                 })
             } else {
-                response.status(403).json({message: 'identify yourself'})
+                response.status(403).send({message: 'identify yourself'})
             }
         }
     ]
@@ -62,10 +62,10 @@ export const getUserDetails = bfast.functions().onGetHttpRequest(`${prefix}/me`,
                 userFactory.getUser(request.uid).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
-                    response.status(400).json(reason)
+                    response.status(400).send(reason)
                 })
             } else {
-                response.status(403).json({message: 'identify yourself'})
+                response.status(403).send({message: 'identify yourself'})
             }
         }
     ]
@@ -82,10 +82,10 @@ export const updateUserDetails = bfast.functions().onPutHttpRequest(`${prefix}/m
                 userFactory.updateUserDetails(request.uid, body).then(user => {
                     response.status(200).json(user);
                 }).catch(reason => {
-                    response.status(400).json(reason)
+                    response.status(400).send(reason)
                 });
             } else {
-                response.status(400).json({message: 'Provide information to patch'})
+                response.status(400).send({message: 'Provide information to patch'})
             }
         }
     ]
@@ -115,10 +115,10 @@ const handleCreateUser = [
             userFactory.createUser(body).then(value => {
                 response.status(200).json(value);
             }).catch(reason => {
-                response.status(400).json(reason);
+                response.status(400).send(reason);
             });
         } else {
-            response.status(400).json({
+            response.status(400).send({
                 message: 'invalid data supplied, displayName, phoneNumber, email and password required'
             });
         }
@@ -137,10 +137,10 @@ export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
                 userFactory.login(body.email, body.password).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'invalid data supplied'});
+                response.status(400).send({message: 'invalid data supplied'});
             }
         }
     ]
@@ -160,10 +160,10 @@ export const logout = bfast.functions().onPostHttpRequest(`${prefix}/logout`, [
                 userFactory.logoutFromAllDevice(body.token).then(value => {
                     response.status(200).json(value);
                 }).catch(reason => {
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'invalid data supplied, token required'});
+                response.status(400).send({message: 'invalid data supplied, token required'});
             }
         }
     ]
@@ -185,10 +185,10 @@ export const resetPassword = bfast.functions().onPostHttpRequest(`${prefix}/pass
                         response.status(200).json(value);
                     }).catch(reason => {
                         console.log(reason);
-                        response.status(400).json(reason);
+                        response.status(400).send(reason);
                     })
                 } else {
-                    response.status(400).json({message: 'invalid data supplied'});
+                    response.status(400).send({message: 'invalid data supplied'});
                 }
             }
         ]
@@ -209,10 +209,10 @@ export const requestResetPasswordCode = bfast.functions().onPostHttpRequest(`${p
                     response.status(200).json(value);
                 }).catch(reason => {
                     // console.log(reason);
-                    response.status(400).json(reason);
+                    response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({message: 'invalid data supplied, email required'});
+                response.status(400).send({message: 'invalid data supplied, email required'});
             }
         }
     ]
@@ -238,7 +238,7 @@ export const addSuperAdmin = bfast.functions().onPostHttpRequest(`${prefix}/admi
                     response.status(400).send(reason);
                 });
             } else {
-                response.status(400).json({
+                response.status(400).send({
                     message: 'invalid data supplied, displayName, phoneNumber, email and password required'
                 });
             }

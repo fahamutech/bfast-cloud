@@ -31,16 +31,16 @@ export class RouterGuardFactory {
                 else if (value.email === 'smartstocktz@gmail.com') {
                     next();
                 } else {
-                    response.status(403).json({
+                    response.status(403).send({
                         message: 'Forbidden request',
                         reason: 'you don\'t have enough role'
                     });
                 }
             }).catch(reason => {
-                response.status(403).json(reason);
+                response.status(403).send(reason);
             });
         } else {
-            response.status(401).json({message: 'Identify yourself'});
+            response.status(401).send({message: 'Identify yourself'});
         }
     }
 
@@ -53,13 +53,13 @@ export class RouterGuardFactory {
                 this._projectDatabase.getOwnerProject(request.uid, request.params.projectId).then(_ => {
                     next();
                 }).catch(reason => {
-                    response.status(403).json(reason);
+                    response.status(403).send(reason);
                 })
             } else {
                 next();
             }
         } else {
-            response.status(403).json({message: 'Fails to identify you and your project'});
+            response.status(403).send({message: 'Fails to identify you and your project'});
         }
     }
 
@@ -71,13 +71,13 @@ export class RouterGuardFactory {
                 this._projectDatabase.getOwnerOrMemberProject(request.uid, request.params.projectId).then(_ => {
                     next();
                 }).catch(reason => {
-                    response.status(403).json(reason);
+                    response.status(403).send(reason);
                 })
             } else {
                 next();
             }
         } else {
-            response.status(403).json({message: 'Fails to identify you and your project'});
+            response.status(403).send({message: 'Fails to identify you and your project'});
         }
     }
 
@@ -95,10 +95,10 @@ export class RouterGuardFactory {
                     request.email = value.email ? value.email : null;
                     next();
                 }).catch(reason => {
-                response.status(401).json(reason);
+                response.status(401).send(reason);
             });
         } else {
-            response.status(401).json({message: 'Identify yourself'})
+            response.status(401).send({message: 'Identify yourself'})
         }
     }
 
@@ -107,7 +107,7 @@ export class RouterGuardFactory {
         if (masterKey && masterKey === this.options.masterKey) {
             next();
         } else {
-            response.status(401).json({message: 'Unauthorized action'});
+            response.status(401).send({message: 'Unauthorized action'});
         }
     }
 
