@@ -31,7 +31,8 @@ jobs:
           jsipfs init
           jsipfs config --json Addresses.API '["/ip4/127.0.0.1/tcp/5001"]'
           jsipfs daemon &
-          sleep 15s && yarn test
+          sleep 15s
+          yarn test
           npm publish
         env:
           CI: true
