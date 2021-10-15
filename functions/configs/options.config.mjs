@@ -1,5 +1,5 @@
 export class OptionsConfig {
-    mongoURL;
+    databaseURI;
     devMode = false;
     dockerSocket;
     port = '3000';

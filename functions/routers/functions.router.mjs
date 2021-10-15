@@ -11,7 +11,7 @@ import {FunctionsInstanceController} from "../controllers/functions-instance.con
 
 const options = new Options();
 const functionsOrch = new FunctionsInstanceController(options.containerOrchAdapter());
-const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const databaseFactory = new DatabaseConfigFactory(options.databaseURI);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(emailFactory, securityFactory);

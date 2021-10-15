@@ -9,7 +9,7 @@ import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
 
 const prefix = '/users';
 const options = new Options();
-const databaseFactory = new DatabaseConfigFactory(options.mongoURL);
+const databaseFactory = new DatabaseConfigFactory(options.databaseURI);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(emailFactory, securityFactory);

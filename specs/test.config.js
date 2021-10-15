@@ -33,7 +33,7 @@ exports.config = {
     },
     masterKey: 'bfast_test',
     taarifaToken: undefined,
-    mongoDbUri: 'mongodb://localhost/_test',
+    databaseURI: 'mongodb://localhost/_test',
     rsaKeyPairInJson: {},
     rsaPublicKeyInJson: {}
 }

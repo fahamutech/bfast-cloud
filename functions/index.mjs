@@ -15,25 +15,6 @@ bfast.init({
     projectId: 'fahamutaarifa'
 }, 'fahamutaarifa');
 
-// new DatabaseConfigFactory(getBFastDatabaseConfigs().mongoDbUri)
-//     .collection('_Project').then(async collection => {
-//     try {
-//         const pNameIndex = await collection.indexExists('projectId');
-//         if (!pNameIndex) {
-//             await collection.createIndex({projectId: 1}, {unique: true});
-//         }
-//     } catch (e) {
-//         throw e;
-//     }
-// }).catch(reason => {
-//     console.log(reason);
-//     process.exit(-1);
-// });
-
-/**
- *
- * @type {WebServices}
- */
 const bfastDatabaseWebService = initialize(config);
 export const {rules} = bfastDatabaseWebService.rest();
 export const {jwk} = bfastDatabaseWebService.rest();
