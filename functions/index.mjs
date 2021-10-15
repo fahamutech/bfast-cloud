@@ -1,5 +1,5 @@
 import bfast from "bfast";
-import {BfastDatabaseCore} from "bfast-database-core";
+import {initialize} from "bfast-database-core";
 import {config} from "./options.mjs";
 
 bfast.init({
@@ -34,7 +34,7 @@ bfast.init({
  *
  * @type {WebServices}
  */
-const bfastDatabaseWebService = new BfastDatabaseCore().init(config);
+const bfastDatabaseWebService = initialize(config);
 export const {rules} = bfastDatabaseWebService.rest();
 export const {jwk} = bfastDatabaseWebService.rest();
 export const {changes} = bfastDatabaseWebService.realtime({

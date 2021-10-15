@@ -1,12 +1,11 @@
 import {OptionsConfig} from "./configs/options.config.mjs";
 import {NodeShellFactory} from "./factories/node-shell.factory.mjs";
 import {SwarmOrchestrationFactory} from "./factories/swarm-orchestration.factory.mjs";
-import {EnvUtil} from "bfast-database-core";
+import {getEnv, loadEnv} from "bfast-database-core";
 
-const envUtil = new EnvUtil();
 // console.log(envUtil.getEnv(process.env.USE_LOCAL_IPFS).toLowerCase() === 'true', '----------->>>>>>');
 const _config = {
-    useLocalIpfs: envUtil.getEnv(process.env.USE_LOCAL_IPFS)?.toLowerCase()?.trim() === 'true',
+    useLocalIpfs: getEnv(process.env.USE_LOCAL_IPFS)?.toLowerCase()?.trim() === 'true',
     rsaKeyPairInJson: {
         "p": "zULI9aVyYabSWFLeGiYQXEu7Sql732aFEurqFeP14P2yN-4x9KIPVbHed8gAyPJOwgC3_IvZkF_zOPgwz1M-kbWBdcaJv2uG9LP8QlWvqAW9V6PpaiaDZvYWgsWCu2rEJTzLZev47drvimtw7iHHPRcPrBoRZsQ4VpnSml-Xb_E",
         "kty": "RSA",
@@ -28,7 +27,7 @@ const _config = {
         "n": "mREwp9w2aYM3cLBL4MkF7JJ80NT3UVATFZPR5s3Dcg8HuAWsQ6VPZrvPpdVWEwhSlkICUy46xOfWyXFRJeBR6ICb04O6PXIFAj_alFCRE-NJszEycUaiKxgIynpSBuETGZfX8-M0uzCXtFQY4Cxpb9rlPo4kqraRU1pJ64OSTYZkwc4D8C2rFM1_WfXnCkvml_vK7Knq_YJdanWQQMPmBK7LE8Yi06PLl2UCaFANQ2axZIN0iTayfnTNkShzMDA5DogRp8tcCm8N7nR96UH9Bc2J9E0YSVt6QSZt-83CQ4pzs3XtQZdfFAoc66OltadoqXyGrvj5F6gq4WB62S30Bw"
     },
 }
-let myConfig = envUtil.loadEnv();
+let myConfig = loadEnv();
 export const config = Object.assign(myConfig, _config);
 
 export class Options extends OptionsConfig {
