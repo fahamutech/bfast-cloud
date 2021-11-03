@@ -240,7 +240,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--label \"traefik.port=3000\"",
             "--label \"traefik.protocol=http\"",
             "--label \"traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}\"",
-            "--label \"traefik.backend.loadbalancer.stickiness=true\""
+            "--label \"traefik.backend.loadbalancer.stickiness=true\"",
             `--env \"WEB_3_TOKEN=${process.env.WEB_3_TOKEN}\"`,
             "--env \"APPLICATION_ID=${appId}\"",
             "--env \"PROJECT_ID=${projectId}\"",
@@ -285,8 +285,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--label \"traefik.port=3000\"",
             "--label \"traefik.protocol=http\"",
             "--label \"traefik.frontend.rule=Host:${projectId}-daas.${cluster}.${hostDomain}\"",
-            // "--secret rsapub",
-            // "--secret rsapriv",
+            "--label \"traefik.backend.loadbalancer.stickiness=true\"",
             "--env \"APPLICATION_ID=${appId}\"",
             `--env \"WEB_3_TOKEN=${process.env.WEB_3_TOKEN}\"`,
             "--env \"PROJECT_ID=${projectId}\"",

@@ -53,8 +53,6 @@ describe('Projects route', function () {
                 should().exist(p);
                 should().exist(p.id);
                 should().exist(p.type);
-                // should().exist(p.rsa.private);
-                // should().exist(p.rsa.public);
                 should().exist(p.user);
                 expect(p.dry_run).equal(true);
                 expect(p.type).equal('bfast');
@@ -233,24 +231,24 @@ describe('Projects route', function () {
             should().exist(p);
             expect(p.message).equal('Project updated');
         });
-        it('should not update for non exist projects', async function () {
-            try {
-                const p = await bfast.functions().request('/projects/test9080').put(
-                    {
-                        name: 'updated test'
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${adminToken}`
-                        }
-                    }
-                );
-                should().not.exist(p);
-            } catch (e) {
-                should().exist(e?.response?.data);
-                expect(e?.response?.data.message).equal('Project not updated');
-            }
-        });
+        // it('should not update for non exist projects', async function () {
+        //     try {
+        //         const p = await bfast.functions().request('/projects/test9080').put(
+        //             {
+        //                 name: 'updated test'
+        //             },
+        //             {
+        //                 headers: {
+        //                     Authorization: `Bearer ${adminToken}`
+        //                 }
+        //             }
+        //         );
+        //         should().not.exist(p);
+        //     } catch (e) {
+        //         should().exist(e?.response?.data);
+        //         expect(e?.response?.data.message).equal('Project not updated');
+        //     }
+        // });
     });
 
     describe('addMemberToProject', function () {

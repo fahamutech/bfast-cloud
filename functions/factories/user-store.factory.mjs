@@ -84,8 +84,7 @@ export class UserStoreFactory {
      * @return {Promise<*>}
      */
     async getUser(userId) {
-        const user = await bfast.database().table('_User')
-            .get(userId, null, {useMasterKey: true});
+        const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
         delete user.password;
         return user;
     }
@@ -187,9 +186,7 @@ export class UserStoreFactory {
      * @return {Promise<{role: string, email: string}>}
      */
     async getRole(userId) {
-        const user = await bfast.database()
-            .table('_User')
-            .get(userId, null, {useMasterKey: true});
+        const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
         return {role: user.role, email: user.email};
     }
 

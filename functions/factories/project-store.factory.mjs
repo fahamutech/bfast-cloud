@@ -39,19 +39,16 @@ export class ProjectStoreFactory {
         project.isParse = true;
         project.createdAt = new Date();
         project.updatedAt = new Date();
-        project.id = project?.projectId?.concat('-id');
-        const prevProject = await bfast.database()
-            .collection(this.collectionName)
-            .get(project.id, null, {useMasterKey: true});
+        project.id = project.projectId;
+        const prevProject = await bfast.database().table(this.collectionName)
+            .get(project.id, {useMasterKey: true});
         if (prevProject && project.projectId) {
             const date = Date.now().toString();
             const sp = project.name + date.substring(9, date.length);
             const message = `Project id you suggest is already in use, maybe try this : ${sp}, or try different project id`
             throw {message: message};
         }
-        project = await bfast.database()
-            .table(this.collectionName)
-            .save(project, {useMasterKey: true});
+        project = await bfast.database().table(this.collectionName).save(project, {useMasterKey: true});
         await this.deployProjectInCluster(project, envs, dryRun);
         return project;
     }
@@ -90,7 +87,7 @@ export class ProjectStoreFactory {
         } else if (!projectId || projectId === '') {
             throw {message: 'projectId required'};
         } else {
-            const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
+            const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
             if (!user) {
                 throw {message: 'User does not own this project'};
             }
@@ -98,9 +95,7 @@ export class ProjectStoreFactory {
                     query: {
                         filter: {
                             projectId: projectId,
-                            user: {
-                                email: user.email
-                            }
+                            'user.email': user.email
                         }
                     }
                 }
@@ -146,22 +141,20 @@ export class ProjectStoreFactory {
         if (!userId || userId === '') {
             throw {message: 'userId required'};
         } else {
-            const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
+            const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
             if (user.role === UserRoles.ADMIN_ROLE) {
                 return bfast.database().table(this.collectionName).getAll();
             } else {
-                return bfast.database().table(this.collectionName).query().raw([
-                    {
-                        user: {
-                            email: user.email
+                return bfast.database().table(this.collectionName).query().raw({
+                    $or: [
+                        {
+                            'user.email': user.email
+                        },
+                        {
+                            'members.email': user.email
                         }
-                    },
-                    {
-                        members: {
-                            email: user.email
-                        }
-                    }
-                ]);
+                    ]
+                });
             }
         }
     }
@@ -195,21 +188,19 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel[]>}
      */
     async getUserProject(userId, projectId) {
-        const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
-        const project = await bfast.database().table(this.collectionName).query().raw([
-            {
-                projectId: projectId,
-                user: {
-                    email: user.email
+        const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
+        const project = await bfast.database().table(this.collectionName).query().raw({
+            $or: [
+                {
+                    projectId: projectId,
+                    'user.email': user.email
+                },
+                {
+                    projectId: projectId,
+                    'members.email': user.email
                 }
-            },
-            {
-                projectId: projectId,
-                members: {
-                    email: user.email
-                }
-            }
-        ]);
+            ]
+        });
         if (Array.isArray(project) && project.length === 1) {
             return project[0];
         } else {
@@ -227,35 +218,25 @@ export class ProjectStoreFactory {
     async patchProjectDetails(userId, projectId, data) {
         delete data.id;
         delete data.projectId;
-        const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
-
-        const r = await bfast.database().bulk()
-            .update(this.collectionName, {
-                query: {
-                    filter: [
-                        {
-                            projectId: projectId,
-                            user: {
-                                email: user.email
-                            }
-                        },
-                        {
-                            projectId: projectId,
-                            members: {
-                                email: user.email
-                            }
-                        }
-                    ]
-                },
-                update: {
-                    $set: data
-                }
-            }).commit();
-        const updated = r[`update${this.collectionName}`];
-        if (updated && Array.isArray(updated) && updated.length === 1) {
-            return {message: `Project updated`};
-        }
-        throw {message: 'Project not updated'};
+        const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
+        const r = await bfast.database().bulk().update(this.collectionName, {
+            query: {
+                filter: [
+                    {
+                        projectId: projectId,
+                        'user.email': user.email
+                    },
+                    {
+                        projectId: projectId,
+                        'members.email': user.email
+                    }
+                ]
+            },
+            update: {
+                $set: data
+            }
+        }).commit();
+        return {message: `Project updated`};
     }
 
     /**
@@ -265,12 +246,10 @@ export class ProjectStoreFactory {
      * @return {Promise<*>}
      */
     async getOwnerProject(userId, projectId) {
-        const user = await bfast.database().table('_User').get(userId, null, {useMasterKey: true});
+        const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
         const project = await bfast.database().table(this.collectionName).query().raw({
                 projectId: projectId,
-                user: {
-                    email: user.email
-                }
+                'user.email': user.email
             }
         );
         if (Array.isArray(project) && project.length === 1) {
@@ -306,7 +285,7 @@ export class ProjectStoreFactory {
         if (!user.hasOwnProperty('displayName')) {
             throw {message: 'displayName is required'};
         }
-        const project = await bfast.database().table(this.collectionName).get(projectId + '-id');
+        const project = await bfast.database().table(this.collectionName).get(projectId);
         project.members.push(user);
         project.members = Array.from(project.members.reduce((a, b) => a.add(b), new Set()));
         await bfast.database().table(this.collectionName)

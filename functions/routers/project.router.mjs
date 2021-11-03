@@ -226,6 +226,9 @@ export const patchProject = bfast.functions().onPutHttpRequest(
         // },
         (request, response) => {
             const body = request.body;
+            if (body && Object.keys(body).length === 0){
+                response.status(400).send({message: 'Input is empty'});
+            }
             const projectId = request.params.projectId;
             // @ts-ignore
             const valid = !!(projectId && request.uid);

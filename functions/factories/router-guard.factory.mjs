@@ -89,8 +89,7 @@ export class RouterGuardFactory {
         if (header) {
             let bearer = header.split(' ');
             let token = bearer[1];
-            this._security.verifyToken(token)
-                .then(value => {
+            this._security.verifyToken(token).then(value => {
                     request.uid = value.uid ? value.uid : null;
                     request.email = value.email ? value.email : null;
                     next();
