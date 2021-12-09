@@ -1,14 +1,14 @@
-const {mongoRepSet, config} = require("../test.config");
-const {should, expect} = require('chai');
-const bfast = require("bfast");
+import {config, mongoRepSet} from "../test.mjs";
+import {expect, should} from "chai";
+import bfast from "bfast";
 
 describe('Projects route', function () {
     let adminToken;
     let userToken;
     before(async function () {
-        await mongoRepSet().start();
-        const adm = await bfast.functions().request('/users/admin')
-            .post({
+        try {
+            await mongoRepSet().start();
+            const adm = await bfast.functions().request('/users/admin').post({
                 email: 'a@a.a',
                 displayName: 'admin',
                 phoneNumber: '0656',
@@ -18,17 +18,19 @@ describe('Projects route', function () {
                     Authorization: config.masterKey
                 }
             });
-        adminToken = adm.token;
-        const user = await bfast.functions().request('/users')
-            .post({
+            adminToken = adm.token;
+            const user = await bfast.functions().request('/users').post({
                 email: 'b@b.b',
                 displayName: 'user',
                 phoneNumber: '0656',
                 password: 'user'
             });
-        userToken = user.token;
+            userToken = user.token;
+        }catch (e) {
+            console.log(e);
+            throw e;
+        }
     });
-
     describe('Create', function () {
         it('should create a bfast project', async function () {
             try {
@@ -83,7 +85,7 @@ describe('Projects route', function () {
             } catch (e) {
                 // console.log(e?.response?.data);
                 should().exist(e);
-                expect(e?.response?.data?.message
+                expect(e?.message
                     .startsWith('Project id you suggest is already in use, maybe try this')
                 ).equal(true);
             }
@@ -110,11 +112,10 @@ describe('Projects route', function () {
             } catch (e) {
                 // console.log(e?.response?.data);
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Invalid project data');
+                expect(e?.message).equal('Invalid project data');
             }
         });
     });
-
     describe('GetProject', function () {
         before(async function () {
             await bfast.functions().request('/projects/bfast?dry').post({
@@ -156,7 +157,7 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'Fail to get project details'
                 });
             }
@@ -172,11 +173,10 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
     });
-
     describe('GetAll', function () {
         it('should get all projects with admin token', async function () {
             const p = await bfast.functions().request('/projects').get({
@@ -212,7 +212,7 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
     });
@@ -250,7 +250,6 @@ describe('Projects route', function () {
         //     }
         // });
     });
-
     describe('addMemberToProject', function () {
         it('should add a member to project if user has enough permission', async function () {
             const p = await bfast.functions().request('/projects/test/members').post(
@@ -284,7 +283,7 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'email is required'
                 });
             }
@@ -305,7 +304,7 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'displayName is required'
                 });
             }
@@ -326,13 +325,12 @@ describe('Projects route', function () {
                 should().not.exist(p);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'email is required'
                 });
             }
         });
     });
-
     describe('Delete', function () {
         it('should delete a project', async function () {
             const p = await bfast.functions().request('/projects/test').delete({
@@ -361,9 +359,8 @@ describe('Projects route', function () {
                 );
                 should().not.exist(p);
             } catch (e) {
-                expect(e?.response?.data?.message).equal('Fail to get project details');
+                expect(e?.message).equal('Fail to get project details');
             }
         });
     });
 })
-;

@@ -1,16 +1,12 @@
-const {config} = require('./test.config');
-const {BfastFunctions} = require('bfast-function');
-const {join} = require('path');
+import {start} from "bfast-function";
+import {join} from "path";
+import {config} from "./test.mjs";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const bfastFs = new BfastFunctions({
-    port: config.port,
-    functionsConfig: {
-        functionsDirPath: join(__dirname, '/../functions/'),
-        bfastJsonPath: __dirname + '/bfast.json'
-    }
-});
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-exports.mochaHooks = {
+export const mochaHooks = {
     async beforeAll() {
         process.env.USE_LOCAL_IPFS = 'true';
         process.env.APPLICATION_ID = config.applicationId;
@@ -22,7 +18,13 @@ exports.mochaHooks = {
         process.env.RSA_PUBLIC_KEY = JSON.stringify(config.rsaPublicKeyInJson);
         process.env.RSA_KEY = JSON.stringify(config.rsaKeyPairInJson);
         console.log('________START__________');
-        await bfastFs.start().catch(console.log);
+        await start({
+            port: config.port,
+            functionsConfig: {
+                functionsDirPath: join(__dirname, '/../functions/'),
+                bfastJsonPath: __dirname + '/bfast.json'
+            }
+        }).catch(console.log);
     },
     async afterAll() {
         console.log('________END__________');

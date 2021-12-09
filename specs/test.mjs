@@ -1,27 +1,27 @@
-const {getEnv} = require('bfast-database-core');
-const mongodb = require('mongodb');
+import {getEnv} from "bfast-database-core";
+import mongodb from "mongodb";
 
 const mongoMemoryReplSet = () => {
     return {
         getUri: function () {
-            return 'mongodb://localhost/_test';
+            return 'mongodb://localhost/bfast';
         },
         start: async function () {
             const conn = await mongodb.MongoClient.connect(this.getUri());
-            await conn.db('_test').dropDatabase();
+            await conn.db('bfast').dropDatabase();
         },
         waitUntilRunning: async function () {
             const conn = await mongodb.MongoClient.connect(this.getUri());
-            await conn.db('_test').dropDatabase();
+            await conn.db('bfast').dropDatabase();
         },
         stop: async function () {
         }
     }
 }
 
-exports.serverUrl = 'http://localhost:3111';
-exports.mongoRepSet = mongoMemoryReplSet;
-exports.config = {
+export const serverUrl = 'http://localhost:3111';
+export const mongoRepSet = mongoMemoryReplSet;
+export const config = {
     useLocalIpfs: true,
     applicationId: 'bfast',
     projectId: 'bfast',

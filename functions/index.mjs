@@ -17,7 +17,7 @@ bfast.init({
 
 const bfastDatabaseWebService = initialize(config);
 export const {rules} = bfastDatabaseWebService.rest();
-export const {jwk} = bfastDatabaseWebService.rest();
+// export const {jwk} = bfastDatabaseWebService.rest();
 export const {changes} = bfastDatabaseWebService.realtime({
     applicationId: config.applicationId,
     masterKey: config.masterKey

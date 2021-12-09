@@ -1,12 +1,12 @@
-const bfast = require("bfast");
-const {should, expect, assert} = require('chai');
-const {mongoRepSet, config, serverUrl} = require("../test.config");
+import bfast from "bfast";
+import {assert, expect, should} from "chai";
+import {config, mongoRepSet, serverUrl} from "../test.mjs";
+
 
 describe('Users route', function () {
     before(async function () {
         await mongoRepSet().start();
     });
-
     describe('register', function () {
         it('should return created user account', async function () {
             const user = await bfast.functions()
@@ -365,7 +365,6 @@ describe('Users route', function () {
             }
         });
     });
-
     describe('Reset password', function () {
         let resetToken;
         before(async function () {
@@ -422,7 +421,6 @@ describe('Users route', function () {
             should().exist(logIn.token);
         });
     });
-
     describe('admin', function () {
         it('should add super admin user', async function () {
             const user = await bfast.functions().request('/users/admin')
@@ -585,7 +583,6 @@ describe('Users route', function () {
             should().not.exist(user.password);
         });
     });
-
     describe('all users', function () {
         let token;
         before(async function () {
@@ -635,7 +632,6 @@ describe('Users route', function () {
             }
         });
     });
-
     describe('delete account', function () {
         it('should delete a user account', async function () {
             const u = await bfast.functions().request('/users/login').post({
@@ -653,5 +649,4 @@ describe('Users route', function () {
             should().exist(users[0].id);
         });
     });
-
 });
