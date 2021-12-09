@@ -38,7 +38,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
+                expect(e?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
             }
         });
         it('should not return created user account if missing phone', async function () {
@@ -54,7 +54,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
+                expect(e?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
             }
         });
         it('should not return created user account if missing name', async function () {
@@ -70,7 +70,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
+                expect(e?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
             }
         });
         it('should not return created user account if missing password', async function () {
@@ -86,7 +86,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
+                expect(e?.message).equal('invalid data supplied, displayName, phoneNumber, email and password required')
             }
         });
         it('should not create user twice', async function () {
@@ -102,7 +102,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('User already exist');
+                expect(e?.message).equal('User already exist');
             }
         });
         it('should not create user with same email', async function () {
@@ -118,7 +118,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('User already exist');
+                expect(e?.message).equal('User already exist');
             }
         });
     });
@@ -150,7 +150,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Username is not valid')
+                expect(e?.message).equal('Username is not valid')
             }
         });
         it('should not login for wrong password', async function () {
@@ -164,7 +164,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Password is not valid')
+                expect(e?.message).equal('Password is not valid')
             }
         });
         it('should not login if password not supplied', async function () {
@@ -178,7 +178,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied')
+                expect(e?.message).equal('invalid data supplied')
             }
         });
         it('should not login if email not supplied', async function () {
@@ -192,7 +192,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied')
+                expect(e?.message).equal('invalid data supplied')
             }
         });
         it('should not login if no data supplied', async function () {
@@ -206,7 +206,7 @@ describe('Users route', function () {
                 should().not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('invalid data supplied')
+                expect(e?.message).equal('invalid data supplied')
             }
         });
     });
@@ -246,7 +246,7 @@ describe('Users route', function () {
                 should().not.exist(role);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
     });
@@ -288,7 +288,7 @@ describe('Users route', function () {
                 should().not.exist(role);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
     });
@@ -361,7 +361,7 @@ describe('Users route', function () {
                 should().not.exist(role);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
     });
@@ -399,7 +399,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 console.log(e?.response?.data);
-                expect(e?.response?.data?.message).equal('User record with that email not found');
+                expect(e?.message).equal('User record with that email not found');
             }
         });
         it('should change password when given correct code', async function () {
@@ -455,7 +455,7 @@ describe('Users route', function () {
                 should.not.exist(user);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data).eql({message: 'Unauthorized action'})
+                expect(e).eql({message: 'Unauthorized action'})
             }
         });
         it('should not create a super admin for if no phone', async function () {
@@ -475,7 +475,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'invalid data supplied, displayName, phoneNumber, email and password required'
                 });
             }
@@ -497,7 +497,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'invalid data supplied, displayName, phoneNumber, email and password required'
                 });
             }
@@ -519,7 +519,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'invalid data supplied, displayName, phoneNumber, email and password required'
                 });
             }
@@ -541,7 +541,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'invalid data supplied, displayName, phoneNumber, email and password required'
                 });
             }
@@ -563,7 +563,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data).eql({
+                expect(e).eql({
                     message: 'User already exist'
                 });
             }
@@ -611,7 +611,7 @@ describe('Users route', function () {
             } catch (e) {
                 should().exist(e);
                 // console.log(e?.response?.data);
-                expect(e?.response?.data?.message).equal('Fails to verify token');
+                expect(e?.message).equal('Fails to verify token');
             }
         });
         it('should not get all users for non admin user', async function () {
@@ -628,7 +628,7 @@ describe('Users route', function () {
                 should().not.exist(users);
             } catch (e) {
                 should().exist(e);
-                expect(e?.response?.data?.message).equal('Forbidden request');
+                expect(e?.message).equal('Forbidden request');
             }
         });
     });
