@@ -313,14 +313,15 @@ describe('Users route', function () {
                 });
             should().exist(user);
             should().exist(detail);
-            should().exist(detail.createdAt);
-            should().exist(detail.updatedAt);
-            should().exist(detail.id);
-            expect(detail.displayName).equal('ethan');
-            expect(detail.phoneNumber).equal('0656');
-            expect(detail.email).equal('ethan@ethan.com');
-            expect(detail.username).equal('ethan@ethan.com');
-            expect(detail.role).equal('USER');
+            should().exist(detail.message);
+            expect(detail).eql({message: "done update", modified: 1})
+            // should().exist(detail.updatedAt);
+            // should().exist(detail.id);
+            // expect(detail.displayName).equal('ethan');
+            // expect(detail.phoneNumber).equal('0656');
+            // expect(detail.email).equal('ethan@ethan.com');
+            // expect(detail.username).equal('ethan@ethan.com');
+            // expect(detail.role).equal('USER');
         });
         // it('should not update un-changeable field for valid token', async function () {
         //     try {

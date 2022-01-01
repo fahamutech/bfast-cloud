@@ -91,14 +91,14 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      * @return {Promise<string>}
      */
     async functionsInstanceAddDomain(projectId, domain, force) {
-        try {
-            const response = await this.shell.exec(
-                `/usr/local/bin/docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
-            );
-            return response.toString();
-        } catch (e) {
-            throw {message: "Fails to add custom domain", reason: e.toString()};
-        }
+        // try {
+        //     const response = await this.shell.exec(
+        //         `/usr/local/bin/docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
+        //     );
+        //     return response.toString();
+        // } catch (e) {
+        throw {message: "not supported"};
+        // }
     }
 
     /**
@@ -108,13 +108,14 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
      * @return {Promise<string>}
      */
     async functionsInstanceRemoveDomain(projectId, force) {
-        try {
-            const response = await this.shell.exec(
-                `/usr/local/bin/docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
-            return response.toString();
-        } catch (e) {
-            throw {message: "Fails to remove all custom domain", reason: e.toString()};
-        }
+        // try {
+        //     const response = await this.shell.exec(
+        //         `/usr/local/bin/docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
+        //     return response.toString();
+        // } catch (e) {
+        //     throw {message: "Fails to remove all custom domain", reason: e.toString()};
+        // }
+        throw {message: "not supported"};
     }
 
     /**
@@ -233,16 +234,14 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--replicas 0",
             "--restart-condition any",
             "--restart-delay 5s",
-            // "--secret rsapub",
-            // "--secret rsapriv",
             "--label \"traefik.docker.network=bfastweb\"",
             "--label \"traefik.enable=true\"",
-            "--label \"traefik.port=3000\"",
-            "--label \"traefik.protocol=http\"",
-            "--label \"traefik.frontend.rule=Host:${projectId}-faas.${cluster}.${hostDomain}\"",
-            "--label \"traefik.backend.loadbalancer.stickiness=true\"",
+            "--label \"traefik.http.services.${projectId}-faas.loadbalancer.server.port=3000\"",
+            "--label \"traefik.http.routers.${projectId}-faas.rule=Host(`${projectId}-faas.${cluster}.${hostDomain}`)\"",
+            "--label \"traefik.http.services.${projectId}-faas.loadbalancer.sticky.cookie=true\"",
             `--env \"WEB_3_TOKEN=${process.env.WEB_3_TOKEN}\"`,
             "--env \"APPLICATION_ID=${appId}\"",
+            "--env \"MASTER_KEY=${masterKey}\"",
             "--env \"PROJECT_ID=${projectId}\"",
             `--env \"DATABASE_URI=mongodb://${project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim()}:${project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim()}@139.162.206.182:27017/${project.projectId}?authSource=admin\"`,
             "--env \"PORT=3000\"",
@@ -251,7 +250,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "joshuamshana/bfastfunction:latest",
         ];
         if (dryRun === true) {
-            // console.log(commands.join('\n'));
             console.log('-------dry run faas-----------');
             return;
         }
@@ -282,10 +280,9 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "--restart-delay 5s",
             "--label \"traefik.docker.network=bfastweb\"",
             "--label \"traefik.enable=true\"",
-            "--label \"traefik.port=3000\"",
-            "--label \"traefik.protocol=http\"",
-            "--label \"traefik.frontend.rule=Host:${projectId}-daas.${cluster}.${hostDomain}\"",
-            "--label \"traefik.backend.loadbalancer.stickiness=true\"",
+            "--label \"traefik.http.services.${projectId}-daas.loadbalancer.server.port=3000\"",
+            "--label \"traefik.http.routers.${projectId}-daas.rule=Host(`${projectId}-daas.${cluster}.${hostDomain}`)\"",
+            "--label \"traefik.http.services.${projectId}-daas.loadbalancer.sticky.cookie=true\"",
             "--env \"APPLICATION_ID=${appId}\"",
             `--env \"WEB_3_TOKEN=${process.env.WEB_3_TOKEN}\"`,
             "--env \"PROJECT_ID=${projectId}\"",
@@ -303,7 +300,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             "joshuamshana/bfastfunction:latest",
         ]
         if (dryRun === true) {
-            // console.log(commands.join('\n'));
             console.log('-----------dry run daas----------');
             return;
         }
@@ -338,7 +334,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
     }
 
-
     async instanceInfo(instanceId) {
         const answer = await this.shell.exec(`/usr/local/bin/docker service inspect ${instanceId}`, {
             env: {
@@ -347,7 +342,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
         });
         return JSON.parse(answer.toString().trim());
     }
-
 
     /**
      *
@@ -367,7 +361,6 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
             .map(x => x.trim());
 
     }
-
 
     async removeInstance(instanceId) {
         return this.shell.exec(`/usr/local/bin/docker service rm ${instanceId}`, {
