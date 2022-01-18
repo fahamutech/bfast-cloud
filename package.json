@@ -1,7 +1,7 @@
 {
   "name": "bfast-cloud",
   "description": "bfast cloud orchestration for project management",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "private": false,
   "main": "functions/bfast-cloud.mjs",
   "scripts": {
@@ -28,14 +28,12 @@
     "jsonwebtoken": "~8.5.1",
     "keypairs": "~1.2.14",
     "moment": "~2.29.1",
-    "mongodb": "~4.2.2",
-    "sharp": "~0.29.3",
+    "mongodb": "~4.3.0",
     "uuid": "~8.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "~2.4.2",
     "@types/jsonwebtoken": "~8.5.6",
-    "@types/mongodb": "~4.0.7",
     "@types/socket.io": "~3.0.2",
     "bfast-function": "~2.0.0-alpha.9",
     "chai": "~4.3.4",

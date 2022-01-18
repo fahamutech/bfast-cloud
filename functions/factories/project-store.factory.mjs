@@ -193,11 +193,13 @@ export class ProjectStoreFactory {
             $or: [
                 {
                     projectId: projectId,
-                    'user.email': user.email
+                    'user.email': user.email,
+                    dry_run: false
                 },
                 {
                     projectId: projectId,
-                    'members.email': user.email
+                    'members.email': user.email,
+                    dry_run: false
                 }
             ]
         });
@@ -249,7 +251,8 @@ export class ProjectStoreFactory {
         const user = await bfast.database().table('_User').get(userId, {useMasterKey: true});
         const project = await bfast.database().table(this.collectionName).query().raw({
                 projectId: projectId,
-                'user.email': user.email
+                'user.email': user.email,
+                dry_run: false
             }
         );
         if (Array.isArray(project) && project.length === 1) {
