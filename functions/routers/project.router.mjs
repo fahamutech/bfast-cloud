@@ -40,6 +40,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e, 'INFO : try to remove instance');
                     }
                 }
+
                 async function faasCheck(project) {
                     if (project.dry_run === true) {
                         return;
@@ -53,11 +54,12 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e && e.response ? e.response.data : e.toString());
                     }
                     if (!(faasHealth && typeof faasHealth.message === "string")) {
-                        projectFactory.deployProjectInCluster(project, [],!!project.dry_run)
+                        projectFactory.deployProjectInCluster(project, [], !!project.dry_run)
                             .then(v => console.log('re-sync ' + project.projectId))
                             .catch(console.log);
                     }
                 }
+
                 async function daasCheck(project) {
                     if (project.dry_run === true) {
                         return;
@@ -71,11 +73,12 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                         console.log(e && e.response ? e.response.data : e.toString());
                     }
                     if (!(daasHealth && typeof daasHealth.message === "string")) {
-                        projectFactory.deployProjectInCluster(project, [],!!project.dry_run)
+                        projectFactory.deployProjectInCluster(project, [], !!project.dry_run)
                             .then(v => console.log('re-sync ' + project.projectId))
                             .catch(console.log);
                     }
                 }
+
                 for (const project of projects) {
                     const type = project.type.toString();
                     if (type === 'faas') {
@@ -182,10 +185,8 @@ export const getProjects = bfast.functions().onGetHttpRequest(`${prefix}`, [
             const size = request.query.size ? parseInt(request.query.size) : 1000;
             const skip = request.query.skip ? parseInt(request.query.skip) : 0;
             projectFactory.getUserProjects(request.uid, size, skip).then((value) => {
-                // console.log(value);
-                response.json(value);
+                response.json(value.filter(x => x.dry_run === false));
             }).catch((reason) => {
-                // console.log(reason);
                 response.status(400).send(reason);
             });
         }
@@ -226,7 +227,7 @@ export const patchProject = bfast.functions().onPutHttpRequest(
         // },
         (request, response) => {
             const body = request.body;
-            if (body && Object.keys(body).length === 0){
+            if (body && Object.keys(body).length === 0) {
                 response.status(400).send({message: 'Input is empty'});
             }
             const projectId = request.params.projectId;
