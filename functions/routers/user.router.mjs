@@ -129,7 +129,7 @@ export const createAccount = bfast.functions().onPostHttpRequest(`${prefix}`, ha
 
 export const createAccountV2 = bfast.functions().onPostHttpRequest(`${prefix}/register`, handleCreateUser);
 
-export const login = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
+export const loginREST = bfast.functions().onPostHttpRequest(`${prefix}/login`, [
         (request, response) => {
             const body = request.body;
             const valid = !!(body && body.email && body.password);
