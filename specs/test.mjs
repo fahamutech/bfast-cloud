@@ -1,4 +1,3 @@
-import {getEnv} from "bfast-database-core";
 import mongodb from "mongodb";
 
 const mongoMemoryReplSet = () => {
@@ -27,7 +26,7 @@ export const config = {
     projectId: 'bfast',
     port: '3111',
     logs: false,
-    web3Token: new getEnv(process.env['WEB_3_TOKEN']),
+    web3Token: process.env['WEB_3_TOKEN'],
     adapters: {
         s3Storage: undefined
     },

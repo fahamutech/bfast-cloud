@@ -1,10 +1,10 @@
 import {OptionsConfig} from "./configs/options.config.mjs";
 import {NodeShellFactory} from "./factories/node-shell.factory.mjs";
 import {SwarmOrchestrationFactory} from "./factories/swarm-orchestration.factory.mjs";
-import {getEnv, loadEnv} from "bfast-database-core";
+import {loadEnv} from "./env.mjs";
 
 const _config = {
-    useLocalIpfs: getEnv(process.env.USE_LOCAL_IPFS)?.toLowerCase()?.trim() === 'true',
+    useLocalIpfs: process.env.USE_LOCAL_IPFS?.toLowerCase()?.trim() === 'true',
     rsaKeyPairInJson: {},
     rsaPublicKeyInJson: {},
 }
