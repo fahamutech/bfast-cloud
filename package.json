@@ -31,10 +31,6 @@
     "uuid": "~9.0.0"
   },
   "devDependencies": {
-    "@types/bcryptjs": "~2.4.2",
-    "@types/jsonwebtoken": "~8.5.9",
-    "@types/socket.io": "~3.0.2",
-    "bfast-function": "~2.0.0-alpha.9",
     "chai": "~4.3.7",
     "mocha": "~10.1.0"
   }
