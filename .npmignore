@@ -7,13 +7,12 @@ secrets
 specs
 /specs
 gulpfile.js
-src
 Dockerfile
 .dockerignore
 tsconfig.json
 .github
 /.github
-assets
 /yarn-error.log
 yarn-error.log
-
+.mocharc.js
+start.dev.js

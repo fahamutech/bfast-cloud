@@ -1,5 +1,5 @@
 import bfast from "bfast";
-import {passwordRestComponent} from "../components/password-reset.component.mjs";
+import {passwordRestComponent} from "../../src/components/password-reset.component.mjs";
 
 
 const prefix = '/';

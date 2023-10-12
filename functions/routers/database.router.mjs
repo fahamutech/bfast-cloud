@@ -1,12 +1,12 @@
 import bfast from "bfast";
-import {Options} from "../options.mjs";
-import {DatabaseConfigFactory} from "../factories/database-config.factory.mjs";
-import {EmailFactory} from "../factories/email.factory.mjs";
-import {SecurityFactory} from "../factories/security.factory.mjs";
-import {UserStoreFactory} from "../factories/user-store.factory.mjs";
-import {ProjectStoreFactory} from "../factories/project-store.factory.mjs";
-import {RouterGuardFactory} from "../factories/router-guard.factory.mjs";
-import {DatabasesInstanceController} from "../controllers/databases-instance.controller.mjs";
+import {Options} from "../../src/options.mjs";
+import {DatabaseConfigFactory} from "../../src/factories/database-config.factory.mjs";
+import {EmailFactory} from "../../src/factories/email.factory.mjs";
+import {SecurityFactory} from "../../src/factories/security.factory.mjs";
+import {UserStoreFactory} from "../../src/factories/user-store.factory.mjs";
+import {ProjectStoreFactory} from "../../src/factories/project-store.factory.mjs";
+import {RouterGuardFactory} from "../../src/factories/router-guard.factory.mjs";
+import {DatabasesInstanceController} from "../../src/controllers/databases-instance.controller.mjs";
 
 
 const options = new Options();

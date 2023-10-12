@@ -1,4 +1,5 @@
 import bfast from "bfast";
+import {getEnv} from "../env.mjs";
 
 
 export class EmailFactory {
@@ -26,7 +27,7 @@ export class EmailFactory {
             .request('/mail')
             .post(data, {
                     headers: {
-                        'authorization': 'fzJogB87b8D3gTxU0u6utUx4CELiI24M7LSJMmfVZE7bjFmb2guNIcsiktQQPB8'
+                        'authorization': getEnv('TAARIFA_TOKEN')
                     }
                 }
             );

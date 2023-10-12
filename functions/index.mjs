@@ -1,6 +1,6 @@
 import bfast from "bfast";
 import {initialize} from "bfast-database-core";
-import {config} from "./options.mjs";
+import {config} from "../src/options.mjs";
 
 bfast.init({
     applicationId: config.applicationId,
