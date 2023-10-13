@@ -64,14 +64,14 @@ export class ProjectStoreFactory {
         // project.rsa = project.rsa && project.rsa.private && project.rsa.public ? project.rsa : await this.securityFactory.generateRsaPair();
         // envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(project.rsa.public)}`);
         // envs.push(`RSA_KEY=${JSON.stringify(project.rsa.private)}`);
-        if (project.type.toString().trim() === 'daas') {
-            await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
-        } else if (project.type.toString().trim() === 'faas') {
-            await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
-        } else {
-            await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
-            await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
-        }
+        // if (project.type.toString().trim() === 'daas') {
+        //     await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
+        // } else if (project.type.toString().trim() === 'faas') {
+        await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
+        // } else {
+        //     await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
+        //     await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
+        // }
         return project;
     }
 
@@ -117,9 +117,6 @@ export class ProjectStoreFactory {
         try {
             this.orchestration.functionsInstanceRemove(projectId).catch(_ => {
                 console.warn(_.toString(), 'remove faas');
-            });
-            this.orchestration.databaseInstanceRemove(projectId).catch(_ => {
-                console.warn(_.toString(), 'remove daas');
             });
             return 'Project removed in cluster';
         } catch (e) {

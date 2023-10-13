@@ -90,58 +90,6 @@ export class OrchestrationAdapter {
     }
 
     /**
-     *
-     * @param project {ProjectModel}
-     * @param envs {Array<string>}
-     * @param dryRun {boolean}
-     * @return {Promise<void>}
-     */
-    async databaseInstanceCreate(project, envs , dryRun) {
-
-    }
-
-    /**
-     *
-     * @param projectId {string}
-     * @return {Promise<void>}
-     */
-    async databaseInstanceRemove(projectId) {
-
-    }
-
-    /**
-     *
-     * @param projectId {string}
-     * @param image {string}
-     * @param force {boolean}
-     * @return {Promise<*>}
-     */
-    async databaseInstanceUpdateImage(projectId, image, force) {
-    }
-
-    /**
-     *
-     * @param projectId {string}
-     * @param envs {Array<string>}
-     * @param force {boolean}
-     * @param daemon {boolean}
-     * @return {Promise<*>}
-     */
-    async databaseInstanceAddEnv(projectId, envs, force, daemon) {
-    }
-
-    /**
-     *
-     * @param projectId {string}
-     * @param envs {Array<string>}
-     * @param force {boolean}
-     * @param daemon {boolean}
-     * @return {Promise<*>}
-     */
-    async databaseInstanceRemoveEnv(projectId, envs, force, daemon) {
-    }
-
-    /**
      * inspect instance
      * @param instanceId {string}
      * @return {Promise<*>}
