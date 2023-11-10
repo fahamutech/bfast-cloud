@@ -136,7 +136,8 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
             const body = request.body;
             const valid = !!(
                 request.uid
-                && request.params
+                &&
+                request.params
                 && request.params.type
                 && body
                 && body.name
@@ -168,7 +169,8 @@ export const createNewProject = bfast.functions().onPostHttpRequest(`${prefix}/:
                     const result = await projectFactory.createProject(body, envs, dryRun);
                     response.json(result);
                 } catch (reason) {
-                    response.status(400).send(reason);
+                    console.log(reason);
+                    response.status(400).send({message: reason?.toString()});
                 }
             } else {
                 response.status(400).send({message: 'Invalid project data'});

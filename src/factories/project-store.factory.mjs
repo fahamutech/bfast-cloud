@@ -313,18 +313,20 @@ export class ProjectStoreFactory {
                     .replace(new RegExp('[-]', 'ig'), '')
                     .trim()
             );
-            console.log(r, '=> mongo remove user');
+            console.log(r, '=> mongo remove user ok');
         } catch (_) {
-            console.log(_.toString(), '=> mongo remove user');
+            console.log(_.toString(), '=> mongo remove user not ok');
         }
-        await adminColl.addUser(
-            project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim(),
-            project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim(), {
-                roles: [
-                    {role: "readWrite", db: project.projectId}
-                ]
-            });
-        console.log('=> mongo create user');
+        const username = project.parse.appId.toString().replace(new RegExp('[-]', 'ig'), '').trim();
+        const password = project.parse.masterKey.toString().replace(new RegExp('[-]', 'ig'), '').trim();
+        await adminColl.command({
+            createUser: username,
+            pwd: password,
+            roles: [
+                {role: "readWrite", db: project.projectId}
+            ]
+        });
+        console.log('=> mongo create user ok');
         return 'done reset user auth';
     }
 }

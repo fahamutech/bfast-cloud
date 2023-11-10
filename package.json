@@ -28,7 +28,7 @@
     "jsonwebtoken": "~9.0.2",
     "keypairs": "~1.2.14",
     "moment": "~2.29.4",
-    "mongodb": "~6.1.0",
+    "mongodb": "~6.2.0",
     "uuid": "~9.0.1"
   },
   "devDependencies": {
