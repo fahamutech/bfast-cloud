@@ -160,7 +160,7 @@ export class UserStoreFactory {
             const emails = [];
             emails.push(email);
             const host = devMode ? 'http://127.0.0.1:' + port
-                : 'https://api.bfast.fahamutech.com';
+                : 'https://api.bfast.mraba.co.tz';
             await this._emailAdapter.sendMail(
                 {
                     from: `BFast::Cloud <fahamutechdevelopers@gmail.com>`,

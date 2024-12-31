@@ -48,7 +48,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                     let faasHealth;
                     try {
                         faasHealth = await bfast.functions()
-                            .request(`https://${project.projectId}-faas.bfast.fahamutech.com/functions-health`)
+                            .request(`https://${project.projectId}-faas.bfast.mraba.co.tz/functions-health`)
                             .get();
                     } catch (e) {
                         console.log(e && e.response ? e.response.data : e.toString());
@@ -67,7 +67,7 @@ export const syncProjectsFromDbToOrchestration = bfast.functions().onGetHttpRequ
                     let daasHealth;
                     try {
                         daasHealth = await bfast.functions()
-                            .request(`https://${project.projectId}-daas.bfast.fahamutech.com/functions-health`)
+                            .request(`https://${project.projectId}-daas.bfast.mraba.co.tz/functions-health`)
                             .get();
                     } catch (e) {
                         console.log(e && e.response ? e.response.data : e.toString());

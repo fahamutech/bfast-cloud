@@ -93,7 +93,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceAddDomain(projectId, domain, force) {
         // try {
         //     const response = await this.shell.exec(
-        //         `/usr/local/bin/docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.fahamutech.com, ${domain}" ${projectId}_faas`
+        //         `/usr/local/bin/docker service update ${force ? '--force ' : ' '}  --label-add="traefik.frontend.rule"="Host:${projectId}-faas.bfast.mraba.co.tz, ${domain}" ${projectId}_faas`
         //     );
         //     return response.toString();
         // } catch (e) {
@@ -110,7 +110,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
     async functionsInstanceRemoveDomain(projectId, force) {
         // try {
         //     const response = await this.shell.exec(
-        //         `/usr/local/bin/docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.fahamutech.com" ${projectId}_faas`);
+        //         `/usr/local/bin/docker service update ${force ? '--force' : ''} --label-add="traefik.frontend.rule=Host:${projectId}-faas.bfast.mraba.co.tz" ${projectId}_faas`);
         //     return response.toString();
         // } catch (e) {
         //     throw {message: "Fails to remove all custom domain", reason: e.toString()};
@@ -190,7 +190,7 @@ export class SwarmOrchestrationFactory extends OrchestrationAdapter {
                 projectName: project.name,
                 userEmail: project.user.email,
                 appId: project.parse.appId,
-                hostDomain: project.hostDomain ? project.hostDomain : 'fahamutech.com',
+                hostDomain: project.hostDomain ? project.hostDomain : 'mraba.co.tz',
                 masterKey: project.parse.masterKey,
                 docker: this.options.dockerSocket,
                 cluster: project.cluster ? project.cluster : 'bfast'

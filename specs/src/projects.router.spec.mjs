@@ -38,7 +38,7 @@ describe('Projects route', function () {
                         name: 'test',
                         description: 'test project',
                         projectId: 'test',
-                        hostDomain: 'fahamutech.com',
+                        hostDomain: 'mraba.co.tz',
                         parse: {
                             appId: 'testapp',
                             masterKey: 'testapp',
@@ -71,7 +71,7 @@ describe('Projects route', function () {
                         name: 'test',
                         description: 'test project',
                         projectId: 'test',
-                        hostDomain: 'fahamutech.com',
+                        hostDomain: 'mraba.co.tz',
                         parse: {
                             appId: 'testapp',
                             masterKey: 'testapp',
@@ -98,7 +98,7 @@ describe('Projects route', function () {
                         name: 'test',
                         description: 'test project',
                         // projectId: 'test',
-                        hostDomain: 'fahamutech.com',
+                        hostDomain: 'mraba.co.tz',
                         parse: {
                             appId: 'testapp',
                             masterKey: 'testapp',
@@ -122,7 +122,7 @@ describe('Projects route', function () {
                     name: 'test2',
                     description: 'test2 project',
                     projectId: 'test2',
-                    hostDomain: 'fahamutech.com',
+                    hostDomain: 'mraba.co.tz',
                     parse: {
                         appId: 'testapp',
                         masterKey: 'testapp',

@@ -1,5 +1,5 @@
 export class ProjectModel {
-    hostDomain = 'fahamutech.com';
+    hostDomain = 'mraba.co.tz';
     id;
     createdAt = new Date();
     updatedAt = new Date();
