@@ -1,4 +1,3 @@
-import mongodb from "mongodb";
 
 const mongoMemoryReplSet = () => {
     return {
@@ -6,12 +5,12 @@ const mongoMemoryReplSet = () => {
             return 'mongodb://localhost/bfast';
         },
         start: async function () {
-            const conn = await mongodb.MongoClient.connect(this.getUri());
-            await conn.db('bfast').dropDatabase();
+            // const conn = await mongodb.MongoClient.connect(this.getUri());
+            // await conn.db('bfast').dropDatabase();
         },
         waitUntilRunning: async function () {
-            const conn = await mongodb.MongoClient.connect(this.getUri());
-            await conn.db('bfast').dropDatabase();
+            // const conn = await mongodb.MongoClient.connect(this.getUri());
+            // await conn.db('bfast').dropDatabase();
         },
         stop: async function () {
         }

@@ -1,6 +1,5 @@
 import {UserModel, UserRoles} from "../models/user.model.mjs";
 import {ProjectModel} from "../models/project.model.mjs";
-import {DatabaseConfigFactory} from "./database-config.factory.mjs";
 import bfast from "bfast";
 
 
@@ -10,16 +9,13 @@ export class ProjectStoreFactory {
 
     /**
      *
-     * @param database {DatabaseConfigFactory}
      * @param orchestration {OrchestrationAdapter}
      * @param sFactory {SecurityFactory}
      */
     constructor(
-        database,
         orchestration,
         sFactory) {
         this.orchestration = orchestration;
-        this._database = database;
         this.securityFactory = sFactory
     }
 
@@ -61,17 +57,7 @@ export class ProjectStoreFactory {
      * @return {Promise<ProjectModel>}
      */
     async deployProjectInCluster(project, envs, dryRun) {
-        // project.rsa = project.rsa && project.rsa.private && project.rsa.public ? project.rsa : await this.securityFactory.generateRsaPair();
-        // envs.push(`RSA_PUBLIC_KEY=${JSON.stringify(project.rsa.public)}`);
-        // envs.push(`RSA_KEY=${JSON.stringify(project.rsa.private)}`);
-        // if (project.type.toString().trim() === 'daas') {
-        //     await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
-        // } else if (project.type.toString().trim() === 'faas') {
         await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
-        // } else {
-        //     await this.orchestration.databaseInstanceCreate(project, envs, dryRun);
-        //     await this.orchestration.functionsInstanceCreate(project, envs, dryRun);
-        // }
         return project;
     }
 
@@ -164,18 +150,6 @@ export class ProjectStoreFactory {
      */
     async getAllProjects(size = null, skip = null) {
         return bfast.database().table(this.collectionName).getAll();
-        // try {
-        //     const projectCollection = await this._database.collection(this.collectionName);
-        //     const totalProjects = await projectCollection.find({}).count();
-        //     return await projectCollection.find({})
-        //         .limit(size ? size : totalProjects)
-        //         .skip(skip ? skip : 0)
-        //         .toArray();
-        // } catch (e) {
-        //     throw {message: 'Fails to get all projects', reason: e.toString()}
-        // } finally {
-        //     this._database.disconnect();
-        // }
     }
 
     /**

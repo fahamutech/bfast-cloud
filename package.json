@@ -12,27 +12,23 @@
     "push:docker": "gulp pubishDockerImage"
   },
   "bundledDependencies": [
-    "bfast-database-core",
     "moment",
     "bcryptjs",
     "bfast",
     "jsonwebtoken",
-    "mongodb",
     "keypairs",
     "uuid"
   ],
   "dependencies": {
-    "bcryptjs": "~2.4.3",
-    "bfast-database-core": "^4.0.0-alpha.19-t.0",
+    "bcryptjs": "~3.0.2",
     "bfast": "~6.0.1",
     "jsonwebtoken": "~9.0.2",
     "keypairs": "~1.2.14",
-    "moment": "~2.29.4",
-    "mongodb": "~6.2.0",
-    "uuid": "~9.0.1"
+    "moment": "~2.30.1",
+    "uuid": "~11.1.0"
   },
   "devDependencies": {
-    "chai": "~4.3.10",
-    "mocha": "~10.2.0"
+    "chai": "~5.2.0",
+    "mocha": "~11.1.0"
   }
 }

@@ -1,6 +1,5 @@
 import bfast from "bfast";
 import {Options} from "../../src/options.mjs";
-import {DatabaseConfigFactory} from "../../src/factories/database-config.factory.mjs";
 import {EmailFactory} from "../../src/factories/email.factory.mjs";
 import {SecurityFactory} from "../../src/factories/security.factory.mjs";
 import {UserStoreFactory} from "../../src/factories/user-store.factory.mjs";
@@ -11,11 +10,10 @@ import {DatabasesInstanceController} from "../../src/controllers/databases-insta
 
 const options = new Options();
 const databaseOrch = new DatabasesInstanceController(options.containerOrchAdapter());
-const databaseFactory = new DatabaseConfigFactory(options.databaseURI);
 const emailFactory = new EmailFactory();
 const securityFactory = new SecurityFactory();
 const userFactory = new UserStoreFactory(emailFactory, securityFactory);
-const projectFactory = new ProjectStoreFactory(databaseFactory, options.containerOrchAdapter(), securityFactory);
+const projectFactory = new ProjectStoreFactory(options.containerOrchAdapter(), securityFactory);
 const routerGuard = new RouterGuardFactory(userFactory, projectFactory, securityFactory, options);
 
 
